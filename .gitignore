@@ -1,0 +1,31 @@
+# temporary file (vi)
+*.swp
+*.DS_Store
+# temporary files (latex)
+*.aux
+*.bbl
+*.blg
+*.log
+*.toc
+*.nav
+*.out
+*.snm
+*.vrb
+*.synctex.gz
+*.idx
+*.dpth
+*.md5
+*.spl
+*.bkp
+*.dtmp
+
+# JabRef temporary files
+*.bak
+*.sav
+*.tmp
+
+*.o
+*.a
+tags
+
+#.cabal-sandbox/
