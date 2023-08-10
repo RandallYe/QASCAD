@@ -1,6 +1,6 @@
-global boolean DigitalCamera::to_be_terminated = false;
+global DigitalCamera::to_be_terminated : bool init false;
 
-const int INACTIVE = INACTIVE;
+const int INACTIVE = -1;
 const int DigitalCamera::I0::E0::I0 = 0;
 const int DigitalCamera::I0::E0::TurnOn = 1;
 const int DigitalCamera::I0::E0::F1 = 2;
@@ -12,10 +12,10 @@ const int DigitalCamera::I0::E0::M3 = 7;
 
 module DigitalCamera::I0::E0 // This is the DigitalCamera::I0::E0 module and we need to identify it as the main module
     DigitalCamera::I0::E0::pc : [-1..7] init 0;
-    DigitalCamera::terminated : boolean init false;
+    DigitalCamera::terminated : bool init false;
     
     [DigitalCamera::I0::E0::I0] 
-        (DigitalCamera::I0::E0::pc=DigitalCamera::I0::E0::i0) & 
+        (DigitalCamera::I0::E0::pc=DigitalCamera::I0::E0::I0) & 
         (!DigitalCamera::to_be_terminated) -> 
         (DigitalCamera::I0::E0::pc'=DigitalCamera::I0::E0::TurnOn);
     [DigitalCamera::I0::E0::TurnOn] 
@@ -57,6 +57,11 @@ module DigitalCamera::I0::E0 // This is the DigitalCamera::I0::E0 module and we 
         (DigitalCamera::to_be_terminated) -> 
         (DigitalCamera::to_be_terminated'=false)& 
         (DigitalCamera::I0::E0::pc'=INACTIVE);
+
+    // Root activity
+    [] (DigitalCamera::I0::E0::pc=INACTIVE) &
+       (DigitalCamera::terminated) & 
+       (!DigitalCamera::to_be_terminated) -> true;
     
 endmodule
 
@@ -208,7 +213,7 @@ module DigitalCamera::M1
 		(DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) & 
         (!DigitalCamera::to_be_terminated) -> 
 		(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal);
-	[Terminate] 
+	[] 
 		(DigitalCamera::M1::pc=DigitalCamera::M1::ActivityFinal) & 
         (!DigitalCamera::to_be_terminated) -> 
 		(DigitalCamera::M1::pc'=INACTIVE) &
