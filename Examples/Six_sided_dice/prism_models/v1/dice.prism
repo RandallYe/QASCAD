@@ -1,0 +1,164 @@
+dtmc
+
+global Dice_to_be_terminated : bool init false;
+
+const int INACTIVE = -1;
+const int Dice_I0_E0_I0 = 0 ;
+const int Dice_I0_E0_A0 = 1 ;
+const int Dice_I0_E0_A1 = 2 ;
+const int Dice_I0_E0_A2 = 3 ;
+const int Dice_I0_E0_A3 = 4 ;
+const int Dice_I0_E0_A4 = 5 ;
+const int Dice_I0_E0_A5 = 6 ;
+const int Dice_I0_E0_A6 = 7 ;
+const int Dice_I0_E0_D1 = 8 ;
+const int Dice_I0_E0_D2 = 9 ;
+const int Dice_I0_E0_D3 = 10;
+const int Dice_I0_E0_D4 = 11;
+const int Dice_I0_E0_D5 = 12;
+const int Dice_I0_E0_D6 = 13;
+const int Dice_I0_E0_D7 = 14;
+const int Dice_I0_E0_M1 = 15;
+const int Dice_I0_E0_M2 = 16;
+const int Dice_I0_E0_O1 = 17;
+const int Dice_I0_E0_O2 = 18;
+const int Dice_I0_E0_O3 = 19;
+const int Dice_I0_E0_O4 = 20;
+const int Dice_I0_E0_O5 = 21;
+const int Dice_I0_E0_O6 = 22;
+const int Dice_I0_E0_F0 = 23;
+
+module Dice_I0_E0
+    Dice_I0_E0_pc : [INACTIVE..23] init 0;
+    Dice_terminated : bool init false;
+    
+    [Dice_I0_E0_I0] 
+        (Dice_I0_E0_pc=Dice_I0_E0_I0) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_A0);
+    [Dice_I0_E0_A0] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A0) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D1);
+    [Dice_I0_E0_D1] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D1) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_M1) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_M2);
+    [Dice_I0_E0_M1] 
+        (Dice_I0_E0_pc=Dice_I0_E0_M1) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_A1);
+    [Dice_I0_E0_A1] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A1) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D2);
+    [Dice_I0_E0_D2] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D2) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_A3) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_A4);
+    [Dice_I0_E0_A3] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A3) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D4);
+    [Dice_I0_E0_D4] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D4) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_M1) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O1);
+    [Dice_I0_E0_O1] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O1) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+
+    [Dice_I0_E0_A4] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A4) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D5);
+    [Dice_I0_E0_A4] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A4) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D5);
+    [Dice_I0_E0_D5] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D5) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O2) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O3);
+    [Dice_I0_E0_O2] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O2) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+    [Dice_I0_E0_O3] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O3) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+
+    [Dice_I0_E0_M2] 
+        (Dice_I0_E0_pc=Dice_I0_E0_M2) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_A2);
+
+    [Dice_I0_E0_A2] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A2) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D3);
+    [Dice_I0_E0_D3] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D3) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_A5) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_A6);
+    [Dice_I0_E0_A5] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A5) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D6);
+    [Dice_I0_E0_D6] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D6) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O4) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O5);
+    [Dice_I0_E0_O4] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O4) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+    [Dice_I0_E0_O5] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O5) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+
+    [Dice_I0_E0_A6] 
+        (Dice_I0_E0_pc=Dice_I0_E0_A6) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_D7);
+    [Dice_I0_E0_D7] 
+        (Dice_I0_E0_pc=Dice_I0_E0_D7) & 
+        (!Dice_to_be_terminated) -> 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_M2) + 
+        0.5: (Dice_I0_E0_pc'=Dice_I0_E0_O6);
+    [Dice_I0_E0_O6] 
+        (Dice_I0_E0_pc=Dice_I0_E0_O6) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=Dice_I0_E0_F0);
+    
+    [] 
+        (Dice_I0_E0_pc=Dice_I0_E0_F0) & 
+        (!Dice_to_be_terminated) -> 
+        (Dice_I0_E0_pc'=INACTIVE) &
+        (Dice_to_be_terminated'=true);
+
+    [Dice_terminate] 
+        (Dice_to_be_terminated) & 
+        (!Dice_terminated) -> 
+        (Dice_terminated'=true);
+    [] 
+        (Dice_terminated)&
+        (Dice_to_be_terminated) -> 
+        (Dice_to_be_terminated'=false)& 
+        (Dice_I0_E0_pc'=INACTIVE);
+
+    // Root activity
+    [] (Dice_I0_E0_pc=INACTIVE) &
+       (Dice_terminated) & 
+       (!Dice_to_be_terminated) -> true;
+    
+endmodule

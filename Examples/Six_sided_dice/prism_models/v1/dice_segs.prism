@@ -1,0 +1,162 @@
+global Dice::to_be_terminated : bool init false;
+
+const int INACTIVE = -1;
+const int Dice::I0::E0::I0 = 0 ;
+const int Dice::I0::E0::A0 = 1 ;
+const int Dice::I0::E0::A1 = 2 ;
+const int Dice::I0::E0::A2 = 3 ;
+const int Dice::I0::E0::A3 = 4 ;
+const int Dice::I0::E0::A4 = 5 ;
+const int Dice::I0::E0::A5 = 6 ;
+const int Dice::I0::E0::A6 = 7 ;
+const int Dice::I0::E0::D1 = 8 ;
+const int Dice::I0::E0::D2 = 9 ;
+const int Dice::I0::E0::D3 = 10;
+const int Dice::I0::E0::D4 = 11;
+const int Dice::I0::E0::D5 = 12;
+const int Dice::I0::E0::D6 = 13;
+const int Dice::I0::E0::D7 = 14;
+const int Dice::I0::E0::M1 = 15;
+const int Dice::I0::E0::M2 = 16;
+const int Dice::I0::E0::O1 = 17;
+const int Dice::I0::E0::O2 = 18;
+const int Dice::I0::E0::O3 = 19;
+const int Dice::I0::E0::O4 = 20;
+const int Dice::I0::E0::O5 = 21;
+const int Dice::I0::E0::O6 = 22;
+const int Dice::I0::E0::F0 = 23;
+
+module Dice::I0::E0
+    Dice::I0::E0::pc : [INACTIVE..23] init 0;
+    Dice::terminated : bool init false;
+    
+    [Dice::I0::E0::I0] 
+        (Dice::I0::E0::pc=Dice::I0::E0::I0) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::A0);
+    [Dice::I0::E0::A0] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A0) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D1);
+    [Dice::I0::E0::D1] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D1) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::M1) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::M2);
+    [Dice::I0::E0::M1] 
+        (Dice::I0::E0::pc=Dice::I0::E0::M1) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::A1);
+    [Dice::I0::E0::A1] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A1) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D2);
+    [Dice::I0::E0::D2] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D2) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::A3) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::A4);
+    [Dice::I0::E0::A3] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A3) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D4);
+    [Dice::I0::E0::D4] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D4) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::M1) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O1);
+    [Dice::I0::E0::O1] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O1) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+
+    [Dice::I0::E0::A4] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A4) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D5);
+    [Dice::I0::E0::A4] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A4) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D5);
+    [Dice::I0::E0::D5] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D5) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O2) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O3);
+    [Dice::I0::E0::O2] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O2) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+    [Dice::I0::E0::O3] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O3) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+
+    [Dice::I0::E0::M2] 
+        (Dice::I0::E0::pc=Dice::I0::E0::M2) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::A2);
+
+    [Dice::I0::E0::A2] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A2) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D3);
+    [Dice::I0::E0::D3] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D3) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::A5) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::A6);
+    [Dice::I0::E0::A5] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A5) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D6);
+    [Dice::I0::E0::D6] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D6) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O4) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O5);
+    [Dice::I0::E0::O4] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O4) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+    [Dice::I0::E0::O5] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O5) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+
+    [Dice::I0::E0::A6] 
+        (Dice::I0::E0::pc=Dice::I0::E0::A6) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::D7);
+    [Dice::I0::E0::D7] 
+        (Dice::I0::E0::pc=Dice::I0::E0::D7) & 
+        (!Dice::to_be_terminated) -> 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::M2) + 
+        0.5: (Dice::I0::E0::pc'=Dice::I0::E0::O6);
+    [Dice::I0::E0::O6] 
+        (Dice::I0::E0::pc=Dice::I0::E0::O6) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=Dice::I0::E0::F0);
+    
+    [] 
+        (Dice::I0::E0::pc=Dice::I0::E0::F0) & 
+        (!Dice::to_be_terminated) -> 
+        (Dice::I0::E0::pc'=INACTIVE) &
+        (Dice::to_be_terminated'=true);
+
+    [Dice::terminate] 
+        (Dice::to_be_terminated) & 
+        (!Dice::terminated) -> 
+        (Dice::terminated'=true);
+    [] 
+        (Dice::terminated)&
+        (Dice::to_be_terminated) -> 
+        (Dice::to_be_terminated'=false)& 
+        (Dice::I0::E0::pc'=INACTIVE);
+
+    // Root activity
+    [] (Dice::I0::E0::pc=INACTIVE) &
+       (Dice::terminated) & 
+       (!Dice::to_be_terminated) -> true;
+    
+endmodule
