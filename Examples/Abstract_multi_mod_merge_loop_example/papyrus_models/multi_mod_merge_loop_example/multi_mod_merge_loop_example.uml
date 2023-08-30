@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_tjFR8EWlEe6ZybDoV901-g" name="multi_mod_merge_loop_example">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_tllMUEWlEe6ZybDoV901-g">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_tjx1gEWlEe6ZybDoV901-g" name="Activity1" node="_w9DecEWlEe6ZybDoV901-g _zG0nUEWlEe6ZybDoV901-g _1ys-wEWlEe6ZybDoV901-g _4bgNAEWlEe6ZybDoV901-g _5qd6gEWlEe6ZybDoV901-g _7ibhsEWlEe6ZybDoV901-g _99OJIEWlEe6ZybDoV901-g _ALWNkEWmEe6ZybDoV901-g _EUvr4EWmEe6ZybDoV901-g _GqiekEWmEe6ZybDoV901-g _IPwI4EWmEe6ZybDoV901-g _L8x0QEWmEe6ZybDoV901-g _PCSMoEWmEe6ZybDoV901-g _QnnLsEWmEe6ZybDoV901-g">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_SnFJEEWmEe6ZybDoV901-g" name="E1" target="_zG0nUEWlEe6ZybDoV901-g" source="_w9DecEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_W17vIEWmEe6ZybDoV901-g" name="E2" target="_1ys-wEWlEe6ZybDoV901-g" source="_zG0nUEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_YNoh4EWmEe6ZybDoV901-g" name="E3" target="_4bgNAEWlEe6ZybDoV901-g" source="_1ys-wEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bs-9oEWmEe6ZybDoV901-g" name="E4" target="_5qd6gEWlEe6ZybDoV901-g" source="_1ys-wEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_hrN2oEWmEe6ZybDoV901-g" name="E6" target="_7ibhsEWlEe6ZybDoV901-g" source="_5qd6gEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_kMdrYEWmEe6ZybDoV901-g" name="E5" target="_7ibhsEWlEe6ZybDoV901-g" source="_4bgNAEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_o2w3UEWmEe6ZybDoV901-g" name="E7" target="_99OJIEWlEe6ZybDoV901-g" source="_7ibhsEWlEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_rWawoEWmEe6ZybDoV901-g" name="E8" target="_ALWNkEWmEe6ZybDoV901-g" source="_99OJIEWlEe6ZybDoV901-g">
+      <guard xmi:type="uml:LiteralString" xmi:id="_g9uscEXQEe6ZybDoV901-g" value="g1"/>
+    </edge>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ubMwQEWmEe6ZybDoV901-g" name="E10" target="_PCSMoEWmEe6ZybDoV901-g" source="_99OJIEWlEe6ZybDoV901-g">
+      <guard xmi:type="uml:LiteralString" xmi:id="_i41uQEXQEe6ZybDoV901-g" value="else"/>
+    </edge>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_yDhh0EWmEe6ZybDoV901-g" name="E9" target="_EUvr4EWmEe6ZybDoV901-g" source="_ALWNkEWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_zvOOoEWmEe6ZybDoV901-g" name="E10" target="_GqiekEWmEe6ZybDoV901-g" source="_EUvr4EWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_1933gEWmEe6ZybDoV901-g" name="E11" target="_IPwI4EWmEe6ZybDoV901-g" source="_EUvr4EWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_5DasIEWmEe6ZybDoV901-g" name="E12" target="_L8x0QEWmEe6ZybDoV901-g" source="_EUvr4EWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_6gV9IEWmEe6ZybDoV901-g" name="E13" target="_QnnLsEWmEe6ZybDoV901-g" source="_PCSMoEWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_A-aMwEWnEe6ZybDoV901-g" name="E14" target="_QnnLsEWmEe6ZybDoV901-g" source="_GqiekEWmEe6ZybDoV901-g"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Cz9ZIEWnEe6ZybDoV901-g" name="E15" target="_7ibhsEWlEe6ZybDoV901-g" source="_IPwI4EWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_w9DecEWlEe6ZybDoV901-g" name="I0" outgoing="_SnFJEEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_zG0nUEWlEe6ZybDoV901-g" name="A0" incoming="_SnFJEEWmEe6ZybDoV901-g" outgoing="_W17vIEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_1ys-wEWlEe6ZybDoV901-g" name="F1" incoming="_W17vIEWmEe6ZybDoV901-g" outgoing="_YNoh4EWmEe6ZybDoV901-g _bs-9oEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_4bgNAEWlEe6ZybDoV901-g" name="A1" incoming="_YNoh4EWmEe6ZybDoV901-g" outgoing="_kMdrYEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_5qd6gEWlEe6ZybDoV901-g" name="A2" incoming="_bs-9oEWmEe6ZybDoV901-g" outgoing="_hrN2oEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:MergeNode" xmi:id="_7ibhsEWlEe6ZybDoV901-g" name="M1" incoming="_hrN2oEWmEe6ZybDoV901-g _kMdrYEWmEe6ZybDoV901-g _Cz9ZIEWnEe6ZybDoV901-g" outgoing="_o2w3UEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_99OJIEWlEe6ZybDoV901-g" name="D1" incoming="_o2w3UEWmEe6ZybDoV901-g" outgoing="_rWawoEWmEe6ZybDoV901-g _ubMwQEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ALWNkEWmEe6ZybDoV901-g" name="A3" incoming="_rWawoEWmEe6ZybDoV901-g" outgoing="_yDhh0EWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_EUvr4EWmEe6ZybDoV901-g" name="F2" incoming="_yDhh0EWmEe6ZybDoV901-g" outgoing="_zvOOoEWmEe6ZybDoV901-g _1933gEWmEe6ZybDoV901-g _5DasIEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_GqiekEWmEe6ZybDoV901-g" name="A5" incoming="_zvOOoEWmEe6ZybDoV901-g" outgoing="_A-aMwEWnEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_IPwI4EWmEe6ZybDoV901-g" name="A4" incoming="_1933gEWmEe6ZybDoV901-g" outgoing="_Cz9ZIEWnEe6ZybDoV901-g"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_L8x0QEWmEe6ZybDoV901-g" name="AF1" incoming="_5DasIEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_PCSMoEWmEe6ZybDoV901-g" name="A6" incoming="_ubMwQEWmEe6ZybDoV901-g" outgoing="_6gV9IEWmEe6ZybDoV901-g"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_QnnLsEWmEe6ZybDoV901-g" name="AF2" incoming="_6gV9IEWmEe6ZybDoV901-g _A-aMwEWnEe6ZybDoV901-g"/>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_tk6d8EWlEe6ZybDoV901-g">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tk7FAEWlEe6ZybDoV901-g" source="PapyrusVersion">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tk7FAUWlEe6ZybDoV901-g" key="Version" value="0.0.17"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tk7FAkWlEe6ZybDoV901-g" key="Comment" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tk7FA0WlEe6ZybDoV901-g" key="Copyright" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tk7FBEWlEe6ZybDoV901-g" key="Date" value="2023-08-14"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tk7FBUWlEe6ZybDoV901-g" key="Author" value=""/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tk6d8UWlEe6ZybDoV901-g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_9Y1FIDqNEe6rMcaVryy_uw"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
+  </profileApplication>
+</uml:Model>

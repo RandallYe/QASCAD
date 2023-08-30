@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+  <prism:Model>
+    <constants name="INACTIVE">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="-1"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::I0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::TurnOn">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::F1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::AutoFocus">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::D1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::J2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="digital_camera::I0::E0::M3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::DetLight">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::D2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::J2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::J1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::F2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="digital_camera::F1::E3::M3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="digital_camera::F1::E4::D3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::F1::E4::ChargedFlash">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="digital_camera::F1::E4::M2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="digital_camera::F1::E4::J1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="digital_camera::F2::E18::Flash">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::F2::E18::FF">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="digital_camera::M3::TakePicture">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::M3::WriteMem">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="digital_camera::M3::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="digital_camera::M1::TurnOff">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="digital_camera::M1::AF">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <globals name="digital_camera::to_be_terminated">
+      <type xsi:type="prism:BoolType"/>
+      <init xsi:type="prism:VarExpr" name="false"/>
+    </globals>
+    <globals name="digital_camera::D3::else">
+      <type xsi:type="prism:BoolType"/>
+      <init xsi:type="prism:VarExpr" name="true"/>
+    </globals>
+    <globals name="digital_camera::charged">
+      <type xsi:type="prism:BoolType"/>
+      <init xsi:type="prism:VarExpr" name="false"/>
+    </globals>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::I0::E0">
+      <vars name="digital_camera::I0::E0::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="7"/>
+        <init xsi:type="prism:VarExpr" name="0"/>
+      </vars>
+      <vars name="digital_camera::terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:VarExpr" name="false"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::I0::E0::I0"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::I0"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::TurnOn"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::I0::E0::TurnOn"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::TurnOn"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::F1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::F1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::AutoFocus"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::I0::E0::AutoFocus"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::AutoFocus"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::D1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::I0::E0::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::D1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DoubleLitExpr" value="0.2"/>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::M1"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:DoubleLitExpr" value="0.8"/>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::J2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M1::E9"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::J2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::J2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::I0::E0::M3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M3::E15"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::I0::E0::M3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          <right xsi:type="prism:VarExpr" name="digital_camera::terminated"/>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::F1::E3">
+      <vars name="digital_camera::F1::E3::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="5"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::F1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::DetLight"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E3::DetLight"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::DetLight"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::D2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E3::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::D2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DoubleLitExpr" value="0.7"/>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::J2"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:DoubleLitExpr" value="0.3"/>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::J1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::J2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::J2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::J1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::J1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::F2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::F2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E3::M3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M3::E17"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E3::M3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E3::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::F1::E4">
+      <vars name="digital_camera::F1::E4::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="3"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::F1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E4::D3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E4::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E4::D3"/>
+          </left>
+          <right xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+            </left>
+            <right xsi:type="prism:VarExpr" name="digital_camera::D3::else"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E4::ChargedFlash"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E4::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E4::D3"/>
+          </left>
+          <right xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+            </left>
+            <right xsi:type="prism:VarExpr" name="digital_camera::charged"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E4::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E4::ChargedFlash"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E4::ChargedFlash"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E4::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F1::E4::M2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E4::M2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F1::E4::J1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::J1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F1::E4::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F1::E4::J1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F1::E4::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::F2::E18">
+      <vars name="digital_camera::F2::E18::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="1"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::F2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F2::E18::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F2::E18::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F2::E18::Flash"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F2::E18::Flash"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F2::E18::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F2::E18::Flash"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F2::E18::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::F2::E18::FF"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::F2::E18::FF"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::F2::E18::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::F2::E18::FF"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F2::E18::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::F2::E18::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::M3">
+      <vars name="digital_camera::M3::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="2"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::M3::E15"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M3::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M3::TakePicture"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M3::E17"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M3::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M3::TakePicture"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M3::TakePicture"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::M3::TakePicture"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M3::WriteMem"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M3::WriteMem"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::M3::WriteMem"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M3::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M1::E22"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M3::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::M3::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M3::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="digital_camera::M1">
+      <vars name="digital_camera::M1::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="1"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <commands>
+        <action name="digital_camera::M1::E22"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M1::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M1::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M1::TurnOff"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M1::E9"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M1::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M1::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M1::TurnOff"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::M1::TurnOff"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M1::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::M1::TurnOff"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M1::pc">
+            <value xsi:type="prism:VarExpr" name="digital_camera::M1::AF"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="digital_camera::M1::pc"/>
+            <right xsi:type="prism:VarExpr" name="digital_camera::M1::AF"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="digital_camera::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="digital_camera::to_be_terminated"/>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="digital_camera::M1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+  </prism:Model>
+  <prism:VarDecl/>
+  <prism:VarDecl/>
+</xmi:XMI>
