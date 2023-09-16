@@ -1,0 +1,104 @@
+	
+// getAllEdgesFromNode return a set of outgoing edges of a node
+operation getAllEdgesFromNode(act: AD!Activity,node: AD!ControlNode ): Set {
+	return act.edge.select(e|e.source = node);
+}
+
+
+operation getAllEdgesFromNode(act: AD!Activity,node: AD!Action ): Set {
+	return act.edge.select(e|e.source = node);
+}
+
+operation getAllEdgesToNode(act: AD!Activity,node: AD!ControlNode ): Set {
+	return act.edge.select(e|e.target = node);
+}
+
+operation getAllEdgesToNode(act: AD!Activity,node: AD!Action ): Set {
+	return act.edge.select(e|e.target = node);
+}
+
+
+//IsProbabilistic(act,node)
+//to return a bool value stating if the branches of decision node are probabilistic
+operation IsProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
+	//assuming if one oe is Probabilistic, then all oes are Probabilistic
+	// so we only check the first oe
+	var oe = getAllEdgesFromNode(act, node).at(0);
+	var isProb = false;
+	if( oe.getAppliedStereotypes().size()>0){
+		for(st in oe.getAppliedStereotypes()){
+			if(oe.hasValue(st,"probability")){
+				isProb = isProb or true;
+			}
+		}
+	}
+	return isProb;
+}
+
+
+//TO DO, this operation can be removed, to double check
+//to return a probability value of REAL type from the stereotype 
+operation getProb(oe: AD!ControlFlow): Real {
+	var prob : Real;
+	if( oe.getAppliedStereotypes().size()>0){
+		for(st in oe.getAppliedStereotypes()){
+			if(oe.hasValue(st,"probability")){
+				prob = oe.getValue(st,"probability");
+			}
+		}
+	}
+	return prob;
+}
+
+
+//IsProbabilistic(act,node)
+//to return a bool value stating if the action node is annotated with probability or reliability
+operation nodeAnnotated(node: AD!OpaqueAction, stereotype: String): Boolean {
+	//assuming if one oe is Probabilistic, then all oes are Probabilistic
+	// so we only check the first oe
+	var isAnnotated = false;
+	if( node.getAppliedStereotypes().size()>0){
+		for(st in node.getAppliedStereotypes()){
+			if(node.hasValue(st,stereotype) ){
+				isAnnotated = true;
+			}
+		}
+		
+	}
+	return isAnnotated;
+}
+
+operation edgeAnnotated(edge: AD!ControlFlow, stereotype: String): Boolean {
+	//assuming if one oe is Probabilistic, then all oes are Probabilistic
+	// so we only check the first oe
+	var isAnnotated = false;
+	if( edge.getAppliedStereotypes().size()>0){
+		for(st in edge.getAppliedStereotypes()){
+			if(edge.hasValue(st,stereotype) ){
+				isAnnotated = true;
+			}
+		}
+		
+	}
+	return isAnnotated;
+}
+
+//getAllEdgesToNode(act, node).sortEdgeByName()
+operation Set sortEdgeByName(): Sequence{
+	var inter_Set = Set{};
+	for(edg in self){
+		edg.name.subString(1);
+		var tpl = Tuple{edge = edg, name = edg.name.subString(1).asInteger()};
+		inter_Set.add(tpl);
+	}
+	
+	var output = Sequence{};
+	for(t in inter_Set.sortBy(t|t.name)){
+		output.add(t.edge);
+	}
+	return output;
+}
+
+operation removeSymbolPrefix(symbol): String{
+	return symbol.substring(10, (symbol.length()-1));
+}
