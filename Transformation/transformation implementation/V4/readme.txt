@@ -22,3 +22,8 @@ in AD:
 3. if probability is a concrete value, then define prob by creating a LiteralReal
 
 this version update the isProbabilistic and  getProb operations 
+
+
+V8 is based on V7
+2023.9.19
+introduced property generation
