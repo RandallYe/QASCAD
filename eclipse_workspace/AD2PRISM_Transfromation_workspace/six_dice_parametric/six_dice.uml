@@ -5,6 +5,13 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Activity" xmi:id="__8gLAEV-Ee6ZybDoV901-g" name="Six_dice" visibility="public" node="_HXv0kEV_Ee6ZybDoV901-g _NOZe4EV_Ee6ZybDoV901-g _S2beYEV_Ee6ZybDoV901-g _ZvpY8EV_Ee6ZybDoV901-g _b65vkEV_Ee6ZybDoV901-g _nfVcEEV_Ee6ZybDoV901-g _qJDQUEV_Ee6ZybDoV901-g _r3g9QEV_Ee6ZybDoV901-g _uRd3MEV_Ee6ZybDoV901-g _zbfFAEV_Ee6ZybDoV901-g _0mp3oEV_Ee6ZybDoV901-g _6xY7kEV_Ee6ZybDoV901-g _8ryLsEV_Ee6ZybDoV901-g __J2JkEV_Ee6ZybDoV901-g _Ddxc4EWAEe6ZybDoV901-g _GMfs8EWAEe6ZybDoV901-g _IC-GYEWAEe6ZybDoV901-g _M-_UcEWAEe6ZybDoV901-g _PqiUsEWAEe6ZybDoV901-g _TpVskEWAEe6ZybDoV901-g _WSITwEWAEe6ZybDoV901-g _YRtl4EWAEe6ZybDoV901-g _v2LVwEWAEe6ZybDoV901-g _zMtzwEWAEe6ZybDoV901-g">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_QG_SkFyqEe6w-YhclDz3VA" name="p">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_WCg_YFy2Ee65u7KPfzNrDg" name="i">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_WCg_YVy2Ee65u7KPfzNrDg"/>
+      </ownedParameter>
       <edge xmi:type="uml:ControlFlow" xmi:id="_1cLU8EWAEe6ZybDoV901-g" name="E0" target="_NOZe4EV_Ee6ZybDoV901-g" source="_HXv0kEV_Ee6ZybDoV901-g"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_2zDoUEWAEe6ZybDoV901-g" name="E1" target="_S2beYEV_Ee6ZybDoV901-g" source="_NOZe4EV_Ee6ZybDoV901-g"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_5spEkEWAEe6ZybDoV901-g" name="E2" target="_ZvpY8EV_Ee6ZybDoV901-g" source="_S2beYEV_Ee6ZybDoV901-g"/>
@@ -75,6 +82,12 @@
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_9KywgFL0Ee69cawvUnnaMA" name="0.5" value="0.5"/>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_ASpSQFL1Ee69cawvUnnaMA" name="0.5" value="0.5"/>
     <packagedElement xmi:type="uml:LiteralInteger" xmi:id="_uzGxUFxMEe6G0P_tKHSubg" name="reward_1" value="1"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_nuB1UFyqEe6w-YhclDz3VA" name="p" symbol="RefToPara(p)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_1GS28FyqEe6w-YhclDz3VA" name="1-p" symbol="-">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      <operand xmi:type="uml:LiteralReal" xmi:id="_1GTeAFyqEe6w-YhclDz3VA" value="1.0"/>
+      <operand xmi:type="uml:Expression" xmi:id="_1GTeAVyqEe6w-YhclDz3VA" name="p" symbol="RefToPara(p)"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="__9cmMEV-Ee6ZybDoV901-g">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Hh2QgFvgEe6j4OJIcrLLig" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Hh2QgVvgEe6j4OJIcrLLig" key="Version" value="0.0.38"/>
@@ -89,20 +102,20 @@
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
   </uml:Model>
-  <workflow:WeightedFlow xmi:id="_zY1SQEWCEe6ZybDoV901-g" base_ControlFlow="_5spEkEWAEe6ZybDoV901-g" probability="_AaVrIFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_55rJEEWCEe6ZybDoV901-g" base_ControlFlow="_7EMtYEWAEe6ZybDoV901-g" probability="_GQipgFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_EmPZcEWDEe6ZybDoV901-g" base_ControlFlow="_zvHgwEWBEe6ZybDoV901-g" probability="_TA-2IFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_IBf_YEWDEe6ZybDoV901-g" base_ControlFlow="_2la_gEWBEe6ZybDoV901-g" probability="_XSUIcFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_hlA14EWDEe6ZybDoV901-g" base_ControlFlow="_jt3qsEWBEe6ZybDoV901-g" probability="_KWw4AFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_k4D7AEWDEe6ZybDoV901-g" base_ControlFlow="_haaaUEWBEe6ZybDoV901-g" probability="_PmoPIFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_UqFbEEWEEe6ZybDoV901-g" base_ControlFlow="_oyYGYEWBEe6ZybDoV901-g" probability="_ejczwFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_XvbbYEWEEe6ZybDoV901-g" base_ControlFlow="_Pb80MEWCEe6ZybDoV901-g" probability="_lSO_8FL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_aPjOwEWEEe6ZybDoV901-g" base_ControlFlow="_wEOjYEWBEe6ZybDoV901-g" probability="_q5I-EFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_ck8Y0EWEEe6ZybDoV901-g" base_ControlFlow="_yAcYcEWBEe6ZybDoV901-g" probability="_wH-acFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_e0O64EWEEe6ZybDoV901-g" base_ControlFlow="_7I9cIEWBEe6ZybDoV901-g" probability="_3lNBAFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_g_lYIEWEEe6ZybDoV901-g" base_ControlFlow="_81nyQEWBEe6ZybDoV901-g" probability="_6nSR8FL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_jZ7ToEWEEe6ZybDoV901-g" base_ControlFlow="_AvJBgEWCEe6ZybDoV901-g" probability="_9KywgFL0Ee69cawvUnnaMA"/>
-  <workflow:WeightedFlow xmi:id="_nIkvoEWEEe6ZybDoV901-g" base_ControlFlow="_FrNS4EWCEe6ZybDoV901-g" probability="_ASpSQFL1Ee69cawvUnnaMA"/>
+  <workflow:WeightedFlow xmi:id="_zY1SQEWCEe6ZybDoV901-g" base_ControlFlow="_5spEkEWAEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_55rJEEWCEe6ZybDoV901-g" base_ControlFlow="_7EMtYEWAEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_EmPZcEWDEe6ZybDoV901-g" base_ControlFlow="_zvHgwEWBEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_IBf_YEWDEe6ZybDoV901-g" base_ControlFlow="_2la_gEWBEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_hlA14EWDEe6ZybDoV901-g" base_ControlFlow="_jt3qsEWBEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_k4D7AEWDEe6ZybDoV901-g" base_ControlFlow="_haaaUEWBEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_UqFbEEWEEe6ZybDoV901-g" base_ControlFlow="_oyYGYEWBEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_XvbbYEWEEe6ZybDoV901-g" base_ControlFlow="_Pb80MEWCEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_aPjOwEWEEe6ZybDoV901-g" base_ControlFlow="_wEOjYEWBEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_ck8Y0EWEEe6ZybDoV901-g" base_ControlFlow="_yAcYcEWBEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_e0O64EWEEe6ZybDoV901-g" base_ControlFlow="_7I9cIEWBEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_g_lYIEWEEe6ZybDoV901-g" base_ControlFlow="_81nyQEWBEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_jZ7ToEWEEe6ZybDoV901-g" base_ControlFlow="_AvJBgEWCEe6ZybDoV901-g" probability="_1GS28FyqEe6w-YhclDz3VA"/>
+  <workflow:WeightedFlow xmi:id="_nIkvoEWEEe6ZybDoV901-g" base_ControlFlow="_FrNS4EWCEe6ZybDoV901-g" probability="_nuB1UFyqEe6w-YhclDz3VA"/>
   <workflow:Properties xmi:id="_hZEtMFvgEe6j4OJIcrLLig" base_Activity="__8gLAEV-Ee6ZybDoV901-g">
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_lm2VMFvgEe6j4OJIcrLLig" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_9OsJMFvgEe6j4OJIcrLLig" name="P_O1_min" value="Pmin=? [F Six_dice reaches at Six_dice::O1]"/>

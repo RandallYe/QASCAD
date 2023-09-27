@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.epsilon.etl.eclipse.dt.launching.EtlLaunchConfigurationDelegate">
+    <booleanAttribute key="fine_grained_profiling" value="false"/>
+    <stringAttribute key="implementation_name" value="Parallel (Declarative operations)"/>
+    <listAttribute key="models">
+        <listEntry value="storeOnDisposal=false&#10;expand=true&#10;aliases=sysml&#10;modelFile=/SysML_activity_diagrams_transformation/travel_management_example/Travel_management.uml&#10;cached=true&#10;name=AD&#10;concurrent=false&#10;type=UML&#10;readOnLoad=true"/>
+        <listEntry value="aliases=prism&#10;reuseUnmodifiedFileBasedMetamodels=true&#10;modelFile=/SysML_activity_diagrams_transformation/travel_management_example/travel_mngmt_prism.model&#10;metamodelUri=&#10;concurrent=false&#10;type=EMF&#10;readOnLoad=false&#10;storeOnDisposal=true&#10;expand=true&#10;fileBasedMetamodelUri=platform\:/resource/RoboChart2pGCL/Meta-models/PRISM.ecore&#10;metamodelFile=/RoboChart2pGCL/Meta-models/PRISM.ecore&#10;cached=true&#10;name=PRISM&#10;modelUri=platform\:/resource/SysML_activity_diagrams_transformation/models/prism_model.prm&#10;isMetamodelFileBased=true&#10;validate=false"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <intAttribute key="parallelism" value="9"/>
+    <listAttribute key="parameters">
+        <listEntry value="name=DBG_OPTION&#10;type=String&#10;value=true"/>
+    </listAttribute>
+    <booleanAttribute key="profile_model_loading" value="false"/>
+    <booleanAttribute key="profiling_enabled" value="false"/>
+    <booleanAttribute key="reset_profiler" value="false"/>
+    <stringAttribute key="source" value="/SysML_activity_diagrams_transformation/travel_management_example/ad2prism_bfs.etl"/>
+</launchConfiguration>

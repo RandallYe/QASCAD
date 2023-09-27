@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+  <prism:Model>
+    <constants name="INACTIVE">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="-1"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::I0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::M2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A5">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A6">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="8"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D6">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="9"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D7">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="10"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O4">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="11"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O5">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="12"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O6">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="13"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::F0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="14"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="15"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="16"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="17"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::A4">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="18"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D4">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="19"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::D5">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="20"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="21"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="22"/>
+    </constants>
+    <constants name="Six_dice::I0::E0::O3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="23"/>
+    </constants>
+    <constants name="p">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="i">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <modules xsi:type="prism:ModuleDef" name="Six_dice::I0::E0">
+      <vars name="Six_dice::I0::E0::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="23"/>
+        <init xsi:type="prism:VarExpr" name="0"/>
+      </vars>
+      <vars name="Six_dice::I0::E0::to_be_terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <vars name="Six_dice::terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <commands>
+        <action name="Six_dice::I0::E0::I0"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::I0"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A0"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A0"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A0"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D1"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D1"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::M1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::M2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D3"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D3"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A6"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A5"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D6"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A6"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A6"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D7"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D6"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D6"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D6"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D6"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D7"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D7"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D7"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D7"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O6"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O4"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O5"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O6"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O6"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D2"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D2"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::A4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::A4"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D4"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D4"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D5"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::D5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:EqBoolExpr">
+              <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+              <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::D5"/>
+            </left>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+            </right>
+          </left>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::I0::E0::O3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="Six_dice::I0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::F0"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="Six_dice::terminate"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="Six_dice::to_be_terminated"/>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="Six_dice::terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <formulas name="Six_dice::to_be_terminated">
+      <expr xsi:type="prism:VarExpr" name="Six_dice::I0::E0::to_be_terminated"/>
+    </formulas>
+  </prism:Model>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:ModuleDef/>
+  <prism:ModuleDef/>
+  <prism:VarDecl/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A0"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A2"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A5"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A6"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O4"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O5"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O6"/>
+  <prism:Action name="Six_dice::terminate"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A1"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A3"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::A4"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O1"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O2"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="Six_dice::I0::E0::O3"/>
+  <prism:AndBoolExpr/>
+</xmi:XMI>

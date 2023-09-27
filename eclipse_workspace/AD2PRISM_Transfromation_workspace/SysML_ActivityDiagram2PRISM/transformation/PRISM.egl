@@ -1,0 +1,536 @@
+[%
+/*
+ * Copyright (c) 2018 The University of York
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Contributors:
+ *     Kangfeng Ye - implementation
+ * 	   Simon Foster - initial implementation
+ */
+ %]
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+[*%
+	var m : Model := Model.allInstances().at(0);
+%*]
+// PRISM Output
+
+[*%=m.printModeltype()%*]
+
+[%for (c in m.constants) { 
+//c.printComment();
+if (c.value == null) {
+%]
+[* const [%=c.type.printType()%] [%=c.name%];  *]
+const [%=c.type.printType(false)%] [%=c.name.format()%];
+[%} else {%]
+const [%=c.type.printType(false)%] [%=c.name.format()%] = [%=c.value.printExpr(false)%];
+[%} }%]
+
+[%for (v in m.globals) { 
+//v.printComment();
+if (v.init == null) {
+%]
+global [%=v.name.format()%] : [%=printVariableType(v,m)%];
+[%} else {%]
+global [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(true)%];  
+[%} }%]
+
+
+[%for (f in m.formulas) { 
+if (f.expr == null){
+%]
+formula [%=f.name.format()%];
+[%} else {
+		if(not f.expr.instanceOf(OrBoolExpr)){%]
+formula [%=f.name.format()%] = [%=f.expr.name.format()%];
+		[%} else if(f.expr.instanceOf(OrBoolExpr)){%]
+formula [%=f.name.format()%] = [%=f.expr.printExpr(true).format()%];		
+
+		[%}  }}%]
+		
+
+[%for (r in m.rewards) { %]
+
+rewards "[%=r.name.format()%]"
+[%for(rewardItem in r.rewards){%]
+	[%if(rewardItem.action.isDefined()){
+		if(rewardItem.reward.instanceOf(VarExpr)){%]
+	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
+		[%}else if(rewardItem.reward.instanceOf(DoubleLitExpr)){%]
+	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
+		[%}
+	} else if(rewardItem.reward.instanceOf(VarExpr)){%]
+	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
+		[%}else if(rewardItem.reward.instanceOf(DoubleLitExpr)){%]
+	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
+		[%}%]
+[% }%]
+endrewards
+[% }%]
+
+
+
+[%for (module in m.modules.asSet()) {/*m.modules.sortBy(mod | mod.commands.size()).asSequence().invert()) { 
+	// sort modules by their number of commands to allow the 
+	// module with more commands appear early 
+	// See "Variable ordering" at 
+	// https://www.prismmodelchecker.org/manual/FrequentlyAskedQuestions/PRISMModelling
+	// ("module " + module).println(); */
+	if (module.instanceOf(ModuleRename)) {
+%]
+[%=module.printComment()%]
+module [%=module.name.format()%] = [%=module.old_mod_name.format()%] [
+[%=module.printModuleRename()%]
+endmodule
+
+[% } else { %]
+[%=module.printComment()%]
+module [%=module.name.format()%]
+[%for (v in module.vars/*sortVariables(module.vars.asSet())*/) { 
+v.printComment();
+if (v.init == null) {
+%]
+    [%=v.name.format()%] : [%=printVariableType(v,m)%];
+[%} else {%]
+    [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(true)%];
+[%} }%]
+
+[%var i : Integer = 0; 
+  for (c in module.commands) { 
+  	// ("Generating [" + i++ + "th] command in " + module.name).println();
+	if (not (c.comment == "" or c.comment.isUndefined() or c.comment == null)) {
+	//("Command: " + c.comment + "++" + c.grd).println(); 
+%]
+    [%=c.printComment()%]
+[% } %]
+    [[%=c.printAction()%]] [%=c.grd.printExpr(true)%] -> [%=c.printUpdates()%];
+
+[%}%]
+endmodule
+[%}} %]
+
+[*// Renames of RoboChart elements (automatically generated and used by the assertion language and don't delete)*]
+[%for (rename in m.renames) { // ("module " + module).println(); 
+%]
+[%=rename.printRenamingPair()%]
+[%}%]
+
+[%
+operation Model printModeltype() : String {
+	// default value
+	if (self.modelType == null)
+		return "dtmc";
+	
+//	("ModelType: " + self).println();
+	if (self.modelType == PRISM!ModelType#DTMC)
+		return "dtmc";
+	else if (self.modelType == PRISM!ModelType#MDP)
+		return "mdp";
+	else
+		return "Unsupported ModelType";
+}
+
+operation Command printAction() : String {
+	if (self.action == null)
+		return "";
+	else if (self.action.name == "tau")
+		return "";
+	else
+		return self.action.name.format();
+}
+
+operation Comment printComment() : String {
+	if (self.comment == "" or self.comment.isUndefined()) 
+		return "";
+	else 
+		return "\r\n// " + self.comment;
+}
+
+operation Type printType(intInRange: Boolean) : String {
+	if (self.instanceOf(IntType)) {
+		if (intInRange) {
+			if (self.nat) {
+				// NAT_MAX are from parameters to this egl
+				return "[" + NAT_MIN + ".." + NAT_MAX + "]"; 
+			} else {
+				// INT_MIN and intMax are from parameters to this egl
+				return "[" + INT_MIN + ".." + INT_MAX + "]"; 
+			}
+		}
+		else {
+			return "int"; 
+		}
+	} else if (self.instanceOf(DoubleType)) {
+		return "double";
+	} else if (self.instanceOf(BoolType)) {
+		return "bool";
+	} else if (self.instanceOf(RangeType)) {
+		return "[" + self.bottom + ".." + self.top + "]"; 
+	}
+	return "<unknownType>";
+}	
+
+operation BoolLitExpr printExpr(doubleAsInt: Boolean) : String {
+	return self.value.toString();
+}
+
+operation DoubleLitExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.value.toString() + ")";
+}
+
+// without (), negative integer such as -2 will result in a syntactical error in PRISM
+operation IntLitExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.value.toString() + ")";
+}
+
+operation VarExpr printExpr(doubleAsInt: Boolean) : String {
+	// treat a variable of type double as integer: expressions in places other than probability in an update 
+	if(doubleAsInt) {
+		for (c in m.constants) {
+			if(c.name == self.name) {
+				if(c.type.instanceOf(DoubleType)) {
+					return "round(" + self.name.format() + ")";
+				}
+			}
+		}
+	}
+	return self.name.format();
+}
+
+operation UMinusExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(- " + self.value.printExpr(doubleAsInt) + ")";
+}
+
+operation MultExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "*" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation DivExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "/" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation PlusExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "+" + self.right.printExpr(doubleAsInt) + ")";	
+} 
+
+operation MinusExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "-" + self.right.printExpr(doubleAsInt) + ")";	
+} 
+
+operation LessBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return self.left.printExpr(doubleAsInt) + "<" + self.right.printExpr(doubleAsInt);
+} 
+
+operation LessEqBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return self.left.printExpr(doubleAsInt) + "<=" + self.right.printExpr(doubleAsInt);
+} 
+
+operation GreaterBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return self.left.printExpr(doubleAsInt) + ">" + self.right.printExpr(doubleAsInt);
+} 
+
+operation GreaterEqBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return self.left.printExpr(doubleAsInt) + ">=" + self.right.printExpr(doubleAsInt);
+} 
+
+operation EqBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "=" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation NeqBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + "!=" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation NotBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "! (" + self.value.printExpr(doubleAsInt) + ")";
+} 
+
+operation AndBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + ")&(" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation OrBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + ")|(" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation IffBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + ")<=>(" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation ImplBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.left.printExpr(doubleAsInt) + ")=>(" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation CondBoolExpr printExpr(doubleAsInt: Boolean) : String {
+	return "(" + self.cond.printExpr(doubleAsInt) + "?" + self.left.printExpr(doubleAsInt) + ":" + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation ModuloExpr printExpr(doubleAsInt: Boolean) : String {
+	return "mod(" + self.left.printExpr(doubleAsInt) + "," + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation PowExpr printExpr(doubleAsInt: Boolean) : String {
+	return "pow(" + self.left.printExpr(doubleAsInt) + "," + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation LogExpr printExpr(doubleAsInt: Boolean) : String {
+	return "log(" + self.left.printExpr(doubleAsInt) + "," + self.right.printExpr(doubleAsInt) + ")";
+} 
+
+operation FloorExpr printExpr(doubleAsInt: Boolean) : String {
+	return "floor(" + self.value.printExpr(doubleAsInt) + ")";
+} 
+
+operation CeilExpr printExpr(doubleAsInt: Boolean) : String {
+	return "ceil(" + self.value.printExpr(doubleAsInt) + ")";
+} 
+
+operation MinExpr printExpr(doubleAsInt: Boolean) : String {
+	var ret : String = "min(";
+	for (v in self.values) {
+		ret = ret + v.printExpr(doubleAsInt);
+		if (hasMore) {ret = ret + ", ";}
+	}
+	return ret + ")";
+} 
+
+operation MaxExpr printExpr(doubleAsInt: Boolean) : String {
+	var ret : String = "max(";
+	for (v in self.values) {
+		ret = ret + v.printExpr(doubleAsInt);
+		if (hasMore) {ret = ret + ", ";}
+	}
+	return ret + ")";
+}
+
+operation CallExpr printExpr(doubleAsInt: Boolean) : String {
+	// #CALLFUNC!func$x+1$y+x# denotes a call to func(x+1, y+x)
+	var ret : String = "#CALLFUNC!" + self.name.format();
+	for (v in self.args) {
+		ret = ret + "$" + v.printExpr(doubleAsInt);
+	}
+	return ret + "#";
+}
+	
+operation Command printUpdates() : String {
+	/*
+	if (self.comment.isDefined())
+		("printUpdates: " + self.comment).println();
+	else 
+		("printUpdates: ").println();
+	*/
+	var out : String = "";
+	for (u in self.updates) {
+		out = out + u.printUpdate();
+		if (hasMore) {out=out + " + ";}
+	}
+	return out;
+}
+
+operation Update printUpdate() : String {
+	var out : String = "";
+	// ("printUpdate: ").println();
+	
+	for (a in self.assigns) {
+		// ("variable: " + a.variable).println();
+		out = out + a.printAssignment();
+		if (hasMore) {out=out + "&";}
+	}
+	
+	if (self.probability == null) {
+		return out;
+	} else if (self.probability.instanceOf(DoubleLitExpr)) {
+		if (self.probability.value == -1.0 or self.probability.value == 1.0) {
+			return out;
+		} else {
+			// ("printUpdate1: ").println();
+			return self.probability.printExpr(false) + ":" + out;
+		}
+	} else {
+		// ("printUpdate2: ").println();
+		return self.probability.printExpr(false) + ":" + out;
+	}
+}
+
+operation Assignment printAssignment() : String {
+	// ("printAssignment: " + self.variable + "=" + self.value.printExpr()).println();
+	return "(" + self.variable.format() + "'=" + self.value.printExpr(true) + ")";
+}
+
+operation Call printAssignment() : String {
+	// #CALLOP!Op$x+1$y+x# denotes a call to func(x+1, y+x)
+	var ret : String = "#CALLOP!" + self.name.format();
+	for (v in self.args) {
+		ret = ret + "$" + v.printExpr(true);
+	}
+	return "(" + ret + "#" + ")";
+}
+
+operation Skip printAssignment() : String {
+	return "true";
+}
+
+operation isEmpty(s : String) : Boolean {
+	if(s = null)
+		return true;
+	
+	if(s = "") 
+		return true;
+		
+	if(s.length() = 0)
+		return true;
+	
+	return false;
+}
+
+operation printVariableType(vd : VarDecl, mod : Model) : String {
+
+	var v = vd.name;
+	
+	var type : String = ""; 
+	// get v's type override from the configuration file if it exists
+	
+	var renames = mod.renames.select(r|r.new_name == v and 
+		(r.type == PRISM!RenameType#REN_VAR or r.type == PRISM!RenameType#REN_VAR_CHN_VAR));
+	
+	/*if(renames.size() > 0) {
+		// each variable name is unique in the model
+		var rename : RenamingPair = renames.at(0);
+		
+		// ("Rename: " + vd.name + " <-- " + rename.old_name).println();
+		// ("Rename: (" + rename.rp_name + "," + rename.ctrl_name + "," + rename.stm_name + ")").println();
+		var overrides = mod.overrides.select(o|((o.v_name == rename.old_name)));
+		
+		for(o in overrides) {
+			// ("O: (" + o.rp_name + "," + o.ctrl_name + "," + o.stm_name + ")").println();
+			
+			if(not isEmpty(o.rp_name)) {
+				if(not isEmpty(rename.rp_name)) {
+					type = o.new_type;
+				}
+			} else if (not isEmpty(o.ctrl_name)) {
+				if ((rename.ctrl_name = o.ctrl_name) and (not isEmpty(rename.stm_name))) {
+					type = o.new_type;
+				}
+			} else if (not isEmpty(o.stm_name)) {
+				if (rename.stm_name = o.stm_name) {
+					type = o.new_type;
+				}
+			}
+			
+			// ("Variable: (" + rename.old_name + ", " + rename.new_name + ") New type: " + type).println();
+		}
+	}*/
+	
+	if(type = "") {
+		type = vd.type.printType(true);
+	}
+	
+	return type;
+}
+
+operation ModuleRename printModuleRename() : String {
+	var ret : String = "";
+	for (v in self.renames) {
+		ret = ret + "\t" + v.old_name.format() + " = " + v.new_name.format();
+		if (hasMore) {ret = ret + ", \n";}
+	}
+	return ret + "]";
+}
+
+operation String isNotEmpty() : Boolean {
+	if(self == "" or self.isUndefined()) {
+		return false;
+	} 
+	return true;
+}
+
+operation RenamingPair printRenamingPair() : String {
+	var old_name : String =  self.old_name.replace("\\$", "::");
+	var new_name : String =  self.new_name.format();
+	if(self.type == PRISM!RenameType#REN_EVT) {
+		return "// renames of the event [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_VAR) {
+		return "// renames of the variable [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_CONST) {
+		return "// renames of the constant [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_STM) {
+		return "// renames of the STM [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_CHN_VAR) {
+		return "// renames of the channel variable [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_VAR_CHN_VAR) {
+		return "// renames of the variable upon channel [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_OP) {
+		return "// renames of the operation [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_OP_VAR) {
+		return "// renames of the operation parameter [" + old_name +"] to a varaible [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_NODE) {
+		return "// renames of the node [" + old_name +"] to [" + new_name + "]";
+	} else if (self.type == PRISM!RenameType#REN_TRANS) {
+		return "// renames of the transition [" + old_name +"] to [" + new_name + "]";
+	}
+}
+
+// Replace $ in qualified names by _
+operation String format() : String {
+	//("format: " + self).println();
+	//return self.replace("\\$", "_");
+	return self.replace("::", "_");
+}
+
+/*operation sortVariables(vars : Set(PRISM!VarDecl)) : Sequence(PRISM!VarDecl) {
+	// ("vars: " + vars.size() + ": " + vars).println();
+	// 1. first scpc variables should appear first
+	//	 1.1 the upper level scpc variable appear earlier
+	// 2. other variables
+	var scpcs = vars.select(v | v.name.matches(".*\\$scpc_[0-9]+"));
+	// ("scpcs: " + scpcs.size() + ": " + scpcs).println();
+	var new_vars = new Sequence(PRISM!VarDecl);
+	// sort based on the length of the scpc variable name 
+	new_vars.addAll(scpcs.asSequence().sortBy(v | v.name.length()));
+	new_vars.addAll(vars.excludingAll(scpcs));
+	//("new_vars: " + new_vars.size() + ": " + new_vars).println();
+	return new_vars;
+}*/
+
+operation sortModules(modules : Set(PRISM!Module)) : Sequence(PRISM!Module) {
+	var new_modules = new Sequence(PRISM!Module);
+	
+	("modules: " + modules.size() + ": " + modules).println();
+
+		
+		var i : Integer = 0;
+		while (i < modules.size()) {
+			var mod = modules.at(i);
+			("mod[" + i + "]: " + mod).println();
+			var modname = mod.name.replace("::", "\\$").trim();
+			var m = modules.select(m | m.name == modname).first();
+			if(m == null or m.isUndefined()) {
+				("The state machine referred by " + mod + 
+					"doesn't exist! Please double checkit it").errln();
+			} else {
+				new_modules.add(m);
+			}
+			i = i + 1;
+		}
+	
+	
+	return new_modules.includingAll(modules.excludingAll(new_modules));
+}
+
+%] 

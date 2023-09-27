@@ -1,0 +1,261 @@
+@namespace(uri="http://www.robocalc.circus/prism", prefix="prism")
+package prism;
+
+class Comment {
+	attr String comment;
+}
+
+abstract class Type {
+}
+
+class IntType extends Type {
+	attr boolean nat;
+}
+
+class DoubleType extends Type {
+}
+
+class BoolType extends Type {
+}
+
+class RangeType extends Type, Comment {
+	attr int bottom;
+	attr int top;
+}
+
+abstract class Expr {
+}
+
+abstract class BoolExpr extends Expr {
+}
+
+class BoolLitExpr extends BoolExpr {
+	attr boolean value;
+}
+
+class DoubleLitExpr extends Expr {
+	attr double value;
+}
+
+class IntLitExpr extends Expr {
+	attr int value;
+}
+
+class VarExpr extends Expr, BoolExpr {
+	attr Name name;
+}
+
+abstract class UnaryExpr extends Expr {
+	val Expr value;
+}
+
+abstract class BinaryExpr extends Expr {
+	val Expr left;
+	val Expr right;
+}
+
+abstract class ManyaryExpr extends Expr {
+	val Expr[+] values;
+}
+
+class UMinusExpr extends UnaryExpr {
+}
+
+class MultExpr extends BinaryExpr {
+}
+
+class DivExpr extends BinaryExpr {
+}
+
+class PlusExpr extends BinaryExpr {
+}
+
+class MinusExpr extends BinaryExpr {
+}
+
+class ModuloExpr extends BinaryExpr {
+}
+
+class PowExpr extends BinaryExpr {
+}
+
+class LogExpr extends BinaryExpr {
+}
+
+class FloorExpr extends UnaryExpr {
+}
+
+class CeilExpr extends UnaryExpr {
+}
+
+class LessBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class LessEqBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class GreaterBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class GreaterEqBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class EqBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class NeqBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class NotBoolExpr extends BoolExpr, UnaryExpr {
+}
+
+class AndBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class OrBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class IffBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class ImplBoolExpr extends BoolExpr, BinaryExpr {
+}
+
+class CondBoolExpr extends BinaryExpr {
+	val Expr cond;
+}
+
+class MinExpr extends ManyaryExpr {
+}
+
+class MaxExpr extends ManyaryExpr {
+}
+
+class CallExpr extends Expr {
+	attr Name name;
+	val Expr[*] args;
+}
+
+enum RenameType {
+	REN_VAR = 0;
+	REN_CONST = 0;
+	REN_STM = 0;
+	REN_EVT = 0;
+	REN_CHN_VAR = 0;
+	REN_VAR_CHN_VAR = 0;
+	REN_OP = 0;
+	REN_OP_VAR = 0;
+	REN_NODE = 0;
+	REN_TRANS = 0;
+}
+
+class RenamingPair {
+	attr Name old_name;
+	attr Name new_name;
+	attr RenameType type;
+}
+
+class Model extends Comment {
+	attr ModelType modelType;
+	val Constant[*] constants;
+	val VarDecl[*] globals;
+	val PRModule[+] modules;
+	val RenamingPair[*] renames;
+	val Rewards[*] rewards;
+	val Formula[*] formulas;
+	val Label[*] labels;
+}
+
+class Constant extends Comment {
+	val Type type;
+	attr Name name;
+	val Expr value;
+}
+
+abstract class PRModule {
+}
+
+class ModuleDef extends Comment, PRModule {
+	attr Name name;
+	val VarDecl[+] vars;
+	val Command[+] commands;
+}
+
+class RenPair {
+	attr Name old_name;
+	attr Name new_name;
+}
+
+class ModuleRename extends Comment, PRModule {
+	attr Name name;
+	attr Name old_mod_name;
+	val RenPair[+] renames;
+}
+
+@"http://www.obeo.fr/dsl/dnc/archetype"(archetype="Role")
+class VarDecl extends Comment {
+	attr Name name;
+	val Type type;
+	val Expr init;
+}
+
+class Command extends Comment {
+	val Action action;
+	val BoolExpr grd;
+	val Update[+] updates;
+}
+
+abstract class AbsAssignment {
+}
+
+class Assignment extends AbsAssignment {
+	attr Name variable;
+	val Expr value;
+}
+
+class Call extends AbsAssignment {
+	attr Name name;
+	val Expr[*] args;
+}
+
+class Skip extends AbsAssignment {
+}
+
+class Update {
+	val Expr probability;
+	val AbsAssignment[+] assigns;
+}
+
+class Action {
+	attr Name name;
+}
+
+class Rewards extends Comment {
+	attr Name name;
+	val RewardItem[+] rewards;
+}
+
+class RewardItem {
+	val Action action;
+	val BoolExpr grd;
+	val Expr reward;
+}
+
+class Formula {
+	attr Name[1] name;
+	val Expr[1] expr;
+}
+
+class Label {
+	attr Name[1] name;
+	val BoolExpr[1] cond;
+}
+
+datatype Name : java.lang.Object;
+
+enum ModelType {
+	DTMC = 0;
+	MDP = 0;
+	PTA = 0;
+}
+
