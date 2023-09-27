@@ -435,6 +435,9 @@ each modSeq sequence corresponding to a module
 						
 						("\nthe oe to be processed is "+ oe.name).println();
 						var decision_edge_grd_expr = getEdgeGuardVarExpr(oe, node, act, m);
+						if(not decision_edge_grd_expr.isDefined()) {
+							("Created an undefined expression from " + node).errln();
+						}
 						("for the decision node " + node.name + " it's edge guard is  " + decision_edge_grd_expr).println();
 						("the action is "+ action ).println();
 						var grd = new PRISM!AndBoolExpr;
@@ -643,14 +646,14 @@ for (p in AD!Parameter.allInstances()){
 			} else if(typename = "Integer") {
 				if(p.defaultValue.isDefined()){
 					p.defaultValue.value.println();
-					m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, false));
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
 				} else{
 					m.constants.add(mkConst_integer(p.name));
 				}
 			} else if(typename = "String") {
 			} else if(typename = "UnlimitedNatural") {
 				if(p.defaultValue.isDefined()){
-					m.constants.add(mkConst(p.name, p.defaultValue.value, true));
+					m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, true));
 				} else{
 					m.constants.add(mkConst_natural(p.name));
 				}
@@ -668,14 +671,15 @@ for (p in AD!Parameter.allInstances()){
 ******************************************/
 var properties = Set{};
 if( act.getAppliedStereotypes().size()>0){
-		for(st in act.getAppliedStereotypes()){
-			if(act.hasValue(st,"prproperties")){
-				properties = act.getValue(st,"prproperties");
-			}
+	for(st in act.getAppliedStereotypes()){
+		if(act.hasValue(st,"prproperties")){
+			properties = act.getValue(st,"prproperties");
 		}
 	}
+}
 	
 for(p in properties){
+	("Properties: " + p).println();
 	if("reaches at".isSubstringOf(p.value)){
 		//p.println();
 		//("p.value = " + p.value).println();

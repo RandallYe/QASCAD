@@ -154,9 +154,9 @@ operation mkConst(cname: String, value : Integer) : PRISM!Constant {
 	return mkConst_int_nat(cname, value, false);
 }
 
-operation mkConst(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
+/*operation mkConst(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
 	return mkConst_int_nat(cname, value, nat);
-}
+}*/
 
 //this operation has 2 parameters, for constants of probability parameter OF REAL TYPE
 //used by the operation getProb
@@ -809,7 +809,7 @@ operation mkOrBoolExpr(
 
 //grd = getGuard(oe);
 //to return the guard of the edge (control flow, the outgoing edge of decision node) 
-operation getEdgeGuardVarExpr(oe: AD!ControlFlow, dn: AD!DecisionNode,act: AD!Activity, m: PRISM!Model): PRISM!VarExpr{
+operation getEdgeGuardVarExpr(oe: AD!ControlFlow, dn: AD!DecisionNode,act: AD!Activity, m: PRISM!Model): PRISM!Expr{
 	if(oe.`guard`.isDefined()){
 		var grdVar = new PRISM!VarDecl;
 		var grd = oe.`guard`.value;
@@ -841,7 +841,9 @@ operation getEdgeGuardVarExpr(oe: AD!ControlFlow, dn: AD!DecisionNode,act: AD!Ac
 		}
 		
 		return mkVarExpr(grdVar.name);
-	} 		
+	} else {
+		return mkBoolLitExpr(true);
+	}		
 }
 
 
