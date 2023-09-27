@@ -1,6 +1,6 @@
 rule PRISMModel2Code
  transform m : PRISM!Model {
  template : "PRISM.egl"
- target : "activity.prism" 
+ target : TARGET 
  }
  
