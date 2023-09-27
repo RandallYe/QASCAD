@@ -45,6 +45,14 @@ operation mkMinusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!MinusExpr{
 	m.right = r;
 	return m;
 }
+
+operation mkPlusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!PlusExpr{
+	var m = new PRISM!PlusExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
 operation mkModuleDef(mod_name: String, vs: Sequence, cmds: Sequence): PRISM!ModuleDef {
 	
 	var mod = new PRISM!ModuleDef;
@@ -129,18 +137,26 @@ operation mkBoolVarDecl(
 
 //this operation has three parameters, for constants of each module of INTEGER TYPE
 //e.g., const int DigitalCamera::I0::E0::I0 = 0;
-operation mkConst(cname: String, value : Integer) : PRISM!Constant {
+operation mkConst_int_nat(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
 	var const = new PRISM!Constant;   	
 	const.name = cname;
 	
 	const.type = new PRISM!IntType;	
 	//false is the default value of type.nat, means int
 	// true means 'nat'
-	const.type.nat = false;
+	const.type.nat = nat;
 	const.value = new PRISM!IntLitExpr;
 	const.value.value = value;
 	return const;
-}	
+}
+
+operation mkConst(cname: String, value : Integer) : PRISM!Constant {
+	return mkConst_int_nat(cname, value, false);
+}
+
+operation mkConst(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
+	return mkConst_int_nat(cname, value, nat);
+}
 
 //this operation has 2 parameters, for constants of probability parameter OF REAL TYPE
 //used by the operation getProb
@@ -178,6 +194,36 @@ operation mkConst(para_name : String) : PRISM!Constant {
 	const.type = new PRISM!DoubleType;	
 	//const.value = new PRISM!DoubleLitExpr;
 	//const.value.value = value.asDouble();
+	return const;
+}	
+
+operation mkConst_integer(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!IntType;	
+	//false is the default value of type.nat, means int
+	// true means 'nat'
+	const.type.nat = false;
+	return const;
+}
+
+operation mkConst_natural(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!IntType;	
+	//false is the default value of type.nat, means int
+	// true means 'nat'
+	const.type.nat = true;
+	return const;
+}
+
+operation mkConst_boolean(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!BoolType;
 	return const;
 }	
 
@@ -326,6 +372,12 @@ operation IsProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
 operation mkDoubleLitExpr(prob: Real):PRISM!DoubleLitExpr
 {	var probExpr = new PRISM!DoubleLitExpr;
 	probExpr.value = prob.asDouble();
+	return probExpr;
+}
+
+operation mkIntLitExpr(prob: Integer):PRISM!IntLitExpr
+{	var probExpr = new PRISM!IntLitExpr;
+	probExpr.value = prob.asInteger();
 	return probExpr;
 }
 
@@ -488,6 +540,9 @@ operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
 	if(rwd.value.instanceOf(LiteralReal)){
 		reward_value = rwd.value.value;
 		return mkDoubleLitExpr(reward_value);
+	} else if(rwd.value.instanceOf(LiteralInteger)){
+		reward_value = rwd.value.value;
+		return mkIntLitExpr(reward_value);
 	} else if(rwd.value.instanceOf(Expression)){
 		reward_value = rwd.value.name;
 		return mkVarExpr(reward_value);
@@ -584,7 +639,7 @@ operation checkAndMkEdgeReward(
 						var rwaction = action;
 						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
 						var rwvalue = getRewardValue(rwd);
-						var rwname = act.name + "::" + rwd.name;
+						var rwname = /*act.name + "::" + */rwd.name;
 						r_edge = mkEdgeReward(rwname, rwaction, rwgrd, rwvalue);//edge reward needs action, so 4 parameters
 						("reward r_edge = " + r_edge).println();
 						var rewardIsDefined = false;
@@ -596,7 +651,7 @@ operation checkAndMkEdgeReward(
 					if(rewardIsDefined){
 						("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward").println();
 						var rw = m.rewards.selectOne(reward|reward.name = r_edge.name);
-						rw.rewards.add(mkNodeRewardItem(rwaction, rwgrd, rwvalue));
+						rw.rewards.add(mkEdgeRewardItem(rwaction, rwgrd, rwvalue));
 						delete r_edge;
 					} else {
 						m.rewards.add(r_edge);

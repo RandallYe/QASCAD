@@ -406,7 +406,7 @@ each modSeq sequence corresponding to a module
 				const_num++;
 				
 				var branchesProbabilistic = IsProbabilistic(act,node);
-				//("branchesProbabilistic" + branchesProbabilistic).println();
+				("branchesProbabilistic" + branchesProbabilistic).println();
 								
 				if(branchesProbabilistic){
 					
@@ -621,14 +621,43 @@ each modSeq sequence corresponding to a module
 ******************************************/
 
 for (p in AD!Parameter.allInstances()){
-	//p.name.println();
-	//p.println();
-	//p.type().println();
+	p.name.println();
+	p.println();
+	p.type.name.println();
 	if(not p.qualifiedName.startsWith("SysML")){//to filter out the embedded parameter for sysml
-		if(p.`default`.isDefined()){
-			m.constants.add(mkConst(p.name, p.`default`));
-		} else{
-			m.constants.add(mkConst(p.name, null));
+		// get p's type
+		if(p.type.isDefined()) {
+			var typename = p.type.name;
+			if(typename = "Real") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
+				} else{
+					m.constants.add(mkConst(p.name));
+				}
+			} else if(typename = "Boolean") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
+				} else{
+					m.constants.add(mkConst_boolean(p.name));
+				}
+			} else if(typename = "Integer") {
+				if(p.defaultValue.isDefined()){
+					p.defaultValue.value.println();
+					m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, false));
+				} else{
+					m.constants.add(mkConst_integer(p.name));
+				}
+			} else if(typename = "String") {
+			} else if(typename = "UnlimitedNatural") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst(p.name, p.defaultValue.value, true));
+				} else{
+					m.constants.add(mkConst_natural(p.name));
+				}
+			}
+		} else {
+			// default type is real
+			m.constants.add(mkConst(p.name));
 		}
 	}
 
@@ -1156,4 +1185,27 @@ operation traverseNodes(
 		} 
 	}
 }
+
+/*
+operation LiteralInteger toExpr(): PRISM!IntLitExpr {
+	return mkIntLitExpr(self.value);
+}
+
+operation LiteralReal toExpr(): PRISM!DoubleLitExpr {
+	return mkDoubleLitExpr(self.value);
+}
+
+operation Expression toExpr(): PRISM!Expr {
+	if(prob.symbol.startsWith("RefToPara")){
+		return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
+	} else if (prob.symbol = "-"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+		return mkMinusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
+	} else if (prob.symbol = "+"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+		return mkPlusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
+	}
+}
+*/
+
 

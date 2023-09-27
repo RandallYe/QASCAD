@@ -73,6 +73,8 @@ rewards "[%=r.name.format()%]"
 	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
 		[%}else if(rewardItem.reward.instanceOf(DoubleLitExpr)){%]
 	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
+		[%}else if(rewardItem.reward.instanceOf(IntLitExpr)){%]
+	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
 		[%}
 	} else if(rewardItem.reward.instanceOf(VarExpr)){%]
 	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
