@@ -1,0 +1,868 @@
+operation mkBoolLitExpr(b: Boolean): PRISM!BoolLitExpr{
+	var bexpr = new PRISM!BoolLitExpr;
+	bexpr.value = b;
+	return bexpr;
+}
+
+
+	
+	
+
+//'hasAF' indicates if this module contains ActivityFinalNode, if yes, we need to define a local variable: mod_toBeTerminated
+//TO DO: THIS DOES NOT WORK FOR CASES THAT HAVE MULTIPLE AF IN THE MODULE
+operation hasAF(mdSeq: Sequence):Boolean{
+	var k = 0; //the index of map in the sequence mdSeq
+ 	var hasAF = false;
+ 	while(k<mdSeq.size()){ //processing each map in the sequence
+ 	var node = mdSeq.at(k).keySet().at(0).nd;
+ 	if(node.instanceOf(ActivityFinalNode) ){
+		hasAF = true;
+		}
+		k++;
+	}
+	return hasAF;
+}
+
+
+//hasReAnnoNode(mdSeq), if there is actions that are annotated with reliability
+operation hasReAnnoNode(mdSeq: Sequence):Boolean{
+	var k = 0; //the index of map in the sequence mdSeq
+ 	var hasReAnnoNode = false;
+ 	while(k<mdSeq.size()){ //processing each map in the sequence
+ 	var node = mdSeq.at(k).keySet().at(0).nd;
+ 	if(node.instanceOf(OpaqueAction) and nodeAnnotated(node, "reliability")){
+		hasReAnnoNode = true;
+		}
+		k++;
+	}
+	return hasReAnnoNode;
+}
+
+
+operation mkMinusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!MinusExpr{
+	var m = new PRISM!MinusExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+operation mkPlusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!PlusExpr{
+	var m = new PRISM!PlusExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+operation mkModuleDef(mod_name: String, vs: Sequence, cmds: Sequence): PRISM!ModuleDef {
+	
+	var mod = new PRISM!ModuleDef;
+	mod.name = mod_name;
+	mod.vars = vs;
+	mod.commands = cmds;
+	return mod;
+	}	
+	
+	
+	
+	
+//e.g., DigitalCamera::I0::E0
+operation mkModuleName(act: AD!Activity, node: AD!ControlNode, oe: AD!ActivityEdge): String {
+	
+	var name: String;
+	name = act.name + "::" + node.name + "::" + oe.name;
+	return name;
+	}	
+
+
+
+
+//mkModuleName(act,node)
+//this is for generate Merge module name
+//e.g., module DigitalCamera::M1 
+operation mkModuleName(act: AD!Activity, node: AD!ControlNode): String {
+	
+	var name: String;
+	name = act.name + "::" + node.name ;
+	return name;
+	}	
+
+
+
+ 	
+// to create a variable of range type 	
+operation mkVarDecl(
+	module: PRISM!ModuleDef,
+	range_bottom: Integer,
+	range_top: Integer,
+	initial: String
+	) : PRISM!VarDecl
+{
+	var v = new PRISM!VarDecl;
+	v.name = module.name + "::pc";
+	v.type = new PRISM!RangeType;
+	v.type.bottom = range_bottom;
+	//TO DO
+	if(range_top=null){
+		v.type.top = null;
+	} else v.type.top = range_top;
+	v.init = mkVarExpr(initial);
+	("a new vardecl is made, var.name = "+ v.name).println();
+	return v;
+}
+	
+@pre name.length() > 0
+operation mkVarExpr(name: String) : PRISM!VarExpr
+{
+	var v = new PRISM!VarExpr;
+	v.name = name;
+	return v;
+}	
+
+
+
+operation mkBoolVarDecl(
+	name: String,
+	init_value: Boolean) : PRISM!VarDecl
+{
+	var v = new PRISM!VarDecl;
+	
+	v.name = name;
+	v.type = new PRISM!BoolType;
+	v.init = new PRISM!BoolLitExpr;
+	v.init = mkBoolLitExpr(init_value);
+	
+	return v;
+}
+
+
+//this operation has three parameters, for constants of each module of INTEGER TYPE
+//e.g., const int DigitalCamera::I0::E0::I0 = 0;
+operation mkConst_int_nat(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!IntType;	
+	//false is the default value of type.nat, means int
+	// true means 'nat'
+	const.type.nat = nat;
+	const.value = new PRISM!IntLitExpr;
+	const.value.value = value;
+	return const;
+}
+
+operation mkConst(cname: String, value : Integer) : PRISM!Constant {
+	return mkConst_int_nat(cname, value, false);
+}
+
+/*operation mkConst(cname: String, value : Integer, nat : Boolean) : PRISM!Constant {
+	return mkConst_int_nat(cname, value, nat);
+}*/
+
+//this operation has 2 parameters, for constants of probability parameter OF REAL TYPE
+//used by the operation getProb
+operation mkConst(para_name : String, value : Real) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name =  para_name;
+	
+	const.type = new PRISM!DoubleType;	
+	if(not (value = null)){
+		const.value = new PRISM!DoubleLitExpr;
+		const.value.value = value.asDouble();
+	}
+	return const;
+}	
+
+
+operation mkConst(para_name : String, value : String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name =  para_name;
+	
+	const.type = new PRISM!DoubleType;	
+	if(not (value = null)){
+		const.value = new PRISM!DoubleLitExpr;
+		const.value.value = value.asDouble();
+	}
+	return const;
+}	
+//this operation has 1 parameters, for constants of probability parameter
+//the value of constant is unknown so is not assigned
+//used by the operation getProb
+operation mkConst(para_name : String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name =  para_name;
+	
+	const.type = new PRISM!DoubleType;	
+	//const.value = new PRISM!DoubleLitExpr;
+	//const.value.value = value.asDouble();
+	return const;
+}	
+
+operation mkConst_integer(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!IntType;	
+	//false is the default value of type.nat, means int
+	// true means 'nat'
+	const.type.nat = false;
+	return const;
+}
+
+operation mkConst_natural(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!IntType;	
+	//false is the default value of type.nat, means int
+	// true means 'nat'
+	const.type.nat = true;
+	return const;
+}
+
+operation mkConst_boolean(cname: String) : PRISM!Constant {
+	var const = new PRISM!Constant;   	
+	const.name = cname;
+	
+	const.type = new PRISM!BoolType;
+	return const;
+}	
+
+//e.g.,  [DigitalCamera::I0::E0::I0] 
+operation mkAction(mod: PRISM!ModuleDef, name: String ) : PRISM!Action
+{
+	var action = new PRISM!Action;
+	action.name = mod.name + "::" + name;
+	return action;
+}
+
+//e.g., [DigitalCamera::F1],  [DigitalCamera::J2] 
+operation mkSyncAction(act: AD!Activity, name: String ) : PRISM!Action
+{
+	var action = new PRISM!Action;
+	action.name = act.name + "::" + name;
+	return action;
+}
+
+
+operation mkAndBoolExpr(
+	g1: PRISM!Expr, 
+	g2: PRISM!Expr) : PRISM!AndBoolExpr
+{
+	var andexpr = new PRISM!AndBoolExpr;
+	andexpr.left = g1;
+	andexpr.right = g2;
+	
+	return andexpr;
+}
+
+operation mkEqBoolExpr(
+	l: PRISM!VarDecl,
+	r: PRISM!Constant
+	): PRISM!EqBoolExpr{
+	
+	var expr = new PRISM!EqBoolExpr;
+	expr.left = new PRISM!VarExpr;	
+	expr.left.name = l.name;
+	expr.right = new PRISM!VarExpr;
+	expr.right.name = r.name;
+	
+	return expr;
+	}
+	
+	
+operation mkNotBoolExpr(
+	b: PRISM!Expr
+	) : PRISM!NotBoolExpr
+{
+	var not_b = new PRISM!NotBoolExpr;
+	not_b.value = b;
+	return not_b;
+}
+
+
+//NO probability involved
+//ONE assignment
+//e.g.,(DigitalCamera::I0::E0::pc'=INACTIVE)
+//e.g., (DigitalCamera::F1::E3::pc'=DigitalCamera::F1::E3::DetLight)
+//to assign a const to a var
+operation mkUpdate (
+	pc: PRISM!VarDecl, 
+	const: PRISM!Constant
+	): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	//update.probability = 1;
+	
+	update.assigns.add(mkAssignment(pc,const));	
+	
+	return update;
+
+}
+
+//an update with two assignment
+operation mkUpdate (
+	pc: PRISM!VarDecl, //(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal)
+	const: PRISM!Constant,
+	local_var: PRISM!VarDecl, //(DigitalCamera::M1::to_be_terminated'=true)
+	b: Boolean
+	): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	//update.probability = 1;
+	
+	update.assigns.add(mkAssignment(pc,const));	
+	update.assigns.add(mkAssignment(local_var,b));	
+	
+	return update;
+
+}
+
+//an update with three assignment
+//this is used when maim module has AF node, the terminate command for both AF module and the main module shall be combined into one
+//e.g., in Dice example
+//[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
+operation mkUpdate (
+	pc: PRISM!VarDecl, //(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal)
+	const: PRISM!Constant,
+	local_var: PRISM!VarDecl, //(DigitalCamera::M1::to_be_terminated'=true)
+	b: Boolean,
+	local_var1: PRISM!VarDecl, //(DigitalCamera::M1::to_be_terminated'=true)
+	b1: Boolean
+	): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	//update.probability = 1;
+	
+	update.assigns.add(mkAssignment(pc,const));	
+	update.assigns.add(mkAssignment(local_var,b));	
+	update.assigns.add(mkAssignment(local_var1,b1));
+	
+	return update;
+
+}
+
+//IsProbabilistic(act,node)
+//to return a bool value stating if the branches of decision node are probabilistic
+operation IsProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
+	//assuming if one oe is Probabilistic, then all oes are Probabilistic
+	// so we only check the first oe
+	var oe = getAllEdgesFromNode(act, node).at(0);
+	var isProb = false;
+	if( oe.getAppliedStereotypes().size()>0){
+		for(st in oe.getAppliedStereotypes()){
+			if(oe.hasValue(st,"Prob_p")){
+				isProb = true;
+				break;
+			} else if(oe.hasValue(st,"probability") and oe.getValue(st,"probability") <> 0.0){
+				isProb = true;
+				break;
+			}
+			("oe.hasValue(st,probability)?  "+oe.hasValue(st,"probability")).println();
+			("oe.hasValue(st,Prob_p)?  "+oe.hasValue(st,"Prob_p")).println();
+		}
+		
+		
+	}
+	("within operation isProb = "+ isProb).println();
+	return isProb;
+}
+
+
+
+operation mkDoubleLitExpr(prob: Real):PRISM!DoubleLitExpr
+{	var probExpr = new PRISM!DoubleLitExpr;
+	probExpr.value = prob.asDouble();
+	return probExpr;
+}
+
+operation mkIntLitExpr(prob: Integer):PRISM!IntLitExpr
+{	var probExpr = new PRISM!IntLitExpr;
+	probExpr.value = prob.asInteger();
+	return probExpr;
+}
+
+
+
+// prob = getProb(oe);
+//to return a probability CONSTANT  from the stereotype 
+//BUT update.probability is type of Expr, NOT CONSTANT
+//IT DOES NOT WORK TO CREATE A CONSTANT FOR PROB
+
+operation getProb(oe: AD!ControlFlow, m: PRISM!Model, mod:PRISM!ModuleDef): PRISM!Expr {
+	
+	var prob;
+	if( oe.getAppliedStereotypes().size()>0){
+		for(st in oe.getAppliedStereotypes()){
+			if(oe.hasValue(st,"probability")){
+				prob = oe.getValue(st,"probability");
+				"".println();
+				("the edge is "+ oe.name).println();
+				//("probability of the edge is "+ prob).println();
+				if(prob.instanceOf(LiteralReal)){
+					"this is a concrete value: ".println();
+					prob.value.println();
+					return mkDoubleLitExpr(prob.value);
+				} else if(prob.instanceOf(Expression)){
+					if(prob.symbol.startsWith("RefToPara")){
+						"this is a p format".println();
+						//removeSymbolPrefix(prob.symbol).println();
+						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
+					} else if (prob.symbol = "-"){
+					 "this is a 1- p format".println();
+					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+					 //e.println();
+					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
+					 prob_string.println();
+					 return mkVarExpr(prob_string);//????????
+					 /*for(e in AD!Expression.allInstances()){
+						if(e.name = "referenceTo1-p1"){
+							e.operand.at(0).Value.print();
+							e.symbol.print();
+							removeSymbolPrefix(e.operand.at(1).symbol).print();
+						}
+					}*/
+					}
+				}
+				("oe.getValue(st,probability).type(): "+ oe.getValue(st,"probability").type()).println();
+				
+				("oe.getValue(st,probability): "+ oe.getValue(st,"probability")).println();
+				
+							
+			}
+		}
+	}
+}
+
+
+
+// prob = getProb(node);
+//to return a probability/reliability value from the stereotype for the node
+operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
+	var prob;
+	if( node.getAppliedStereotypes().size()>0){
+		for(st in node.getAppliedStereotypes()){
+			if(node.hasValue(st,"probability")){//we assume a node can only be annotated as either probability or reliability, but not both
+				prob = node.getValue(st,"probability");
+				if(prob.instanceOf(LiteralReal)){
+					"this is a concrete value: ".println();
+					prob.value.println();
+					return mkDoubleLitExpr(prob.value);
+				} else if(prob.instanceOf(Expression)){
+					if(prob.symbol.startsWith("RefToPara")){
+						"this is a p format".println();
+						//removeSymbolPrefix(prob.symbol).println();
+						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
+					} else if (prob.symbol = "-"){
+					 "this is a 1- p format".println();
+					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+					 //e.println();
+					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
+					 prob_string.println();
+					 return mkVarExpr(prob_string);//????????
+					 /*for(e in AD!Expression.allInstances()){
+						if(e.name = "referenceTo1-p1"){
+							e.operand.at(0).Value.print();
+							e.symbol.print();
+							removeSymbolPrefix(e.operand.at(1).symbol).print();
+						}
+					}*/
+					}
+				}
+			} else if(node.hasValue(st,"reliability")){
+				prob = node.getValue(st,"reliability");
+				if(prob.instanceOf(LiteralReal)){
+					"this is a concrete value: ".println();
+					prob.value.println();
+					return mkDoubleLitExpr(prob.value);
+				} else if(prob.instanceOf(Expression)){
+					if(prob.symbol.startsWith("RefToPara")){
+						"this is a p format".println();
+						//removeSymbolPrefix(prob.symbol).println();
+						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
+					} else if (prob.symbol = "-"){
+					 "this is a 1- p format".println();
+					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+					 //e.println();
+					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
+					 prob_string.println();
+					 return mkVarExpr(prob_string);//????????should the type be VarExpre?
+					
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+
+
+
+
+
+//to return a set of rewards of one action
+operation getRewards(node: AD!OpaqueAction): Set {
+	var rewards;
+	if( node.getAppliedStereotypes().size()>0){
+		for(st in node.getAppliedStereotypes()){
+			if(node.hasValue(st,"rewards")){
+				rewards = node.getValue(st,"rewards");
+				
+			} 
+		}
+	}
+	("rewards = "+ rewards).println();
+	return rewards;
+}
+
+
+
+//to return a set of rewards of an edge
+operation getRewards(edge: AD!ControlFlow): Set {
+	var rewards;
+	if( edge.getAppliedStereotypes().size()>0){
+		for(st in edge.getAppliedStereotypes()){
+			if(edge.hasValue(st,"rewards")){
+				rewards = edge.getValue(st,"rewards");
+				
+			} 
+		}
+	}
+	("rewards = "+ rewards).println();
+	return rewards;
+}
+
+
+
+//to return the reward value of the reward 
+operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
+	var reward_value;
+	if(rwd.value.instanceOf(LiteralReal)){
+		reward_value = rwd.value.value;
+		return mkDoubleLitExpr(reward_value);
+	} else if(rwd.value.instanceOf(LiteralInteger)){
+		reward_value = rwd.value.value;
+		return mkIntLitExpr(reward_value);
+	} else if(rwd.value.instanceOf(Expression)){
+		reward_value = rwd.value.name;
+		return mkVarExpr(reward_value);
+	}
+	
+}
+
+//mkNodeReward(rwname, rwgrd, rwvalue)
+//node reward has no action
+operation mkNodeReward(
+	rwname: String, 
+	rwgrd: PRISM!BoolExpr, 
+	rwvalue: PRISM!Expr): PRISM!Rewards{
+	var rewards = new PRISM!Rewards;
+	rewards.name = rwname;
+	var rewardItem = mkNodeRewardItem(rwgrd, rwvalue);
+	rewards.rewards.add(rewardItem);
+	
+	return rewards;
+	
+}
+
+
+//mkEdgeReward(rwname, rwaction, rwgrd, rwvalue)
+//node reward has no action
+operation mkEdgeReward(
+	rwname: String, 
+	rwaction: PRISM!Action,
+	rwgrd: PRISM!BoolExpr, 
+	rwvalue: PRISM!Expr): PRISM!Rewards{
+	var rewards = new PRISM!Rewards;
+	rewards.name = rwname;
+	var rewardItem = mkEdgeRewardItem(rwaction, rwgrd, rwvalue);
+	rewards.rewards.add(rewardItem);
+	
+	return rewards;
+}
+
+//mkNodeRewardItem(rwgrd, rwvalue)
+//node reward has no action
+operation mkNodeRewardItem(
+	rwgrd: PRISM!BoolExpr, 
+	rwvalue: PRISM!Expr): PRISM!RewardItem{
+	
+	var rewardItem = new PRISM!RewardItem;
+	rewardItem.grd = rwgrd;
+	rewardItem.reward = rwvalue;
+	return rewardItem;
+}
+
+
+//mkEdgeRewardItem(rwaction, rwgrd, rwvalue);
+operation mkEdgeRewardItem(
+	rwaction: PRISM!Action,
+	rwgrd: PRISM!BoolExpr, 
+	rwvalue: PRISM!Expr): PRISM!RewardItem{
+	
+	var rewardItem = new PRISM!RewardItem;
+	rewardItem.action = rwaction;
+	rewardItem.grd = rwgrd;
+	rewardItem.reward = rwvalue;
+	return rewardItem;
+}
+
+
+//create reward if the edge is annotated with reward, if not, do nothing,
+// there is no return value for this operation
+operation checkAndMkEdgeReward(
+	oe: AD!ControlFlow,
+	mod: PRISM!ModuleDef,
+	node: AD!OpaqueAction,
+	action: PRISM!Action,
+	const: PRISM!Constant,
+	m: PRISM!Model,
+	act: AD!Activity){
+		/******************************************
+		create reward for node.outgoingEdge
+		******************************************/
+				var r_edge;
+				if(edgeAnnotated(oe, "rewards")){
+				
+					var rwds = getRewards(oe);// rewds is a set
+					
+					
+					for(rw in rwds){
+						("reward.type = " + rw.type()).println();
+						("reward.name = " + rw.name).println();
+						("reward.value = " + rw.value).println();
+						//("reward.value.value = " + rw.value.value).println();
+						("getRewardValue(rwd) = " + getRewardValue(rw)).println();
+					}
+
+					for (rwd in rwds){
+						var rwaction = action;
+						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
+						var rwvalue = getRewardValue(rwd);
+						var rwname = /*act.name + "::" + */rwd.name;
+						r_edge = mkEdgeReward(rwname, rwaction, rwgrd, rwvalue);//edge reward needs action, so 4 parameters
+						("reward r_edge = " + r_edge).println();
+						var rewardIsDefined = false;
+						for(rw in m.rewards){
+						if(rw.name = r_edge.name){
+							rewardIsDefined = true;
+						}
+					}
+					if(rewardIsDefined){
+						("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward").println();
+						var rw = m.rewards.selectOne(reward|reward.name = r_edge.name);
+						rw.rewards.add(mkEdgeRewardItem(rwaction, rwgrd, rwvalue));
+						delete r_edge;
+					} else {
+						m.rewards.add(r_edge);
+					}
+				}
+				
+					
+				}
+	}
+	
+	
+	
+	
+
+//EdgeAnnotated(oe, "rewards")
+operation EdgeAnnotated(oe: PRISM!ControlFlow, stereotype: String): Boolean{
+
+}
+
+//an update with ONE assignment, AND PROBABILITY as Real
+operation mkProbUpdate (
+	prob: PRISM!Expr,
+	pc: PRISM!VarDecl, //(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal)
+	const: PRISM!Constant
+	): PRISM!Update {
+	("in operation mkProbUpdate , prob = " + prob).println();
+	("                            pc = " + pc).println();
+	("                            const = " + const).println();
+	var update = new PRISM!Update;
+	var probExpr;
+	if(prob.instanceOf(PRISM!VarExpr)){
+		probExpr = new PRISM!VarExpr;
+		probExpr.name = prob.name;
+		update.probability = probExpr;
+	}else if(prob.instanceOf(PRISM!DoubleLitExpr)){
+		probExpr = new PRISM!DoubleLitExpr;
+		probExpr.value = prob.value;
+		update.probability = probExpr;
+	}
+
+
+	("update.probability AAAA= " + update.probability).println();
+	update.assigns.add(mkAssignment(pc,const));	
+		update.println();
+	return update;
+
+}
+
+
+//an update with TWO assignment, AND PROBABILITY as Real
+operation mkProbUpdate (
+	prob: PRISM!Expr,
+	pc: PRISM!VarDecl, //(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal)
+	const: PRISM!Constant,
+	local_var: PRISM!VarDecl, //(DigitalCamera::M1::to_be_terminated'=true)
+	b: Boolean
+	): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	var probExpr = new PRISM!DoubleLitExpr;
+	probExpr.value = prob.value;
+	update.probability = probExpr;
+	update.assigns.add(mkAssignment(pc,const));	
+	update.assigns.add(mkAssignment(local_var,b));	
+	
+	return update;
+
+}
+
+//used when OpaqueAction is annotated with reliability
+//an update with 3 assignment, AND PROBABILITY as Real
+operation mkProbUpdate (
+	prob: PRISM!Expr, //reliability
+	pc: PRISM!VarDecl, //pc
+	const: PRISM!Constant, //INACTIVE
+	local_var: PRISM!VarDecl, //mod_toBeFailed
+	b: Boolean, //true
+	local_var1: PRISM!VarDecl, //mod_toBeTerminated 
+	b1: Boolean //true
+	): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	//var probExpr = new PRISM!DoubleLitExpr;
+	//probExpr.value = prob.asDouble();
+	//update.probability = probExpr;
+	update.probability = prob;
+	update.assigns.add(mkAssignment(pc,const));	
+	update.assigns.add(mkAssignment(local_var,b));	
+		update.assigns.add(mkAssignment(local_var1,b1));
+	return update;
+
+}
+
+
+//to assign a bool to a var
+operation mkAssignment(
+	update_var: PRISM!VarDecl, 
+	update_value: Boolean
+	) : PRISM!Assignment {
+	
+	var assign = new PRISM!Assignment;
+	assign.variable = update_var.name;
+	assign.value = new PRISM!BoolLitExpr;
+	assign.value.value = update_value;
+		
+	return assign;
+}
+
+
+
+//to assign a const to a var
+operation mkAssignment(
+	pc: PRISM!VarDecl, 
+	const: PRISM!Constant) : PRISM!Assignment {
+	
+	var assign = new PRISM!Assignment;
+	assign.variable = pc.name;
+	assign.value = new PRISM!VarExpr;
+	assign.value.name = const.name;
+		
+	return assign;
+}
+
+
+
+//mkCommand(action, grd, updates)
+//e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
+operation mkCommand(
+	action: PRISM!Action,
+	grd: PRISM!BoolExpr,
+	updates: Set): PRISM!Command{
+	var cmd = new PRISM!Command;
+	cmd.action = action; 
+	cmd.grd = grd;
+	cmd.updates = updates;
+	return cmd;
+}
+
+
+
+//this is used to update the expression of fomula "toBeTerminated"
+//toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+operation mkOrBoolExpr(
+	expr: PRISM!Expr, 
+	mod_toBeTerminated: PRISM!VarDecl): PRISM!OrBoolExpr{
+ 	var new_expr = new PRISM!OrBoolExpr;
+ 	new_expr.left = expr;
+ 	
+ 	new_expr.right = new PRISM!VarExpr;
+ 	new_expr.right = mkVarExpr(mod_toBeTerminated.name);
+ 	
+ 	return new_expr;
+ 	
+}
+
+//grd = getGuard(oe);
+//to return the guard of the edge (control flow, the outgoing edge of decision node) 
+operation getEdgeGuardVarExpr(oe: AD!ControlFlow, dn: AD!DecisionNode,act: AD!Activity, m: PRISM!Model): PRISM!Expr{
+	if(oe.`guard`.isDefined()){
+		var grdVar = new PRISM!VarDecl;
+		var grd = oe.`guard`.value;
+		if(not (grd = "else")){
+			grdVar = mkBoolVarDecl(act.name + "::"+ grd.asString(), false);
+			m.globals.add(grdVar);
+		}
+
+
+		if(grd = "else"){
+			grdVar = mkBoolVarDecl(act.name + "::"+ dn.name+"::"+grd.asString(), true);
+			m.globals.add(grdVar);
+			//TO DO: to set the value of else as negtive of (g1 or g2 or g3 ...)
+			/*
+			if(getAllEdgesFromNode(act,dn).excluding(oe).size()=1){
+				var value_expr = new PRISM!NotBoolExpr;
+				//  getAllEdgesFromNode(act,dn).excluding(oe).at(0).`guard`.value = charged
+				value_expr = mkNotBoolExpr(getAllEdgesFromNode(act,dn).excluding(oe).at(0).`guard`.value);
+				grdVar = mkBoolVarDecl(act,(dn.name+"::"+grd.asString()),value_expr.value.asString());
+				m.globals.add(grdVar);
+			} else if(getAllEdgesFromNode(act,dn).excluding(oe).size()>1){
+				var i = 0;
+				while(i<(getAllEdgesFromNode(act,dn).excluding(oe).size()-1)){
+					grd = grd + "&" ;
+					i++;
+				}
+			}*/
+						
+		}
+		
+		return mkVarExpr(grdVar.name);
+	} else {
+		return mkBoolLitExpr(true);
+	}		
+}
+
+
+
+operation addMap(maps: Sequence, tpl: Tuple, mod: PRISM!ModuleDef): Sequence {
+	var map = new Map;
+	map.put(tpl, mod);
+	maps.add(map);
+	
+	return maps;
+}
+
+
+//addMap(dummyNodeModuleSeq, node, newmod);
+//used for dummy module
+operation addMap(maps: Sequence, node: AD!MergeNode, mod: PRISM!ModuleDef): Sequence {
+	var map = new Map;
+	map.put(node, mod);
+	maps.add(map);
+	
+	return maps;
+}

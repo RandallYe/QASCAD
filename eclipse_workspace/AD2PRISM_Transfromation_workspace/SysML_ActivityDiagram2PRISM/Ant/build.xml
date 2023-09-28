@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<project default="main">
+	<property name="workspace.dir" value="/scratch/staff/ky582/SESAME_repo_for_code_model/sesame_activity_prism_workspace"/>
+	<property name="prism.model.name" value="six_dice_prism.model"/>
+	<property name="prism.code.name" value="six_dice.prism"/>
+	<property name="property.file.name" value="die.props"/>
+
+  	<target name="main">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/six_dice/six_dice.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/die.props"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+  		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${prism.code.name}"/>
+		  	<arg line="${property.file.name}"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	
+	<target name="parametric_six_dice">
+			<!-- 
+				1. Activity diagrams to PRISM model
+			-->
+			<epsilon.loadModel name="AD" type="UML">
+			    <parameter name="modelFile" value="/six_dice_parametric/six_dice.uml"/>
+			    <parameter name="readOnLoad" value="true"/>
+				<parameter name="storeOnDisposal" value="false"/>
+				<parameter name="expand" value="true"/>
+			</epsilon.loadModel>
+			
+		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="false" store="true"/>
+
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+				<!--
+				Enable or disable transformation logging messages
+				-->
+				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/die.props"/>
+				<model ref="AD"/>
+				<model ref="PRISM"/>
+			</epsilon.etl>
+			<epsilon.disposeModels/>
+				
+			<!-- 
+				2. PRISM model to code
+			-->
+			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="true" store="false"/>
+			
+			<epsilon.egl src="../transformation/PRISM.egx" >
+				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice.prism"/>
+				<model ref="PRISM"/>
+			</epsilon.egl>
+			
+			<epsilon.disposeModels/>
+		
+			<!-- 
+				3. Run verification
+			-->
+			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/" executable="prism" os="Linux" output="dir.txt">
+			  	<arg line="${prism.code.name}"/>
+			  	<arg line="${property.file.name}"/>
+				<arg line="-param p=0:1"/>
+				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/output.log" alwayslog="true"/>
+			</exec>
+		</target>
+	
+</project>

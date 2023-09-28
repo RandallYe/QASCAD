@@ -1,0 +1,1215 @@
+
+import "prism.eol";
+import "ad.eol";
+
+pre{
+	var toBeVisitedNodes = new Sequence;
+	var visitedNodes = new Sequence;
+	//nodeModuleMap is a map containing many map
+	var nodeModuleMap = new Map;
+	//'maps' is a sequence containing all the maps, each map cantain only one element
+	var maps = new Sequence;
+	//modSeqs is a sequence of sequence, the atomic sequence contains the maps for the same module
+	//the size of modSeqs is the same as the number of the modules created 
+	var modSeqs = new Sequence;
+	var dummyNodeModuleSeq = new Sequence;
+	var is_root = true;
+	
+	var progress_made = new Map;
+
+}
+
+
+rule activityToPrism
+transform act : AD!Activity
+to m : PRISM!Model
+{
+
+	m.modelType = PRISM!ModelType#DTMC;
+ 	
+ 	//to_be_terminated is defined as a formula instead of a global variable
+ 	var toBeTerminated = new PRISM!Formula;
+ 	
+ 	toBeTerminated.name = act.name + "::to_be_terminated";
+ 	// toBeTerminated.expr is set as false when defined, and will be updated when the local toBeTerminated is defined
+ 	toBeTerminated.expr = mkBoolLitExpr(false);
+ 	m.formulas.add(toBeTerminated);
+ 	toBeTerminated.expr.println();
+ 	
+ 	//an indicator if the formula toBeTerminated has ever been updated
+	var toBeTerminatedIsUpdated = false;
+		
+	var toBeFailed = new PRISM!Formula;
+ 	toBeFailed.name = act.name + "::to_be_failed";
+ 	toBeFailed.expr = mkBoolLitExpr(false);
+ 	m.formulas.add(toBeFailed);
+ 	var toBeFailedIsUpdated = false;
+			
+ 	var INACTIVE = mkConst("INACTIVE", -1);
+  	m.constants.add(INACTIVE);
+  	
+  	var terminated;
+
+
+/*******************************************
+// Pre-Processing activity diagram
+*******************************************/
+
+	//Initial nodes: for each initial node, every outgoing edge creates a new module
+	var init_nodes= act.ownedNode.select(n|n.type().name="InitialNode").sortBy(c | c.name) ;
+	for(inode in init_nodes){
+		for(oe in getAllEdgesFromNode(act,inode)){
+			var mod = mkModuleDef(mkModuleName(act,inode,oe), Sequence{}, Sequence{});
+			m.modules.add(mod);
+			if(is_root){
+				mod.vars.add(mkVarDecl(mod, -1, null, "0"));
+			} else {
+				mod.vars.add(mkVarDecl(mod, -1, null, "INACTIVE"));
+			}
+			
+			//add the initial node to the map
+			nodeModuleMap.put(Tuple {nd = inode, edg = oe}, mod);
+		    addMap(maps, Tuple {nd = inode, edg = oe}, mod);
+
+			"maps:".println();maps.println();
+			
+			//add the next node to the initial node to the map
+			nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+			addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+			"maps:".println();maps.println();
+			
+			toBeVisitedNodes.add(oe.target);
+			("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 67").println();
+		}
+		visitedNodes.add(inode);
+	}
+		
+ 	
+ 	
+ 	
+ 	//traverse all nodes in toBeVistedNodes (initial nodes not included)
+	traverseNodes(m, act, true, INACTIVE, toBeTerminated, toBeTerminatedIsUpdated);
+
+	
+	
+/*************************************************************************
+//Post-processing: Scan each Merge Node with a dummy module for the loop
+**************************************************************************/
+
+	while(dummyNodeModuleSeq.size()>0){
+		("\nthis is the post-processing section at line 78.  dummyNodeModuleSeq.size = "+ dummyNodeModuleSeq.size).println();
+		"\ndummyNodeModuleSeq.size()>0, LOOP is involved, the dummy module shall be processed as follow:".println();
+		var mp = dummyNodeModuleSeq.removeAt(0);
+		"mp:".println();
+		mp.println();
+		var node = mp.keySet().at(0);
+ 		var dummymod = mp.values().at(0);
+ 		
+ 		if(node.instanceOf(MergeNode)){
+ 			var setMods = Set{};
+ 			for (mp in maps.select(mp|mp.keySet().at(0).nd = node)){
+ 				setMods.add(mp.values().at(0));
+ 			}
+ 			
+ 			if(setMods.size() > 2) {
+ 				"setMods.size() > 2, do nothing".println();
+ 				//do nothing, keep using the dummy module
+ 			} else if(setMods.size() = 2 and not setMods.includes(dummymod)){
+ 				"setMods.size()  = 2 and not setMods.includes(dummymod), do nothing".println();
+ 				// do nothing, keep using the dummy module
+ 			} else if(setMods.size() = 2 and setMods.includes(dummymod)) { //setMods.includes(dummymod) MEANS that the loop and the merge outgoning path are in the same module, so all incoming should be in the same module
+ 			//therefore there should be only one module for all these maps (the maps in the normal module and the dummymodule), we need to change the module name of the dummynodemodule into the module name of the module created in the normal procedure
+ 				("setMods.size() = 2, it includes: " + setMods).println();
+ 				var rightmod = new PRISM!ModuleDef;
+ 				"setMods.size()  = 2 and setMods.includes(dummymod), replace dummy with rightmod".println();
+ 				// in this case, we use another module for the outgoing edge, and need to replace all occurrences of dummymod in nodeModuleMap by another moduel
+ 				if(setMods.at(0) = dummymod){//the first module is the dummy module, so we use the second module as the correct module name
+ 					rightmod  = setMods.at(1);
+ 				} else { //the second module is the dummy module, so we use the first module as the correct module name
+ 					rightmod  = setMods.at(0);
+ 				} 
+ 				
+ 				
+ 				//replace dummy module with rightmod module in the related maps
+ 				var i=1;
+ 				var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
+ 				for(mp in toBeReplaced){
+ 					addMap(maps, mp.keySet().at(0), rightmod);
+ 					//maps.add(mp.keySet().at(0), rightmod);
+ 					maps.remove(mp);
+ 					("replaced " + i + " times").println();
+ 					i++;
+ 				}
+ 				("\nCurrently, m.modules =  " +m.modules).println();
+ 				delete dummymod;
+ 				("after delet dummymod at line 144, Currently, m.modules =  " +m.modules).println();
+ 			} else if(setMods.size() = 1 and not setMods.includes(dummymod)){
+ 				"setMods.size()  =1 and not setMods.includes(dummymod), replace dummy with rightmod".println();
+ 				var rightmod  = setMods.at(0);
+ 				
+ 				var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
+ 				for(mp in toBeReplaced){
+ 					addMap(maps, mp.keySet().at(0), rightmod);
+ 					maps.remove(mp);
+ 				}
+ 				("\nCurrently, m.modules =  " +m.modules).println();
+ 				delete dummymod;
+ 				("after delet dummymod at line 142, Currently, m.modules =  " +m.modules).println();
+ 			} else {
+ 				//Error("Logic error: not possible!")
+ 			}
+ 		}
+	}
+	
+	
+/*************************************************************************
+Processing the nodeModuleMap as a sequence (modSeqs) of sequence(mdSeq)
+*************************************************************************/
+
+ 	for (md in m.modules){
+ 		var mdSeq = maps.select(m|m.values().at(0) = md);
+ 		modSeqs.add(mdSeq);
+ 		mdSeq.println();
+ 	}
+ 	("maps.size: " + maps.size()).println();
+ 	for(mp in maps){
+ 		mp.println();
+ 	}
+ 				
+ 				
+/********************************************
+Transformation: using modSeqs
+each modSeq sequence corresponding to a module
+*********************************************/
+
+ 	var is_main = true; 
+ 	
+ 	for(mdSeq in modSeqs){
+ 		"\nSTART PRINT".println();
+ 		("is_main = " + is_main).println();
+ 		var i = 0; //the index of map in the sequence
+ 		var const_num = 0;  //the number of constant created = init value of the const
+ 		
+ 				
+ 		//TO DO: CHANGE TO OPERATION: updateToBeTerminated
+ 		/***************************************************************/
+ 			var mod = mdSeq.at(0).values().at(0);
+ 			var mod_toBeTerminated = new PRISM!VarDecl;
+ 			if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
+ 				//hasAF, then need to create the local toBeTerminated, e.g., DigitalCamera::M1::to_be_terminated
+ 				//this var MUST be defined BEFORE the module start as it may be used at any point of the command creation
+				mod_toBeTerminated = mkBoolVarDecl(mod.name+"::to_be_terminated", false);
+				mod.vars.add(mod_toBeTerminated);
+				
+				//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+				if(toBeTerminatedIsUpdated){
+					toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+				} else {
+					toBeTerminated.expr = new PRISM!VarExpr;
+					toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+					toBeTerminatedIsUpdated = true;
+				} 
+			}
+			
+			var mod_toBeFailed;
+			if(hasReAnnoNode(mdSeq)){
+				mod_toBeFailed = mkBoolVarDecl(mod.name + "::to_be_failed", false);
+				mod.vars.add(mod_toBeFailed);
+				if(toBeFailedIsUpdated){
+					toBeFailed.expr = mkOrBoolExpr(toBeFailed.expr, mod_toBeFailed);
+				} else {
+					toBeFailed.expr = new PRISM!VarExpr;
+					toBeFailed.expr = mkVarExpr(mod_toBeFailed.name);
+					toBeFailedIsUpdated = true;
+				} 
+			}
+			
+			 		
+ 		
+ 		/***************************************************************
+ 		process each element (the map) in the sequence mdSeq
+ 		***************************************************************/
+ 		while(i<mdSeq.size()){ 
+ 			var node = mdSeq.at(i).keySet().at(0).nd;
+ 			var ie = mdSeq.at(i).keySet().at(0).edg;
+ 			//var mod = mdSeq.at(i).values().at(0);
+			("mod= "+ mod.name).println();
+			("node = "+node.name).println();
+			("ie = "+ ie.name).println();
+			
+			/*****************************************
+			             InitialNode
+			******************************************/
+			if(node.instanceOf(InitialNode) ){
+				//TO DO: can intial node have multiple outgoing?
+				
+				//create the FIRST constant for the module
+				//assign value of constant as 0, and update at the last
+				var const = mkConst((mod.name + "::" + node.name), const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				var const_nxt = mkConst(mod.name + "::" + mdSeq.at(i+1).keySet().at(0).nd.name, const_num);
+				
+				//create the FIRST command of the module
+				//first to create action, guard, updates RESPECTIVELY
+				//then the command 
+				var action = mkAction(mod, node.name);
+					
+				var grd = new PRISM!AndBoolExpr;
+				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+				
+				var updates = Set{};
+				if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment: local_to_be_terminated = true e.g., (DigitalCamera::M1::to_be_terminated'=true)
+				// e.g., in the command: [DigitalCamera::M1::TurnOff] (DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) &  (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal) &         (DigitalCamera::M1::to_be_terminated'=true);
+					updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+				} else {
+					updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+				}
+				mod.commands.add(mkCommand(action, grd, updates));
+				delete const_nxt;
+			
+			/*****************************************
+			             OpaqueAction
+			******************************************/
+			} else if(node.instanceOf(OpaqueAction)){
+				var const = mkConst(mod.name + "::" + node.name, const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				for(oe in getAllEdgesFromNode(act,node)){
+					var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num);
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					if(nodeAnnotated(node, "reliability")){
+						var action = mkAction(mod, node.name);
+						var prob = getPRValue(node);
+						var updates = Set{};
+						
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkProbUpdate(prob, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+						} else {
+							updates.add(mkProbUpdate(prob, mod.vars.at(0),const_nxt));
+							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+						}
+						mod.commands.add(mkCommand(action, grd, updates));
+					} else{//the node is not annotated with probability or reliability
+						var action = mkAction(mod, node.name);
+						var updates = Set{};
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						} else {
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						}
+						mod.commands.add(mkCommand(action, grd, updates));
+					}
+					delete const_nxt;
+					
+					/******************************************
+					create reward for node.outgoingEdge
+					******************************************/
+					var action = mkAction(mod, node.name);
+					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+				}
+				
+				
+				/******************************************
+				create reward for the action
+				******************************************/
+				var r_node;
+				if(nodeAnnotated(node, "rewards")){
+					var rwds = getRewards(node);// rewds is a set
+					
+					for (rwd in rwds){
+						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
+						var rwvalue = getRewardValue(rwd);
+						var rwname = act.name + "::" + rwd.name;
+						r_node = mkNodeReward(rwname, rwgrd, rwvalue);//node reward does not need action, so 3 parameters
+						//("reward r_node = " + r_node).println();
+						var rewardIsDefined = false;
+						for(rw in m.rewards){
+							if(rw.name = r_node.name){
+								rewardIsDefined = true;
+							}
+						}
+						if(rewardIsDefined){
+							//("r_node:"+ r_node.name +"has been defined, only add the reward item into the existing reward").println();
+							var rw = m.rewards.selectOne(reward|reward.name = r_node.name);
+							rw.rewards.add(mkNodeRewardItem(rwgrd, rwvalue));
+							delete r_node;
+						} else {
+							m.rewards.add(r_node);
+						}
+					}
+				}
+			} else if(node.instanceOf(ForkNode)){
+				var const = mkConst(mod.name + "::" + node.name, const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				//the next node of this fork node must be the target node of the 1st outgoing edge, in fact is should be the same as mdSeq.at(i+1).keySet().at(0).nd
+				var firstOEdge = getAllEdgesFromNode(act,node).sortEdgeByName().at(0);
+				var const_nxt = mkConst(mod.name + "::" + firstOEdge.target.name, const_num);
+
+				var action = mkSyncAction(act, node.name);
+				var grd = new PRISM!AndBoolExpr;
+				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+				var updates = Set{};
+				if(firstOEdge.target.instanceOf(ActivityFinalNode)){
+					updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+				} else {
+					updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+				}
+					
+				mod.commands.add(mkCommand(action, grd, updates));
+				delete const_nxt;
+			} else if(node.instanceOf(JoinNode)){
+				var const = mkConst(mod.name + "::" + node.name, const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				//only the first incoming edge of the join node can continue the path
+				if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
+					var oe = getAllEdgesFromNode(act,node).at(0);
+					var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+					var action = mkSyncAction(act, node.name);
+					
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					var updates = Set{};
+					if(oe.target.instanceOf(ActivityFinalNode)){
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+					} else {
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+					}
+					mod.commands.add(mkCommand(action, grd, updates));
+					delete const_nxt;
+				} else {//otherwise the path discontinue: INACTIVE
+					
+					var action = mkSyncAction(act, node.name);
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					var updates = Set{};
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+										
+					mod.commands.add(mkCommand(action, grd, updates));
+										
+				}
+			} else if(node.instanceOf(DecisionNode)){
+				var const = mkConst(mod.name + "::" + node.name, const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				var branchesProbabilistic = IsProbabilistic(act,node);
+				("branchesProbabilistic" + branchesProbabilistic).println();
+								
+				if(branchesProbabilistic){
+					
+					var action = mkAction(mod, node.name);
+					("\nTHIS DECISION NODE "+node.name + " IS TO BE PROCESSED").println();
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					var updates = Set{};
+					for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							var prob = getProb(oe,m,mod);
+							updates.add(mkUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+						} else {
+							var prob = getProb(oe,m,mod);
+							updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
+						}
+						delete const_nxt;
+					}
+					mod.commands.add(mkCommand(action, grd, updates));
+				} else{//generate multiple commands
+				
+					for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+						
+						var action = mkAction(mod, node.name);
+						
+						("\nthe oe to be processed is "+ oe.name).println();
+						var decision_edge_grd_expr = getEdgeGuardVarExpr(oe, node, act, m);
+						if(not decision_edge_grd_expr.isDefined()) {
+							("Created an undefined expression from " + node).errln();
+						}
+						("for the decision node " + node.name + " it's edge guard is  " + decision_edge_grd_expr).println();
+						("the action is "+ action ).println();
+						var grd = new PRISM!AndBoolExpr;
+						grd = mkAndBoolExpr( mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))), decision_edge_grd_expr) ;
+						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+						var updates = Set{};
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						} else {
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						}
+										
+						mod.commands.add(mkCommand(action, grd, updates));
+						//("mkCommand(action, grd, updates)'s action is :" +mkCommand(action, grd, updates).action).println();
+						delete const_nxt;
+					}
+				}
+			} else if(node.instanceOf(MergeNode)){
+				
+				var oe = getAllEdgesFromNode(act, node).at(0);
+				
+				//furtherMod is the module that contains the target of mergenode.oe, so this should be searched in the entire collection of 'maps'
+				var furtherMod = maps.selectOne(mp|mp.keySet().at(0) = Tuple{nd = oe.target, edg = oe}).values().at(0);
+				//var furtherMod = maps.selectOne(m|m.values().at(0) = keySet().selectOne)
+				if(furtherMod = mod){
+					"for this merge node, furtherMod = mod".println();
+					if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
+						
+						var const = mkConst(mod.name + "::" + node.name, const_num);
+						m.constants.add(const);
+						const_num++;
+						
+						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+						
+						var action = mkAction(mod, node.name);
+					
+						var grd = new PRISM!AndBoolExpr;
+						grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+						var updates = Set{};
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						} else {
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						}
+						
+						mod.commands.add(mkCommand(action, grd, updates));
+						
+						delete const_nxt;
+						("\nthis is the first time to process this merge node: "+ node.name).println();
+					} else {
+						("\nThis is the second time to process this merge node: "+ node.name + " so do nothing.").println();
+					}
+					
+				} else {
+				//furtherMod != mod, this path discontinues: pc' = INACTIVE
+				"for this merge node, furtherMod != mod".println();
+				("furtherMod = "+ furtherMod).println();
+				("mod = "+ mod).println();
+				
+					var const = mkConst(mod.name + "::" + node.name, const_num);
+					m.constants.add(const);
+					const_num++;
+					
+					//action for merge need to be sync: DigitalCamera::M1::E6 --->  node.name+"::"+ie.name
+					
+					var action = mkSyncAction(act, node.name+"::"+ie.name);
+					
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					var updates = Set{};
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+										
+					mod.commands.add(mkCommand(action, grd, updates));
+				}
+			} else if(node.instanceOf(FlowFinalNode)){
+								
+				var const = mkConst(mod.name + "::" + node.name, const_num);
+				m.constants.add(const);
+				const_num++;
+				
+				var action = mkAction(mod, node.name);
+					
+				var grd = new PRISM!AndBoolExpr;
+				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+				var updates = Set{};
+				updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+										
+				mod.commands.add(mkCommand(action, grd, updates));
+								
+			} else if(node.instanceOf(ActivityFinalNode)){
+				if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
+						
+					var const = mkConst(mod.name + "::" + node.name, const_num);
+					m.constants.add(const);
+					const_num++;
+				
+					var action = mkSyncAction(act, "terminate");		
+				
+					if(not is_main){// this AF node is not in the maim module, there should be terminate command for both this module and the main module
+						var grd = new PRISM!VarExpr;
+						grd = mkVarExpr(toBeTerminated.name);	
+					
+						//to creat terminate command, to set local to_be_terminated as false, and the module as INACTIVE
+						//e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
+						var updates = Set{};
+						updates.add(mkUpdate(mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));		
+					
+						mod.commands.add(mkCommand(action, grd, updates));
+					} else {//// this AF node is in the maim module, the terminate command for both this module and the main module shall be combined into one
+						//e.g., in Dice example
+						//[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
+						//we create this combined command after finishing the while loop	
+					}
+				}
+				//mod.commands.add(mkCommand(act, mod, node.name, mod.vars.at(0), const, toBeTerminated, INACTIVE));
+			}
+		 	i++;
+ 		}	
+ 		var mod = mdSeq.at(0).values().at(0);
+ 		
+ 		
+ 		//if not hasAF, also not a main module, then it has a normal terminate command
+ 		//e.g.,  [DigitalCamera::terminate]	(DigitalCamera::to_be_terminated) ->(DigitalCamera::M3::pc'=INACTIVE);
+ 		if(is_main  = false){
+ 			if(not hasAF(mdSeq)){
+ 				//add a sync command to end all the non-main module using action "terminate"
+ 				var action = mkSyncAction(act, "terminate");		
+				var grd = new PRISM!VarExpr;
+				grd = mkVarExpr(toBeTerminated.name);
+ 				var updates = Set{};
+				updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+				
+				mod.commands.add(mkCommand(action, grd, updates));
+			} 
+ 		}
+ 	
+ 	
+ 		//is_main = true, means this module(mdSeq) is set as the main module, so other modules has is_main as false
+ 	 	else if(is_main = true){
+ 	 		//create a variable "terminated" in the main module only
+			terminated = mkBoolVarDecl(act.name + "::terminated", false);
+			mod.vars.add(terminated);
+			
+ 	 		if(not hasAF(mdSeq)){
+ 	 			//create a termination command only for the main module
+				//e.g.,  [DigitalCamera::terminate]  (DigitalCamera::to_be_terminated) &         (!DigitalCamera::terminated) ->   (DigitalCamera::I0::E0::pc'=INACTIVE)&       (DigitalCamera::terminated'=true);
+			
+				var action = mkSyncAction(act, "terminate");		
+				var grd = new PRISM!AndBoolExpr;
+				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
+ 				var updates = Set{};
+				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true));
+				
+				mod.commands.add(mkCommand(action, grd, updates));
+			} else {// this AF node IS IN the maim module, the terminate command for both this module and the main module shall be combined into one
+				//e.g., in Dice example
+				//[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
+				
+				var action = mkSyncAction(act, "terminate");		
+				var grd = new PRISM!AndBoolExpr;
+				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
+ 				var updates = Set{};
+				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+				
+				mod.commands.add(mkCommand(action, grd, updates));
+			}
+			is_main = false;
+ 		}
+ 		mod.vars.at(0).type.top = const_num-1;
+ 			//the number of maps processed in mdSeq may be larger than the constant/command generated
+ 			//so need to declare a var const_num apart from the map index 'i'
+ 	}			
+ 	
+ 	if(not toBeFailedIsUpdated ){
+ 		delete toBeFailed;
+ 	}
+
+
+/*****************************************
+ generate parameters
+******************************************/
+
+for (p in AD!Parameter.allInstances()){
+	p.name.println();
+	p.println();
+	p.type.name.println();
+	if(not p.qualifiedName.startsWith("SysML")){//to filter out the embedded parameter for sysml
+		// get p's type
+		if(p.type.isDefined()) {
+			var typename = p.type.name;
+			if(typename = "Real") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
+				} else{
+					m.constants.add(mkConst(p.name));
+				}
+			} else if(typename = "Boolean") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
+				} else{
+					m.constants.add(mkConst_boolean(p.name));
+				}
+			} else if(typename = "Integer") {
+				if(p.defaultValue.isDefined()){
+					p.defaultValue.value.println();
+					m.constants.add(mkConst(p.name, p.defaultValue.value));
+				} else{
+					m.constants.add(mkConst_integer(p.name));
+				}
+			} else if(typename = "String") {
+			} else if(typename = "UnlimitedNatural") {
+				if(p.defaultValue.isDefined()){
+					m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, true));
+				} else{
+					m.constants.add(mkConst_natural(p.name));
+				}
+			}
+		} else {
+			// default type is real
+			m.constants.add(mkConst(p.name));
+		}
+	}
+
+}
+
+/*****************************************
+ generate properties
+******************************************/
+var properties = Set{};
+if( act.getAppliedStereotypes().size()>0){
+	for(st in act.getAppliedStereotypes()){
+		if(act.hasValue(st,"prproperties")){
+			properties = act.getValue(st,"prproperties");
+		}
+	}
+}
+	
+for(p in properties){
+	("Properties: " + p).println();
+	if("reaches at".isSubstringOf(p.value)){
+		//p.println();
+		//("p.value = " + p.value).println();
+		p.value = p.value.replace("reaches at", "reachesat");
+		//("p.value = " + p.value).println();
+		var p_splited = p.value.split(" ").println();
+		//("p_splited = " + p_splited).println();
+		var i = p_splited.indexOf("reachesat");
+		var i_act = i-1;
+		var i_state = i+1;
+		//("\nindex i = " + i).println();
+		//("i_state = " +i_state).println();
+		//p_splited.at(i_state).length().println();
+		var state;
+		state = p_splited.at(i_state).substring((p_splited.at(i_act).length()+2), (p_splited.at(i_state).length()-1));
+		//("state = " + state).println();
+		var newstate;
+		for(c in m.constants){
+			if(state.isSubstringOf(c.name)){
+				//("c.name = " + c.name).println();
+				newstate = c.name;
+				//("newstate = " + newstate).println();
+				break;
+			}
+		}
+		var pc = newstate.substring(0, newstate.length()-state.length()) + "pc";
+		//("pc = " + pc).println();
+		p.value = p.value.replace(act.name+"::"+state, newstate).replace(" "+act.name+" ", " "+ pc+" ").replace("reachesat", "=").replace("::", "_");
+		
+	} else 	if("terminated".isSubstringOf(p.value)){
+		p.println();
+		var i1 = p.value.indexOf("(");
+		var i2 = p.value.indexOf(")");
+		var stringToBeReplaced = p.value.substring(i1+1, i2);
+		//("\nstringToBeReplaced = " + stringToBeReplaced).println();
+		if(m.formulas.includes(toBeFailed)){
+			p.value = p.value.replace(stringToBeReplaced, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
+		} else{
+			p.value = p.value.replace(stringToBeReplaced, terminated.name).replace("::", "_");
+		}
+		
+		//("p.value = " + p.value).println();
+		
+	} else 	if("failed".isSubstringOf(p.value)){
+		//p.println();
+		var i1 = p.value.indexOf("(");
+		var i2 = p.value.indexOf(")");
+		var stringToBeReplaced = p.value.substring(i1+1, i2);
+		//("stringToBeReplaced = " + stringToBeReplaced).println();
+		if(m.formulas.includes(toBeFailed)){
+			p.value = p.value.replace(stringToBeReplaced, terminated.name+" & " + toBeFailed.name).replace("::", "_");
+		} else{
+			//Error("Logic error: not possible!")
+		}
+		//("p.value = " + p.value).println();
+	}
+	
+}
+
+var outputPropString = "";
+for(p in properties){
+	outputPropString = outputPropString + "\""+p.name+"\": " + p.value + "\n";
+	p.println();
+}
+
+//PROPS_FILEPATH is a parameter in configuration file to define the location of the prop file
+var filewriter = new Native("java.io.FileWriter")(PROPS_FILEPATH);
+//e.g., PROPS_FILEPATH = C:\\Users\\fy668\\workspace-papyrus\\sesame_sysml_markov_prism\\model\\travel_management_example\\prop.props
+var writer = new Native("java.io.BufferedWriter")(filewriter);
+writer.write(outputPropString);
+writer.close();
+
+}
+
+
+
+operation traverseNodes(
+	m : PRISM!Model, 
+	act: AD!Activity, 
+	is_root: Boolean, 
+	INACTIVE: PRISM!Constant, 
+	toBeTerminated: PRISM!Formula,
+	toBeTerminatedIsUpdated: Boolean
+	){
+	while(toBeVisitedNodes.notEmpty()){
+		//"\ntoBeVisitedNodes.at(0):".println();
+		//toBeVisitedNodes.at(0).name.println();
+		var node = toBeVisitedNodes.removeAt(0);
+		
+		if(node.instanceOf(OpaqueAction)){
+			//("\nthis is a opaqueaction node: " + node.name).println();
+			//find the module that stores the node
+			//'get' method can only take one parameter, not a set
+			
+			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+			for(oe in getAllEdgesFromNode(act,node)){
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+				//"maps:".println();maps.println();
+				toBeVisitedNodes.add(oe.target);
+				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 765").println();
+			}
+			visitedNodes.add(node);
+			("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
+			("\nvisitedNodes: "+visitedNodes).println();
+		} else if(node.instanceOf(ForkNode)){
+			("\nthis is a Fork node: " + node.name).println();
+			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+			var isFirst = true;
+			for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+				if(isFirst){
+					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+					addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+					//"maps:".println();maps.println();
+					isFirst = false;
+				} else {
+					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+					//("at line 767: A new module is created for the fork node: "+ node.name  + "modname: " +newmod.name).println();
+					m.modules.add(newmod);
+					//("Currently, m.modules =  " +m.modules).println();
+					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+					newmod.vars.add(pc);
+					
+					//create the constant for the fork node module
+					var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
+					
+					//create sync command, e.g.,
+					// [DigitalCamera::F1](DigitalCamera::F1::E3::pc= INACTIVE) &(!DigitalCamera::to_be_terminated) -> (DigitalCamera::F1::E3::pc'=DigitalCamera::F1::E3::DetLight);				
+					var action = mkSyncAction(act, node.name);
+					
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					var updates = Set{};
+					if(oe.target.instanceOf(ActivityFinalNode)){
+						
+						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+						//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
+			   
+						//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+						if(toBeTerminatedIsUpdated){
+							toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+						} else {
+							toBeTerminated.expr = new PRISM!VarExpr;
+							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+							toBeTerminatedIsUpdated = true;
+						} 
+			
+						updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						delete mod_toBeTerminated;
+						
+					} else {
+						updates.add(mkUpdate(pc, const_nxt));	
+					}
+						
+					newmod.commands.add(mkCommand(action, grd, updates));
+													
+					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+					//"maps:".println();maps.println();
+					delete const_nxt;//this constant is deleted, because it will be created again in the transformation section.
+				}
+				toBeVisitedNodes.add(oe.target);
+				("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 439").println();
+			}
+			visitedNodes.add(node);
+
+			("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
+			("\nvisitedNodes: "+visitedNodes).println();
+			
+			
+		} else if(node.instanceOf(JoinNode) and (not visitedNodes.includes(node))){
+			//("This is a join node: "  + node.name).println();
+		//to check if the source node to the first edge to the join node has been processed
+		// if yes, then path continues
+		//else, do noting ,wait source node to the first edge to be processed
+		//that is for join node, the path always continue for the first incoming edge
+		//The FIRST is determined by the names of the edges using sortBy(c | c.name)
+		
+			var ie = getAllEdgesToNode(act, node).sortEdgeByName().at(0);
+			//("DEBUG JOIN NODE: ies = "+ getAllEdgesToNode(act, node).sortEdgeByName()).println();
+			//("DEBUG JOIN NODE: ie.at(0) = "+ie.name).println();
+			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = ie.source));
+			if(not (mod.isDefined())){//"not (mod.isDefined()" means that the first incoming edge of this join node is not processed yet, we need to wait the first incoming t o be processed. Now we do nothing.
+			
+				toBeVisitedNodes.add(node);
+				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 836").println();
+				//"\nThe first incoming edge of this join node is not processed yet".println();
+			} else {
+				var oe = getAllEdgesFromNode(act,node).at(0);
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+				//"maps:".println();maps.println();
+				toBeVisitedNodes.add(oe.target);
+				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 844").println();
+				visitedNodes.add(node);
+				toBeVisitedNodes.remove(node);
+			}
+		
+		
+		} else if(node.instanceOf(DecisionNode)){
+			//("\nthis is a decision node: " + node.name).println();
+			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+			for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+				//("at line 854 oe: "+oe.name).println();
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+				//"maps:".println();maps.println();
+				toBeVisitedNodes.add(oe.target);
+				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 859").println();
+			}
+			visitedNodes.add(node);
+			
+			//("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
+			//("\nvisitedNodes: "+visitedNodes).println();
+			
+		} else if(node.instanceOf(MergeNode) and (not visitedNodes.includes(node))){ 
+			("\nthis is a merge node:" + node.name).println();
+			var all_source_vistied = true; //this should be checked using nodeModuleMap, if the incoming edge exists in nodeModuleMap, then it is "visited"
+			var new_module_needed = false;
+						
+			var ies = getAllEdgesToNode(act,node); 
+			for(i in ies){
+				//("i.name: " +i.name).println();
+				//"nodeModuleMap.get(nodeModuleMap.keySet.selectOne(t|t.edg = i)):".println();
+				
+				if(nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).isDefined() ){
+					all_source_vistied = all_source_vistied and true;
+					//"the map that contains the incoming edge is defined as: ".println();
+					//nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).name.println();
+				} else {
+					all_source_vistied = all_source_vistied and false;
+					//"Map that contains the incoming edge is not defined, need to wait.".println();
+				}
+			}
+			
+			//("all_source_vistied = " +all_source_vistied).println();
+			
+			//allocated_mods represents the existing modules that contain this merge node, 
+			//but it is possible that at this moment, some incoming edges of this merge have not been added into the MAP
+			var allocated_mods = new Set;
+			for(k in nodeModuleMap.keySet()){
+				if(k.nd = node){
+					allocated_mods.add(nodeModuleMap.get(k));
+				}
+			}
+			
+			//("\nallocated_mods: "+allocated_mods).println();
+			//("allocated_mods.size: "+allocated_mods.size()).println();
+						
+			//the incoming edged of the node are from different moduels, a new module for this merge node is needed
+			//it is possible that at this point some incoming edges have not be processed in any moduel yet 
+			if(allocated_mods.size()>1){
+				new_module_needed = true;
+			} else {
+				//2 CASES:
+				//a. in_same_module = true, i.e.,allocated_mods.size() = 1 and all_source_vistied
+				//b. all_source_vistied = false, so can not decide if new module is needed (module.size = 1, but not all incoming edges are in this module, we need to wait either the moudle.size will increase, or all the incoming edges have been processed)
+				new_module_needed = false;
+			}
+		
+			
+			if(new_module_needed ){
+			
+				"\nA new_module_needed needed so the creation is processed".println();
+				var oe = getAllEdgesFromNode(act,node).at(0);
+				var newmod = mkModuleDef(mkModuleName(act,node), Sequence{}, Sequence{});
+				//("at line 917: A new module is created for the merge node: "+ node.name  + "modname: " +newmod.name).println();
+				m.modules.add(newmod);
+				//("Currently, m.modules =  " +m.modules).println();
+				var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+				newmod.vars.add(pc);
+
+				var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
+				
+				//for each incoming edge, create a command
+				//E.G.,
+				//[DigitalCamera::M3::E15](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
+	//[DigitalCamera::M3::E16](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
+				for(ie in getAllEdgesToNode(act,node)){
+				
+					var action = mkSyncAction(act, node.name +"::" + ie.name);
+					
+					var grd = new PRISM!AndBoolExpr;
+					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+					
+					var updates = Set{};
+					if(oe.target.instanceOf(ActivityFinalNode)){
+					
+						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+				
+						//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
+			   
+						//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+						if(toBeTerminatedIsUpdated){
+							toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+						} else {
+							toBeTerminated.expr = new PRISM!VarExpr;
+							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+							toBeTerminatedIsUpdated = true;
+						} 
+			
+						updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						delete mod_toBeTerminated;
+						
+					} else {
+						updates.add(mkUpdate(pc, const_nxt));	
+					}
+					newmod.commands.add(mkCommand(action, grd, updates));
+				}
+				delete const_nxt;//because the const for the module will be generated again later in the transformation section
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+				//"maps:".println();maps.println();
+				toBeVisitedNodes.add(oe.target);
+				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 965").println();
+				
+				toBeVisitedNodes.remove(node);
+				visitedNodes.add(node);
+				
+				("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
+				//("\nvisitedNodes: "+visitedNodes).println();
+				
+			} else if(all_source_vistied and (not new_module_needed)){// continue the path within the same module
+				//"all_source_vistied =true and new_module_needed = false at line 974.".println();
+				
+				var oe = getAllEdgesFromNode(act,node).at(0);
+				var existingmod = allocated_mods.at(0);
+				
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, existingmod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, existingmod);
+				//"maps:".println();maps.println();
+				
+				toBeVisitedNodes.add(oe.target);
+				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 633").println();
+				
+				toBeVisitedNodes.remove(node);
+				visitedNodes.add(node);
+				
+				//("toBeVisitedNodes: "+toBeVisitedNodes).println();
+				//("visitedNodes: "+visitedNodes).println();
+			
+			} 
+				//("FOR MERGE NODE WHEN NOT ALL INCOMING EDGES ARE VISITED, toBeVisitedNodes.size() = "+toBeVisitedNodes.size()).println();
+				//all_source_vistied == false, new_module_needed == false
+			else{	
+			if(toBeVisitedNodes.size()=0){
+				"\ntoBeVisitedNodes.size()=0".println();
+				//("the current merge node is "+ node.name).println();
+				"The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED".println();
+					var oe = getAllEdgesFromNode(act,node).at(0);
+					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+					("at line 1002: A new module is created for the merge node for dummy? "+ node.name + " modname: " +newmod.name).println();
+					//("newmod.name = " + newmod.name).println();
+					//TO DO: I am not sure whether the follow line is needed
+					m.modules.add(newmod);
+					//("Currently, m.modules =  " +m.modules).println();
+					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+					newmod.vars.add(pc);
+				
+					for(ie in getAllEdgesToNode(act,node)){
+						var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as we only need the name
+						
+						var action = mkSyncAction(act, node.name +"::" + ie.name);
+					
+						var grd = new PRISM!AndBoolExpr;
+						grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+						
+						var updates = Set{};
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							
+							var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+				
+							//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
+			   
+							//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+							if(toBeTerminatedIsUpdated){
+								toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+							} else {
+								toBeTerminated.expr = new PRISM!VarExpr;
+								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+								toBeTerminatedIsUpdated = true;
+							} 
+							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							delete mod_toBeTerminated;
+							
+						} else {
+							updates.add(mkUpdate(pc, const_nxt));	
+						}
+							
+						newmod.commands.add(mkCommand(action, grd, updates));
+						
+						delete const_nxt;
+					}
+					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+					//"maps:".println();maps.println();
+					
+					addMap(dummyNodeModuleSeq, node, newmod);
+					
+					toBeVisitedNodes.add(oe.target);
+					("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668").println();
+					visitedNodes.add(node);
+					
+					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
+					//("visitedNodes: "+visitedNodes).println();
+				} else // there might be multiple loops, progress_made set to false when first time that only merge node left in toBeVisitedNodes
+				if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n|not n.instanceOf(MergeNode)).size()=0 and progress_made.isEmpty()){
+					("toBeVisitedNodes = "+toBeVisitedNodes).println();
+					"Only merge left, and there are more than one merge, so set progress_made as true for all merge nodes at line 1059, this is the first time that only merge node left".println();
+					for(n in toBeVisitedNodes.select(n|n.instanceOf(MergeNode))){
+						progress_made.put(n,true);
+					}
+					progress_made.put(node,true);
+					toBeVisitedNodes.add(node);
+					continue;
+				}else if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and progress_made.get(node)){// if there is node with progress_made this is the second time meeting this merge node when only merge nodes left in toBeVisited
+					"\nIf the node is progress_made, this is the second time meeting this merge node when only merge nodes left in toBeVisited, so we set the node to progress_made as false at line 1067".println();
+					progress_made.remove(node);
+					progress_made.put(node,false);
+					toBeVisitedNodes.add(node);
+				}else if (toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and  progress_made.values().asSet().size()=1 and progress_made.values().asSet().at(0)= false) {
+				"This is when all merge nodes are making no progress, then a dummy module should be made for this merge node at line 1072".println();
+				"The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED for multiple loops".println();
+					var oe = getAllEdgesFromNode(act,node).at(0);
+					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+					("At line 1076: A new module is created for the merge node for dummy? "+ node.name + "modname: " +newmod.name).println();
+					//TO DO: not sure whether the follow line is needed
+					m.modules.add(newmod);
+					//("Currently, m.modules =  " +m.modules).println();
+					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+					newmod.vars.add(pc);
+					
+					for(ie in getAllEdgesToNode(act,node)){
+						var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as this constand will be deleted and recreated in the transformation section
+						
+						var action = mkSyncAction(act, node.name +"::" + ie.name);
+					
+						var grd = new PRISM!AndBoolExpr;
+						grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+						
+						var updates = Set{};
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							
+							var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+				
+							//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
+			   
+							//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+							if(toBeTerminatedIsUpdated){
+								toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+							} else {
+								toBeTerminated.expr = new PRISM!VarExpr;
+								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+								toBeTerminatedIsUpdated = true;
+							} 
+							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							delete mod_toBeTerminated;
+						} else {
+							updates.add(mkUpdate(pc, const_nxt));	
+						}
+						newmod.commands.add(mkCommand(action, grd, updates));
+						
+						delete const_nxt;
+					}
+					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+					//"maps:".println();maps.println();
+					
+					addMap(dummyNodeModuleSeq, node, newmod);
+					toBeVisitedNodes.add(oe.target);
+					("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668").println();
+					visitedNodes.add(node);
+					
+					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
+					//("visitedNodes: "+visitedNodes).println();
+					
+					//to clear progress_made 
+					progress_made.clear();
+				}
+				
+				else {
+					"\nThe last else in line 1132 is processed".println();
+					
+					toBeVisitedNodes.add(node);
+					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
+					//("visitedNodes: "+visitedNodes).println();
+				}
+			}
+		
+		} else if(node.instanceOf(FlowFinalNode) and (not visitedNodes.includes(node))){
+			"\nThis is a FlowFinalNode node".println();
+			visitedNodes.add(node);
+		} else if(node.instanceOf(ActivityFinalNode) and (not visitedNodes.includes(node))){
+			"\nThis is a ActivityFinalNode  node".println();
+			visitedNodes.add(node);
+		} else if(node.instanceOf(CallBehaviorAction)){
+			traverseNodes(node.behavior, false);			
+			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+			for(oe in getAllEdgesFromNode(act,node)){
+				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+				//"maps:".println();maps.println();
+				toBeVisitedNodes.add(oe.target);				
+			}
+			visitedNodes.add(node);
+		} 
+	}
+}
+
+/*
+operation LiteralInteger toExpr(): PRISM!IntLitExpr {
+	return mkIntLitExpr(self.value);
+}
+
+operation LiteralReal toExpr(): PRISM!DoubleLitExpr {
+	return mkDoubleLitExpr(self.value);
+}
+
+operation Expression toExpr(): PRISM!Expr {
+	if(prob.symbol.startsWith("RefToPara")){
+		return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
+	} else if (prob.symbol = "-"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+		return mkMinusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
+	} else if (prob.symbol = "+"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
+		return mkPlusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
+	}
+}
+*/
+
+
