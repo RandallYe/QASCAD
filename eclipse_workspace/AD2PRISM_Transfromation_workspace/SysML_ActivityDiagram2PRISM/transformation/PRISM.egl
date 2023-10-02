@@ -66,22 +66,14 @@ formula [%=f.name.format()%] = [%=f.expr.printExpr(true).format()%];
 
 [%for (r in m.rewards) { %]
 
+
 rewards "[%=r.name.format()%]"
 [%for(rewardItem in r.rewards){%]
-	[%if(rewardItem.action.isDefined()){
-		if(rewardItem.reward.instanceOf(VarExpr)){%]
-	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
-		[%}else if(rewardItem.reward.instanceOf(DoubleLitExpr)){%]
-	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
-		[%}else if(rewardItem.reward.instanceOf(IntLitExpr)){%]
-	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
-		[%}
-	} else if(rewardItem.reward.instanceOf(VarExpr)){%]
-	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.name%];	
-		[%}else if(rewardItem.reward.instanceOf(DoubleLitExpr)){%]
-	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.value%];
-		[%}%]
-[% }%]
+	[%if(rewardItem.action.isDefined()){%]
+	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.printExpr(true)%];	
+	[%}else {%]
+	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.printExpr(true)%];	
+	[%} }%]
 endrewards
 [% }%]
 

@@ -100,5 +100,6 @@ operation Set sortEdgeByName(): Sequence{
 }
 
 operation removeSymbolPrefix(symbol): String{
+	("in operation removeSymbolPrefix(),  symbol = " + symbol).println();
 	return symbol.substring(10, (symbol.length()-1));
 }

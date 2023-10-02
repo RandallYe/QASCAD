@@ -1,12 +1,90 @@
-operation mkBoolLitExpr(b: Boolean): PRISM!BoolLitExpr{
-	var bexpr = new PRISM!BoolLitExpr;
-	bexpr.value = b;
-	return bexpr;
+
+
+operation AD!LiteralInteger toExpr(): PRISM!IntLitExpr {
+	return mkIntLitExpr(self.value);
+}
+
+operation AD!LiteralReal toExpr(): PRISM!DoubleLitExpr {
+	return mkDoubleLitExpr(self.value);
 }
 
 
-	
-	
+
+operation AD!LiteralBoolean toExpr(): PRISM!BoolLitExpr{
+	return mkBoolLitExpr(self.value);
+}
+
+
+operation mkDoubleLitExpr(value: Real):PRISM!DoubleLitExpr
+{	var expr = new PRISM!DoubleLitExpr;
+	expr.value = value.asDouble();
+	return expr;
+}
+
+operation mkIntLitExpr(value: Integer):PRISM!IntLitExpr
+{	var expr = new PRISM!IntLitExpr;
+	expr.value = value.asInteger();
+	return expr;
+}
+
+operation mkBoolLitExpr(value: Boolean):PRISM!BoolLitExpr
+{	var expr = new PRISM!BoolLitExpr;
+	expr.value = value;
+	return expr;
+}
+
+
+
+operation AD!Expression toExpr(): PRISM!Expr {
+	var output;
+	if(self.symbol.startsWith("RefToPara")){
+		return(mkVarExpr(removeSymbolPrefix(self.symbol)));
+	} else if (self.symbol = "-"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
+		output = mkMinusExpr(e.operand.at(0).toExpr(), e.operand.at(1).toExpr());
+		//("at line 45 of prism.eol, the type of output is "+ output.type().name).println();
+		return output;
+	} else if (self.symbol = "+"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
+		return mkPlusExpr(e.operand.at(0).toExpr(), e.operand.at(1).toExpr());
+	} else if (self.symbol = "*"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
+		return mkMultExpr(e.operand.at(0).toExpr(), e.operand.at(1).toExpr());
+	} else if (self.symbol = "/"){
+		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
+		return mkDivExpr(e.operand.at(0).toExpr(), e.operand.at(1).toExpr());
+	} 
+}
+
+operation mkMinusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!MinusExpr{
+	var m = new PRISM!MinusExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+operation mkPlusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!PlusExpr{
+	var m = new PRISM!PlusExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+operation mkDivExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!DivExpr{
+	var m = new PRISM!DivExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+operation mkMultExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!MultExpr{
+	var m = new PRISM!MultExpr;
+	m.left = l;
+	m.right = r;
+	return m;
+}
+
+
 
 //'hasAF' indicates if this module contains ActivityFinalNode, if yes, we need to define a local variable: mod_toBeTerminated
 //TO DO: THIS DOES NOT WORK FOR CASES THAT HAVE MULTIPLE AF IN THE MODULE
@@ -39,19 +117,8 @@ operation hasReAnnoNode(mdSeq: Sequence):Boolean{
 }
 
 
-operation mkMinusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!MinusExpr{
-	var m = new PRISM!MinusExpr;
-	m.left = l;
-	m.right = r;
-	return m;
-}
 
-operation mkPlusExpr(l: PRISM!Expr, r:PRISM!Expr):PRISM!PlusExpr{
-	var m = new PRISM!PlusExpr;
-	m.left = l;
-	m.right = r;
-	return m;
-}
+
 
 operation mkModuleDef(mod_name: String, vs: Sequence, cmds: Sequence): PRISM!ModuleDef {
 	
@@ -369,18 +436,6 @@ operation IsProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
 
 
 
-operation mkDoubleLitExpr(prob: Real):PRISM!DoubleLitExpr
-{	var probExpr = new PRISM!DoubleLitExpr;
-	probExpr.value = prob.asDouble();
-	return probExpr;
-}
-
-operation mkIntLitExpr(prob: Integer):PRISM!IntLitExpr
-{	var probExpr = new PRISM!IntLitExpr;
-	probExpr.value = prob.asInteger();
-	return probExpr;
-}
-
 
 
 // prob = getProb(oe);
@@ -391,13 +446,17 @@ operation mkIntLitExpr(prob: Integer):PRISM!IntLitExpr
 operation getProb(oe: AD!ControlFlow, m: PRISM!Model, mod:PRISM!ModuleDef): PRISM!Expr {
 	
 	var prob;
+	var output;
 	if( oe.getAppliedStereotypes().size()>0){
 		for(st in oe.getAppliedStereotypes()){
 			if(oe.hasValue(st,"probability")){
 				prob = oe.getValue(st,"probability");
-				"".println();
-				("the edge is "+ oe.name).println();
+				("\nthe edge is "+ oe.name).println();
 				//("probability of the edge is "+ prob).println();
+				output = prob.toExpr();
+				("at line 457, output = " + output).println();
+				return output;
+				/*
 				if(prob.instanceOf(LiteralReal)){
 					"this is a concrete value: ".println();
 					prob.value.println();
@@ -407,22 +466,23 @@ operation getProb(oe: AD!ControlFlow, m: PRISM!Model, mod:PRISM!ModuleDef): PRIS
 						"this is a p format".println();
 						//removeSymbolPrefix(prob.symbol).println();
 						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
-					} else if (prob.symbol = "-"){
+					} else	if (prob.symbol = "-"){
 					 "this is a 1- p format".println();
 					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
 					 //e.println();
-					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
+					 ("at line 473, the first operand's type is " + e.operand.at(0).type().name).println();
+					 ("at line 473, the first operand's value's type is " + e.operand.at(0).value.type().name).println();
+					 ("at line 473, the second operand's type is " + e.operand.at(1).type().name).println();
+					 ("at line 473, the second operand's 1st op type is " + e.operand.at(1).operand.at(0).type().name).println();
+					 ("at line 473, the second operand's 1st op type is " + e.operand.at(1).operand.at(1).type().name).println();
+					  
+					 var prob_sting = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
 					 prob_string.println();
+					 "this is line 468".println();
 					 return mkVarExpr(prob_string);//????????
-					 /*for(e in AD!Expression.allInstances()){
-						if(e.name = "referenceTo1-p1"){
-							e.operand.at(0).Value.print();
-							e.symbol.print();
-							removeSymbolPrefix(e.operand.at(1).symbol).print();
-						}
-					}*/
+					
 					}
-				}
+				}*/
 				("oe.getValue(st,probability).type(): "+ oe.getValue(st,"probability").type()).println();
 				
 				("oe.getValue(st,probability): "+ oe.getValue(st,"probability")).println();
@@ -443,6 +503,8 @@ operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
 		for(st in node.getAppliedStereotypes()){
 			if(node.hasValue(st,"probability")){//we assume a node can only be annotated as either probability or reliability, but not both
 				prob = node.getValue(st,"probability");
+				return prob.toExpr();
+				/*
 				if(prob.instanceOf(LiteralReal)){
 					"this is a concrete value: ".println();
 					prob.value.println();
@@ -456,20 +518,17 @@ operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
 					 "this is a 1- p format".println();
 					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
 					 //e.println();
+					 ("at line 515, operand's type is " + e.operand.at(0).value.type().name).println();
 					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
 					 prob_string.println();
 					 return mkVarExpr(prob_string);//????????
-					 /*for(e in AD!Expression.allInstances()){
-						if(e.name = "referenceTo1-p1"){
-							e.operand.at(0).Value.print();
-							e.symbol.print();
-							removeSymbolPrefix(e.operand.at(1).symbol).print();
-						}
-					}*/
+					 
 					}
-				}
+				}*/
 			} else if(node.hasValue(st,"reliability")){
 				prob = node.getValue(st,"reliability");
+				return prob.toExpr();
+				/*
 				if(prob.instanceOf(LiteralReal)){
 					"this is a concrete value: ".println();
 					prob.value.println();
@@ -488,7 +547,7 @@ operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
 					 return mkVarExpr(prob_string);//????????should the type be VarExpre?
 					
 					}
-				}
+				}*/
 			}
 		}
 	}
@@ -528,7 +587,7 @@ operation getRewards(edge: AD!ControlFlow): Set {
 			} 
 		}
 	}
-	("rewards = "+ rewards).println();
+	("at line 590, rewards = "+ rewards).println();
 	return rewards;
 }
 
@@ -536,6 +595,10 @@ operation getRewards(edge: AD!ControlFlow): Set {
 
 //to return the reward value of the reward 
 operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
+	var output = rwd.value.toExpr();
+	("at line 599, the output = " + output).println();
+	return output;
+	/*
 	var reward_value;
 	if(rwd.value.instanceOf(LiteralReal)){
 		reward_value = rwd.value.value;
@@ -547,7 +610,7 @@ operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
 		reward_value = rwd.value.name;
 		return mkVarExpr(reward_value);
 	}
-	
+*/
 }
 
 //mkNodeReward(rwname, rwgrd, rwvalue)
@@ -604,6 +667,10 @@ operation mkEdgeRewardItem(
 	rewardItem.action = rwaction;
 	rewardItem.grd = rwgrd;
 	rewardItem.reward = rwvalue;
+	("rewardItem = " + rewardItem).println();
+	("rewardItem.action = " + rewardItem.action).println();
+	("rewardItem.grd = " + rewardItem.grd).println();
+	("rewardItem.reward = " + rewardItem.reward).println();
 	return rewardItem;
 }
 
@@ -634,31 +701,30 @@ operation checkAndMkEdgeReward(
 						//("reward.value.value = " + rw.value.value).println();
 						("getRewardValue(rwd) = " + getRewardValue(rw)).println();
 					}
-
+					("at line 700, rwds = " + rwds + "and edge is "+ oe.name).println();
 					for (rwd in rwds){
 						var rwaction = action;
 						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
 						var rwvalue = getRewardValue(rwd);
 						var rwname = /*act.name + "::" + */rwd.name;
 						r_edge = mkEdgeReward(rwname, rwaction, rwgrd, rwvalue);//edge reward needs action, so 4 parameters
-						("reward r_edge = " + r_edge).println();
+						("at line 707, reward r_edge = " + r_edge).println();
+						("at line 708, reward name = " + rwd.name).println();
 						var rewardIsDefined = false;
 						for(rw in m.rewards){
-						if(rw.name = r_edge.name){
-							rewardIsDefined = true;
+							if(rw.name = r_edge.name){
+								rewardIsDefined = true;
+							}
+						}
+						if(rewardIsDefined){
+							("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward").println();
+							var rw = m.rewards.selectOne(reward|reward.name = r_edge.name);
+							rw.rewards.add(mkEdgeRewardItem(rwaction, rwgrd, rwvalue));
+							delete r_edge;
+						} else {
+							m.rewards.add(r_edge);
 						}
 					}
-					if(rewardIsDefined){
-						("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward").println();
-						var rw = m.rewards.selectOne(reward|reward.name = r_edge.name);
-						rw.rewards.add(mkEdgeRewardItem(rwaction, rwgrd, rwvalue));
-						delete r_edge;
-					} else {
-						m.rewards.add(r_edge);
-					}
-				}
-				
-					
 				}
 	}
 	
@@ -681,6 +747,9 @@ operation mkProbUpdate (
 	("                            pc = " + pc).println();
 	("                            const = " + const).println();
 	var update = new PRISM!Update;
+	update.probability = prob;
+	
+	/*
 	var probExpr;
 	if(prob.instanceOf(PRISM!VarExpr)){
 		probExpr = new PRISM!VarExpr;
@@ -691,11 +760,10 @@ operation mkProbUpdate (
 		probExpr.value = prob.value;
 		update.probability = probExpr;
 	}
+	*/
 
-
-	("update.probability AAAA= " + update.probability).println();
 	update.assigns.add(mkAssignment(pc,const));	
-		update.println();
+	//update.println();
 	return update;
 
 }
@@ -711,9 +779,22 @@ operation mkProbUpdate (
 	): PRISM!Update {
 	
 	var update = new PRISM!Update;
-	var probExpr = new PRISM!DoubleLitExpr;
-	probExpr.value = prob.value;
-	update.probability = probExpr;
+	update.probability = prob;
+	
+	/*
+	var probExpr;
+	if(prob.instanceOf(PRISM!VarExpr)){
+		probExpr = new PRISM!VarExpr;
+		probExpr.name = prob.name;
+		update.probability = probExpr;
+	}else if(prob.instanceOf(PRISM!DoubleLitExpr)){
+		probExpr = new PRISM!DoubleLitExpr;
+		probExpr.value = prob.value;
+		update.probability = probExpr;
+	}
+	*/
+	
+
 	update.assigns.add(mkAssignment(pc,const));	
 	update.assigns.add(mkAssignment(local_var,b));	
 	
@@ -734,13 +815,11 @@ operation mkProbUpdate (
 	): PRISM!Update {
 	
 	var update = new PRISM!Update;
-	//var probExpr = new PRISM!DoubleLitExpr;
-	//probExpr.value = prob.asDouble();
-	//update.probability = probExpr;
+	
 	update.probability = prob;
 	update.assigns.add(mkAssignment(pc,const));	
 	update.assigns.add(mkAssignment(local_var,b));	
-		update.assigns.add(mkAssignment(local_var1,b1));
+	update.assigns.add(mkAssignment(local_var1,b1));
 	return update;
 
 }

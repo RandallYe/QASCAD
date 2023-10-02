@@ -419,7 +419,7 @@ each modSeq sequence corresponding to a module
 						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
 						if(oe.target.instanceOf(ActivityFinalNode)){
 							var prob = getProb(oe,m,mod);
-							updates.add(mkUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+							updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
 						} else {
 							var prob = getProb(oe,m,mod);
 							updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
@@ -1190,26 +1190,5 @@ operation traverseNodes(
 	}
 }
 
-/*
-operation LiteralInteger toExpr(): PRISM!IntLitExpr {
-	return mkIntLitExpr(self.value);
-}
-
-operation LiteralReal toExpr(): PRISM!DoubleLitExpr {
-	return mkDoubleLitExpr(self.value);
-}
-
-operation Expression toExpr(): PRISM!Expr {
-	if(prob.symbol.startsWith("RefToPara")){
-		return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
-	} else if (prob.symbol = "-"){
-		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
-		return mkMinusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
-	} else if (prob.symbol = "+"){
-		var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
-		return mkPlusExpr(e.operand.at(0).value.toExpr(), e.operand.at(1).value.toExpr());
-	}
-}
-*/
 
 
