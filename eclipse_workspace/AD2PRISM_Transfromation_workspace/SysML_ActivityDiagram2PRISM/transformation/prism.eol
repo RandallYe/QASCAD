@@ -347,6 +347,18 @@ operation mkNotBoolExpr(
 }
 
 
+//update = true
+operation mkTrueUpdate(): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	//update.probability = 1;
+	
+	update.assigns.add(mkSkipAssignment());	
+	
+	return update;
+
+}
+
 //NO probability involved
 //ONE assignment
 //e.g.,(DigitalCamera::I0::E0::pc'=INACTIVE)
@@ -854,7 +866,13 @@ operation mkAssignment(
 	return assign;
 }
 
-
+//update = true
+operation mkSkipAssignment(): PRISM!AbsAssignment{
+	var assign = new PRISM!Skip;
+	"at prism.eol line 860".println();
+	assign.type().name.println();
+	return assign;
+}
 
 //mkCommand(action, grd, updates)
 //e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
@@ -869,7 +887,16 @@ operation mkCommand(
 	return cmd;
 }
 
-
+operation mkCommand(
+	//action: PRISM!Action,
+	grd: PRISM!BoolExpr,
+	updates: Set): PRISM!Command{
+	var cmd = new PRISM!Command;
+	//cmd.action = action; 
+	cmd.grd = grd;
+	cmd.updates = updates;
+	return cmd;
+}
 
 //this is used to update the expression of fomula "toBeTerminated"
 //toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);

@@ -607,6 +607,14 @@ each modSeq sequence corresponding to a module
 				
 				mod.commands.add(mkCommand(action, grd, updates));
 			}
+			
+			// This is only for root activity
+			//[] (modname::pc=INACTIVE) & ({activity.name}::terminated) &(!{activity.name}::to_be_terminated) -> true;
+			var grd = new PRISM!AndBoolExpr;
+			grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), INACTIVE), mkAndBoolExpr(mkVarExpr(terminated.name), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))));
+ 			var updates = Set{};
+ 			updates.add(mkTrueUpdate());
+			mod.commands.add(mkCommand(grd, updates));
 			is_main = false;
  		}
  		mod.vars.at(0).type.top = const_num-1;
