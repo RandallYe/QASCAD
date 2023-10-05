@@ -86,28 +86,17 @@
     <packagedElement xmi:type="uml:LiteralString" xmi:id="_Hks40FFvEe6C5v3mLNZObw" value="p5"/>
     <packagedElement xmi:type="uml:LiteralString" xmi:id="_F_ChkFF6Ee6C5v3mLNZObw" value="pa"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_ygJR8FITEe6b35UbuRRGnA" name="ReferenceToP1_name" symbol="RefToPara(p1)"/>
-    <packagedElement xmi:type="uml:Expression" xmi:id="_ccyUMFIuEe6b35UbuRRGnA" name="1- (p1*3 + p2/2)" symbol="-">
+    <packagedElement xmi:type="uml:Expression" xmi:id="_ccyUMFIuEe6b35UbuRRGnA" name="1- p2/2" symbol="-">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
       <operand xmi:type="uml:LiteralReal" xmi:id="_LHxbYF9vEe6FL6DROejkTA" name="1.0" value="1.0"/>
-      <operand xmi:type="uml:Expression" xmi:id="_xWnVAF9vEe6FL6DROejkTA" name="(p1*3 + p2/2)" symbol="+">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
-        <operand xmi:type="uml:Expression" xmi:id="_xWnVAV9vEe6FL6DROejkTA" name="p1*3" symbol="*">
-          <operand xmi:type="uml:Expression" xmi:id="_P-T3EF9wEe6FL6DROejkTA" name="p1" symbol="RefToPara(p1)"/>
-          <operand xmi:type="uml:LiteralReal" xmi:id="_R5OEkF9wEe6FL6DROejkTA" name="3" value="3.0"/>
-        </operand>
-        <operand xmi:type="uml:Expression" xmi:id="_xWnVBF9vEe6FL6DROejkTA" name="p2/2" symbol="/">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EDouble"/>
-          <operand xmi:type="uml:Expression" xmi:id="_XAybUF9wEe6FL6DROejkTA" name="p2" symbol="RefToPara(p2)"/>
-          <operand xmi:type="uml:LiteralReal" xmi:id="_Ys7NAF9wEe6FL6DROejkTA" name="2" value="2.0"/>
-        </operand>
+      <operand xmi:type="uml:Expression" xmi:id="_oACFYGN7Ee6RhNQlU2excA" name="p2/2" symbol="/">
+        <operand xmi:type="uml:Expression" xmi:id="_oACFYWN7Ee6RhNQlU2excA" name="p2" symbol="RefToPara(p2)"/>
+        <operand xmi:type="uml:LiteralReal" xmi:id="_oACFYmN7Ee6RhNQlU2excA" name="2" value="2.0"/>
       </operand>
     </packagedElement>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_jaCWAFI1Ee6b35UbuRRGnA" name="0.55" value="0.55"/>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_mJBr0FI1Ee6b35UbuRRGnA" name="0.45" value="0.45"/>
-    <packagedElement xmi:type="uml:Expression" xmi:id="_NvnwoFI4Ee6b35UbuRRGnA" name="1-p1" symbol="-">
-      <operand xmi:type="uml:LiteralReal" xmi:id="_NvnwoVI4Ee6b35UbuRRGnA" value="1.0"/>
-      <operand xmi:type="uml:Expression" xmi:id="_NvnwolI4Ee6b35UbuRRGnA" name="p1" symbol="RefToPara(p1)"/>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_NvnwoFI4Ee6b35UbuRRGnA" name="p1" symbol="RefToPara(p1)"/>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_4Q7bIFYAEe6qlcqyqpXIwQ" value="1.5"/>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_GvcTIFYBEe6qlcqyqpXIwQ" value="2.5"/>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_NGbDUFYBEe6qlcqyqpXIwQ" value="1.0"/>
