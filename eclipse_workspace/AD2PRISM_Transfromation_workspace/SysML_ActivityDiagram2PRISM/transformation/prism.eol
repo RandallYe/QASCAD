@@ -972,3 +972,31 @@ operation addMap(maps: Sequence, node: AD!MergeNode, mod: PRISM!ModuleDef): Sequ
 	
 	return maps;
 }
+
+///////////////////////// Clone constructors /////////////////////////////
+operation clone(exp : PRISM!Expr) : PRISM!Expr   {
+	var emfTool = new Native("org.eclipse.epsilon.emc.emf.tools.EmfTool");
+	var ecoreUtil = emfTool.ecoreUtil;
+	
+	var cloned = ecoreUtil.copy(exp);
+	return cloned;
+}
+
+operation clone(assgn : PRISM!Assignment) : PRISM!Assignment   {
+	var emfTool = new Native("org.eclipse.epsilon.emc.emf.tools.EmfTool");
+	var ecoreUtil = emfTool.ecoreUtil;
+	
+	var cloned = ecoreUtil.copy(assgn);
+	return cloned;
+}
+
+operation clone(assgns : Set(PRISM!Assignment)) : Set(PRISM!Assignment)   {
+	var emfTool = new Native("org.eclipse.epsilon.emc.emf.tools.EmfTool");
+	var ecoreUtil = emfTool.ecoreUtil;
+	
+	var assigns = new Set(PRISM!Assignment);
+	for(ass in assgns) {
+		assigns.add(ecoreUtil.copy(ass));
+	}
+	return assigns;
+}
