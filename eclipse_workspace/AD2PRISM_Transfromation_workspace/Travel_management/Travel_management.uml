@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_pN0dwFX_Ee6qlcqyqpXIwQ/37" xsi:schemaLocation="http:///schemas/workflow/_pN0dwFX_Ee6qlcqyqpXIwQ/37 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_pN2S8FX_Ee6qlcqyqpXIwQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39" xsi:schemaLocation="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA">
   <uml:Model xmi:id="_NCMNwDhsEe6rMcaVryy_uw" name="Travel_management">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -101,15 +101,15 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NH_TwDhsEe6rMcaVryy_uw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PfG1EFbJEe6qlcqyqpXIwQ" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PfG1EVbJEe6qlcqyqpXIwQ" key="Version" value="0.0.38"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PfG1ElbJEe6qlcqyqpXIwQ" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PfG1E1bJEe6qlcqyqpXIwQ" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PfG1FFbJEe6qlcqyqpXIwQ" key="Date" value="2023-09-18"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PfG1FVbJEe6qlcqyqpXIwQ" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6UMXcGO2Ee6Zju61UiY0gA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXcWO2Ee6Zju61UiY0gA" key="Version" value="0.0.40"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXcmO2Ee6Zju61UiY0gA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXc2O2Ee6Zju61UiY0gA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXdGO2Ee6Zju61UiY0gA" key="Date" value="2023-10-05"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXdWO2Ee6Zju61UiY0gA" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NH_60DhsEe6rMcaVryy_uw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_pN2S8FX_Ee6qlcqyqpXIwQ"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
@@ -130,7 +130,7 @@
   </workflow:parameterized>
   <workflow:parameterized xmi:id="_rVqPcDhwEe6rMcaVryy_uw" reliability="_BwFS4FLwEe69cawvUnnaMA" base_OpaqueAction="_FsE_ADhwEe6rMcaVryy_uw" base_Action="_FsE_ADhwEe6rMcaVryy_uw"/>
   <workflow:parameterized xmi:id="_uT-asDhwEe6rMcaVryy_uw" reliability="_XldI4FLeEe6b35UbuRRGnA" base_OpaqueAction="_T6mTMDhwEe6rMcaVryy_uw" base_Action="_T6mTMDhwEe6rMcaVryy_uw"/>
-  <workflow:Properties xmi:id="_Pm3pcFMlEe6API5IJJoFpA" base_Activity="_NDWEUDhsEe6rMcaVryy_uw">
+  <workflow:Properties xmi:id="_Pm3pcFMlEe6API5IJJoFpA" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" modeltype="MDP">
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_Vn0fQFMlEe6API5IJJoFpA" name="P1" value="!E [ F &quot;deadlock&quot; ]"/>
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_qZeJQFMlEe6API5IJJoFpA" name="P2" value="Pmax=?  [ F (activity1 terminated successfully) ]"/>
   </workflow:Properties>

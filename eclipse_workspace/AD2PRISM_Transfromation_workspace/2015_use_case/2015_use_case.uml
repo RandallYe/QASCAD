@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_pN0dwFX_Ee6qlcqyqpXIwQ/37" xmlns:workflow_1="http:///schemas/workflow/_cw_NgDK8Ee6ItL1hu2arxQ/9" xsi:schemaLocation="http:///schemas/workflow/_pN0dwFX_Ee6qlcqyqpXIwQ/37 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_pN2S8FX_Ee6qlcqyqpXIwQ http:///schemas/workflow/_cw_NgDK8Ee6ItL1hu2arxQ/9 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_cxBpwDK8Ee6ItL1hu2arxQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39" xmlns:workflow_1="http:///schemas/workflow/_cw_NgDK8Ee6ItL1hu2arxQ/9" xsi:schemaLocation="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA http:///schemas/workflow/_cw_NgDK8Ee6ItL1hu2arxQ/9 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_cxBpwDK8Ee6ItL1hu2arxQ">
   <uml:Model xmi:id="_Qz070CzFEe6bXox5wGa5rQ" name="2015_use_case">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_Q1koQCzFEe6bXox5wGa5rQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -107,15 +107,15 @@
     </packagedElement>
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_USd3IGEhEe6TKePuY221kQ" name="2.22" value="2.22"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Q1OqACzFEe6bXox5wGa5rQ">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_l8D8oFYAEe6qlcqyqpXIwQ" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_l8D8oVYAEe6qlcqyqpXIwQ" key="Version" value="0.0.38"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_l8D8olYAEe6qlcqyqpXIwQ" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_l8D8o1YAEe6qlcqyqpXIwQ" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_l8D8pFYAEe6qlcqyqpXIwQ" key="Date" value="2023-09-18"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_l8D8pVYAEe6qlcqyqpXIwQ" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_y8vowGO2Ee6Zju61UiY0gA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y8vowWO2Ee6Zju61UiY0gA" key="Version" value="0.0.40"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y8vowmO2Ee6Zju61UiY0gA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y8vow2O2Ee6Zju61UiY0gA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y8voxGO2Ee6Zju61UiY0gA" key="Date" value="2023-10-05"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_y8voxWO2Ee6Zju61UiY0gA" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Q1PRECzFEe6bXox5wGa5rQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_pN2S8FX_Ee6qlcqyqpXIwQ"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
