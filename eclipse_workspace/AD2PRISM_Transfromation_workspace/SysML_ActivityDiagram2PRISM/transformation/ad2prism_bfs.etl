@@ -565,7 +565,7 @@ each modSeq sequence corresponding to a module
  		//if not hasAF, also not a main module, then it has a normal terminate command
  		//e.g.,  [DigitalCamera::terminate]	(DigitalCamera::to_be_terminated) ->(DigitalCamera::M3::pc'=INACTIVE);
  		if(is_main  = false){
- 			if(not hasAF(mdSeq)){
+ 			if((not hasAF(mdSeq)) and (not hasReAnnoNode(mdSeq))){
  				//add a sync command to end all the non-main module using action "terminate"
  				var action = mkSyncAction(act, "terminate");		
 				var grd = new PRISM!VarExpr;
@@ -574,7 +574,15 @@ each modSeq sequence corresponding to a module
 				updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
 				
 				mod.commands.add(mkCommand(action, grd, updates));
-			} 
+			} else if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
+				var action = mkSyncAction(act, "terminate");		
+				var grd = new PRISM!VarExpr;
+				grd = mkVarExpr(toBeTerminated.name);
+ 				var updates = Set{};
+				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
+				
+				mod.commands.add(mkCommand(action, grd, updates));
+			}
  		}
  	
  	
@@ -585,7 +593,7 @@ each modSeq sequence corresponding to a module
 			mod.vars.add(terminated);
 			
  	 		if(not hasAF(mdSeq)){
- 	 			//create a termination command only for the main module
+ 	 			//create a termin ation command only for the main module
 				//e.g.,  [DigitalCamera::terminate]  (DigitalCamera::to_be_terminated) &         (!DigitalCamera::terminated) ->   (DigitalCamera::I0::E0::pc'=INACTIVE)&       (DigitalCamera::terminated'=true);
 			
 				var action = mkSyncAction(act, "terminate");		
