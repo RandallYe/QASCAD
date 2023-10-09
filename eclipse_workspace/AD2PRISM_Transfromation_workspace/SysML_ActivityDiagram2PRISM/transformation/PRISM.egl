@@ -29,7 +29,7 @@
 %*]
 // PRISM Output
 
-[*%=m.printModeltype()%*]
+[%=m.printModeltype()%]
 
 [%for (c in m.constants) { 
 //c.printComment();

@@ -288,10 +288,10 @@ each modSeq sequence corresponding to a module
 						var updates = Set{};
 						
 						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkProbUpdate(prob, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
 							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
 						} else {
-							updates.add(mkProbUpdate(prob, mod.vars.at(0),const_nxt));
+							updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt));
 							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
 						}
 						mod.commands.add(mkCommand(action, grd, updates));
@@ -607,6 +607,14 @@ each modSeq sequence corresponding to a module
 				
 				mod.commands.add(mkCommand(action, grd, updates));
 			}
+			
+			// This is only for root activity
+			//[] (modname::pc=INACTIVE) & ({activity.name}::terminated) &(!{activity.name}::to_be_terminated) -> true;
+			var grd = new PRISM!AndBoolExpr;
+			grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), INACTIVE), mkAndBoolExpr(mkVarExpr(terminated.name), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))));
+ 			var updates = Set{};
+ 			updates.add(mkTrueUpdate());
+			mod.commands.add(mkCommand(grd, updates));
 			is_main = false;
  		}
  		mod.vars.at(0).type.top = const_num-1;
@@ -672,8 +680,27 @@ for (p in AD!Parameter.allInstances()){
 var properties = Set{};
 if( act.getAppliedStereotypes().size()>0){
 	for(st in act.getAppliedStereotypes()){
-		if(act.hasValue(st,"prproperties")){
-			properties = act.getValue(st,"prproperties");
+		if(st.name = "Properties") {
+			if(act.hasValue(st,"modeltype")){
+				var modeltype = act.getValue(st,"modeltype");
+				("Model Type: [" + modeltype.name + "]").println();
+				if(modeltype.name = "DTMC") {
+					m.modelType = PRISM!ModelType#DTMC;
+				} else if(modeltype.name = "MDP") {
+					m.modelType = PRISM!ModelType#MDP;
+					//("Model Type: [" + m.modelType + "]").println();
+				} /*else if(modeltype.name = "PTA") {
+					m.modelType = PRISM!ModelType#PAT;
+				} else if(modeltype.name = "CTMC") {
+					m.modelType = PRISM!ModelType#CTMC;
+				}*/ else {
+					("Model Type: [" + modeltype.name + "] is not yet supported!").errln();
+				}
+			}
+			
+			if(act.hasValue(st,"prproperties")){
+				properties = act.getValue(st,"prproperties");
+			}
 		}
 	}
 }
