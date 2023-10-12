@@ -359,6 +359,19 @@ operation mkTrueUpdate(): PRISM!Update {
 
 }
 
+
+//update = true
+operation mkProbTrueUpdate(prob: PRISM!Expr): PRISM!Update {
+	
+	var update = new PRISM!Update;
+	update.probability = prob;
+	
+	update.assigns.add(mkSkipAssignment());	
+	
+	return update;
+
+}
+
 //NO probability involved
 //ONE assignment
 //e.g.,(DigitalCamera::I0::E0::pc'=INACTIVE)
@@ -468,33 +481,6 @@ operation getProb(oe: AD!ControlFlow, m: PRISM!Model, mod:PRISM!ModuleDef): PRIS
 				output = prob.toExpr();
 				("at line 457, output = " + output).println();
 				return output;
-				/*
-				if(prob.instanceOf(LiteralReal)){
-					"this is a concrete value: ".println();
-					prob.value.println();
-					return mkDoubleLitExpr(prob.value);
-				} else if(prob.instanceOf(Expression)){
-					if(prob.symbol.startsWith("RefToPara")){
-						"this is a p format".println();
-						//removeSymbolPrefix(prob.symbol).println();
-						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
-					} else	if (prob.symbol = "-"){
-					 "this is a 1- p format".println();
-					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
-					 //e.println();
-					 ("at line 473, the first operand's type is " + e.operand.at(0).type().name).println();
-					 ("at line 473, the first operand's value's type is " + e.operand.at(0).value.type().name).println();
-					 ("at line 473, the second operand's type is " + e.operand.at(1).type().name).println();
-					 ("at line 473, the second operand's 1st op type is " + e.operand.at(1).operand.at(0).type().name).println();
-					 ("at line 473, the second operand's 1st op type is " + e.operand.at(1).operand.at(1).type().name).println();
-					  
-					 var prob_sting = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
-					 prob_string.println();
-					 "this is line 468".println();
-					 return mkVarExpr(prob_string);//????????
-					
-					}
-				}*/
 				("oe.getValue(st,probability).type(): "+ oe.getValue(st,"probability").type()).println();
 				
 				("oe.getValue(st,probability): "+ oe.getValue(st,"probability")).println();
@@ -516,50 +502,11 @@ operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
 			if(node.hasValue(st,"probability")){//we assume a node can only be annotated as either probability or reliability, but not both
 				prob = node.getValue(st,"probability");
 				return prob.toExpr();
-				/*
-				if(prob.instanceOf(LiteralReal)){
-					"this is a concrete value: ".println();
-					prob.value.println();
-					return mkDoubleLitExpr(prob.value);
-				} else if(prob.instanceOf(Expression)){
-					if(prob.symbol.startsWith("RefToPara")){
-						"this is a p format".println();
-						//removeSymbolPrefix(prob.symbol).println();
-						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
-					} else if (prob.symbol = "-"){
-					 "this is a 1- p format".println();
-					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
-					 //e.println();
-					 ("at line 515, operand's type is " + e.operand.at(0).value.type().name).println();
-					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
-					 prob_string.println();
-					 return mkVarExpr(prob_string);//????????
-					 
-					}
-				}*/
+				
 			} else if(node.hasValue(st,"reliability")){
 				prob = node.getValue(st,"reliability");
 				return prob.toExpr();
-				/*
-				if(prob.instanceOf(LiteralReal)){
-					"this is a concrete value: ".println();
-					prob.value.println();
-					return mkDoubleLitExpr(prob.value);
-				} else if(prob.instanceOf(Expression)){
-					if(prob.symbol.startsWith("RefToPara")){
-						"this is a p format".println();
-						//removeSymbolPrefix(prob.symbol).println();
-						return(mkVarExpr(removeSymbolPrefix(prob.symbol)));
-					} else if (prob.symbol = "-"){
-					 "this is a 1- p format".println();
-					 var e = AD!Expression.allInstances().selectOne(e|e.name = prob.name);
-					 //e.println();
-					 var prob_string = e.operand.at(0).value.asString() + e.symbol + removeSymbolPrefix(e.operand.at(1).symbol);
-					 prob_string.println();
-					 return mkVarExpr(prob_string);//????????should the type be VarExpre?
-					
-					}
-				}*/
+				
 			}
 		}
 	}
@@ -567,6 +514,49 @@ operation getPRValue(node: AD!OpaqueAction): PRISM!Expr {
 }
 
 
+
+//to return a rate value from the stereotype for the initial node
+operation getRateValue(node: AD!InitialNode, default_rate: PRISM!Formula): PRISM!Expr {
+	var rate;
+		
+	if( node.getAppliedStereotypes().size()>0){
+		for(st in node.getAppliedStereotypes()){
+			if(node.hasValue(st,"duration")){
+				rate = mkDivExpr(mkDoubleLitExpr(1.0), node.getValue(st,"duration").toExpr());
+			} else if(node.hasValue(st,"rate")){
+				rate = node.getValue(st,"rate").toExpr();
+			} 
+		}
+	} else {
+		rate = mkVarExpr(default_rate.name);
+	}
+	("in prism.eol line 521, rate = " + rate).println();
+	return rate;
+	
+}
+
+
+
+
+
+//to return a rate value from the stereotype for the node
+operation getRateValue(node: AD!OpaqueAction, default_rate: PRISM!Formula): PRISM!Expr {
+	var rate;
+	if( node.getAppliedStereotypes().size()>0){
+		for(st in node.getAppliedStereotypes()){
+			if(node.hasValue(st,"duration")){
+				("in prism.eol line 535, node.getValue(st,duration) = " + node.getValue(st,"duration")).println();
+				rate = mkDivExpr(mkDoubleLitExpr(1.0), node.getValue(st,"duration").toExpr());
+			} else if(node.hasValue(st,"rate")){
+				rate = node.getValue(st,"rate").toExpr();
+			} 
+		}
+	} else {
+		rate = mkVarExpr(default_rate.name);
+	}
+	return rate;
+	
+}
 
 
 

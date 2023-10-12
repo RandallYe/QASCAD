@@ -194,5 +194,6 @@
     <eLiterals name="DTMC"/>
     <eLiterals name="MDP"/>
     <eLiterals name="PTA"/>
+    <eLiterals name="CTMC" literal="CTMC"/>
   </eClassifiers>
 </ecore:EPackage>

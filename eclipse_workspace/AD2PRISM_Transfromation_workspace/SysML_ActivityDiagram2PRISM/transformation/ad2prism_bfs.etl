@@ -24,8 +24,38 @@ rule activityToPrism
 transform act : AD!Activity
 to m : PRISM!Model
 {
-
-	m.modelType = PRISM!ModelType#DTMC;
+	
+/*****************************************
+ generate properties
+******************************************/
+var properties = Set{};
+if( act.getAppliedStereotypes().size()>0){
+	for(st in act.getAppliedStereotypes()){
+		if(st.name = "Properties") {
+			if(act.hasValue(st,"modeltype")){
+				var modeltype = act.getValue(st,"modeltype");
+				("Model Type: [" + modeltype.name + "]").println();
+				if(modeltype.name = "DTMC") {
+					m.modelType = PRISM!ModelType#DTMC;
+				} else if(modeltype.name = "MDP") {
+					m.modelType = PRISM!ModelType#MDP;
+					//("Model Type: [" + m.modelType + "]").println();
+				} else if(modeltype.name = "PTA") {
+					m.modelType = PRISM!ModelType#PAT;
+				} else if(modeltype.name = "CTMC") {
+					m.modelType = PRISM!ModelType#CTMC;
+				} else {
+					("Model Type: [" + modeltype.name + "] is not yet supported!").errln();
+				}
+			}
+			
+			if(act.hasValue(st,"prproperties")){
+				properties = act.getValue(st,"prproperties");
+			}
+		}
+	}
+}
+	
  	
  	//to_be_terminated is defined as a formula instead of a global variable
  	var toBeTerminated = new PRISM!Formula;
@@ -44,12 +74,29 @@ to m : PRISM!Model
  	toBeFailed.expr = mkBoolLitExpr(false);
  	m.formulas.add(toBeFailed);
  	var toBeFailedIsUpdated = false;
-			
- 	var INACTIVE = mkConst("INACTIVE", -1);
+	
+	var INACTIVE = mkConst("INACTIVE", -1);
   	m.constants.add(INACTIVE);
   	
   	var terminated;
-
+	
+	//for CTMC model, define the duration for the non-action nodes 
+	var mean_duration;
+	var default_rate = new PRISM!Formula;
+	var isCTMC = false;
+	if(m.modelType = PRISM!ModelType#CTMC){
+		isCTMC = true;
+		mean_duration = mkConst("mean_duration", 0.000001);
+		("mean_duration = " + mean_duration.value.value).println();
+		m.constants.add(mean_duration);
+		default_rate.name = "default_rate";
+		default_rate.expr = mkDivExpr(mkDoubleLitExpr(1.0), mkVarExpr(mean_duration.name));
+ 		m.formulas.add(default_rate);
+ 		("default_rate = " + default_rate.expr).println();
+ 		("left = " + default_rate.expr.left).println();
+ 		("right = " + default_rate.expr.right).println();
+	} 
+	
 
 /*******************************************
 // Pre-Processing activity diagram
@@ -88,7 +135,7 @@ to m : PRISM!Model
  	
  	
  	//traverse all nodes in toBeVistedNodes (initial nodes not included)
-	traverseNodes(m, act, true, INACTIVE, toBeTerminated, toBeTerminatedIsUpdated);
+	traverseNodes(m, act, true, INACTIVE, toBeTerminated, toBeTerminatedIsUpdated, isCTMC, default_rate);
 
 	
 	
@@ -260,12 +307,23 @@ each modSeq sequence corresponding to a module
 				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 				
 				var updates = Set{};
-				if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment: local_to_be_terminated = true e.g., (DigitalCamera::M1::to_be_terminated'=true)
-				// e.g., in the command: [DigitalCamera::M1::TurnOff] (DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) &  (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal) &         (DigitalCamera::M1::to_be_terminated'=true);
-					updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+				if(isCTMC){
+					var rate = getRateValue(node, default_rate);
+					if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment
+						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+					} else {
+						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));
+					}
+				
 				} else {
-					updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+					if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment: local_to_be_terminated = true e.g., (DigitalCamera::M1::to_be_terminated'=true)
+						// e.g., in the command: [DigitalCamera::M1::TurnOff] (DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) &  (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal) &         (DigitalCamera::M1::to_be_terminated'=true);
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+					} else {
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+					}
 				}
+				
 				mod.commands.add(mkCommand(action, grd, updates));
 				delete const_nxt;
 			
@@ -286,23 +344,46 @@ each modSeq sequence corresponding to a module
 						var action = mkAction(mod, node.name);
 						var prob = getPRValue(node);
 						var updates = Set{};
-						
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+						if(isCTMC){
+							var rate = getRateValue(node, default_rate);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+							} else {
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt));
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+							}
 						} else {
-							updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt));
-							updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+								updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+							} else {
+								updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt));
+								updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+							}
 						}
+						
+						
+						
 						mod.commands.add(mkCommand(action, grd, updates));
 					} else{//the node is not annotated with probability or reliability
 						var action = mkAction(mod, node.name);
 						var updates = Set{};
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						if(isCTMC){
+							var rate = getRateValue(node, default_rate);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt));	
+							}
 						} else {
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+							}
 						}
+						
 						mod.commands.add(mkCommand(action, grd, updates));
 					}
 					delete const_nxt;
@@ -358,11 +439,21 @@ each modSeq sequence corresponding to a module
 				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 				var updates = Set{};
-				if(firstOEdge.target.instanceOf(ActivityFinalNode)){
-					updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-				} else {
-					updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					if(firstOEdge.target.instanceOf(ActivityFinalNode)){
+						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+					} else {
+						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
+					}		
+				} else{
+					if(firstOEdge.target.instanceOf(ActivityFinalNode)){
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+					} else {
+						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+					}
 				}
+				
 					
 				mod.commands.add(mkCommand(action, grd, updates));
 				delete const_nxt;
@@ -381,11 +472,21 @@ each modSeq sequence corresponding to a module
 					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 					var updates = Set{};
-					if(oe.target.instanceOf(ActivityFinalNode)){
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-					} else {
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+					if(isCTMC){
+						var rate = mkVarExpr(default_rate.name);
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						} else {
+							updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
+						}
+					} else{
+						if(oe.target.instanceOf(ActivityFinalNode)){
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+						} else {
+							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						}
 					}
+					
 					mod.commands.add(mkCommand(action, grd, updates));
 					delete const_nxt;
 				} else {//otherwise the path discontinue: INACTIVE
@@ -395,7 +496,12 @@ each modSeq sequence corresponding to a module
 					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 					var updates = Set{};
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+					if(isCTMC){
+						var rate = mkVarExpr(default_rate.name);
+						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0), INACTIVE));
+					} else{
+						updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+					}
 										
 					mod.commands.add(mkCommand(action, grd, updates));
 										
@@ -415,17 +521,33 @@ each modSeq sequence corresponding to a module
 					var grd = new PRISM!AndBoolExpr;
 					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					var updates = Set{};
-					for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							var prob = getProb(oe,m,mod);
-							updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
-						} else {
-							var prob = getProb(oe,m,mod);
-							updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
+					if(isCTMC){
+						var rate = mkVarExpr(default_rate.name);
+						for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+							var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								var prob = getProb(oe,m,mod);
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+							} else {
+								var prob = getProb(oe,m,mod);
+								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt));
+							}
+							delete const_nxt;
 						}
-						delete const_nxt;
+					} else{
+						for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+							var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								var prob = getProb(oe,m,mod);
+								updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+							} else {
+								var prob = getProb(oe,m,mod);
+								updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
+							}
+							delete const_nxt;
+						}
 					}
+					
 					mod.commands.add(mkCommand(action, grd, updates));
 				} else{//generate multiple commands
 				
@@ -444,11 +566,21 @@ each modSeq sequence corresponding to a module
 						grd = mkAndBoolExpr( mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))), decision_edge_grd_expr) ;
 						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
 						var updates = Set{};
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-						} else {
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
+							}
+						} else{
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+							}
 						}
+						
 										
 						mod.commands.add(mkCommand(action, grd, updates));
 						//("mkCommand(action, grd, updates)'s action is :" +mkCommand(action, grd, updates).action).println();
@@ -478,11 +610,21 @@ each modSeq sequence corresponding to a module
 						grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 						var updates = Set{};
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-						} else {
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
+							}
+						} else{
+							if(oe.target.instanceOf(ActivityFinalNode)){
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+							} else {
+								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+							}
 						}
+						
 						
 						mod.commands.add(mkCommand(action, grd, updates));
 						
@@ -510,8 +652,13 @@ each modSeq sequence corresponding to a module
 					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 					var updates = Set{};
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
-										
+					if(isCTMC){
+						var rate = mkVarExpr(default_rate.name);
+						updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
+					} else{
+						updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+					}
+						
 					mod.commands.add(mkCommand(action, grd, updates));
 				}
 			} else if(node.instanceOf(FlowFinalNode)){
@@ -526,8 +673,13 @@ each modSeq sequence corresponding to a module
 				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 				var updates = Set{};
-				updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
-										
+				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
+				} else{
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+				}
+								
 				mod.commands.add(mkCommand(action, grd, updates));
 								
 			} else if(node.instanceOf(ActivityFinalNode)){
@@ -546,8 +698,13 @@ each modSeq sequence corresponding to a module
 						//to creat terminate command, to set local to_be_terminated as false, and the module as INACTIVE
 						//e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
 						var updates = Set{};
-						updates.add(mkUpdate(mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));		
-					
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
+						} else{
+							updates.add(mkUpdate(mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
+						}
+							
 						mod.commands.add(mkCommand(action, grd, updates));
 					} else {//// this AF node is in the maim module, the terminate command for both this module and the main module shall be combined into one
 						//e.g., in Dice example
@@ -571,7 +728,12 @@ each modSeq sequence corresponding to a module
 				var grd = new PRISM!VarExpr;
 				grd = mkVarExpr(toBeTerminated.name);
  				var updates = Set{};
-				updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+ 				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));
+				} else{
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+				}
 				
 				mod.commands.add(mkCommand(action, grd, updates));
 			} else if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
@@ -579,8 +741,13 @@ each modSeq sequence corresponding to a module
 				var grd = new PRISM!VarExpr;
 				grd = mkVarExpr(toBeTerminated.name);
  				var updates = Set{};
-				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
-				
+ 				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
+				} else{
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
+				}
+							
 				mod.commands.add(mkCommand(action, grd, updates));
 			}
  		}
@@ -600,8 +767,13 @@ each modSeq sequence corresponding to a module
 				var grd = new PRISM!AndBoolExpr;
 				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
  				var updates = Set{};
-				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true));
-				
+ 				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true));
+				} else{
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true));
+				}
+								
 				mod.commands.add(mkCommand(action, grd, updates));
 			} else {// this AF node IS IN the maim module, the terminate command for both this module and the main module shall be combined into one
 				//e.g., in Dice example
@@ -611,7 +783,12 @@ each modSeq sequence corresponding to a module
 				var grd = new PRISM!AndBoolExpr;
 				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
  				var updates = Set{};
-				updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+ 				if(isCTMC){
+					var rate = mkVarExpr(default_rate.name);
+					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+				} else{
+					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+				}
 				
 				mod.commands.add(mkCommand(action, grd, updates));
 			}
@@ -621,7 +798,13 @@ each modSeq sequence corresponding to a module
 			var grd = new PRISM!AndBoolExpr;
 			grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), INACTIVE), mkAndBoolExpr(mkVarExpr(terminated.name), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))));
  			var updates = Set{};
- 			updates.add(mkTrueUpdate());
+ 			if(isCTMC){
+				var rate = mkVarExpr(default_rate.name);
+				updates.add(mkProbTrueUpdate(rate));
+			} else{
+				updates.add(mkTrueUpdate());
+			}
+ 			
 			mod.commands.add(mkCommand(grd, updates));
 			is_main = false;
  		}
@@ -682,36 +865,6 @@ for (p in AD!Parameter.allInstances()){
 
 }
 
-/*****************************************
- generate properties
-******************************************/
-var properties = Set{};
-if( act.getAppliedStereotypes().size()>0){
-	for(st in act.getAppliedStereotypes()){
-		if(st.name = "Properties") {
-			if(act.hasValue(st,"modeltype")){
-				var modeltype = act.getValue(st,"modeltype");
-				("Model Type: [" + modeltype.name + "]").println();
-				if(modeltype.name = "DTMC") {
-					m.modelType = PRISM!ModelType#DTMC;
-				} else if(modeltype.name = "MDP") {
-					m.modelType = PRISM!ModelType#MDP;
-					//("Model Type: [" + m.modelType + "]").println();
-				} /*else if(modeltype.name = "PTA") {
-					m.modelType = PRISM!ModelType#PAT;
-				} else if(modeltype.name = "CTMC") {
-					m.modelType = PRISM!ModelType#CTMC;
-				}*/ else {
-					("Model Type: [" + modeltype.name + "] is not yet supported!").errln();
-				}
-			}
-			
-			if(act.hasValue(st,"prproperties")){
-				properties = act.getValue(st,"prproperties");
-			}
-		}
-	}
-}
 	
 for(p in properties){
 	("Properties: " + p).println();
@@ -787,6 +940,11 @@ var writer = new Native("java.io.BufferedWriter")(filewriter);
 writer.write(outputPropString);
 writer.close();
 
+
+	if(not isCTMC){
+		delete mean_duration;
+		delete default_rate;
+	}
 }
 
 
@@ -797,7 +955,9 @@ operation traverseNodes(
 	is_root: Boolean, 
 	INACTIVE: PRISM!Constant, 
 	toBeTerminated: PRISM!Formula,
-	toBeTerminatedIsUpdated: Boolean
+	toBeTerminatedIsUpdated: Boolean,
+	isCTMC: Boolean,
+	default_rate: PRISM!Formula
 	){
 	while(toBeVisitedNodes.notEmpty()){
 		//"\ntoBeVisitedNodes.at(0):".println();
@@ -849,6 +1009,7 @@ operation traverseNodes(
 					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 					var updates = Set{};
+					
 					if(oe.target.instanceOf(ActivityFinalNode)){
 						
 						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
@@ -862,12 +1023,23 @@ operation traverseNodes(
 							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
 							toBeTerminatedIsUpdated = true;
 						} 
-			
-						updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+						} else{
+							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						}
+						
 						delete mod_toBeTerminated;
 						
 					} else {
-						updates.add(mkUpdate(pc, const_nxt));	
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							updates.add(mkProbUpdate(rate, pc, const_nxt));
+						} else{
+							updates.add(mkUpdate(pc, const_nxt));
+						}
+							
 					}
 						
 					newmod.commands.add(mkCommand(action, grd, updates));
@@ -1002,6 +1174,7 @@ operation traverseNodes(
 					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
 					
 					var updates = Set{};
+					
 					if(oe.target.instanceOf(ActivityFinalNode)){
 					
 						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
@@ -1016,12 +1189,23 @@ operation traverseNodes(
 							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
 							toBeTerminatedIsUpdated = true;
 						} 
-			
-						updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+						} else{
+							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+						}
+						
 						delete mod_toBeTerminated;
 						
 					} else {
-						updates.add(mkUpdate(pc, const_nxt));	
+						if(isCTMC){
+							var rate = mkVarExpr(default_rate.name);
+							updates.add(mkProbUpdate(rate, pc, const_nxt));	
+						} else{
+							updates.add(mkUpdate(pc, const_nxt));	
+						}
+						
 					}
 					newmod.commands.add(mkCommand(action, grd, updates));
 				}
@@ -1098,11 +1282,23 @@ operation traverseNodes(
 								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
 								toBeTerminatedIsUpdated = true;
 							} 
-							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							if(isCTMC){
+								var rate = mkVarExpr(default_rate.name);
+								updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+							} else{
+								updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							}
+							
 							delete mod_toBeTerminated;
 							
 						} else {
-							updates.add(mkUpdate(pc, const_nxt));	
+							if(isCTMC){
+								var rate = mkVarExpr(default_rate.name);
+								updates.add(mkProbUpdate(rate, pc, const_nxt));	
+							} else {
+								updates.add(mkUpdate(pc, const_nxt));	
+							}
+							
 						}
 							
 						newmod.commands.add(mkCommand(action, grd, updates));
@@ -1171,10 +1367,22 @@ operation traverseNodes(
 								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
 								toBeTerminatedIsUpdated = true;
 							} 
-							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							if(isCTMC){
+								var rate = mkVarExpr(default_rate.name);
+								updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+							}else {
+								updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+							}
+							
 							delete mod_toBeTerminated;
 						} else {
-							updates.add(mkUpdate(pc, const_nxt));	
+							if(isCTMC){
+								var rate = mkVarExpr(default_rate.name);
+								updates.add(mkProbUpdate(rate, pc, const_nxt));	
+							} else{
+								updates.add(mkUpdate(pc, const_nxt));	
+							}
+							
 						}
 						newmod.commands.add(mkCommand(action, grd, updates));
 						

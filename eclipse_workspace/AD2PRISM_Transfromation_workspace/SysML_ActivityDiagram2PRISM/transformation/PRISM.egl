@@ -135,6 +135,10 @@ operation Model printModeltype() : String {
 		return "dtmc";
 	else if (self.modelType == PRISM!ModelType#MDP)
 		return "mdp";
+	else if (self.modelType == PRISM!ModelType#CTMC)
+		return "ctmc";
+	else if (self.modelType == PRISM!ModelType#PTA)
+		return "pta";
 	else
 		return "Unsupported ModelType";
 }
