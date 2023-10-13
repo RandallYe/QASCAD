@@ -52,16 +52,12 @@ global [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printEx
 
 
 [%for (f in m.formulas) { 
-if (f.expr == null){
-%]
+if (f.expr == null){%]
 formula [%=f.name.format()%];
-[%} else {
-		if(f.expr.instanceOf(VarExpr)){%]
-formula [%=f.name.format()%] = [%=f.expr.name.format()%];
-		[%} else {%]
-formula [%=f.name.format()%] = [%=f.expr.printExpr(true).format()%];		
-
-		[%}  }}%]
+[%} else {%]
+formula [%=f.name.format()%] = [%=f.expr.printExpr(false).format()%];		
+	[%}
+}%]
 		
 
 [%for (r in m.rewards) { %]
