@@ -56,9 +56,9 @@ if (f.expr == null){
 %]
 formula [%=f.name.format()%];
 [%} else {
-		if(not f.expr.instanceOf(OrBoolExpr)){%]
+		if(f.expr.instanceOf(VarExpr)){%]
 formula [%=f.name.format()%] = [%=f.expr.name.format()%];
-		[%} else if(f.expr.instanceOf(OrBoolExpr)){%]
+		[%} else {%]
 formula [%=f.name.format()%] = [%=f.expr.printExpr(true).format()%];		
 
 		[%}  }}%]
