@@ -865,66 +865,117 @@ for (p in AD!Parameter.allInstances()){
 
 }
 
-	
 for(p in properties){
-	("Properties: " + p).println();
-	if("reaches at".isSubstringOf(p.value)){
-		//p.println();
-		//("p.value = " + p.value).println();
-		p.value = p.value.replace("reaches at", "reachesat");
-		//("p.value = " + p.value).println();
-		var p_splited = p.value.split(" ").println();
-		//("p_splited = " + p_splited).println();
-		var i = p_splited.indexOf("reachesat");
-		var i_act = i-1;
-		var i_state = i+1;
-		//("\nindex i = " + i).println();
-		//("i_state = " +i_state).println();
-		//p_splited.at(i_state).length().println();
-		var state;
-		state = p_splited.at(i_state).substring((p_splited.at(i_act).length()+2), (p_splited.at(i_state).length()-1));
-		//("state = " + state).println();
-		var newstate;
-		for(c in m.constants){
-			if(state.isSubstringOf(c.name)){
-				//("c.name = " + c.name).println();
-				newstate = c.name;
-				//("newstate = " + newstate).println();
+	("Property [" + p.name + "]: " + p.value).println();
+	
+	var ad2prism_tool = new Native("org.eclipse.epsilon.ad2prism.tools.AD2PRISM_Tools");
+	// Processing "activity reaches at activity::...::node"
+	while(true) {
+		var r_at_segs = ad2prism_tool.parseReachesAt(p.value);
+		if(r_at_segs.length() = 0) {
+			// not matched
+			break;
+		}
+		("reaches at: " + r_at_segs).println();
+		var r_at_seq = r_at_segs.split("\\$");
+		("size: " + r_at_seq.size()).println();
+		if (r_at_seq.size() = 5) {
+			// Valid format
+			("Matche string: " + r_at_seq.at(0)).println();
+			("Activity name: " + r_at_seq.at(1)).println();
+			("FQN_node: " + r_at_seq.at(2)).println();
+			("FQN     : " + r_at_seq.at(3)).println();
+			("Node    : " + r_at_seq.at(4)).println();
+			var matched_expr = r_at_seq.at(0);
+			var activity_name = r_at_seq.at(1);
+			var fqn_node_name = r_at_seq.at(2);
+			var node_name = r_at_seq.at(4);
+			
+			// Check if the activity in properties matches
+			if (not (activity_name = act.name)) {
+				("[" + activity_name +"] in the property [" + p.value + 
+				"] is not the activity name [" + act.name + "]!").errln();
 				break;
 			}
+			
+			var newstate;
+			for(c in m.constants){
+				if(node_name.isSubstringOf(c.name)){
+					newstate = c.name;
+					("Corresponding constant for node [" + node_name + "] is " + newstate).println();
+					break;
+				}
+			}
+			// Get the prefixing of newstate 
+			var pc = newstate.substring(0, newstate.length() - node_name.length()) + "pc";
+			var new_expr = (pc + " = " + newstate).replace("::", "_");
+			p.value = p.value.replace(matched_expr, new_expr);
+		} else {
+			// not valid, which means the property 
+			("The \'reaches at\' expression should be \'activity reaches at qualified_name_to_node\'").errln();
+			break;
 		}
-		var pc = newstate.substring(0, newstate.length()-state.length()) + "pc";
-		//("pc = " + pc).println();
-		p.value = p.value.replace(act.name+"::"+state, newstate).replace(" "+act.name+" ", " "+ pc+" ").replace("reachesat", "=").replace("::", "_");
-		
-	} else 	if("terminated".isSubstringOf(p.value)){
-		p.println();
-		var i1 = p.value.indexOf("(");
-		var i2 = p.value.indexOf(")");
-		var stringToBeReplaced = p.value.substring(i1+1, i2);
-		//("\nstringToBeReplaced = " + stringToBeReplaced).println();
-		if(m.formulas.includes(toBeFailed)){
-			p.value = p.value.replace(stringToBeReplaced, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
-		} else{
-			p.value = p.value.replace(stringToBeReplaced, terminated.name).replace("::", "_");
-		}
-		
-		//("p.value = " + p.value).println();
-		
-	} else 	if("failed".isSubstringOf(p.value)){
-		//p.println();
-		var i1 = p.value.indexOf("(");
-		var i2 = p.value.indexOf(")");
-		var stringToBeReplaced = p.value.substring(i1+1, i2);
-		//("stringToBeReplaced = " + stringToBeReplaced).println();
-		if(m.formulas.includes(toBeFailed)){
-			p.value = p.value.replace(stringToBeReplaced, terminated.name+" & " + toBeFailed.name).replace("::", "_");
-		} else{
-			//Error("Logic error: not possible!")
-		}
-		//("p.value = " + p.value).println();
 	}
 	
+	// Processing "activity terminated successfully"
+	while(true) {
+		var segs = ad2prism_tool.parseTerminated(p.value);
+		if(segs.length() = 0) {
+			// not matched
+			break;
+		}
+		("terminated: " + segs).println();
+		var seq = segs.split("\\$");
+		("size: " + seq.size()).println();
+		if (seq.size() = 2) {
+			// Valid format
+			("Matche string: " + seq.at(0)).println();
+			("Activity name: " + seq.at(1)).println();
+			var matched_expr = seq.at(0);
+			var activity_name = seq.at(1);
+			
+			if(m.formulas.includes(toBeFailed)){
+				p.value = p.value.replace(matched_expr, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
+			} else{
+				p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
+			}
+			
+		} else {
+			// not valid, which means the property 
+			("The \'terminated successfully\' expression should be \'activity terminated successfully\'").errln();
+			break;
+		}
+	}
+	
+	// Processing "activity failed"
+	while(true) {
+		var segs = ad2prism_tool.parseFailed(p.value);
+		if(segs.length() = 0) {
+			// not matched
+			break;
+		}
+		("failed: " + segs).println();
+		var seq = segs.split("\\$");
+		("size: " + seq.size()).println();
+		if (seq.size() = 2) {
+			// Valid format
+			("Matche string: " + seq.at(0)).println();
+			("Activity name: " + seq.at(1)).println();
+			var matched_expr = seq.at(0);
+			var activity_name = seq.at(1);
+			
+			if(m.formulas.includes(toBeFailed)){
+				p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");
+			} else{
+				//Error("Logic error: not possible!")
+			}
+			
+		} else {
+			// not valid, which means the property 
+			("The \'failed\' expression should be \'activity failed\'").errln();
+			break;
+		}
+	}
 }
 
 var outputPropString = "";

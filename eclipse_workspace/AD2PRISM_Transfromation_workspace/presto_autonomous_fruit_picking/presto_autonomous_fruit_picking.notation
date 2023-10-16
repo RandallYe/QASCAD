@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_cWwYIGg8Ee6NzutSxN2dtw" type="PapyrusUMLActivityDiagram" name="Activity Diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_cWwYIWg8Ee6NzutSxN2dtw" type="Activity_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_cWw_MGg8Ee6NzutSxN2dtw" type="Activity_NameLabel"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_cWw_MWg8Ee6NzutSxN2dtw" type="Activity_KeywordLabel"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_cWw_Mmg8Ee6NzutSxN2dtw" type="Activity_ParameterCompartment">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_cWw_M2g8Ee6NzutSxN2dtw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_cWw_NGg8Ee6NzutSxN2dtw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_NWg8Ee6NzutSxN2dtw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_cWw_Nmg8Ee6NzutSxN2dtw" type="Activity_PreconditionCompartment">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_cWw_N2g8Ee6NzutSxN2dtw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_cWw_OGg8Ee6NzutSxN2dtw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_OWg8Ee6NzutSxN2dtw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_cWw_Omg8Ee6NzutSxN2dtw" type="Activity_PostconditionCompartment">
+      <styles xmi:type="notation:SortingStyle" xmi:id="_cWw_O2g8Ee6NzutSxN2dtw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_cWw_PGg8Ee6NzutSxN2dtw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_PWg8Ee6NzutSxN2dtw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_cWw_Pmg8Ee6NzutSxN2dtw" type="Activity_ActivityNodeCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_OmnP8GhmEe6GqPFnVjDxXA" type="InitialNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_OmoeEGhmEe6GqPFnVjDxXA" type="InitialNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_OmoeEWhmEe6GqPFnVjDxXA" x="40" y="-20"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_OmpFIGhmEe6GqPFnVjDxXA" type="InitialNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_OmpFIWhmEe6GqPFnVjDxXA" y="15"/>
+        </children>
+        <element xmi:type="uml:InitialNode" href="presto_autonomous_fruit_picking.uml#_OleAcGhmEe6GqPFnVjDxXA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OmnP8WhmEe6GqPFnVjDxXA" x="15" y="168"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_psADsGh4Ee6GqPFnVjDxXA" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_psDHAGh4Ee6GqPFnVjDxXA" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_psDuEGh4Ee6GqPFnVjDxXA" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_psDuEWh4Ee6GqPFnVjDxXA" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_oNs-4GhmEe6GqPFnVjDxXA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_psGxYGh4Ee6GqPFnVjDxXA" x="95" y="163"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_yVdz4Gh4Ee6GqPFnVjDxXA" type="ActivityFinalNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_yVea8Gh4Ee6GqPFnVjDxXA" type="ActivityFinalNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_yVea8Wh4Ee6GqPFnVjDxXA" y="15"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_yVea8mh4Ee6GqPFnVjDxXA" type="ActivityFinalNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_yVfCAGh4Ee6GqPFnVjDxXA" y="15"/>
+        </children>
+        <element xmi:type="uml:ActivityFinalNode" href="presto_autonomous_fruit_picking.uml#_yVOjUGh4Ee6GqPFnVjDxXA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yVdz4Wh4Ee6GqPFnVjDxXA" x="535" y="318"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_FI6Z4Gh7Ee6ZtqTePaqIaQ" type="DecisionNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_FI82IGh7Ee6ZtqTePaqIaQ" type="DecisionNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_FI82IWh7Ee6ZtqTePaqIaQ" x="40" y="-40"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_FI9dMGh7Ee6ZtqTePaqIaQ" type="DecisionNode_DecisionInputLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_FI9dMWh7Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_FI9dMmh7Ee6ZtqTePaqIaQ" type="DecisionNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_FI9dM2h7Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:DecisionNode" href="presto_autonomous_fruit_picking.uml#_FHSCMGh7Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FI6Z4Wh7Ee6ZtqTePaqIaQ" x="215" y="168" width="21"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_A_aYcGh8Ee6ZtqTePaqIaQ" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_A_a_gGh8Ee6ZtqTePaqIaQ" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_A_bmkGh8Ee6ZtqTePaqIaQ" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_A_bmkWh8Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_y2NpIGh7Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_A_gfEGh8Ee6ZtqTePaqIaQ" x="275" y="88"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Bloq8Gh8Ee6ZtqTePaqIaQ" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_BlpSAGh8Ee6ZtqTePaqIaQ" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_BlpSAWh8Ee6ZtqTePaqIaQ" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_BlpSAmh8Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_4aKZ4Gh7Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Blp5EGh8Ee6ZtqTePaqIaQ" x="315" y="308"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_aDKJwGh8Ee6ZtqTePaqIaQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_72QQ0Gh8Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_72QQ0Wh8Ee6ZtqTePaqIaQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_aDKw0Wh8Ee6ZtqTePaqIaQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_72PpwGh8Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_72PpwWh8Ee6ZtqTePaqIaQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_aDKw12h8Ee6ZtqTePaqIaQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_aDKw2Gh8Ee6ZtqTePaqIaQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_aDLX4Gh8Ee6ZtqTePaqIaQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_aDLX4Wh8Ee6ZtqTePaqIaQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_aDKw0mh8Ee6ZtqTePaqIaQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_aDKw02h8Ee6ZtqTePaqIaQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aDKw1Gh8Ee6ZtqTePaqIaQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_aDKJwWh8Ee6ZtqTePaqIaQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aDKJw2h8Ee6ZtqTePaqIaQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_DI8QwGh8Ee6ZtqTePaqIaQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aDKJwmh8Ee6ZtqTePaqIaQ" x="35" y="48" height="49"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Eynu4Gh9Ee6ZtqTePaqIaQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lXmdAmh9Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lXmdA2h9Ee6ZtqTePaqIaQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_EyoV82h9Ee6ZtqTePaqIaQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lXmdAGh9Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lXmdAWh9Ee6ZtqTePaqIaQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_Eyo9Amh9Ee6ZtqTePaqIaQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_Eyo9A2h9Ee6ZtqTePaqIaQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_Eyo9BGh9Ee6ZtqTePaqIaQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_Eyo9BWh9Ee6ZtqTePaqIaQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_EyoV9Gh9Ee6ZtqTePaqIaQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_EyoV9Wh9Ee6ZtqTePaqIaQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EyoV9mh9Ee6ZtqTePaqIaQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Eynu4Wh9Ee6ZtqTePaqIaQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_Eynu42h9Ee6ZtqTePaqIaQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_JuV3cGh8Ee6ZtqTePaqIaQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Eynu4mh9Ee6ZtqTePaqIaQ" x="255" y="228" width="180" height="40"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_sRhiMGh9Ee6ZtqTePaqIaQ" type="DecisionNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_sRiJQGh9Ee6ZtqTePaqIaQ" type="DecisionNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_sRiJQWh9Ee6ZtqTePaqIaQ" x="20" y="20"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_sRiJQmh9Ee6ZtqTePaqIaQ" type="DecisionNode_DecisionInputLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_sRiJQ2h9Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_sRiJRGh9Ee6ZtqTePaqIaQ" type="DecisionNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_sRiJRWh9Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:DecisionNode" href="presto_autonomous_fruit_picking.uml#_sRIgoGh9Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sRhiMWh9Ee6ZtqTePaqIaQ" x="479" y="88"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_-10j0Gh9Ee6ZtqTePaqIaQ" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_-11K4Gh9Ee6ZtqTePaqIaQ" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_-11K4Wh9Ee6ZtqTePaqIaQ" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_-11K4mh9Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_-1kFIGh9Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-11K42h9Ee6ZtqTePaqIaQ" x="435" y="168"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_GYcAsGh-Ee6ZtqTePaqIaQ" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_GYcnwGh-Ee6ZtqTePaqIaQ" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_GYcnwWh-Ee6ZtqTePaqIaQ" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_GYcnwmh-Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_GYH3oGh-Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GYcnw2h-Ee6ZtqTePaqIaQ" x="555" y="248"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_V6nVIGh-Ee6ZtqTePaqIaQ" type="OpaqueAction_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_V6nVImh-Ee6ZtqTePaqIaQ" type="OpaqueAction_NameLabel"/>
+        <children xmi:type="notation:DecorationNode" xmi:id="_V6nVI2h-Ee6ZtqTePaqIaQ" type="OpaqueAction_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_V6nVJGh-Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_V6LQQGh-Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_V6nVJWh-Ee6ZtqTePaqIaQ" x="475" y="308"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_mZ6jsGh_Ee6ZtqTePaqIaQ" type="DecisionNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_mZ7KwGh_Ee6ZtqTePaqIaQ" type="DecisionNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_mZ7KwWh_Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_mZ7Kwmh_Ee6ZtqTePaqIaQ" type="DecisionNode_DecisionInputLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_mZ7Kw2h_Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_mZ7KxGh_Ee6ZtqTePaqIaQ" type="DecisionNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_mZ7KxWh_Ee6ZtqTePaqIaQ" y="15"/>
+        </children>
+        <element xmi:type="uml:DecisionNode" href="presto_autonomous_fruit_picking.uml#_mZcpoGh_Ee6ZtqTePaqIaQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mZ6jsWh_Ee6ZtqTePaqIaQ" x="255" y="388"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_LOr8gGkDEe6QkprI-asOVQ" type="MergeNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_LOuYwGkDEe6QkprI-asOVQ" type="MergeNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_LOuYwWkDEe6QkprI-asOVQ" x="21" y="20"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_LOu_0GkDEe6QkprI-asOVQ" type="MergeNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_LOu_0WkDEe6QkprI-asOVQ" y="15"/>
+        </children>
+        <element xmi:type="uml:MergeNode" href="presto_autonomous_fruit_picking.uml#_LNm-cGkDEe6QkprI-asOVQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LOr8gWkDEe6QkprI-asOVQ" x="55" y="168"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_JCccgGkFEe6QkprI-asOVQ" type="MergeNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_JCccgmkFEe6QkprI-asOVQ" type="MergeNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_JCdDkGkFEe6QkprI-asOVQ" x="20" y="-20"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_JCdDkWkFEe6QkprI-asOVQ" type="MergeNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_JCdDkmkFEe6QkprI-asOVQ" y="15"/>
+        </children>
+        <element xmi:type="uml:MergeNode" href="presto_autonomous_fruit_picking.uml#_JB5p8GkFEe6QkprI-asOVQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JCccgWkFEe6QkprI-asOVQ" x="475" y="248"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_64r3EGkFEe6QkprI-asOVQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ms4RcGkGEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ms4RcWkGEe6QkprI-asOVQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_64seIWkFEe6QkprI-asOVQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ms3qYGkGEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Ms3qYWkGEe6QkprI-asOVQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_64tFMGkFEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_64tFMWkFEe6QkprI-asOVQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_64tFMmkFEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_64tFM2kFEe6QkprI-asOVQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_64seImkFEe6QkprI-asOVQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_64seI2kFEe6QkprI-asOVQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_64seJGkFEe6QkprI-asOVQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_64r3EWkFEe6QkprI-asOVQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_64r3E2kFEe6QkprI-asOVQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_-2M-UGh9Ee6ZtqTePaqIaQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_64r3EmkFEe6QkprI-asOVQ" x="335" y="28" height="40"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_R_xucGkGEe6QkprI-asOVQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ds3nsGkGEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ds3nsWkGEe6QkprI-asOVQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_R_yVh2kGEe6QkprI-asOVQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ds3AoGkGEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ds3AoWkGEe6QkprI-asOVQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_R_y8kmkGEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_R_y8k2kGEe6QkprI-asOVQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_R_y8lGkGEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_R_y8lWkGEe6QkprI-asOVQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_R_yViGkGEe6QkprI-asOVQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_R_yViWkGEe6QkprI-asOVQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R_yVimkGEe6QkprI-asOVQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_R_xucWkGEe6QkprI-asOVQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_R_yVgGkGEe6QkprI-asOVQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_GYzNEGh-Ee6ZtqTePaqIaQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_R_xucmkGEe6QkprI-asOVQ" x="615" y="148"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_iBkPsGkJEe6QkprI-asOVQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5OV4UGkJEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5OV4UWkJEe6QkprI-asOVQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_iBk2x2kJEe6QkprI-asOVQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5OVRQGkJEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5OVRQWkJEe6QkprI-asOVQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_iBld0mkJEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_iBld02kJEe6QkprI-asOVQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_iBld1GkJEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_iBld1WkJEe6QkprI-asOVQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_iBk2yGkJEe6QkprI-asOVQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_iBk2yWkJEe6QkprI-asOVQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iBk2ymkJEe6QkprI-asOVQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_iBkPsWkJEe6QkprI-asOVQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_iBk2wGkJEe6QkprI-asOVQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_YY9TgGkFEe6QkprI-asOVQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iBkPsmkJEe6QkprI-asOVQ" x="155" y="428"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_qRoocGkJEe6QkprI-asOVQ" type="StereotypeComment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_19nHYGkJEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_19nHYWkJEe6QkprI-asOVQ" key="visible" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_qRpPgGkJEe6QkprI-asOVQ" type="StereotypeCompartment">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_19mgUGkJEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_19mgUWkJEe6QkprI-asOVQ" key="visible" value="true"/>
+          </eAnnotations>
+          <children xmi:type="notation:DecorationNode" xmi:id="_qRpPhmkJEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_hJ8LsEluEe60IIqMOABLYg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_qRpPh2kJEe6QkprI-asOVQ"/>
+          </children>
+          <children xmi:type="notation:DecorationNode" xmi:id="_qRpPiGkJEe6QkprI-asOVQ" visible="false" type="StereotypeProperty">
+            <element xmi:type="uml:Property" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_N57OAFL6Ee69cawvUnnaMA"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_qRpPiWkJEe6QkprI-asOVQ"/>
+          </children>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_qRpPgWkJEe6QkprI-asOVQ"/>
+          <styles xmi:type="notation:StringValueStyle" xmi:id="_qRpPgmkJEe6QkprI-asOVQ" name="stereotype" stringValue="workflow::WeightedFlow"/>
+          <element xmi:type="uml:Stereotype" href="platform:/resource/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_nE8zAMVuEeei9vqqQSCeug"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qRpPg2kJEe6QkprI-asOVQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_qRoocWkJEe6QkprI-asOVQ"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_qRooc2kJEe6QkprI-asOVQ" name="BASE_ELEMENT">
+          <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_rVd3sGh_Ee6ZtqTePaqIaQ"/>
+        </styles>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qRoocmkJEe6QkprI-asOVQ" x="415" y="428"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_zjZBgGkmEe6B9ufM-BuwhQ" type="MergeNode_Shape">
+        <children xmi:type="notation:DecorationNode" xmi:id="_zja2sGkmEe6B9ufM-BuwhQ" type="MergeNode_FloatingNameLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_zja2sWkmEe6B9ufM-BuwhQ" x="20" y="-20"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_zjbdwGkmEe6B9ufM-BuwhQ" type="MergeNode_StereotypeLabel">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_zjbdwWkmEe6B9ufM-BuwhQ" y="15"/>
+        </children>
+        <element xmi:type="uml:MergeNode" href="presto_autonomous_fruit_picking.uml#_zhQ6kGkmEe6B9ufM-BuwhQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zjZBgWkmEe6B9ufM-BuwhQ" x="255" y="308"/>
+      </children>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_P2g8Ee6NzutSxN2dtw"/>
+    </children>
+    <element xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_QGg8Ee6NzutSxN2dtw"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="__O-V4Gv6Ee6O88qzSqi2ig" type="StereotypeComment">
+    <styles xmi:type="notation:TitleStyle" xmi:id="__O-V4Wv6Ee6O88qzSqi2ig"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="__O-88Gv6Ee6O88qzSqi2ig" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="__O-V4mv6Ee6O88qzSqi2ig" x="200"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_cWw_QWg8Ee6NzutSxN2dtw" name="diagram_compatibility_version" stringValue="1.4.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_cWw_Qmg8Ee6NzutSxN2dtw"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_cWw_Q2g8Ee6NzutSxN2dtw" diagramKindId="org.eclipse.papyrus.sysml16.diagram.activity">
+    <owner xmi:type="uml:Model" href="presto_autonomous_fruit_picking.uml#_cUmcAGg8Ee6NzutSxN2dtw"/>
+  </styles>
+  <element xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_t_9MMGh4Ee6GqPFnVjDxXA" type="ControlFlow_Edge" source="_OmnP8GhmEe6GqPFnVjDxXA" target="_LOr8gGkDEe6QkprI-asOVQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_uAAPgGh4Ee6GqPFnVjDxXA" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_usrIQGh4Ee6GqPFnVjDxXA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uAAPgWh4Ee6GqPFnVjDxXA" x="-13" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_uAAPgmh4Ee6GqPFnVjDxXA" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_us5xwGh4Ee6GqPFnVjDxXA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uAAPg2h4Ee6GqPFnVjDxXA" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_uAAPhGh4Ee6GqPFnVjDxXA" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_utHNIGh4Ee6GqPFnVjDxXA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uAAPhWh4Ee6GqPFnVjDxXA" x="12" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_uAAPhmh4Ee6GqPFnVjDxXA" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_utVPkGh4Ee6GqPFnVjDxXA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uAAPh2h4Ee6GqPFnVjDxXA" x="1" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_t_9MMWh4Ee6GqPFnVjDxXA"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_t_sGcGh4Ee6GqPFnVjDxXA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_t_9MMmh4Ee6GqPFnVjDxXA" points="[36, 220, -643984, -643984]$[60, 216, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_uBA8IGh4Ee6GqPFnVjDxXA" id="(0.0,0.55)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_uBA8IWh4Ee6GqPFnVjDxXA" id="(0.05,0.5333333333333333)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_2eYKAGh4Ee6GqPFnVjDxXA" type="ControlFlow_Edge" source="_psADsGh4Ee6GqPFnVjDxXA" target="_FI6Z4Gh7Ee6ZtqTePaqIaQ" routing="Rectilinear">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_etHM4Gh7Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_etHM4Wh7Ee6ZtqTePaqIaQ" key="routing" value="true"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_2eYxEGh4Ee6GqPFnVjDxXA" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KVwSMGh7Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_2eYxEWh4Ee6GqPFnVjDxXA" x="-7" y="17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_2eZYIGh4Ee6GqPFnVjDxXA" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KWHekGh7Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_2eZYIWh4Ee6GqPFnVjDxXA" x="1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_2eZYImh4Ee6GqPFnVjDxXA" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KWU58Gh7Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_2eZYI2h4Ee6GqPFnVjDxXA" x="7" y="16"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_2eZYJGh4Ee6GqPFnVjDxXA" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KWggIGh7Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_2eZYJWh4Ee6GqPFnVjDxXA" x="-1" y="-19"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_2eYKAWh4Ee6GqPFnVjDxXA"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_2eHrUGh4Ee6GqPFnVjDxXA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_2eYKAmh4Ee6GqPFnVjDxXA" points="[178, 245, -643984, -643984]$[200, 245, -643984, -643984]$[200, 240, -643984, -643984]$[220, 240, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_2e7joGh4Ee6GqPFnVjDxXA" id="(1.0,0.625)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_2e7joWh4Ee6GqPFnVjDxXA" id="(0.0,0.4666666666666667)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_DJV5YGh8Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_FI6Z4Gh7Ee6ZtqTePaqIaQ" target="_A_aYcGh8Ee6ZtqTePaqIaQ" routing="Rectilinear">
+    <children xmi:type="notation:DecorationNode" xmi:id="_DJWgcGh8Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ICQwIGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DJWgcWh8Ee6ZtqTePaqIaQ" x="-10" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DJWgcmh8Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ICjrEGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DJWgc2h8Ee6ZtqTePaqIaQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DJXHgGh8Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_IC0JwGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DJXHgWh8Ee6ZtqTePaqIaQ" x="10" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DJXHgmh8Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_IDCMMGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DJXHg2h8Ee6ZtqTePaqIaQ" x="-22" y="-61"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_DJV5YWh8Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_DI8QwGh8Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DJV5Ymh8Ee6ZtqTePaqIaQ" points="[230, 225, -643984, -643984]$[230, 205, -643984, -643984]$[304, 205, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DJ-LgGh8Ee6ZtqTePaqIaQ" id="(0.47619047619047616,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DJ-LgWh8Ee6ZtqTePaqIaQ" id="(0.0,0.475)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Jum9MGh8Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_FI6Z4Gh7Ee6ZtqTePaqIaQ" target="_zjZBgGkmEe6B9ufM-BuwhQ" routing="Rectilinear" jumpLinkStatus="Above" jumpLinkType="Tunnel">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Jum9M2h8Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MPoIcGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Jum9NGh8Ee6ZtqTePaqIaQ" x="-11" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Jum9NWh8Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MP7qcGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Jum9Nmh8Ee6ZtqTePaqIaQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Jum9N2h8Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MQPMcGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Jum9OGh8Ee6ZtqTePaqIaQ" x="10" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Jum9OWh8Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MQbZsGh8Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Jum9Omh8Ee6ZtqTePaqIaQ" x="10" y="30"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Jum9MWh8Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_JuV3cGh8Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Jum9Mmh8Ee6ZtqTePaqIaQ" points="[240, 216, -643984, -643984]$[239, 216, -643984, -643984]$[239, 375, -643984, -643984]$[240, 375, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Ju87cGh8Ee6ZtqTePaqIaQ" id="(0.9047619047619048,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Ju87cWh8Ee6ZtqTePaqIaQ" id="(0.0,0.5)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_aDKJxGh8Ee6ZtqTePaqIaQ" type="StereotypeCommentLink" source="_DJV5YGh8Ee6ZtqTePaqIaQ" target="_aDKJwGh8Ee6ZtqTePaqIaQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_aDKJxWh8Ee6ZtqTePaqIaQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aDKw0Gh8Ee6ZtqTePaqIaQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_DI8QwGh8Ee6ZtqTePaqIaQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aDKJxmh8Ee6ZtqTePaqIaQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aDKJx2h8Ee6ZtqTePaqIaQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aDKJyGh8Ee6ZtqTePaqIaQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Eynu5Gh9Ee6ZtqTePaqIaQ" type="StereotypeCommentLink" source="_Jum9MGh8Ee6ZtqTePaqIaQ" target="_Eynu4Gh9Ee6ZtqTePaqIaQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_Eynu5Wh9Ee6ZtqTePaqIaQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_EyoV8mh9Ee6ZtqTePaqIaQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_JuV3cGh8Ee6ZtqTePaqIaQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Eynu5mh9Ee6ZtqTePaqIaQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_EyoV8Gh9Ee6ZtqTePaqIaQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_EyoV8Wh9Ee6ZtqTePaqIaQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_zQEosGh9Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_A_aYcGh8Ee6ZtqTePaqIaQ" target="_sRhiMGh9Ee6ZtqTePaqIaQ" routing="Rectilinear">
+    <children xmi:type="notation:DecorationNode" xmi:id="_zQF20Gh9Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_3V4AcGh9Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_zQF20Wh9Ee6ZtqTePaqIaQ" x="-11" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_zQF20mh9Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_3WPz4Gh9Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_zQF202h9Ee6ZtqTePaqIaQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_zQF21Gh9Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_3WcoMGh9Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_zQF21Wh9Ee6ZtqTePaqIaQ" x="9" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_zQF21mh9Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_3WmZMGh9Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_zQF212h9Ee6ZtqTePaqIaQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_zQEosWh9Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_zPmHkGh9Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zQEosmh9Ee6ZtqTePaqIaQ" points="[360, 205, -643984, -643984]$[400, 205, -643984, -643984]$[400, 199, -643984, -643984]$[440, 199, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zQqekGh9Ee6ZtqTePaqIaQ" id="(0.9642857142857143,0.45)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zQqekWh9Ee6ZtqTePaqIaQ" id="(0.0,0.4666666666666667)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_-2aZsGh9Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_sRhiMGh9Ee6ZtqTePaqIaQ" target="_-10j0Gh9Ee6ZtqTePaqIaQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_-2aZs2h9Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_B-GjYGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-2aZtGh9Ee6ZtqTePaqIaQ" x="-17" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-2aZtWh9Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_B-fk8Gh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-2aZtmh9Ee6ZtqTePaqIaQ" x="1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-2aZt2h9Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_B-2xUGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-2aZuGh9Ee6ZtqTePaqIaQ" x="18" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-2aZuWh9Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_B_BJYGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-2aZumh9Ee6ZtqTePaqIaQ" x="-1" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_-2aZsWh9Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_-2M-UGh9Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-2aZsmh9Ee6ZtqTePaqIaQ" points="[563, 219, -643984, -643984]$[6, 165, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JGMncGh-Ee6ZtqTePaqIaQ" id="(0.8,0.6666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_GY-zQGh-Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_sRhiMGh9Ee6ZtqTePaqIaQ" target="_GYcAsGh-Ee6ZtqTePaqIaQ" routing="Rectilinear">
+    <children xmi:type="notation:DecorationNode" xmi:id="_GY_aUGh-Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MOKd8Gh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_GY_aUWh-Ee6ZtqTePaqIaQ" x="-10" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_GY_aUmh-Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MOjfgGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_GY_aU2h-Ee6ZtqTePaqIaQ" x="-1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_GY_aVGh-Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MO76AGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_GY_aVWh-Ee6ZtqTePaqIaQ" x="8" y="17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_GY_aVmh-Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_MPG5IGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_GY_aV2h-Ee6ZtqTePaqIaQ" x="1" y="-17"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_GY-zQWh-Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_GYzNEGh-Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GY-zQmh-Ee6ZtqTePaqIaQ" points="[580, 135, -643984, -643984]$[600, 135, -643984, -643984]$[600, 279, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_LVRuIGh-Ee6ZtqTePaqIaQ" id="(0.95,0.4666666666666667)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WQQYgGh_Ee6ZtqTePaqIaQ" id="(0.639344262295082,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_V7NLAGh-Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_-10j0Gh9Ee6ZtqTePaqIaQ" target="_JCccgGkFEe6QkprI-asOVQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_V7NLA2h-Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ZsMwYGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_V7NLBGh-Ee6ZtqTePaqIaQ" x="-7" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_V7NyEGh-Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Zso1QGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_V7NyEWh-Ee6ZtqTePaqIaQ" x="1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_V7NyEmh-Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ZtABoGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_V7NyE2h-Ee6ZtqTePaqIaQ" x="8" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_V7NyFGh-Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ZtLn0Gh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_V7NyFWh-Ee6ZtqTePaqIaQ" x="-1" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_V7NLAWh-Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_V7A9wGh-Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_V7NLAmh-Ee6ZtqTePaqIaQ" points="[478, 257, -643984, -643984]$[695, 360, -643984, -643984]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_LfftwGkFEe6QkprI-asOVQ" id="(0.45,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_cT7AkGh-Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_Bloq8Gh8Ee6ZtqTePaqIaQ" target="_JCccgGkFEe6QkprI-asOVQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HpxQQGh_Ee6ZtqTePaqIaQ" source="PapyrusCSSForceValue">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Hpx3UGh_Ee6ZtqTePaqIaQ" key="routing" value="true"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_cT7Ak2h-Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fS89gGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_cT7noGh-Ee6ZtqTePaqIaQ" x="-29" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_cT7noWh-Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fTWmIGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_cT7nomh-Ee6ZtqTePaqIaQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_cT7no2h-Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fTlPoGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_cT7npGh-Ee6ZtqTePaqIaQ" x="40" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_cT7npWh-Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fT5_wGh-Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_cT7npmh-Ee6ZtqTePaqIaQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_cT7AkWh-Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_cTY1EGh-Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_cT7Akmh-Ee6ZtqTePaqIaQ" points="[420, 279, -643984, -643984]$[519, 246, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_cUb98Gh-Ee6ZtqTePaqIaQ" id="(1.0,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_cUb98Wh-Ee6ZtqTePaqIaQ" id="(0.1,0.6666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_oOsUAGh_Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_GYcAsGh-Ee6ZtqTePaqIaQ" target="_mZ6jsGh_Ee6ZtqTePaqIaQ" routing="Rectilinear">
+    <children xmi:type="notation:DecorationNode" xmi:id="_oOs7Emh_Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_pCz4kGh_Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oOs7E2h_Ee6ZtqTePaqIaQ" x="-58" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_oOs7FGh_Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_pDTAwGh_Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oOs7FWh_Ee6ZtqTePaqIaQ" x="-1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_oOs7Fmh_Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_pDmiwGh_Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oOs7F2h_Ee6ZtqTePaqIaQ" x="58" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_oOtiIGh_Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_pDywAGh_Ee6ZtqTePaqIaQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_oOtiIWh_Ee6ZtqTePaqIaQ" y="-19"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_oOs7EGh_Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_oOOZ8Gh_Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_oOs7EWh_Ee6ZtqTePaqIaQ" points="[620, 319, -643984, -643984]$[620, 440, -643984, -643984]$[600, 440, -643984, -643984]$[175, 440, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oPK1IGh_Ee6ZtqTePaqIaQ" id="(0.639344262295082,0.95)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_oPK1IWh_Ee6ZtqTePaqIaQ" id="(0.75,0.6666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_rWADMGh_Ee6ZtqTePaqIaQ" type="ControlFlow_Edge" source="_mZ6jsGh_Ee6ZtqTePaqIaQ" target="_zjZBgGkmEe6B9ufM-BuwhQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0OqSQGkJEe6QkprI-asOVQ" source="PapyrusCSSForceValue">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0Oq5UGkJEe6QkprI-asOVQ" key="jumpLinkType" value="true"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rWADM2h_Ee6ZtqTePaqIaQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fh-koGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rWAqQGh_Ee6ZtqTePaqIaQ" x="-15" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rWAqQWh_Ee6ZtqTePaqIaQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fikagGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rWAqQmh_Ee6ZtqTePaqIaQ" x="1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rWAqQ2h_Ee6ZtqTePaqIaQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fi2HUGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rWAqRGh_Ee6ZtqTePaqIaQ" x="13" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rWAqRWh_Ee6ZtqTePaqIaQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_fjH0IGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rWAqRmh_Ee6ZtqTePaqIaQ" x="1" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_rWADMWh_Ee6ZtqTePaqIaQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_rVd3sGh_Ee6ZtqTePaqIaQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rWADMmh_Ee6ZtqTePaqIaQ" points="[204, 363, -643984, -643984]$[435, 296, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rWgZgGh_Ee6ZtqTePaqIaQ" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rWgZgWh_Ee6ZtqTePaqIaQ" id="(0.15,0.6666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_P48FIGkDEe6QkprI-asOVQ" type="ControlFlow_Edge" source="_LOr8gGkDEe6QkprI-asOVQ" target="_psADsGh4Ee6GqPFnVjDxXA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_P48sMGkDEe6QkprI-asOVQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_SbHuAGkDEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_P48sMWkDEe6QkprI-asOVQ" x="-6" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_P49TQGkDEe6QkprI-asOVQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_SbwnMGkDEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_P49TQWkDEe6QkprI-asOVQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_P49TQmkDEe6QkprI-asOVQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ScJBsGkDEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_P49TQ2kDEe6QkprI-asOVQ" x="5" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_P49TRGkDEe6QkprI-asOVQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_SciqUGkDEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_P49TRWkDEe6QkprI-asOVQ" x="-1" y="-17"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_P48FIWkDEe6QkprI-asOVQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_P4Ja8GkDEe6QkprI-asOVQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_P48FImkDEe6QkprI-asOVQ" points="[87, 243, -643984, -643984]$[128, 194, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_P52rIGkDEe6QkprI-asOVQ" id="(0.9,0.5666666666666667)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_P53SMGkDEe6QkprI-asOVQ" id="(0.0,0.625)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_LuUCUGkEEe6QkprI-asOVQ" type="ControlFlow_Edge" source="_V6nVIGh-Ee6ZtqTePaqIaQ" target="_yVdz4Gh4Ee6GqPFnVjDxXA">
+    <children xmi:type="notation:DecorationNode" xmi:id="_LuUpYGkEEe6QkprI-asOVQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_JwMTUGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_LuUpYWkEEe6QkprI-asOVQ" x="-4" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_LuUpYmkEEe6QkprI-asOVQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Jw1zkGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_LuUpY2kEEe6QkprI-asOVQ" x="-1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_LuUpZGkEEe6QkprI-asOVQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_JxIugGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_LuUpZWkEEe6QkprI-asOVQ" x="-1" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_LuUpZmkEEe6QkprI-asOVQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_JxbpcGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_LuUpZ2kEEe6QkprI-asOVQ" x="1" y="-19"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_LuUCUWkEEe6QkprI-asOVQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_LtpT8GkEEe6QkprI-asOVQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_LuUCUmkEEe6QkprI-asOVQ" points="[520, 377, -643984, -643984]$[541, 351, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_LvCbEGkEEe6QkprI-asOVQ" id="(0.9523809523809523,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_LvDCIGkEEe6QkprI-asOVQ" id="(0.0,0.5)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_QE2IQGkFEe6QkprI-asOVQ" type="ControlFlow_Edge" source="_JCccgGkFEe6QkprI-asOVQ" target="_V6nVIGh-Ee6ZtqTePaqIaQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QE2vUGkFEe6QkprI-asOVQ" type="ControlFlow_NameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QE2vUWkFEe6QkprI-asOVQ" x="-5" y="-11"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QE2vUmkFEe6QkprI-asOVQ" type="ControlFlow_WeightLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QE2vU2kFEe6QkprI-asOVQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QE3WYGkFEe6QkprI-asOVQ" type="ControlFlow_GuardLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QE3WYWkFEe6QkprI-asOVQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QE3WYmkFEe6QkprI-asOVQ" type="ControlFlow_StereotypeLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QE3WY2kFEe6QkprI-asOVQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_QE2IQWkFEe6QkprI-asOVQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_QEHIcGkFEe6QkprI-asOVQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QE2IQmkFEe6QkprI-asOVQ" points="[875, 402, -643984, -643984]$[875, 481, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QFj58GkFEe6QkprI-asOVQ" id="(1.0,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QFj58WkFEe6QkprI-asOVQ" id="(0.38095238095238093,0.175)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_YZsTUGkFEe6QkprI-asOVQ" type="ControlFlow_Edge" source="_mZ6jsGh_Ee6ZtqTePaqIaQ" target="_LOr8gGkDEe6QkprI-asOVQ" routing="Rectilinear">
+    <children xmi:type="notation:DecorationNode" xmi:id="_YZs6YGkFEe6QkprI-asOVQ" type="ControlFlow_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z9VQUGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YZs6YWkFEe6QkprI-asOVQ" x="-47" y="15"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_YZs6YmkFEe6QkprI-asOVQ" type="ControlFlow_WeightLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z9_-sGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YZs6Y2kFEe6QkprI-asOVQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_YZs6ZGkFEe6QkprI-asOVQ" type="ControlFlow_GuardLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z-SSkGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YZs6ZWkFEe6QkprI-asOVQ" x="19" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_YZs6ZmkFEe6QkprI-asOVQ" type="ControlFlow_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z-l0kGkFEe6QkprI-asOVQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_YZs6Z2kFEe6QkprI-asOVQ" x="1" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_YZsTUWkFEe6QkprI-asOVQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_YY9TgGkFEe6QkprI-asOVQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_YZsTUmkFEe6QkprI-asOVQ" points="[340, 435, -643984, -643984]$[73, 435, -643984, -643984]$[73, 432, -643984, -643984]$[76, 432, -643984, -643984]$[76, 220, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_YadIUGkFEe6QkprI-asOVQ" id="(0.05,0.43333333333333335)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_YadIUWkFEe6QkprI-asOVQ" id="(0.8,0.6666666666666666)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_64r3FGkFEe6QkprI-asOVQ" type="StereotypeCommentLink" source="_-2aZsGh9Ee6ZtqTePaqIaQ" target="_64r3EGkFEe6QkprI-asOVQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_64r3FWkFEe6QkprI-asOVQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_64seIGkFEe6QkprI-asOVQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_-2M-UGh9Ee6ZtqTePaqIaQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_64r3FmkFEe6QkprI-asOVQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_64r3F2kFEe6QkprI-asOVQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_64r3GGkFEe6QkprI-asOVQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_R_yVgWkGEe6QkprI-asOVQ" type="StereotypeCommentLink" source="_GY-zQGh-Ee6ZtqTePaqIaQ" target="_R_xucGkGEe6QkprI-asOVQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_R_yVgmkGEe6QkprI-asOVQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_R_yVhmkGEe6QkprI-asOVQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_GYzNEGh-Ee6ZtqTePaqIaQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_R_yVg2kGEe6QkprI-asOVQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R_yVhGkGEe6QkprI-asOVQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R_yVhWkGEe6QkprI-asOVQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_iBk2wWkJEe6QkprI-asOVQ" type="StereotypeCommentLink" source="_YZsTUGkFEe6QkprI-asOVQ" target="_iBkPsGkJEe6QkprI-asOVQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_iBk2wmkJEe6QkprI-asOVQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_iBk2xmkJEe6QkprI-asOVQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_YY9TgGkFEe6QkprI-asOVQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_iBk2w2kJEe6QkprI-asOVQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iBk2xGkJEe6QkprI-asOVQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iBk2xWkJEe6QkprI-asOVQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_qRoodGkJEe6QkprI-asOVQ" type="StereotypeCommentLink" source="_rWADMGh_Ee6ZtqTePaqIaQ" target="_qRoocGkJEe6QkprI-asOVQ">
+    <styles xmi:type="notation:FontStyle" xmi:id="_qRoodWkJEe6QkprI-asOVQ"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_qRooeWkJEe6QkprI-asOVQ" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_rVd3sGh_Ee6ZtqTePaqIaQ"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qRoodmkJEe6QkprI-asOVQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qRood2kJEe6QkprI-asOVQ"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qRooeGkJEe6QkprI-asOVQ"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_J9nL0GknEe6B9ufM-BuwhQ" type="ControlFlow_Edge" source="_zjZBgGkmEe6B9ufM-BuwhQ" target="_Bloq8Gh8Ee6ZtqTePaqIaQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_J9ny4GknEe6B9ufM-BuwhQ" type="ControlFlow_NameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_J9ny4WknEe6B9ufM-BuwhQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_J9ny4mknEe6B9ufM-BuwhQ" type="ControlFlow_WeightLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_J9ny42knEe6B9ufM-BuwhQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_J9ny5GknEe6B9ufM-BuwhQ" type="ControlFlow_GuardLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_J9ny5WknEe6B9ufM-BuwhQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_J9ny5mknEe6B9ufM-BuwhQ" type="ControlFlow_StereotypeLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_J9ny52knEe6B9ufM-BuwhQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_J9nL0WknEe6B9ufM-BuwhQ"/>
+    <element xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_J89EgGknEe6B9ufM-BuwhQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_J9nL0mknEe6B9ufM-BuwhQ" points="[910, 214, -643984, -643984]$[1070, 234, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J-zeoGknEe6B9ufM-BuwhQ" id="(1.0,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J-zeoWknEe6B9ufM-BuwhQ" id="(0.038461538461538464,0.35)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="__O_kAGv6Ee6O88qzSqi2ig" type="StereotypeCommentLink" source="_cWwYIWg8Ee6NzutSxN2dtw" target="__O-V4Gv6Ee6O88qzSqi2ig">
+    <styles xmi:type="notation:FontStyle" xmi:id="__O_kAWv6Ee6O88qzSqi2ig"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="__PALEmv6Ee6O88qzSqi2ig" name="BASE_ELEMENT">
+      <eObjectValue xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
+    </styles>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__O_kAmv6Ee6O88qzSqi2ig" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__PALEGv6Ee6O88qzSqi2ig"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__PALEWv6Ee6O88qzSqi2ig"/>
+  </edges>
+</notation:Diagram>
