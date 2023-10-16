@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tools
+Bundle-SymbolicName: org.eclipse.epsilon.ad2prism.tools;singleton:=true
+Bundle-Version: 1.0.1.qualifier
+Require-Bundle: org.eclipse.epsilon.common.dt;bundle-version="2.4.0"
+Export-Package: org.eclipse.epsilon.ad2prism.tools
+Automatic-Module-Name: org.eclipse.epsilon.ad2prism.tools
+Bundle-RequiredExecutionEnvironment: JavaSE-11
