@@ -47,7 +47,7 @@ if (v.init == null) {
 %]
 global [%=v.name.format()%] : [%=printVariableType(v,m)%];
 [%} else {%]
-global [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(true)%];  
+global [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(false)%];  
 [%} }%]
 
 
@@ -66,9 +66,9 @@ formula [%=f.name.format()%] = [%=f.expr.printExpr(false).format()%];
 rewards "[%=r.name.format()%]"
 [%for(rewardItem in r.rewards){%]
 	[%if(rewardItem.action.isDefined()){%]
-	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.printExpr(true)%];	
+	[[%=rewardItem.action.name.format()%]] ([%=rewardItem.grd.printExpr(false)%]) : [%=rewardItem.reward.printExpr(false)%];	
 	[%}else {%]
-	([%=rewardItem.grd.printExpr(true)%]) : [%=rewardItem.reward.printExpr(true)%];	
+	([%=rewardItem.grd.printExpr(false)%]) : [%=rewardItem.reward.printExpr(false)%];	
 	[%} }%]
 endrewards
 [% }%]
@@ -97,7 +97,7 @@ if (v.init == null) {
 %]
     [%=v.name.format()%] : [%=printVariableType(v,m)%];
 [%} else {%]
-    [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(true)%];
+    [%=v.name.format()%] : [%=printVariableType(v,m)%] init [%=v.init.printExpr(false)%];
 [%} }%]
 
 [%var i : Integer = 0; 
@@ -108,7 +108,7 @@ if (v.init == null) {
 %]
     [%=c.printComment()%]
 [% } %]
-    [[%=c.printAction()%]] [%=c.grd.printExpr(true)%] -> [%=c.printUpdates()%];
+    [[%=c.printAction()%]] [%=c.grd.printExpr(false)%] -> [%=c.printUpdates()%];
 
 [%}%]
 endmodule
@@ -363,14 +363,14 @@ operation Update printUpdate() : String {
 
 operation Assignment printAssignment() : String {
 	// ("printAssignment: " + self.variable + "=" + self.value.printExpr()).println();
-	return "(" + self.variable.format() + "'=" + self.value.printExpr(true) + ")";
+	return "(" + self.variable.format() + "'=" + self.value.printExpr(false) + ")";
 }
 
 operation Call printAssignment() : String {
 	// #CALLOP!Op$x+1$y+x# denotes a call to func(x+1, y+x)
 	var ret : String = "#CALLOP!" + self.name.format();
 	for (v in self.args) {
-		ret = ret + "$" + v.printExpr(true);
+		ret = ret + "$" + v.printExpr(false);
 	}
 	return "(" + ret + "#" + ")";
 }

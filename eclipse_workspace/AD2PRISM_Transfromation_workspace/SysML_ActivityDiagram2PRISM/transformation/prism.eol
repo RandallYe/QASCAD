@@ -619,11 +619,12 @@ operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
 //node reward has no action
 operation mkNodeReward(
 	rwname: String, 
+	rwaction: PRISM!Action,
 	rwgrd: PRISM!BoolExpr, 
 	rwvalue: PRISM!Expr): PRISM!Rewards{
 	var rewards = new PRISM!Rewards;
 	rewards.name = rwname;
-	var rewardItem = mkNodeRewardItem(rwgrd, rwvalue);
+	var rewardItem = mkNodeRewardItem(rwaction, rwgrd, rwvalue);
 	rewards.rewards.add(rewardItem);
 	
 	return rewards;
@@ -649,10 +650,12 @@ operation mkEdgeReward(
 //mkNodeRewardItem(rwgrd, rwvalue)
 //node reward has no action
 operation mkNodeRewardItem(
+	rwaction: PRISM!Action,
 	rwgrd: PRISM!BoolExpr, 
 	rwvalue: PRISM!Expr): PRISM!RewardItem{
 	
 	var rewardItem = new PRISM!RewardItem;
+	rewardItem.action = rwaction;
 	rewardItem.grd = rwgrd;
 	rewardItem.reward = rwvalue;
 	return rewardItem;
@@ -682,7 +685,7 @@ operation mkEdgeRewardItem(
 operation checkAndMkEdgeReward(
 	oe: AD!ControlFlow,
 	mod: PRISM!ModuleDef,
-	node: AD!OpaqueAction,
+	node: AD!ActivityNode,
 	action: PRISM!Action,
 	const: PRISM!Constant,
 	m: PRISM!Model,
@@ -705,7 +708,7 @@ operation checkAndMkEdgeReward(
 					}
 					("at line 700, rwds = " + rwds + "and edge is "+ oe.name).println();
 					for (rwd in rwds){
-						var rwaction = action;
+						var rwaction = clone(action);
 						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
 						var rwvalue = getRewardValue(rwd);
 						var rwname = /*act.name + "::" + */rwd.name;
@@ -977,6 +980,14 @@ operation clone(assgn : PRISM!Assignment) : PRISM!Assignment   {
 	var ecoreUtil = emfTool.ecoreUtil;
 	
 	var cloned = ecoreUtil.copy(assgn);
+	return cloned;
+}
+
+operation clone(action : PRISM!Action) : PRISM!Action   {
+	var emfTool = new Native("org.eclipse.epsilon.emc.emf.tools.EmfTool");
+	var ecoreUtil = emfTool.ecoreUtil;
+	
+	var cloned = ecoreUtil.copy(action);
 	return cloned;
 }
 
