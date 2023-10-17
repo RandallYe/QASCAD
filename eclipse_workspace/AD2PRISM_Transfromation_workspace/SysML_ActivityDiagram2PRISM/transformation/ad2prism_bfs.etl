@@ -458,7 +458,8 @@ each modSeq sequence corresponding to a module
 				
 					
 				mod.commands.add(mkCommand(action, grd, updates));
-				checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+				// Edges from a ForkNode cannot have associated reward annotations.
+				// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 				delete const_nxt;
 			} else if(node.instanceOf(JoinNode)){
 				var const = mkConst(mod.name + "::" + node.name, const_num);
@@ -508,7 +509,8 @@ each modSeq sequence corresponding to a module
 					}
 										
 					mod.commands.add(mkCommand(action, grd, updates));
-					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+					// If this path is going to be inactive, then no reward is possible.
+					// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 										
 				}
 			} else if(node.instanceOf(DecisionNode)){
@@ -967,6 +969,7 @@ for(p in properties){
 	
 	// Processing "activity failed"
 	while(true) {
+		("Failed " + p.value).println();
 		var segs = ad2prism_tool.parseFailed(p.value);
 		if(segs.length() = 0) {
 			// not matched
