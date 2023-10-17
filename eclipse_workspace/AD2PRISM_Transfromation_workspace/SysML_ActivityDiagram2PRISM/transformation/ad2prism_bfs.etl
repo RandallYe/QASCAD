@@ -325,6 +325,7 @@ each modSeq sequence corresponding to a module
 				}
 				
 				mod.commands.add(mkCommand(action, grd, updates));
+				checkAndMkEdgeReward(getAllEdgesFromNode(act,node).at(0), mod, node, action, const, m, act);
 				delete const_nxt;
 			
 			/*****************************************
@@ -402,12 +403,13 @@ each modSeq sequence corresponding to a module
 				var r_node;
 				if(nodeAnnotated(node, "rewards")){
 					var rwds = getRewards(node);// rewds is a set
+					var action = mkAction(mod, node.name);
 					
 					for (rwd in rwds){
 						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
 						var rwvalue = getRewardValue(rwd);
-						var rwname = act.name + "::" + rwd.name;
-						r_node = mkNodeReward(rwname, rwgrd, rwvalue);//node reward does not need action, so 3 parameters
+						var rwname = /*act.name + "::" + */rwd.name;
+						r_node = mkNodeReward(rwname, clone(action), rwgrd, rwvalue);//node reward does not need action, so 3 parameters
 						//("reward r_node = " + r_node).println();
 						var rewardIsDefined = false;
 						for(rw in m.rewards){
@@ -418,7 +420,7 @@ each modSeq sequence corresponding to a module
 						if(rewardIsDefined){
 							//("r_node:"+ r_node.name +"has been defined, only add the reward item into the existing reward").println();
 							var rw = m.rewards.selectOne(reward|reward.name = r_node.name);
-							rw.rewards.add(mkNodeRewardItem(rwgrd, rwvalue));
+							rw.rewards.add(mkNodeRewardItem(clone(action), rwgrd, rwvalue));
 							delete r_node;
 						} else {
 							m.rewards.add(r_node);
@@ -456,6 +458,8 @@ each modSeq sequence corresponding to a module
 				
 					
 				mod.commands.add(mkCommand(action, grd, updates));
+				// Edges from a ForkNode cannot have associated reward annotations.
+				// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 				delete const_nxt;
 			} else if(node.instanceOf(JoinNode)){
 				var const = mkConst(mod.name + "::" + node.name, const_num);
@@ -488,6 +492,7 @@ each modSeq sequence corresponding to a module
 					}
 					
 					mod.commands.add(mkCommand(action, grd, updates));
+					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 					delete const_nxt;
 				} else {//otherwise the path discontinue: INACTIVE
 					
@@ -504,6 +509,8 @@ each modSeq sequence corresponding to a module
 					}
 										
 					mod.commands.add(mkCommand(action, grd, updates));
+					// If this path is going to be inactive, then no reward is possible.
+					// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 										
 				}
 			} else if(node.instanceOf(DecisionNode)){
@@ -533,6 +540,9 @@ each modSeq sequence corresponding to a module
 								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt));
 							}
 							delete const_nxt;
+							// Edges from a DecisionNode cannot have a reward annotation because we cannot 
+							// distinguish each outgoing edge from the node and its guard
+							// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 						}
 					} else{
 						for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
@@ -545,6 +555,7 @@ each modSeq sequence corresponding to a module
 								updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
 							}
 							delete const_nxt;
+							// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 						}
 					}
 					
@@ -583,6 +594,7 @@ each modSeq sequence corresponding to a module
 						
 										
 						mod.commands.add(mkCommand(action, grd, updates));
+						// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 						//("mkCommand(action, grd, updates)'s action is :" +mkCommand(action, grd, updates).action).println();
 						delete const_nxt;
 					}
@@ -625,8 +637,8 @@ each modSeq sequence corresponding to a module
 							}
 						}
 						
-						
 						mod.commands.add(mkCommand(action, grd, updates));
+						checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 						
 						delete const_nxt;
 						("\nthis is the first time to process this merge node: "+ node.name).println();
@@ -658,8 +670,10 @@ each modSeq sequence corresponding to a module
 					} else{
 						updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
 					}
-						
+					
+					("Add a command " + action.name).println();
 					mod.commands.add(mkCommand(action, grd, updates));
+					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
 				}
 			} else if(node.instanceOf(FlowFinalNode)){
 								
@@ -898,18 +912,24 @@ for(p in properties){
 				break;
 			}
 			
-			var newstate;
+			var newstate = "";
 			for(c in m.constants){
-				if(node_name.isSubstringOf(c.name)){
+				if(c.name.trim().endsWith("::" + node_name)){
 					newstate = c.name;
 					("Corresponding constant for node [" + node_name + "] is " + newstate).println();
 					break;
 				}
 			}
-			// Get the prefixing of newstate 
-			var pc = newstate.substring(0, newstate.length() - node_name.length()) + "pc";
-			var new_expr = (pc + " = " + newstate).replace("::", "_");
-			p.value = p.value.replace(matched_expr, new_expr);
+			
+			if(newstate = "") {
+				("The node [" + node_name + 
+					"] isn't found! Please check again it is a right node in the activity diagram").errln();
+			} else {
+				// Get the prefixing of newstate 
+				var pc = newstate.substring(0, newstate.length() - node_name.length()) + "pc";
+				var new_expr = (pc + " = " + newstate).replace("::", "_");
+				p.value = p.value.replace(matched_expr, new_expr);
+			}
 		} else {
 			// not valid, which means the property 
 			("The \'reaches at\' expression should be \'activity reaches at qualified_name_to_node\'").errln();
@@ -949,6 +969,7 @@ for(p in properties){
 	
 	// Processing "activity failed"
 	while(true) {
+		("Failed " + p.value).println();
 		var segs = ad2prism_tool.parseFailed(p.value);
 		if(segs.length() = 0) {
 			// not matched

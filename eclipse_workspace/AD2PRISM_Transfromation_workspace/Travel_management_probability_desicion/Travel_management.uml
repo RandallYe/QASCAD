@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39" xsi:schemaLocation="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_GS7ncGaCEe6BzdOIuxuKKw/40" xsi:schemaLocation="http:///schemas/workflow/_GS7ncGaCEe6BzdOIuxuKKw/40 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_GS8OgGaCEe6BzdOIuxuKKw">
   <uml:Model xmi:id="_NCMNwDhsEe6rMcaVryy_uw" name="Travel_management">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -7,7 +7,7 @@
     <packagedElement xmi:type="uml:Activity" xmi:id="_NDWEUDhsEe6rMcaVryy_uw" name="Activity1" node="_FsE_ADhwEe6rMcaVryy_uw _DLQoEDhwEe6rMcaVryy_uw _1l-eIDhvEe6rMcaVryy_uw _ylFgADhvEe6rMcaVryy_uw _hqfAEDhvEe6rMcaVryy_uw _YTMgkDhvEe6rMcaVryy_uw _UXuJgDhvEe6rMcaVryy_uw _M7YTwDhvEe6rMcaVryy_uw _AkTCUDhvEe6rMcaVryy_uw _5LeaoDhuEe6rMcaVryy_uw _uZHEQDhuEe6rMcaVryy_uw _SMQCYDhtEe6rMcaVryy_uw _Oa9iEDhtEe6rMcaVryy_uw _bFmZ8DhzEe6rMcaVryy_uw _hQrjgDhwEe6rMcaVryy_uw _ZZasUDhwEe6rMcaVryy_uw _R5pIEDhwEe6rMcaVryy_uw _T6mTMDhwEe6rMcaVryy_uw _Jm0WQDhwEe6rMcaVryy_uw">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_DXDV4FLeEe6b35UbuRRGnA" name="r">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_DXDV4VLeEe6b35UbuRRGnA" name="r" value="0.3"/>
+        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_DXDV4VLeEe6b35UbuRRGnA" name="r" value="0.97"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_uotcUFOSEe6QQLdCEJTbVw" name="rewd">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
@@ -113,15 +113,15 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NH_TwDhsEe6rMcaVryy_uw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6UMXcGO2Ee6Zju61UiY0gA" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXcWO2Ee6Zju61UiY0gA" key="Version" value="0.0.40"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXcmO2Ee6Zju61UiY0gA" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXc2O2Ee6Zju61UiY0gA" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXdGO2Ee6Zju61UiY0gA" key="Date" value="2023-10-05"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6UMXdWO2Ee6Zju61UiY0gA" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gCvnAGaiEe6FeoR1sVjg9g" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gCwOEGaiEe6FeoR1sVjg9g" key="Version" value="0.0.41"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gCwOEWaiEe6FeoR1sVjg9g" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gCwOEmaiEe6FeoR1sVjg9g" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gCwOE2aiEe6FeoR1sVjg9g" key="Date" value="2023-10-09"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_gCwOFGaiEe6FeoR1sVjg9g" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NH_60DhsEe6rMcaVryy_uw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_GS8OgGaCEe6BzdOIuxuKKw"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>

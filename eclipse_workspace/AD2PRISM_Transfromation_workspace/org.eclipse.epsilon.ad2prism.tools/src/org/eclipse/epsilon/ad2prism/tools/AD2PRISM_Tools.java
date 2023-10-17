@@ -8,8 +8,8 @@ public class AD2PRISM_Tools {
 	public String parseReachesAt(String prop) { 
 		// activity_name reaches at activity_name::...::node_name
         Pattern pat = Pattern.compile(
-        		"(" + word + ")\\s*reaches\\s*at\\s*(" + 
-        		"(" + word + "::)+" + "(" + word + "))");
+        		"(" + word + ")\\s+reaches\\s+at\\s+(" + 
+        		"(" + word + "\\s*::\\s*)+" + "(" + word + "))");
         		//"([a-zA-Z][a-zA-Z0-9_]*)\\s*reaches\\s*at\\s*(([a-zA-Z][a-zA-Z0-9_]*::)+([a-zA-Z][a-zA-Z0-9_]*))");
 		 
 		Matcher m = pat.matcher(prop);
@@ -31,7 +31,7 @@ public class AD2PRISM_Tools {
 	public String parseTerminated(String prop) {
 		// activity_name terminated successfully
         Pattern pat = Pattern.compile(
-        		"(" + word + ")\\s*\\s*terminated\\s*successfully\\s*");
+        		"(" + word + ")\\s+terminated\\s+successfully\\s*");
 		 
 		Matcher m = pat.matcher(prop);
 		  
@@ -48,7 +48,7 @@ public class AD2PRISM_Tools {
 	public String parseFailed(String prop) {
 		// activity_name failed
         Pattern pat = Pattern.compile(
-        		"(" + word + ")\\s*failed\\s*");
+        		"(" + word + ")\\s+failed\\s*");
 		 
 		Matcher m = pat.matcher(prop);
 		  
