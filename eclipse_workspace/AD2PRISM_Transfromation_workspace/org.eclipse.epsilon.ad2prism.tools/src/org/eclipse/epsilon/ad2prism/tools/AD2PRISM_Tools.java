@@ -61,4 +61,21 @@ public class AD2PRISM_Tools {
 		    return "";
 		}
 	}
+	
+	public String parseTerm(String prop) {
+		// activity_name terminated
+        Pattern pat = Pattern.compile(
+        		"(" + word + ")\\s+terminated\\s*");
+		 
+		Matcher m = pat.matcher(prop);
+		  
+		if (m.find( )) {
+			/*System.out.println("Matched: " + m.group(0) );
+		    System.out.println("Activity name: " + m.group(1) );*/
+		    return m.group(0) + "$" + m.group(1);
+		} else {
+		    //System.out.println("NO MATCH");
+		    return "";
+		}
+	}
 }
