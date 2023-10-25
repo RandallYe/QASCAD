@@ -954,6 +954,13 @@ for(p in properties){
 			var matched_expr = seq.at(0);
 			var activity_name = seq.at(1);
 			
+			// Check if the activity in properties matches
+			if (not (activity_name = act.name)) {
+				("[" + activity_name +"] in the property [" + p.value + 
+				"] is not the activity name [" + act.name + "]!").errln();
+				break;
+			}
+			
 			if(m.formulas.includes(toBeFailed)){
 				p.value = p.value.replace(matched_expr, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
 			} else{
@@ -984,6 +991,13 @@ for(p in properties){
 			("Activity name: " + seq.at(1)).println();
 			var matched_expr = seq.at(0);
 			var activity_name = seq.at(1);
+			
+			// Check if the activity in properties matches
+			if (not (activity_name = act.name)) {
+				("[" + activity_name +"] in the property [" + p.value + 
+				"] is not the activity name [" + act.name + "]!").errln();
+				break;
+			}
 			
 			if(m.formulas.includes(toBeFailed)){
 				p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");

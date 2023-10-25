@@ -4,7 +4,7 @@
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Activity" xmi:id="_NDWEUDhsEe6rMcaVryy_uw" name="Activity1" node="_FsE_ADhwEe6rMcaVryy_uw _DLQoEDhwEe6rMcaVryy_uw _1l-eIDhvEe6rMcaVryy_uw _ylFgADhvEe6rMcaVryy_uw _hqfAEDhvEe6rMcaVryy_uw _YTMgkDhvEe6rMcaVryy_uw _UXuJgDhvEe6rMcaVryy_uw _M7YTwDhvEe6rMcaVryy_uw _AkTCUDhvEe6rMcaVryy_uw _5LeaoDhuEe6rMcaVryy_uw _uZHEQDhuEe6rMcaVryy_uw _SMQCYDhtEe6rMcaVryy_uw _Oa9iEDhtEe6rMcaVryy_uw _bFmZ8DhzEe6rMcaVryy_uw _hQrjgDhwEe6rMcaVryy_uw _ZZasUDhwEe6rMcaVryy_uw _R5pIEDhwEe6rMcaVryy_uw _T6mTMDhwEe6rMcaVryy_uw _Jm0WQDhwEe6rMcaVryy_uw">
+    <packagedElement xmi:type="uml:Activity" xmi:id="_NDWEUDhsEe6rMcaVryy_uw" name="TM" node="_FsE_ADhwEe6rMcaVryy_uw _DLQoEDhwEe6rMcaVryy_uw _1l-eIDhvEe6rMcaVryy_uw _ylFgADhvEe6rMcaVryy_uw _hqfAEDhvEe6rMcaVryy_uw _YTMgkDhvEe6rMcaVryy_uw _UXuJgDhvEe6rMcaVryy_uw _M7YTwDhvEe6rMcaVryy_uw _AkTCUDhvEe6rMcaVryy_uw _5LeaoDhuEe6rMcaVryy_uw _uZHEQDhuEe6rMcaVryy_uw _SMQCYDhtEe6rMcaVryy_uw _Oa9iEDhtEe6rMcaVryy_uw _bFmZ8DhzEe6rMcaVryy_uw _hQrjgDhwEe6rMcaVryy_uw _ZZasUDhwEe6rMcaVryy_uw _R5pIEDhwEe6rMcaVryy_uw _T6mTMDhwEe6rMcaVryy_uw _Jm0WQDhwEe6rMcaVryy_uw">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_DXDV4FLeEe6b35UbuRRGnA" name="r">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
         <defaultValue xmi:type="uml:LiteralReal" xmi:id="_DXDV4VLeEe6b35UbuRRGnA" name="r" value="0.97"/>
@@ -144,7 +144,15 @@
   <workflow:parameterized xmi:id="_uT-asDhwEe6rMcaVryy_uw" reliability="_XldI4FLeEe6b35UbuRRGnA" base_OpaqueAction="_T6mTMDhwEe6rMcaVryy_uw" base_Action="_T6mTMDhwEe6rMcaVryy_uw"/>
   <workflow:Properties xmi:id="_Pm3pcFMlEe6API5IJJoFpA" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" modeltype="MDP">
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_Vn0fQFMlEe6API5IJJoFpA" name="P1" value="!E [ F &quot;deadlock&quot; ]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_qZeJQFMlEe6API5IJJoFpA" name="P2" value="Pmax=?  [ F (activity1 terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_qZeJQFMlEe6API5IJJoFpA" name="P2" value="Pmax=?  [ F (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_NU-EwHEgEe6Z3Jh_J3p7Lg" name="P_checkSchedule_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::checkSchedule)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="__S8CgHEhEe63LLw_TF_E_g" name="P_checkSchedule_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::checkSchedule)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_DV4TgHEiEe63LLw_TF_E_g" name="P_reqeustMeeting_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::requestMeeting)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_JT4jAHEiEe63LLw_TF_E_g" name="P_reqeustMeeting_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::requestMeeting)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_g_t0QHEkEe6HxOe0ivvJ6Q" name="P_makeCall_max" value="filter(max, Pmax=? [F TM terminated successfully], (TM reaches at TM::makeCall) &amp; (TM reaches at TM::bookParking))"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_nCsDUHEkEe6HxOe0ivvJ6Q" name="P_makeCall_min" value="filter(min, Pmin=? [F TM terminated successfully], (TM reaches at TM::makeCall) &amp; (TM reaches at TM::bookParking))"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_qPyRcHEkEe6HxOe0ivvJ6Q" name="P_M1_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::M1)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_s5zAoHEkEe6HxOe0ivvJ6Q" name="P_M1_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::M1)"/>
   </workflow:Properties>
   <workflow:WeightedFlow xmi:id="_uKH68FMmEe6QQLdCEJTbVw" base_ControlFlow="_wjctgDhxEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_z8dtAFMmEe6QQLdCEJTbVw" name="R1" value="_zw258FMmEe6QQLdCEJTbVw"/>

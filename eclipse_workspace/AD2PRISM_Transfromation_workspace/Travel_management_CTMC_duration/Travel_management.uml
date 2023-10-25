@@ -4,7 +4,7 @@
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Activity" xmi:id="_NDWEUDhsEe6rMcaVryy_uw" name="Activity1" node="_FsE_ADhwEe6rMcaVryy_uw _DLQoEDhwEe6rMcaVryy_uw _1l-eIDhvEe6rMcaVryy_uw _ylFgADhvEe6rMcaVryy_uw _hqfAEDhvEe6rMcaVryy_uw _YTMgkDhvEe6rMcaVryy_uw _UXuJgDhvEe6rMcaVryy_uw _M7YTwDhvEe6rMcaVryy_uw _AkTCUDhvEe6rMcaVryy_uw _5LeaoDhuEe6rMcaVryy_uw _uZHEQDhuEe6rMcaVryy_uw _SMQCYDhtEe6rMcaVryy_uw _Oa9iEDhtEe6rMcaVryy_uw _bFmZ8DhzEe6rMcaVryy_uw _hQrjgDhwEe6rMcaVryy_uw _R5pIEDhwEe6rMcaVryy_uw _T6mTMDhwEe6rMcaVryy_uw _Jm0WQDhwEe6rMcaVryy_uw">
+    <packagedElement xmi:type="uml:Activity" xmi:id="_NDWEUDhsEe6rMcaVryy_uw" name="TM" node="_FsE_ADhwEe6rMcaVryy_uw _DLQoEDhwEe6rMcaVryy_uw _1l-eIDhvEe6rMcaVryy_uw _ylFgADhvEe6rMcaVryy_uw _hqfAEDhvEe6rMcaVryy_uw _YTMgkDhvEe6rMcaVryy_uw _UXuJgDhvEe6rMcaVryy_uw _M7YTwDhvEe6rMcaVryy_uw _AkTCUDhvEe6rMcaVryy_uw _5LeaoDhuEe6rMcaVryy_uw _uZHEQDhuEe6rMcaVryy_uw _SMQCYDhtEe6rMcaVryy_uw _Oa9iEDhtEe6rMcaVryy_uw _bFmZ8DhzEe6rMcaVryy_uw _hQrjgDhwEe6rMcaVryy_uw _R5pIEDhwEe6rMcaVryy_uw _T6mTMDhwEe6rMcaVryy_uw _Jm0WQDhwEe6rMcaVryy_uw">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_DXDV4FLeEe6b35UbuRRGnA" name="r">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
         <defaultValue xmi:type="uml:LiteralReal" xmi:id="_DXDV4VLeEe6b35UbuRRGnA" name="r" value="0.97"/>
@@ -152,6 +152,18 @@
   <workflow:WeightedFlow xmi:id="_iP-EoGj0Ee6gQfPEZfnDaQ" base_ControlFlow="__k7eYGjyEe6gQfPEZfnDaQ" probability="_kxNSUGj0Ee6gQfPEZfnDaQ"/>
   <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" modeltype="CTMC">
     <prproperties xmi:type="workflow:PRProperty" xmi:id="_ODJvoG0eEe6jYN7OOLxKkg" name="P_deadlock_freedom" value="!E [ F &quot;deadlock&quot; ]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_R70DQG0eEe6jYN7OOLxKkg" name="P_termination" value="P=?  [ F (activity1 terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_R70DQG0eEe6jYN7OOLxKkg" name="P_termination" value="P=?  [ F (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_zpjTAHFtEe6A0-ynYZpVJA" name="P_terminated_10" value="P=?  [ F&lt;=10 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_-6QKEHMAEe65lYEzDPOMCQ" name="P_terminated_20" value="P=?  [ F&lt;=20 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_BQOi8HMBEe65lYEzDPOMCQ" name="P_terminated_30" value="P=?  [ F&lt;=30 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_DgKlQHMBEe65lYEzDPOMCQ" name="P_terminated_40" value="P=?  [ F&lt;=40 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_Fs3GUHMBEe65lYEzDPOMCQ" name="P_terminated_50" value="P=?  [ F&lt;=50 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_Rfm7oHMBEe65lYEzDPOMCQ" name="P_terminated_60" value="P=?  [ F&lt;=60 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_TtKYUHMBEe65lYEzDPOMCQ" name="P_terminated_70" value="P=?  [ F&lt;=70 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_WS4dYHMBEe65lYEzDPOMCQ" name="P_terminated_80" value="P=?  [ F&lt;=80 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_Y4OvAHMBEe65lYEzDPOMCQ" name="P_terminated_90" value="P=?  [ F&lt;=90 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_bUTI0HMBEe65lYEzDPOMCQ" name="P_terminated_100" value="P=?  [ F&lt;=100 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_d-O_gHMBEe65lYEzDPOMCQ" name="P_terminated_110" value="P=?  [ F&lt;=110 (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_gQAN0HMBEe65lYEzDPOMCQ" name="P_terminated_120" value="P=?  [ F&lt;=120 (TM terminated successfully) ]"/>
   </workflow:Properties>
 </xmi:XMI>
