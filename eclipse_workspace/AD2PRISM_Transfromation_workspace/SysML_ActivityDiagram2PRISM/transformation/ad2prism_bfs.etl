@@ -1000,7 +1000,7 @@ for(p in properties){
 			}
 			
 			if(m.formulas.includes(toBeFailed)){
-				p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");
+				p.value = p.value.replace(matched_expr, toBeFailed.name).replace("::", "_");
 			} else{
 				//Error("Logic error: not possible!")
 			}
@@ -1008,6 +1008,43 @@ for(p in properties){
 		} else {
 			// not valid, which means the property 
 			("The \'failed\' expression should be \'activity failed\'").errln();
+			break;
+		}
+	}
+	
+		// Processing "activity terminated on fail"
+	while(true) {
+		var segs = ad2prism_tool.parseTerm(p.value);
+		if(segs.length() = 0) {
+			// not matched
+			break;
+		}
+		("terminated: " + segs).println();
+		var seq = segs.split("\\$");
+		("size: " + seq.size()).println();
+		if (seq.size() = 2) {
+			// Valid format
+			("Matche string: " + seq.at(0)).println();
+			("Activity name: " + seq.at(1)).println();
+			var matched_expr = seq.at(0);
+			var activity_name = seq.at(1);
+			
+			// Check if the activity in properties matches
+			if (not (activity_name = act.name)) {
+				("[" + activity_name +"] in the property [" + p.value + 
+				"] is not the activity name [" + act.name + "]!").errln();
+				break;
+			}
+			
+			if(m.formulas.includes(toBeFailed)){
+				p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");
+			} else{
+				p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
+			}
+			
+		} else {
+			// not valid, which means the property 
+			("The \'terminated on fail\' expression should be \'activity terminated on fail\'").errln();
 			break;
 		}
 	}

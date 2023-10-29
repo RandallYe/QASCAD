@@ -63,10 +63,11 @@ public class AD2PRISM_Tools {
 	}
 	
 	public String parseTerm(String prop) {
-		// activity_name terminated
+		// activity_name terminated on fail
         Pattern pat = Pattern.compile(
-        		"(" + word + ")\\s+terminated\\s*");
-		 
+        		"(" + word + ")\\s+terminated\\s+on\\s+fail\\s*");
+        		//"(" + word + ")\\s+terminated\\s*");
+
 		Matcher m = pat.matcher(prop);
 		  
 		if (m.find( )) {

@@ -1,0 +1,30 @@
+ctmc
+
+const double rate_loc = 9.62;
+const double rate_arr =  19.88;
+const double rate_dep = 19.46;
+const double rate_bin =  1.85;
+const double rate_wea = 1.11;
+const double rate_tra = 2.51;
+
+
+const double p1 = 0.3;
+const double p2 = 0.1;
+
+module main
+
+s : [1..7] init 1;
+
+[] s=1 -> rate_loc * p1:(s'=2) + rate_loc * (1-p1):(s'=3);
+[] s=2 -> rate_arr:(s'=4);
+[] s=4 -> rate_bin:(s'=6);
+[] s=3 -> rate_dep:(s'=5);
+[] s=5 -> rate_wea*p2:(s'=3) + rate_wea*(1-p2):(s'=6);
+
+[] s=6 -> rate_tra:(s'=7);
+
+endmodule
+
+
+label "complete" = s=7;
+label "arrival" = s= 4;
