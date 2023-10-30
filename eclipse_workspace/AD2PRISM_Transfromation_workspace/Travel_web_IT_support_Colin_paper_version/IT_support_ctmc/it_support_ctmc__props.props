@@ -4,9 +4,7 @@ const double T;
 
 P=? [ F<=T "complete" ]
 
-P=? [ !"arrival" U<=T "complete" ]/(1-p1)
-
 P=? [ F<=T "complete" ]-2*(1-P=? [ F=3 "complete" ])
 
-filter(max, Pmax=? [ !"arrival" U<T "complete" ], true)
+P=?[(!"reopen" & !"addInfo") U<=T "complete"]
 
