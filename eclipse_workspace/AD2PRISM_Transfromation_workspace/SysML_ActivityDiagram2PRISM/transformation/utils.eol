@@ -1,0 +1,61 @@
+/////////////////////////// log/print /////////////////////
+// log devel: 	
+//	0 - OFF; 
+//	1 - ERROR; 
+//	2 - WARNING; 
+//	3 - INFO; less detailed log to capture the main points, such as entry and exit of operations or blocks
+//	4 - TRACE; more detailed log for debugging
+//				
+operation dbg_print(str: String, level: Integer) {
+	// DBG_OPTION is a Boolean parameter to this ETL. If it is not defined, we just turn debug off 	
+	if (DBG_OPTION == true or DBG_OPTION == "true") {
+		if(level <= dbg_level and level > 0) {
+			if(level = 4) {
+				("<TRACE> " + str).println();
+			} else if (level = 3) {
+				("<INFO> " + str).println();
+			} else if (level = 2) {
+				("<WARN> " + str).errln();
+			} else if (level = 1) {
+				("<ERROR> " + str).errln();
+				err_print_throw(str);
+			} else {
+				//("[UNKNOWN]: " + str).println();
+			}
+		} else {
+			//
+		}
+	}
+}
+
+/*
+ * E201: Not yet supported (will support in the future)
+ * E202: Unsupported (won't support in the future)
+ * E203: Well-formedness violation
+ * E209: Misc
+ */
+operation err_print_throw(str: String) {
+	var new_err_str = str
+		+ "\n========================= Note ============================\n"
+		+ "This error occurs in the translation from Activity to PRISM,\n"
+		+ "therefore not possible to analyse it using PRISM. ";
+	dbg_print(new_err_str, 1);
+	throw new_err_str;
+}
+
+operation printNodes(nodes: Sequence) : String {
+	var ret = "[";
+	for (n in nodes) {
+		ret = ret + n.name;
+		if(hasMore) 
+			ret = ret + ",";
+	}
+	return ret + "]";
+}
+
+operation addNodeNoDup(nodes: Sequence, node: AD!ActivityNode) {
+	if(nodes.includes(node)) {
+	} else {
+		nodes.add(node);
+	}
+}

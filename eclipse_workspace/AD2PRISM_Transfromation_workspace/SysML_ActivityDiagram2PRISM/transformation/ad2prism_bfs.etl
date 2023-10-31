@@ -1,22 +1,34 @@
-
+import "utils.eol";
 import "prism.eol";
 import "ad.eol";
 
 pre{
-	var toBeVisitedNodes = new Sequence;
-	var visitedNodes = new Sequence;
-	//nodeModuleMap is a map containing many map
-	var nodeModuleMap = new Map;
-	//'maps' is a sequence containing all the maps, each map cantain only one element
-	var maps = new Sequence;
-	//modSeqs is a sequence of sequence, the atomic sequence contains the maps for the same module
-	//the size of modSeqs is the same as the number of the modules created 
-	var modSeqs = new Sequence;
-	var dummyNodeModuleSeq = new Sequence;
-	var is_root = true;
-	
-	var progress_made = new Map;
+    var toBeVisitedNodes = new Sequence;
+    var visitedNodes = new Sequence;
+    //nodeModuleMap is a map containing many map
+    var nodeModuleMap = new Map;
+    //'maps' is a sequence containing all the maps, each map cantain only one element
+    var maps = new Sequence;
+    //modSeqs is a sequence of sequence, the atomic sequence contains the maps for the same module
+    //the size of modSeqs is the same as the number of the modules created 
+    var modSeqs = new Sequence;
+    var dummyNodeModuleSeq = new Sequence;
+    var is_root = true;
 
+    var progress_made = new Map;
+
+    var LEVEL_ERROR = 1;
+    var LEVEL_WARN = 2;
+    var LEVEL_INFO = 3;
+    var LEVEL_TRACE = 4;
+
+    var dbg_level : Integer = 0;
+
+    if(DBG_LEVEL.instanceOf(String)) {
+        dbg_level = DBG_LEVEL.asInteger();
+    } else {
+        dbg_level = DBG_LEVEL;
+    }
 }
 
 
@@ -24,1542 +36,1536 @@ rule activityToPrism
 transform act : AD!Activity
 to m : PRISM!Model
 {
-	
-/*****************************************
- generate properties
-******************************************/
-var properties = Set{};
-if( act.getAppliedStereotypes().size()>0){
-	for(st in act.getAppliedStereotypes()){
-		if(st.name = "Properties") {
-			if(act.hasValue(st,"modeltype")){
-				var modeltype = act.getValue(st,"modeltype");
-				("Model Type: [" + modeltype.name + "]").println();
-				if(modeltype.name = "DTMC") {
-					m.modelType = PRISM!ModelType#DTMC;
-				} else if(modeltype.name = "MDP") {
-					m.modelType = PRISM!ModelType#MDP;
-					//("Model Type: [" + m.modelType + "]").println();
-				} else if(modeltype.name = "PTA") {
-					m.modelType = PRISM!ModelType#PAT;
-				} else if(modeltype.name = "CTMC") {
-					m.modelType = PRISM!ModelType#CTMC;
-				} else {
-					("Model Type: [" + modeltype.name + "] is not yet supported!").errln();
-				}
-			}
-			
-			if(act.hasValue(st,"prproperties")){
-				properties = act.getValue(st,"prproperties");
-			}
-		}
-	}
-}
-	
- 	
- 	//to_be_terminated is defined as a formula instead of a global variable
- 	var toBeTerminated = new PRISM!Formula;
- 	
- 	toBeTerminated.name = act.name + "::to_be_terminated";
- 	// toBeTerminated.expr is set as false when defined, and will be updated when the local toBeTerminated is defined
- 	toBeTerminated.expr = mkBoolLitExpr(false);
- 	m.formulas.add(toBeTerminated);
- 	toBeTerminated.expr.println();
- 	
- 	//an indicator if the formula toBeTerminated has ever been updated
-	var toBeTerminatedIsUpdated = false;
-		
-	var toBeFailed = new PRISM!Formula;
- 	toBeFailed.name = act.name + "::to_be_failed";
- 	toBeFailed.expr = mkBoolLitExpr(false);
- 	m.formulas.add(toBeFailed);
- 	var toBeFailedIsUpdated = false;
-	
-	var INACTIVE = mkConst("INACTIVE", -1);
-  	m.constants.add(INACTIVE);
-  	
-  	var terminated;
-	
-	//for CTMC model, define the duration for the non-action nodes 
-	var mean_duration;
-	var default_rate = new PRISM!Formula;
-	var isCTMC = false;
-	if(m.modelType = PRISM!ModelType#CTMC){
-		isCTMC = true;
-		mean_duration = mkConst("mean_duration", 0.000001);
-		("mean_duration = " + mean_duration.value.value).println();
-		m.constants.add(mean_duration);
-		default_rate.name = "default_rate";
-		default_rate.expr = mkDivExpr(mkDoubleLitExpr(1.0), mkVarExpr(mean_duration.name));
- 		m.formulas.add(default_rate);
- 		("default_rate = " + default_rate.expr).println();
- 		("left = " + default_rate.expr.left).println();
- 		("right = " + default_rate.expr.right).println();
-	} 
-	
 
-/*******************************************
-// Pre-Processing activity diagram
-*******************************************/
+    /*****************************************
+      generate properties
+     ******************************************/
+    var properties = Set{};
+    if( act.getAppliedStereotypes().size()>0){
+        for(st in act.getAppliedStereotypes()){
+            if(st.name = "Properties") {
+                if(act.hasValue(st,"modeltype")){
+                    var modeltype = act.getValue(st,"modeltype");
+                    dbg_print("Model Type: [" + modeltype.name + "]", LEVEL_INFO);
+                    if(modeltype.name = "DTMC") {
+                        m.modelType = PRISM!ModelType#DTMC;
+                    } else if(modeltype.name = "MDP") {
+                        m.modelType = PRISM!ModelType#MDP;
+                        //("Model Type: [" + m.modelType + "]", LEVEL_TRACE);
+                    } else if(modeltype.name = "PTA") {
+                        m.modelType = PRISM!ModelType#PAT;
+                    } else if(modeltype.name = "CTMC") {
+                        m.modelType = PRISM!ModelType#CTMC;
+                    } else {
+                        dbg_print("Model Type: [" + modeltype.name + "] is not yet supported!", LEVEL_ERROR);
+                    }
+                }
 
-	//Initial nodes: for each initial node, every outgoing edge creates a new module
-	var init_nodes= act.ownedNode.select(n|n.type().name="InitialNode").sortBy(c | c.name) ;
-	for(inode in init_nodes){
-		for(oe in getAllEdgesFromNode(act,inode)){
-			var mod = mkModuleDef(mkModuleName(act,inode,oe), Sequence{}, Sequence{});
-			m.modules.add(mod);
-			if(is_root){
-				mod.vars.add(mkVarDecl(mod, -1, null, "0"));
-			} else {
-				mod.vars.add(mkVarDecl(mod, -1, null, "INACTIVE"));
-			}
-			
-			//add the initial node to the map
-			nodeModuleMap.put(Tuple {nd = inode, edg = oe}, mod);
-		    addMap(maps, Tuple {nd = inode, edg = oe}, mod);
+                if(act.hasValue(st,"prproperties")){
+                    properties = act.getValue(st,"prproperties");
+                }
+            }
+        }
+    }
 
-			"maps:".println();maps.println();
-			
-			//add the next node to the initial node to the map
-			nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-			addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-			"maps:".println();maps.println();
-			
-			toBeVisitedNodes.add(oe.target);
-			("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 67").println();
-		}
-		visitedNodes.add(inode);
-	}
-		
- 	
- 	
- 	
- 	//traverse all nodes in toBeVistedNodes (initial nodes not included)
-	traverseNodes(m, act, true, INACTIVE, toBeTerminated, toBeTerminatedIsUpdated, isCTMC, default_rate);
 
-	
-	
-/*************************************************************************
-//Post-processing: Scan each Merge Node with a dummy module for the loop
-**************************************************************************/
+    //to_be_terminated is defined as a formula instead of a global variable
+    var toBeTerminated = new PRISM!Formula;
 
-	while(dummyNodeModuleSeq.size()>0){
-		("\nthis is the post-processing section at line 78.  dummyNodeModuleSeq.size = "+ dummyNodeModuleSeq.size).println();
-		"\ndummyNodeModuleSeq.size()>0, LOOP is involved, the dummy module shall be processed as follow:".println();
-		var mp = dummyNodeModuleSeq.removeAt(0);
-		"mp:".println();
-		mp.println();
-		var node = mp.keySet().at(0);
- 		var dummymod = mp.values().at(0);
- 		
- 		if(node.instanceOf(MergeNode)){
- 			var setMods = Set{};
- 			for (mp in maps.select(mp|mp.keySet().at(0).nd = node)){
- 				setMods.add(mp.values().at(0));
- 			}
- 			
- 			if(setMods.size() > 2) {
- 				"setMods.size() > 2, do nothing".println();
- 				//do nothing, keep using the dummy module
- 			} else if(setMods.size() = 2 and not setMods.includes(dummymod)){
- 				"setMods.size()  = 2 and not setMods.includes(dummymod), do nothing".println();
- 				// do nothing, keep using the dummy module
- 			} else if(setMods.size() = 2 and setMods.includes(dummymod)) { //setMods.includes(dummymod) MEANS that the loop and the merge outgoning path are in the same module, so all incoming should be in the same module
- 			//therefore there should be only one module for all these maps (the maps in the normal module and the dummymodule), we need to change the module name of the dummynodemodule into the module name of the module created in the normal procedure
- 				("setMods.size() = 2, it includes: " + setMods).println();
- 				var rightmod = new PRISM!ModuleDef;
- 				"setMods.size()  = 2 and setMods.includes(dummymod), replace dummy with rightmod".println();
- 				// in this case, we use another module for the outgoing edge, and need to replace all occurrences of dummymod in nodeModuleMap by another moduel
- 				if(setMods.at(0) = dummymod){//the first module is the dummy module, so we use the second module as the correct module name
- 					rightmod  = setMods.at(1);
- 				} else { //the second module is the dummy module, so we use the first module as the correct module name
- 					rightmod  = setMods.at(0);
- 				} 
- 				
- 				
- 				//replace dummy module with rightmod module in the related maps
- 				var i=1;
- 				var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
- 				for(mp in toBeReplaced){
- 					addMap(maps, mp.keySet().at(0), rightmod);
- 					//maps.add(mp.keySet().at(0), rightmod);
- 					maps.remove(mp);
- 					("replaced " + i + " times").println();
- 					i++;
- 				}
- 				("\nCurrently, m.modules =  " +m.modules).println();
- 				delete dummymod;
- 				("after delet dummymod at line 144, Currently, m.modules =  " +m.modules).println();
- 			} else if(setMods.size() = 1 and not setMods.includes(dummymod)){
- 				"setMods.size()  =1 and not setMods.includes(dummymod), replace dummy with rightmod".println();
- 				var rightmod  = setMods.at(0);
- 				
- 				var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
- 				for(mp in toBeReplaced){
- 					addMap(maps, mp.keySet().at(0), rightmod);
- 					maps.remove(mp);
- 				}
- 				("\nCurrently, m.modules =  " +m.modules).println();
- 				delete dummymod;
- 				("after delet dummymod at line 142, Currently, m.modules =  " +m.modules).println();
- 			} else {
- 				//Error("Logic error: not possible!")
- 			}
- 		}
-	}
-	
-	
-/*************************************************************************
-Processing the nodeModuleMap as a sequence (modSeqs) of sequence(mdSeq)
-*************************************************************************/
+    toBeTerminated.name = act.name + "::to_be_terminated";
+    // toBeTerminated.expr is set as false when defined, and will be updated when the local toBeTerminated is defined
+    toBeTerminated.expr = mkBoolLitExpr(false);
+    m.formulas.add(toBeTerminated);
+    toBeTerminated.expr.println();
 
- 	for (md in m.modules){
- 		var mdSeq = maps.select(m|m.values().at(0) = md);
- 		modSeqs.add(mdSeq);
- 		mdSeq.println();
- 	}
- 	("maps.size: " + maps.size()).println();
- 	for(mp in maps){
- 		mp.println();
- 	}
- 				
- 				
-/********************************************
+    //an indicator if the formula toBeTerminated has ever been updated
+    var toBeTerminatedIsUpdated = false;
+
+    var toBeFailed = new PRISM!Formula;
+    toBeFailed.name = act.name + "::to_be_failed";
+    toBeFailed.expr = mkBoolLitExpr(false);
+    m.formulas.add(toBeFailed);
+    var toBeFailedIsUpdated = false;
+
+    var INACTIVE = mkConst("INACTIVE", -1);
+    m.constants.add(INACTIVE);
+
+    var terminated;
+
+    //for CTMC model, define the duration for the non-action nodes 
+    var mean_duration;
+    var default_rate = new PRISM!Formula;
+    var isCTMC = false;
+    if(m.modelType = PRISM!ModelType#CTMC){
+        isCTMC = true;
+        mean_duration = mkConst("mean_duration", 0.000001);
+        dbg_print("mean_duration = " + mean_duration.value.value, LEVEL_TRACE);
+
+        m.constants.add(mean_duration);
+        default_rate.name = "default_rate";
+        default_rate.expr = mkDivExpr(mkDoubleLitExpr(1.0), mkVarExpr(mean_duration.name));
+        m.formulas.add(default_rate);
+        dbg_print("default_rate = " + default_rate.expr, LEVEL_TRACE);
+        dbg_print("left = " + default_rate.expr.left, LEVEL_TRACE);
+        dbg_print("right = " + default_rate.expr.right, LEVEL_TRACE);
+    } 
+
+
+    /*******************************************
+    // Pre-Processing activity diagram
+     *******************************************/
+
+    //Initial nodes: for each initial node, every outgoing edge creates a new module
+    var init_nodes= act.ownedNode.select(n|n.type().name="InitialNode").sortBy(c | c.name) ;
+    for(inode in init_nodes){
+        for(oe in getAllEdgesFromNode(act,inode)){
+            var mod = mkModuleDef(mkModuleName(act,inode,oe), Sequence{}, Sequence{});
+            m.modules.add(mod);
+            if(is_root){
+                mod.vars.add(mkVarDecl(mod, -1, null, "0"));
+            } else {
+                mod.vars.add(mkVarDecl(mod, -1, null, "INACTIVE"));
+            }
+
+            //add the initial node to the map
+            nodeModuleMap.put(Tuple {nd = inode, edg = oe}, mod);
+            addMap(maps, Tuple {nd = inode, edg = oe}, mod);
+
+            dbg_print("maps: " + maps, LEVEL_TRACE);
+
+            //add the next node to the initial node to the map
+            nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+            addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+            dbg_print("maps: " + maps, LEVEL_TRACE);
+
+            addNodeNoDup(toBeVisitedNodes, oe.target);
+            dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 67", LEVEL_TRACE);
+        }
+        visitedNodes.add(inode);
+    }
+
+    //traverse all nodes in toBeVistedNodes (initial nodes not included)
+    traverseNodes(m, act, true, INACTIVE, toBeTerminated, toBeTerminatedIsUpdated, isCTMC, default_rate);
+
+    /*************************************************************************
+    //Post-processing: Scan each Merge Node with a dummy module for the loop
+     **************************************************************************/
+
+    while(dummyNodeModuleSeq.size()>0){
+        dbg_print("This is the post-processing section at line 78.  dummyNodeModuleSeq.size = " + dummyNodeModuleSeq.size, LEVEL_TRACE);
+        dbg_print("dummyNodeModuleSeq.size()>0, LOOP is involved, the dummy module shall be processed as follow:", LEVEL_TRACE);
+        var mp = dummyNodeModuleSeq.removeAt(0);
+        dbg_print("mp: " + mp, LEVEL_TRACE);
+        var node = mp.keySet().at(0);
+        var dummymod = mp.values().at(0);
+
+        if(node.instanceOf(MergeNode)){
+            var setMods = Set{};
+            for (mp in maps.select(mp|mp.keySet().at(0).nd = node)){
+                setMods.add(mp.values().at(0));
+            }
+
+            if(setMods.size() > 2) {
+                dbg_print("setMods.size() > 2, do nothing", LEVEL_TRACE);
+                //do nothing, keep using the dummy module
+            } else if(setMods.size() = 2 and not setMods.includes(dummymod)){
+                dbg_print("setMods.size()  = 2 and not setMods.includes(dummymod), do nothing", LEVEL_TRACE);
+                // do nothing, keep using the dummy module
+            } else if(setMods.size() = 2 and setMods.includes(dummymod)) { //setMods.includes(dummymod) MEANS that the loop and the merge outgoning path are in the same module, so all incoming should be in the same module
+                                                                           //therefore there should be only one module for all these maps (the maps in the normal module and the dummymodule), we need to change the module name of the dummynodemodule into the module name of the module created in the normal procedure
+                dbg_print("setMods.size() = 2, it includes: " + setMods, LEVEL_TRACE);
+                var rightmod = new PRISM!ModuleDef;
+                dbg_print("setMods.size()  = 2 and setMods.includes(dummymod), replace dummy with rightmod", LEVEL_TRACE);
+                // in this case, we use another module for the outgoing edge, and need to replace all occurrences of dummymod in nodeModuleMap by another moduel
+                if(setMods.at(0) = dummymod){//the first module is the dummy module, so we use the second module as the correct module name
+                    rightmod  = setMods.at(1);
+                } else { //the second module is the dummy module, so we use the first module as the correct module name
+                    rightmod  = setMods.at(0);
+                } 
+
+
+                //replace dummy module with rightmod module in the related maps
+                var i=1;
+                var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
+                for(mp in toBeReplaced){
+                    addMap(maps, mp.keySet().at(0), rightmod);
+                    //maps.add(mp.keySet().at(0), rightmod);
+                    maps.remove(mp);
+                    dbg_print("replaced " + i + " times", LEVEL_TRACE);
+                    i++;
+                }
+                dbg_print("\nCurrently, m.modules =  " +m.modules, LEVEL_TRACE);
+                delete dummymod;
+                dbg_print("after delet dummymod at line 144, Currently, m.modules =  " +m.modules, LEVEL_TRACE);
+            } else if(setMods.size() = 1 and not setMods.includes(dummymod)){
+                dbg_print("setMods.size()  =1 and not setMods.includes(dummymod), replace dummy with rightmod", LEVEL_TRACE);
+                var rightmod  = setMods.at(0);
+
+                var toBeReplaced = maps.select(mp|mp.values().at(0) = dummymod);
+                for(mp in toBeReplaced){
+                    addMap(maps, mp.keySet().at(0), rightmod);
+                    maps.remove(mp);
+                }
+                dbg_print("Currently, m.modules =  " + m.modules, LEVEL_TRACE);
+                delete dummymod;
+                dbg_print("after delet dummymod at line 142, Currently, m.modules = " + m.modules, LEVEL_TRACE);
+            } else {
+                //Error("Logic error: not possible!")
+                dbg_print("Logic error: not possible!", LEVEL_ERROR);
+            }
+        }
+    }
+
+
+    /*************************************************************************
+      Processing the nodeModuleMap as a sequence (modSeqs) of sequence(mdSeq)
+     *************************************************************************/
+
+    for (md in m.modules){
+        var mdSeq = maps.select(m|m.values().at(0) = md);
+        modSeqs.add(mdSeq);
+        dbg_print("" + mdSeq, LEVEL_TRACE);
+        mdSeq.println();
+    }
+    dbg_print("maps.size: " + maps.size(), LEVEL_TRACE);
+    for(mp in maps){
+        mp.println();
+        dbg_print("" + mp, LEVEL_TRACE);
+    }
+
+
+    /********************************************
 Transformation: using modSeqs
 each modSeq sequence corresponding to a module
-*********************************************/
+     *********************************************/
 
- 	var is_main = true; 
- 	
- 	for(mdSeq in modSeqs){
- 		"\nSTART PRINT".println();
- 		("is_main = " + is_main).println();
- 		var i = 0; //the index of map in the sequence
- 		var const_num = 0;  //the number of constant created = init value of the const
- 		
- 				
- 		//TO DO: CHANGE TO OPERATION: updateToBeTerminated
- 		/***************************************************************/
- 			var mod = mdSeq.at(0).values().at(0);
- 			var mod_toBeTerminated = new PRISM!VarDecl;
- 			if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
- 				//hasAF, then need to create the local toBeTerminated, e.g., DigitalCamera::M1::to_be_terminated
- 				//this var MUST be defined BEFORE the module start as it may be used at any point of the command creation
-				mod_toBeTerminated = mkBoolVarDecl(mod.name+"::to_be_terminated", false);
-				mod.vars.add(mod_toBeTerminated);
-				
-				//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
-				if(toBeTerminatedIsUpdated){
-					toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
-				} else {
-					toBeTerminated.expr = new PRISM!VarExpr;
-					toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
-					toBeTerminatedIsUpdated = true;
-				} 
-			}
-			
-			var mod_toBeFailed;
-			if(hasReAnnoNode(mdSeq)){
-				mod_toBeFailed = mkBoolVarDecl(mod.name + "::to_be_failed", false);
-				mod.vars.add(mod_toBeFailed);
-				if(toBeFailedIsUpdated){
-					toBeFailed.expr = mkOrBoolExpr(toBeFailed.expr, mod_toBeFailed);
-				} else {
-					toBeFailed.expr = new PRISM!VarExpr;
-					toBeFailed.expr = mkVarExpr(mod_toBeFailed.name);
-					toBeFailedIsUpdated = true;
-				} 
-			}
-			
-			 		
- 		
- 		/***************************************************************
- 		process each element (the map) in the sequence mdSeq
- 		***************************************************************/
- 		while(i<mdSeq.size()){ 
- 			var node = mdSeq.at(i).keySet().at(0).nd;
- 			var ie = mdSeq.at(i).keySet().at(0).edg;
- 			//var mod = mdSeq.at(i).values().at(0);
-			("mod= "+ mod.name).println();
-			("node = "+node.name).println();
-			("ie = "+ ie.name).println();
-			
-			/*****************************************
-			             InitialNode
-			******************************************/
-			if(node.instanceOf(InitialNode) ){
-				//TO DO: can intial node have multiple outgoing?
-				
-				//create the FIRST constant for the module
-				//assign value of constant as 0, and update at the last
-				var const = mkConst((mod.name + "::" + node.name), const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				var const_nxt = mkConst(mod.name + "::" + mdSeq.at(i+1).keySet().at(0).nd.name, const_num);
-				
-				//create the FIRST command of the module
-				//first to create action, guard, updates RESPECTIVELY
-				//then the command 
-				var action = mkAction(mod, node.name);
-					
-				var grd = new PRISM!AndBoolExpr;
-				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-				
-				var updates = Set{};
-				if(isCTMC){
-					var rate = getRateValue(node, default_rate);
-					if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment
-						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-					} else {
-						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));
-					}
-				
-				} else {
-					if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment: local_to_be_terminated = true e.g., (DigitalCamera::M1::to_be_terminated'=true)
-						// e.g., in the command: [DigitalCamera::M1::TurnOff] (DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) &  (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal) &         (DigitalCamera::M1::to_be_terminated'=true);
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-					} else {
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-					}
-				}
-				
-				mod.commands.add(mkCommand(action, grd, updates));
-				checkAndMkEdgeReward(getAllEdgesFromNode(act,node).at(0), mod, node, action, const, m, act);
-				delete const_nxt;
-			
-			/*****************************************
-			             OpaqueAction
-			******************************************/
-			} else if(node.instanceOf(OpaqueAction)){
-				var const = mkConst(mod.name + "::" + node.name, const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				for(oe in getAllEdgesFromNode(act,node)){
-					var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num);
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					if(nodeAnnotated(node, "reliability")){
-						var action = mkAction(mod, node.name);
-						var prob = getPRValue(node);
-						var updates = Set{};
-						if(isCTMC){
-							var rate = getRateValue(node, default_rate);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
-							} else {
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt));
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
-							}
-						} else {
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-								updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
-							} else {
-								updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt));
-								updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
-							}
-						}
-						
-						
-						
-						mod.commands.add(mkCommand(action, grd, updates));
-					} else{//the node is not annotated with probability or reliability
-						var action = mkAction(mod, node.name);
-						var updates = Set{};
-						if(isCTMC){
-							var rate = getRateValue(node, default_rate);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt));	
-							}
-						} else {
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-							}
-						}
-						
-						mod.commands.add(mkCommand(action, grd, updates));
-					}
-					delete const_nxt;
-					
-					/******************************************
-					create reward for node.outgoingEdge
-					******************************************/
-					var action = mkAction(mod, node.name);
-					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-				}
-				
-				
-				/******************************************
-				create reward for the action
-				******************************************/
-				var r_node;
-				if(nodeAnnotated(node, "rewards")){
-					var rwds = getRewards(node);// rewds is a set
-					var action = mkAction(mod, node.name);
-					
-					for (rwd in rwds){
-						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
-						var rwvalue = getRewardValue(rwd);
-						var rwname = /*act.name + "::" + */rwd.name;
-						r_node = mkNodeReward(rwname, clone(action), rwgrd, rwvalue);//node reward does not need action, so 3 parameters
-						//("reward r_node = " + r_node).println();
-						var rewardIsDefined = false;
-						for(rw in m.rewards){
-							if(rw.name = r_node.name){
-								rewardIsDefined = true;
-							}
-						}
-						if(rewardIsDefined){
-							//("r_node:"+ r_node.name +"has been defined, only add the reward item into the existing reward").println();
-							var rw = m.rewards.selectOne(reward|reward.name = r_node.name);
-							rw.rewards.add(mkNodeRewardItem(clone(action), rwgrd, rwvalue));
-							delete r_node;
-						} else {
-							m.rewards.add(r_node);
-						}
-					}
-				}
-			} else if(node.instanceOf(ForkNode)){
-				var const = mkConst(mod.name + "::" + node.name, const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				//the next node of this fork node must be the target node of the 1st outgoing edge, in fact is should be the same as mdSeq.at(i+1).keySet().at(0).nd
-				var firstOEdge = getAllEdgesFromNode(act,node).sortEdgeByName().at(0);
-				var const_nxt = mkConst(mod.name + "::" + firstOEdge.target.name, const_num);
+    var is_main = true; 
 
-				var action = mkSyncAction(act, node.name);
-				var grd = new PRISM!AndBoolExpr;
-				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-				var updates = Set{};
-				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					if(firstOEdge.target.instanceOf(ActivityFinalNode)){
-						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-					} else {
-						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
-					}		
-				} else{
-					if(firstOEdge.target.instanceOf(ActivityFinalNode)){
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-					} else {
-						updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-					}
-				}
-				
-					
-				mod.commands.add(mkCommand(action, grd, updates));
-				// Edges from a ForkNode cannot have associated reward annotations.
-				// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-				delete const_nxt;
-			} else if(node.instanceOf(JoinNode)){
-				var const = mkConst(mod.name + "::" + node.name, const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				//only the first incoming edge of the join node can continue the path
-				if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
-					var oe = getAllEdgesFromNode(act,node).at(0);
-					var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-					var action = mkSyncAction(act, node.name);
-					
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					var updates = Set{};
-					if(isCTMC){
-						var rate = mkVarExpr(default_rate.name);
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-						} else {
-							updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
-						}
-					} else{
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-						} else {
-							updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-						}
-					}
-					
-					mod.commands.add(mkCommand(action, grd, updates));
-					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-					delete const_nxt;
-				} else {//otherwise the path discontinue: INACTIVE
-					
-					var action = mkSyncAction(act, node.name);
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					var updates = Set{};
-					if(isCTMC){
-						var rate = mkVarExpr(default_rate.name);
-						updates.add(mkProbUpdate(clone(rate), mod.vars.at(0), INACTIVE));
-					} else{
-						updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
-					}
-										
-					mod.commands.add(mkCommand(action, grd, updates));
-					// If this path is going to be inactive, then no reward is possible.
-					// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-										
-				}
-			} else if(node.instanceOf(DecisionNode)){
-				var const = mkConst(mod.name + "::" + node.name, const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				var branchesProbabilistic = IsProbabilistic(act,node);
-				("branchesProbabilistic" + branchesProbabilistic).println();
-								
-				if(branchesProbabilistic){
-					
-					var action = mkAction(mod, node.name);
-					("\nTHIS DECISION NODE "+node.name + " IS TO BE PROCESSED").println();
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					var updates = Set{};
-					if(isCTMC){
-						var rate = mkVarExpr(default_rate.name);
-						for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-							var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								var prob = getProb(oe,m,mod);
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
-							} else {
-								var prob = getProb(oe,m,mod);
-								updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt));
-							}
-							delete const_nxt;
-							// Edges from a DecisionNode cannot have a reward annotation because we cannot 
-							// distinguish each outgoing edge from the node and its guard
-							// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-						}
-					} else{
-						for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-							var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								var prob = getProb(oe,m,mod);
-								updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
-							} else {
-								var prob = getProb(oe,m,mod);
-								updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
-							}
-							delete const_nxt;
-							// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-						}
-					}
-					
-					mod.commands.add(mkCommand(action, grd, updates));
-				} else{//generate multiple commands
-				
-					for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-						
-						var action = mkAction(mod, node.name);
-						
-						("\nthe oe to be processed is "+ oe.name).println();
-						var decision_edge_grd_expr = getEdgeGuardVarExpr(oe, node, act, m);
-						if(not decision_edge_grd_expr.isDefined()) {
-							("Created an undefined expression from " + node).errln();
-						}
-						("for the decision node " + node.name + " it's edge guard is  " + decision_edge_grd_expr).println();
-						("the action is "+ action ).println();
-						var grd = new PRISM!AndBoolExpr;
-						grd = mkAndBoolExpr( mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))), decision_edge_grd_expr) ;
-						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-						var updates = Set{};
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
-							}
-						} else{
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-							}
-						}
-						
-										
-						mod.commands.add(mkCommand(action, grd, updates));
-						// checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-						//("mkCommand(action, grd, updates)'s action is :" +mkCommand(action, grd, updates).action).println();
-						delete const_nxt;
-					}
-				}
-			} else if(node.instanceOf(MergeNode)){
-				
-				var oe = getAllEdgesFromNode(act, node).at(0);
-				
-				//furtherMod is the module that contains the target of mergenode.oe, so this should be searched in the entire collection of 'maps'
-				var furtherMod = maps.selectOne(mp|mp.keySet().at(0) = Tuple{nd = oe.target, edg = oe}).values().at(0);
-				//var furtherMod = maps.selectOne(m|m.values().at(0) = keySet().selectOne)
-				if(furtherMod = mod){
-					"for this merge node, furtherMod = mod".println();
-					if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
-						
-						var const = mkConst(mod.name + "::" + node.name, const_num);
-						m.constants.add(const);
-						const_num++;
-						
-						var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
-						
-						var action = mkAction(mod, node.name);
-					
-						var grd = new PRISM!AndBoolExpr;
-						grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-						var updates = Set{};
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
-							}
-						} else{
-							if(oe.target.instanceOf(ActivityFinalNode)){
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
-							} else {
-								updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
-							}
-						}
-						
-						mod.commands.add(mkCommand(action, grd, updates));
-						checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-						
-						delete const_nxt;
-						("\nthis is the first time to process this merge node: "+ node.name).println();
-					} else {
-						("\nThis is the second time to process this merge node: "+ node.name + " so do nothing.").println();
-					}
-					
-				} else {
-				//furtherMod != mod, this path discontinues: pc' = INACTIVE
-				"for this merge node, furtherMod != mod".println();
-				("furtherMod = "+ furtherMod).println();
-				("mod = "+ mod).println();
-				
-					var const = mkConst(mod.name + "::" + node.name, const_num);
-					m.constants.add(const);
-					const_num++;
-					
-					//action for merge need to be sync: DigitalCamera::M1::E6 --->  node.name+"::"+ie.name
-					
-					var action = mkSyncAction(act, node.name+"::"+ie.name);
-					
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					var updates = Set{};
-					if(isCTMC){
-						var rate = mkVarExpr(default_rate.name);
-						updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
-					} else{
-						updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
-					}
-					
-					("Add a command " + action.name).println();
-					mod.commands.add(mkCommand(action, grd, updates));
-					checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
-				}
-			} else if(node.instanceOf(FlowFinalNode)){
-								
-				var const = mkConst(mod.name + "::" + node.name, const_num);
-				m.constants.add(const);
-				const_num++;
-				
-				var action = mkAction(mod, node.name);
-					
-				var grd = new PRISM!AndBoolExpr;
-				grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-				var updates = Set{};
-				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
-				} else{
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
-				}
-								
-				mod.commands.add(mkCommand(action, grd, updates));
-								
-			} else if(node.instanceOf(ActivityFinalNode)){
-				if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
-						
-					var const = mkConst(mod.name + "::" + node.name, const_num);
-					m.constants.add(const);
-					const_num++;
-				
-					var action = mkSyncAction(act, "terminate");		
-				
-					if(not is_main){// this AF node is not in the maim module, there should be terminate command for both this module and the main module
-						var grd = new PRISM!VarExpr;
-						grd = mkVarExpr(toBeTerminated.name);	
-					
-						//to creat terminate command, to set local to_be_terminated as false, and the module as INACTIVE
-						//e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
-						var updates = Set{};
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
-						} else{
-							updates.add(mkUpdate(mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
-						}
-							
-						mod.commands.add(mkCommand(action, grd, updates));
-					} else {//// this AF node is in the maim module, the terminate command for both this module and the main module shall be combined into one
-						//e.g., in Dice example
-						//[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
-						//we create this combined command after finishing the while loop	
-					}
-				}
-				//mod.commands.add(mkCommand(act, mod, node.name, mod.vars.at(0), const, toBeTerminated, INACTIVE));
-			}
-		 	i++;
- 		}	
- 		var mod = mdSeq.at(0).values().at(0);
- 		
- 		
- 		//if not hasAF, also not a main module, then it has a normal terminate command
- 		//e.g.,  [DigitalCamera::terminate]	(DigitalCamera::to_be_terminated) ->(DigitalCamera::M3::pc'=INACTIVE);
- 		if(is_main  = false){
- 			if((not hasAF(mdSeq)) and (not hasReAnnoNode(mdSeq))){
- 				//add a sync command to end all the non-main module using action "terminate"
- 				var action = mkSyncAction(act, "terminate");		
-				var grd = new PRISM!VarExpr;
-				grd = mkVarExpr(toBeTerminated.name);
- 				var updates = Set{};
- 				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));
-				} else{
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
-				}
-				
-				mod.commands.add(mkCommand(action, grd, updates));
-			} else if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
-				var action = mkSyncAction(act, "terminate");		
-				var grd = new PRISM!VarExpr;
-				grd = mkVarExpr(toBeTerminated.name);
- 				var updates = Set{};
- 				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
-				} else{
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
-				}
-							
-				mod.commands.add(mkCommand(action, grd, updates));
-			}
- 		}
- 	
- 	
- 		//is_main = true, means this module(mdSeq) is set as the main module, so other modules has is_main as false
- 	 	else if(is_main = true){
- 	 		//create a variable "terminated" in the main module only
-			terminated = mkBoolVarDecl(act.name + "::terminated", false);
-			mod.vars.add(terminated);
-			
- 	 		if(not hasAF(mdSeq)){
- 	 			//create a termin ation command only for the main module
-				//e.g.,  [DigitalCamera::terminate]  (DigitalCamera::to_be_terminated) &         (!DigitalCamera::terminated) ->   (DigitalCamera::I0::E0::pc'=INACTIVE)&       (DigitalCamera::terminated'=true);
-			
-				var action = mkSyncAction(act, "terminate");		
-				var grd = new PRISM!AndBoolExpr;
-				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
- 				var updates = Set{};
- 				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true));
-				} else{
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true));
-				}
-								
-				mod.commands.add(mkCommand(action, grd, updates));
-			} else {// this AF node IS IN the maim module, the terminate command for both this module and the main module shall be combined into one
-				//e.g., in Dice example
-				//[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
-				
-				var action = mkSyncAction(act, "terminate");		
-				var grd = new PRISM!AndBoolExpr;
-				grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
- 				var updates = Set{};
- 				if(isCTMC){
-					var rate = mkVarExpr(default_rate.name);
-					updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
-				} else{
-					updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
-				}
-				
-				mod.commands.add(mkCommand(action, grd, updates));
-			}
-			
-			// This is only for root activity
-			//[] (modname::pc=INACTIVE) & ({activity.name}::terminated) &(!{activity.name}::to_be_terminated) -> true;
-			var grd = new PRISM!AndBoolExpr;
-			grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), INACTIVE), mkAndBoolExpr(mkVarExpr(terminated.name), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))));
- 			var updates = Set{};
- 			if(isCTMC){
-				var rate = mkVarExpr(default_rate.name);
-				updates.add(mkProbTrueUpdate(rate));
-			} else{
-				updates.add(mkTrueUpdate());
-			}
- 			
-			mod.commands.add(mkCommand(grd, updates));
-			is_main = false;
- 		}
- 		mod.vars.at(0).type.top = const_num-1;
- 			//the number of maps processed in mdSeq may be larger than the constant/command generated
- 			//so need to declare a var const_num apart from the map index 'i'
- 	}			
- 	
- 	if(not toBeFailedIsUpdated ){
- 		delete toBeFailed;
- 	}
+    for(mdSeq in modSeqs){
+        dbg_print("START PRINT", LEVEL_TRACE);
+        dbg_print("is_main = " + is_main, LEVEL_TRACE);
+        var i = 0; //the index of map in the sequence
+        var const_num = 0;  //the number of constant created = init value of the const
 
 
-/*****************************************
- generate parameters
-******************************************/
+        //TO DO: CHANGE TO OPERATION: updateToBeTerminated
+        /***************************************************************/
+        var mod = mdSeq.at(0).values().at(0);
+        var mod_toBeTerminated = new PRISM!VarDecl;
+        if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
+            //hasAF, then need to create the local toBeTerminated, e.g., DigitalCamera::M1::to_be_terminated
+            //this var MUST be defined BEFORE the module start as it may be used at any point of the command creation
+            mod_toBeTerminated = mkBoolVarDecl(mod.name+"::to_be_terminated", false);
+            mod.vars.add(mod_toBeTerminated);
 
-for (p in AD!Parameter.allInstances()){
-	p.name.println();
-	p.println();
-	p.type.name.println();
-	if(not p.qualifiedName.startsWith("SysML")){//to filter out the embedded parameter for sysml
-		// get p's type
-		if(p.type.isDefined()) {
-			var typename = p.type.name;
-			if(typename = "Real") {
-				if(p.defaultValue.isDefined()){
-					m.constants.add(mkConst(p.name, p.defaultValue.value));
-				} else{
-					m.constants.add(mkConst(p.name));
-				}
-			} else if(typename = "Boolean") {
-				if(p.defaultValue.isDefined()){
-					m.constants.add(mkConst(p.name, p.defaultValue.value));
-				} else{
-					m.constants.add(mkConst_boolean(p.name));
-				}
-			} else if(typename = "Integer") {
-				if(p.defaultValue.isDefined()){
-					p.defaultValue.value.println();
-					m.constants.add(mkConst(p.name, p.defaultValue.value));
-				} else{
-					m.constants.add(mkConst_integer(p.name));
-				}
-			} else if(typename = "String") {
-			} else if(typename = "UnlimitedNatural") {
-				if(p.defaultValue.isDefined()){
-					m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, true));
-				} else{
-					m.constants.add(mkConst_natural(p.name));
-				}
-			}
-		} else {
-			// default type is real
-			m.constants.add(mkConst(p.name));
-		}
-	}
+            //update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+            if(toBeTerminatedIsUpdated){
+                toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+            } else {
+                toBeTerminated.expr = new PRISM!VarExpr;
+                toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+                toBeTerminatedIsUpdated = true;
+            } 
+        }
 
+        var mod_toBeFailed;
+        if(hasReAnnoNode(mdSeq)){
+            mod_toBeFailed = mkBoolVarDecl(mod.name + "::to_be_failed", false);
+            mod.vars.add(mod_toBeFailed);
+            if(toBeFailedIsUpdated){
+                toBeFailed.expr = mkOrBoolExpr(toBeFailed.expr, mod_toBeFailed);
+            } else {
+                toBeFailed.expr = new PRISM!VarExpr;
+                toBeFailed.expr = mkVarExpr(mod_toBeFailed.name);
+                toBeFailedIsUpdated = true;
+            } 
+        }
+
+
+
+        /***************************************************************
+          process each element (the map) in the sequence mdSeq
+         ***************************************************************/
+        while(i<mdSeq.size()){ 
+            var node = mdSeq.at(i).keySet().at(0).nd;
+            var ie = mdSeq.at(i).keySet().at(0).edg;
+            //var mod = mdSeq.at(i).values().at(0);
+            dbg_print("mod= "+ mod.name, LEVEL_TRACE);
+            dbg_print("node = "+node.name, LEVEL_TRACE);
+            dbg_print("ie = "+ ie.name, LEVEL_TRACE);
+
+            /*****************************************
+              InitialNode
+             ******************************************/
+            if(node.instanceOf(InitialNode) ){
+                //TO DO: can intial node have multiple outgoing?
+
+                //create the FIRST constant for the module
+                //assign value of constant as 0, and update at the last
+                var const = mkConst((mod.name + "::" + node.name), const_num);
+                m.constants.add(const);
+                const_num++;
+
+                var const_nxt = mkConst(mod.name + "::" + mdSeq.at(i+1).keySet().at(0).nd.name, const_num);
+
+                //create the FIRST command of the module
+                //first to create action, guard, updates RESPECTIVELY
+                //then the command 
+                var action = mkAction(mod, node.name);
+
+                var grd = new PRISM!AndBoolExpr;
+                grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = getRateValue(node, default_rate);
+                    if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment
+                        updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                    } else {
+                        updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));
+                    }
+
+                } else {
+                    if(mdSeq.at(i+1).keySet().at(0).nd.instanceOf(ActivityFinalNode)){//the next node is final activity node, so the command.updates has an extra assignment: local_to_be_terminated = true e.g., (DigitalCamera::M1::to_be_terminated'=true)
+                                                                                      // e.g., in the command: [DigitalCamera::M1::TurnOff] (DigitalCamera::M1::pc=DigitalCamera::M1::TurnOff) &  (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal) &         (DigitalCamera::M1::to_be_terminated'=true);
+                        updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                    } else {
+                        updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                    }
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+                checkAndMkEdgeReward(getAllEdgesFromNode(act,node).at(0), mod, node, action, const, m, act);
+                delete const_nxt;
+
+                /*****************************************
+                  OpaqueAction
+                 ******************************************/
+            } else if(node.instanceOf(OpaqueAction)){
+                var const = mkConst(mod.name + "::" + node.name, const_num);
+                m.constants.add(const);
+                const_num++;
+
+                for(oe in getAllEdgesFromNode(act,node)){
+                    var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num);
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    if(nodeAnnotated(node, "reliability")){
+                        var action = mkAction(mod, node.name);
+                        var prob = getPRValue(node);
+                        var updates = Set{};
+                        if(isCTMC){
+                            var rate = getRateValue(node, default_rate);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+                            } else {
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)), mod.vars.at(0),const_nxt));
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),mkMinusExpr(mkDoubleLitExpr(1.0),prob)), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+                            }
+                        } else {
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                                updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));   
+                            } else {
+                                updates.add(mkProbUpdate(clone(prob), mod.vars.at(0),const_nxt));
+                                updates.add(mkProbUpdate(mkMinusExpr(mkDoubleLitExpr(1.0),prob), mod.vars.at(0),INACTIVE, mod_toBeFailed, true, mod_toBeTerminated, true));		
+                            }
+                        }
+
+
+
+                        mod.commands.add(mkCommand(action, grd, updates));
+                    } else{//the node is not annotated with probability or reliability
+                        var action = mkAction(mod, node.name);
+                        var updates = Set{};
+                        if(isCTMC){
+                            var rate = getRateValue(node, default_rate);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkProbUpdate(clone(rate),mod.vars.at(0),const_nxt));	
+                            }
+                        } else {
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                            }
+                        }
+
+                        mod.commands.add(mkCommand(action, grd, updates));
+                    }
+                    delete const_nxt;
+
+                    /******************************************
+                      create reward for node.outgoingEdge
+                     ******************************************/
+                    var action = mkAction(mod, node.name);
+                    checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                }
+
+
+                /******************************************
+                  create reward for the action
+                 ******************************************/
+                var r_node;
+                if(nodeAnnotated(node, "rewards")){
+                    var rwds = getRewards(node);// rewds is a set
+                    var action = mkAction(mod, node.name);
+
+                    for (rwd in rwds){
+                        var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
+                        var rwvalue = getRewardValue(rwd);
+                        var rwname = /*act.name + "::" + */rwd.name;
+                        r_node = mkNodeReward(rwname, clone(action), rwgrd, rwvalue);//node reward does not need action, so 3 parameters
+                                                                                     //("reward r_node = " + r_node, LEVEL_TRACE);
+                        var rewardIsDefined = false;
+                        for(rw in m.rewards){
+                            if(rw.name = r_node.name){
+                                rewardIsDefined = true;
+                            }
+                        }
+                        if(rewardIsDefined){
+                            //("r_node:"+ r_node.name +"has been defined, only add the reward item into the existing reward", LEVEL_TRACE);
+                            var rw = m.rewards.selectOne(reward|reward.name = r_node.name);
+                            rw.rewards.add(mkNodeRewardItem(clone(action), rwgrd, rwvalue));
+                            delete r_node;
+                        } else {
+                            m.rewards.add(r_node);
+                        }
+                    }
+                }
+            } else if(node.instanceOf(ForkNode)){
+                var const = mkConst(mod.name + "::" + node.name, const_num);
+                m.constants.add(const);
+                const_num++;
+
+                //the next node of this fork node must be the target node of the 1st outgoing edge, in fact is should be the same as mdSeq.at(i+1).keySet().at(0).nd
+                var firstOEdge = getAllEdgesFromNode(act,node).sortEdgeByName().at(0);
+                var const_nxt = mkConst(mod.name + "::" + firstOEdge.target.name, const_num);
+
+                var action = mkSyncAction(act, node.name);
+                var grd = new PRISM!AndBoolExpr;
+                grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    if(firstOEdge.target.instanceOf(ActivityFinalNode)){
+                        updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                    } else {
+                        updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
+                    }		
+                } else{
+                    if(firstOEdge.target.instanceOf(ActivityFinalNode)){
+                        updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                    } else {
+                        updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                    }
+                }
+
+
+                mod.commands.add(mkCommand(action, grd, updates));
+                // Edges from a ForkNode cannot have associated reward annotations.
+                // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                delete const_nxt;
+            } else if(node.instanceOf(JoinNode)){
+                var const = mkConst(mod.name + "::" + node.name, const_num);
+                m.constants.add(const);
+                const_num++;
+
+                //only the first incoming edge of the join node can continue the path
+                if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
+                    var oe = getAllEdgesFromNode(act,node).at(0);
+                    var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+                    var action = mkSyncAction(act, node.name);
+
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    var updates = Set{};
+                    if(isCTMC){
+                        var rate = mkVarExpr(default_rate.name);
+                        if(oe.target.instanceOf(ActivityFinalNode)){
+                            updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                        } else {
+                            updates.add(mkProbUpdate(clone(rate), mod.vars.at(0),const_nxt));	
+                        }
+                    } else{
+                        if(oe.target.instanceOf(ActivityFinalNode)){
+                            updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                        } else {
+                            updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                        }
+                    }
+
+                    mod.commands.add(mkCommand(action, grd, updates));
+                    checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                    delete const_nxt;
+                } else {//otherwise the path discontinue: INACTIVE
+
+                    var action = mkSyncAction(act, node.name);
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    var updates = Set{};
+                    if(isCTMC){
+                        var rate = mkVarExpr(default_rate.name);
+                        updates.add(mkProbUpdate(clone(rate), mod.vars.at(0), INACTIVE));
+                    } else{
+                        updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+                    }
+
+                    mod.commands.add(mkCommand(action, grd, updates));
+                    // If this path is going to be inactive, then no reward is possible.
+                    // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+
+                }
+            } else if(node.instanceOf(DecisionNode)){
+                var const = mkConst(mod.name + "::" + node.name, const_num);
+                m.constants.add(const);
+                const_num++;
+
+                var branchesProbabilistic = IsProbabilistic(act,node);
+                dbg_print("branchesProbabilistic" + branchesProbabilistic, LEVEL_TRACE);
+
+                if(branchesProbabilistic){
+
+                    var action = mkAction(mod, node.name);
+                    dbg_print("THIS DECISION NODE "+node.name + " IS TO BE PROCESSED", LEVEL_TRACE);
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+                    var updates = Set{};
+                    if(isCTMC){
+                        var rate = mkVarExpr(default_rate.name);
+                        for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+                            var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                var prob = getProb(oe,m,mod);
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+                            } else {
+                                var prob = getProb(oe,m,mod);
+                                updates.add(mkProbUpdate(mkMultExpr(clone(rate),clone(prob)),mod.vars.at(0),const_nxt));
+                            }
+                            delete const_nxt;
+                            // Edges from a DecisionNode cannot have a reward annotation because we cannot 
+                            // distinguish each outgoing edge from the node and its guard
+                            // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                        }
+                    } else{
+                        for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+                            var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                var prob = getProb(oe,m,mod);
+                                updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt, mod_toBeTerminated, true));
+                            } else {
+                                var prob = getProb(oe,m,mod);
+                                updates.add(mkProbUpdate(prob,mod.vars.at(0),const_nxt));
+                            }
+                            delete const_nxt;
+                            // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                        }
+                    }
+
+                    mod.commands.add(mkCommand(action, grd, updates));
+                } else{//generate multiple commands
+
+                    for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+
+                        var action = mkAction(mod, node.name);
+
+                        dbg_print("The oe to be processed is "+ oe.name, LEVEL_TRACE);
+                        var decision_edge_grd_expr = getEdgeGuardVarExpr(oe, node, act, m);
+                        if(not decision_edge_grd_expr.isDefined()) {
+                            dbg_print("Created an undefined expression from " + node, LEVEL_ERROR);
+                        }
+                        dbg_print("for the decision node " + node.name + " it's edge guard is  " + decision_edge_grd_expr, LEVEL_TRACE);
+                        dbg_print("the action is "+ action, LEVEL_TRACE);
+                        var grd = new PRISM!AndBoolExpr;
+                        grd = mkAndBoolExpr( mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))), decision_edge_grd_expr) ;
+                        var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+                        var updates = Set{};
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
+                            }
+                        } else{
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                            }
+                        }
+
+
+                        mod.commands.add(mkCommand(action, grd, updates));
+                        // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                        //("mkCommand(action, grd, updates)'s action is :" +mkCommand(action, grd, updates).action, LEVEL_TRACE);
+                        delete const_nxt;
+                    }
+                }
+            } else if(node.instanceOf(MergeNode)){
+
+                var oe = getAllEdgesFromNode(act, node).at(0);
+
+                //furtherMod is the module that contains the target of mergenode.oe, so this should be searched in the entire collection of 'maps'
+                var furtherMod = maps.selectOne(mp|mp.keySet().at(0) = Tuple{nd = oe.target, edg = oe}).values().at(0);
+                //var furtherMod = maps.selectOne(m|m.values().at(0) = keySet().selectOne)
+                if(furtherMod = mod){
+                    dbg_print("for this merge node, furtherMod = mod", LEVEL_TRACE);
+                    if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
+
+                        var const = mkConst(mod.name + "::" + node.name, const_num);
+                        m.constants.add(const);
+                        const_num++;
+
+                        var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
+
+                        var action = mkAction(mod, node.name);
+
+                        var grd = new PRISM!AndBoolExpr;
+                        grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                        var updates = Set{};
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkProbUpdate(rate, mod.vars.at(0),const_nxt));	
+                            }
+                        } else{
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt, mod_toBeTerminated, true)); 
+                            } else {
+                                updates.add(mkUpdate(mod.vars.at(0),const_nxt));	
+                            }
+                        }
+
+                        mod.commands.add(mkCommand(action, grd, updates));
+                        checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+
+                        delete const_nxt;
+                        dbg_print("This is the first time to process this merge node: "+ node.name, LEVEL_TRACE);
+                    } else {
+                        dbg_print("This is the second time to process this merge node: "+ node.name + " so do nothing.", LEVEL_TRACE);
+                    }
+
+                } else {
+                    //furtherMod != mod, this path discontinues: pc' = INACTIVE
+                    dbg_print("for this merge node, furtherMod != mod", LEVEL_TRACE);
+                    dbg_print("furtherMod = "+ furtherMod, LEVEL_TRACE);
+                    dbg_print("mod = "+ mod, LEVEL_TRACE);
+
+                    var const = mkConst(mod.name + "::" + node.name, const_num);
+                    m.constants.add(const);
+                    const_num++;
+
+                    //action for merge need to be sync: DigitalCamera::M1::E6 --->  node.name+"::"+ie.name
+
+                    var action = mkSyncAction(act, node.name+"::"+ie.name);
+
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    var updates = Set{};
+                    if(isCTMC){
+                        var rate = mkVarExpr(default_rate.name);
+                        updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
+                    } else{
+                        updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+                    }
+
+                    dbg_print("Add a command " + action.name, LEVEL_TRACE);
+                    mod.commands.add(mkCommand(action, grd, updates));
+                    checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
+                }
+            } else if(node.instanceOf(FlowFinalNode)){
+
+                var const = mkConst(mod.name + "::" + node.name, const_num);
+                m.constants.add(const);
+                const_num++;
+
+                var action = mkAction(mod, node.name);
+
+                var grd = new PRISM!AndBoolExpr;
+                grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), const), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));	
+                } else{
+                    updates.add(mkUpdate(mod.vars.at(0), INACTIVE));	
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+
+            } else if(node.instanceOf(ActivityFinalNode)){
+                if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
+
+                    var const = mkConst(mod.name + "::" + node.name, const_num);
+                    m.constants.add(const);
+                    const_num++;
+
+                    var action = mkSyncAction(act, "terminate");		
+
+                    if(not is_main){// this AF node is not in the maim module, there should be terminate command for both this module and the main module
+                        var grd = new PRISM!VarExpr;
+                        grd = mkVarExpr(toBeTerminated.name);	
+
+                        //to creat terminate command, to set local to_be_terminated as false, and the module as INACTIVE
+                        //e.g., [DigitalCamera::terminate] (DigitalCamera::to_be_terminated) ->(DigitalCamera::M1::pc'=INACTIVE) & (DigitalCamera::M1::to_be_terminated'=false)
+                        var updates = Set{};
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
+                        } else{
+                            updates.add(mkUpdate(mod.vars.at(0), INACTIVE, mod_toBeTerminated, false));	
+                        }
+
+                        mod.commands.add(mkCommand(action, grd, updates));
+                    } else {//// this AF node is in the maim module, the terminate command for both this module and the main module shall be combined into one
+                            //e.g., in Dice example
+                            //[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
+                            //we create this combined command after finishing the while loop	
+                    }
+                }
+                //mod.commands.add(mkCommand(act, mod, node.name, mod.vars.at(0), const, toBeTerminated, INACTIVE));
+            }
+            i++;
+        }	
+        var mod = mdSeq.at(0).values().at(0);
+
+
+        //if not hasAF, also not a main module, then it has a normal terminate command
+        //e.g.,  [DigitalCamera::terminate]	(DigitalCamera::to_be_terminated) ->(DigitalCamera::M3::pc'=INACTIVE);
+        if(is_main  = false){
+            if((not hasAF(mdSeq)) and (not hasReAnnoNode(mdSeq))){
+                //add a sync command to end all the non-main module using action "terminate"
+                var action = mkSyncAction(act, "terminate");		
+                var grd = new PRISM!VarExpr;
+                grd = mkVarExpr(toBeTerminated.name);
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE));
+                } else{
+                    updates.add(mkUpdate(mod.vars.at(0), INACTIVE));
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+            } else if(hasAF(mdSeq) or hasReAnnoNode(mdSeq)){
+                var action = mkSyncAction(act, "terminate");		
+                var grd = new PRISM!VarExpr;
+                grd = mkVarExpr(toBeTerminated.name);
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
+                } else{
+                    updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+            }
+        }
+
+
+        //is_main = true, means this module(mdSeq) is set as the main module, so other modules has is_main as false
+        else if(is_main = true){
+            //create a variable "terminated" in the main module only
+            terminated = mkBoolVarDecl(act.name + "::terminated", false);
+            mod.vars.add(terminated);
+
+            if(not hasAF(mdSeq)){
+                //create a termin ation command only for the main module
+                //e.g.,  [DigitalCamera::terminate]  (DigitalCamera::to_be_terminated) &         (!DigitalCamera::terminated) ->   (DigitalCamera::I0::E0::pc'=INACTIVE)&       (DigitalCamera::terminated'=true);
+
+                var action = mkSyncAction(act, "terminate");		
+                var grd = new PRISM!AndBoolExpr;
+                grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true));
+                } else{
+                    updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true));
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+            } else {// this AF node IS IN the maim module, the terminate command for both this module and the main module shall be combined into one
+                    //e.g., in Dice example
+                    //[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
+
+                var action = mkSyncAction(act, "terminate");		
+                var grd = new PRISM!AndBoolExpr;
+                grd = mkAndBoolExpr(mkVarExpr(toBeTerminated.name), mkNotBoolExpr(mkVarExpr(terminated.name)));
+                var updates = Set{};
+                if(isCTMC){
+                    var rate = mkVarExpr(default_rate.name);
+                    updates.add(mkProbUpdate(rate, mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+                } else{
+                    updates.add(mkUpdate(mod.vars.at(0), INACTIVE,terminated, true, mod_toBeTerminated, false));
+                }
+
+                mod.commands.add(mkCommand(action, grd, updates));
+            }
+
+            // This is only for root activity
+            //[] (modname::pc=INACTIVE) & ({activity.name}::terminated) &(!{activity.name}::to_be_terminated) -> true;
+            var grd = new PRISM!AndBoolExpr;
+            grd = mkAndBoolExpr(mkEqBoolExpr(mod.vars.at(0), INACTIVE), mkAndBoolExpr(mkVarExpr(terminated.name), mkNotBoolExpr(mkVarExpr(toBeTerminated.name))));
+            var updates = Set{};
+            if(isCTMC){
+                var rate = mkVarExpr(default_rate.name);
+                updates.add(mkProbTrueUpdate(rate));
+            } else{
+                updates.add(mkTrueUpdate());
+            }
+
+            mod.commands.add(mkCommand(grd, updates));
+            is_main = false;
+        }
+        mod.vars.at(0).type.top = const_num-1;
+        //the number of maps processed in mdSeq may be larger than the constant/command generated
+        //so need to declare a var const_num apart from the map index 'i'
+    }			
+
+    if(not toBeFailedIsUpdated ){
+        delete toBeFailed;
+    }
+
+
+    /*****************************************
+      generate parameters
+     ******************************************/
+
+    for (p in AD!Parameter.allInstances()){
+        p.name.println();
+        p.println();
+        p.type.name.println();
+        if(not p.qualifiedName.startsWith("SysML")){//to filter out the embedded parameter for sysml
+                                                    // get p's type
+            if(p.type.isDefined()) {
+                var typename = p.type.name;
+                if(typename = "Real") {
+                    if(p.defaultValue.isDefined()){
+                        m.constants.add(mkConst(p.name, p.defaultValue.value));
+                    } else{
+                        m.constants.add(mkConst(p.name));
+                    }
+                } else if(typename = "Boolean") {
+                    if(p.defaultValue.isDefined()){
+                        m.constants.add(mkConst(p.name, p.defaultValue.value));
+                    } else{
+                        m.constants.add(mkConst_boolean(p.name));
+                    }
+                } else if(typename = "Integer") {
+                    if(p.defaultValue.isDefined()){
+                        p.defaultValue.value.println();
+                        m.constants.add(mkConst(p.name, p.defaultValue.value));
+                    } else{
+                        m.constants.add(mkConst_integer(p.name));
+                    }
+                } else if(typename = "String") {
+                } else if(typename = "UnlimitedNatural") {
+                    if(p.defaultValue.isDefined()){
+                        m.constants.add(mkConst_int_nat(p.name, p.defaultValue.value, true));
+                    } else{
+                        m.constants.add(mkConst_natural(p.name));
+                    }
+                }
+            } else {
+                // default type is real
+                m.constants.add(mkConst(p.name));
+            }
+        }
+
+    }
+
+    for(p in properties){
+        dbg_print("Property [" + p.name + "]: " + p.value, LEVEL_TRACE);
+
+        var ad2prism_tool = new Native("org.eclipse.epsilon.ad2prism.tools.AD2PRISM_Tools");
+        // Processing "activity reaches at activity::...::node"
+        while(true) {
+            var r_at_segs = ad2prism_tool.parseReachesAt(p.value);
+            if(r_at_segs.length() = 0) {
+                // not matched
+                break;
+            }
+            dbg_print("reaches at: " + r_at_segs, LEVEL_TRACE);
+            var r_at_seq = r_at_segs.split("\\$");
+            dbg_print("size: " + r_at_seq.size(), LEVEL_TRACE);
+            if (r_at_seq.size() = 5) {
+                // Valid format
+                dbg_print("Matche string: " + r_at_seq.at(0), LEVEL_TRACE);
+                dbg_print("Activity name: " + r_at_seq.at(1), LEVEL_TRACE);
+                dbg_print("FQN_node: " + r_at_seq.at(2), LEVEL_TRACE);
+                dbg_print("FQN     : " + r_at_seq.at(3), LEVEL_TRACE);
+                dbg_print("Node    : " + r_at_seq.at(4), LEVEL_TRACE);
+                var matched_expr = r_at_seq.at(0);
+                var activity_name = r_at_seq.at(1);
+                var fqn_node_name = r_at_seq.at(2);
+                var node_name = r_at_seq.at(4);
+
+                // Check if the activity in properties matches
+                if (not (activity_name = act.name)) {
+                    dbg_print("[" + activity_name +"] in the property [" + p.value + 
+                            "] is not the activity name [" + act.name + "]!", LEVEL_ERROR);
+                    break;
+                }
+
+                var newstate = "";
+                for(c in m.constants){
+                    if(c.name.trim().endsWith("::" + node_name)){
+                        newstate = c.name;
+                        dbg_print("Corresponding constant for node [" + node_name + "] is " + newstate, LEVEL_TRACE);
+                        break;
+                    }
+                }
+
+                if(newstate = "") {
+                    dbg_print("The node [" + node_name + 
+                            "] isn't found! Please check again it is a right node in the activity diagram", LEVEL_ERROR);
+                } else {
+                    // Get the prefixing of newstate 
+                    var pc = newstate.substring(0, newstate.length() - node_name.length()) + "pc";
+                    var new_expr = (pc + " = " + newstate).replace("::", "_");
+                    p.value = p.value.replace(matched_expr, new_expr);
+                }
+            } else {
+                // not valid, which means the property 
+                dbg_print("The \'reaches at\' expression should be \'activity reaches at qualified_name_to_node\'", LEVEL_ERROR);
+                break;
+            }
+        }
+
+        // Processing "activity terminated successfully"
+        while(true) {
+            var segs = ad2prism_tool.parseTerminated(p.value);
+            if(segs.length() = 0) {
+                // not matched
+                break;
+            }
+            dbg_print("terminated: " + segs, LEVEL_TRACE);
+            var seq = segs.split("\\$");
+            dbg_print("size: " + seq.size(), LEVEL_TRACE);
+            if (seq.size() = 2) {
+                // Valid format
+                dbg_print("Matche string: " + seq.at(0), LEVEL_TRACE);
+                dbg_print("Activity name: " + seq.at(1), LEVEL_TRACE);
+                var matched_expr = seq.at(0);
+                var activity_name = seq.at(1);
+
+                // Check if the activity in properties matches
+                if (not (activity_name = act.name)) {
+                    dbg_print("[" + activity_name +"] in the property [" + p.value + 
+                            "] is not the activity name [" + act.name + "]!", LEVEL_ERROR);
+                    break;
+                }
+
+                if(m.formulas.includes(toBeFailed)){
+                    p.value = p.value.replace(matched_expr, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
+                } else{
+                    p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
+                }
+
+            } else {
+                // not valid, which means the property 
+                dbg_print("The \'terminated successfully\' expression should be \'activity terminated successfully\'", LEVEL_ERROR);
+                break;
+            }
+        }
+
+        // Processing "activity failed"
+        while(true) {
+            dbg_print("Failed " + p.value, LEVEL_TRACE);
+            var segs = ad2prism_tool.parseFailed(p.value);
+            if(segs.length() = 0) {
+                // not matched
+                break;
+            }
+            dbg_print("failed: " + segs, LEVEL_TRACE);
+            var seq = segs.split("\\$");
+            dbg_print("size: " + seq.size(), LEVEL_TRACE);
+            if (seq.size() = 2) {
+                // Valid format
+                dbg_print("Matche string: " + seq.at(0), LEVEL_TRACE);
+                dbg_print("Activity name: " + seq.at(1), LEVEL_TRACE);
+                var matched_expr = seq.at(0);
+                var activity_name = seq.at(1);
+
+                // Check if the activity in properties matches
+                if (not (activity_name = act.name)) {
+                    dbg_print("[" + activity_name +"] in the property [" + p.value + 
+                            "] is not the activity name [" + act.name + "]!", LEVEL_ERROR);
+                    break;
+                }
+
+                if(m.formulas.includes(toBeFailed)){
+                    p.value = p.value.replace(matched_expr, toBeFailed.name).replace("::", "_");
+                } else{
+                    //Error("Logic error: not possible!")
+                }
+
+            } else {
+                // not valid, which means the property 
+                dbg_print("The \'failed\' expression should be \'activity failed\'", LEVEL_ERROR);
+                break;
+            }
+        }
+
+        // Processing "activity terminated on fail"
+        while(true) {
+            var segs = ad2prism_tool.parseTerm(p.value);
+            if(segs.length() = 0) {
+                // not matched
+                break;
+            }
+            dbg_print("terminated: " + segs, LEVEL_TRACE);
+            var seq = segs.split("\\$");
+            dbg_print("size: " + seq.size(), LEVEL_TRACE);
+            if (seq.size() = 2) {
+                // Valid format
+                dbg_print("Matche string: " + seq.at(0), LEVEL_TRACE);
+                dbg_print("Activity name: " + seq.at(1), LEVEL_TRACE);
+                var matched_expr = seq.at(0);
+                var activity_name = seq.at(1);
+
+                // Check if the activity in properties matches
+                if (not (activity_name = act.name)) {
+                    dbg_print("[" + activity_name +"] in the property [" + p.value + 
+                            "] is not the activity name [" + act.name + "]!", LEVEL_ERROR);
+                    break;
+                }
+
+                if(m.formulas.includes(toBeFailed)){
+                    p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");
+                } else{
+                    p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
+                }
+
+            } else {
+                // not valid, which means the property 
+                dbg_print("The \'terminated on fail\' expression should be \'activity terminated on fail\'", LEVEL_ERROR);
+                break;
+            }
+        }
+    }
+
+    var outputPropString = "";
+    for(p in properties){
+        outputPropString = outputPropString + "\""+p.name+"\": " + p.value + "\n";
+        dbg_print("" + p, LEVEL_TRACE);
+    }
+
+    //PROPS_FILEPATH is a parameter in configuration file to define the location of the prop file
+    var filewriter = new Native("java.io.FileWriter")(PROPS_FILEPATH);
+    //e.g., PROPS_FILEPATH = C:\\Users\\fy668\\workspace-papyrus\\sesame_sysml_markov_prism\\model\\travel_management_example\\prop.props
+    var writer = new Native("java.io.BufferedWriter")(filewriter);
+    writer.write(outputPropString);
+    writer.close();
+
+
+    if(not isCTMC){
+        delete mean_duration;
+        delete default_rate;
+    }
 }
-
-for(p in properties){
-	("Property [" + p.name + "]: " + p.value).println();
-	
-	var ad2prism_tool = new Native("org.eclipse.epsilon.ad2prism.tools.AD2PRISM_Tools");
-	// Processing "activity reaches at activity::...::node"
-	while(true) {
-		var r_at_segs = ad2prism_tool.parseReachesAt(p.value);
-		if(r_at_segs.length() = 0) {
-			// not matched
-			break;
-		}
-		("reaches at: " + r_at_segs).println();
-		var r_at_seq = r_at_segs.split("\\$");
-		("size: " + r_at_seq.size()).println();
-		if (r_at_seq.size() = 5) {
-			// Valid format
-			("Matche string: " + r_at_seq.at(0)).println();
-			("Activity name: " + r_at_seq.at(1)).println();
-			("FQN_node: " + r_at_seq.at(2)).println();
-			("FQN     : " + r_at_seq.at(3)).println();
-			("Node    : " + r_at_seq.at(4)).println();
-			var matched_expr = r_at_seq.at(0);
-			var activity_name = r_at_seq.at(1);
-			var fqn_node_name = r_at_seq.at(2);
-			var node_name = r_at_seq.at(4);
-			
-			// Check if the activity in properties matches
-			if (not (activity_name = act.name)) {
-				("[" + activity_name +"] in the property [" + p.value + 
-				"] is not the activity name [" + act.name + "]!").errln();
-				break;
-			}
-			
-			var newstate = "";
-			for(c in m.constants){
-				if(c.name.trim().endsWith("::" + node_name)){
-					newstate = c.name;
-					("Corresponding constant for node [" + node_name + "] is " + newstate).println();
-					break;
-				}
-			}
-			
-			if(newstate = "") {
-				("The node [" + node_name + 
-					"] isn't found! Please check again it is a right node in the activity diagram").errln();
-			} else {
-				// Get the prefixing of newstate 
-				var pc = newstate.substring(0, newstate.length() - node_name.length()) + "pc";
-				var new_expr = (pc + " = " + newstate).replace("::", "_");
-				p.value = p.value.replace(matched_expr, new_expr);
-			}
-		} else {
-			// not valid, which means the property 
-			("The \'reaches at\' expression should be \'activity reaches at qualified_name_to_node\'").errln();
-			break;
-		}
-	}
-	
-	// Processing "activity terminated successfully"
-	while(true) {
-		var segs = ad2prism_tool.parseTerminated(p.value);
-		if(segs.length() = 0) {
-			// not matched
-			break;
-		}
-		("terminated: " + segs).println();
-		var seq = segs.split("\\$");
-		("size: " + seq.size()).println();
-		if (seq.size() = 2) {
-			// Valid format
-			("Matche string: " + seq.at(0)).println();
-			("Activity name: " + seq.at(1)).println();
-			var matched_expr = seq.at(0);
-			var activity_name = seq.at(1);
-			
-			// Check if the activity in properties matches
-			if (not (activity_name = act.name)) {
-				("[" + activity_name +"] in the property [" + p.value + 
-				"] is not the activity name [" + act.name + "]!").errln();
-				break;
-			}
-			
-			if(m.formulas.includes(toBeFailed)){
-				p.value = p.value.replace(matched_expr, terminated.name+" & !" + toBeFailed.name).replace("::", "_");
-			} else{
-				p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
-			}
-			
-		} else {
-			// not valid, which means the property 
-			("The \'terminated successfully\' expression should be \'activity terminated successfully\'").errln();
-			break;
-		}
-	}
-	
-	// Processing "activity failed"
-	while(true) {
-		("Failed " + p.value).println();
-		var segs = ad2prism_tool.parseFailed(p.value);
-		if(segs.length() = 0) {
-			// not matched
-			break;
-		}
-		("failed: " + segs).println();
-		var seq = segs.split("\\$");
-		("size: " + seq.size()).println();
-		if (seq.size() = 2) {
-			// Valid format
-			("Matche string: " + seq.at(0)).println();
-			("Activity name: " + seq.at(1)).println();
-			var matched_expr = seq.at(0);
-			var activity_name = seq.at(1);
-			
-			// Check if the activity in properties matches
-			if (not (activity_name = act.name)) {
-				("[" + activity_name +"] in the property [" + p.value + 
-				"] is not the activity name [" + act.name + "]!").errln();
-				break;
-			}
-			
-			if(m.formulas.includes(toBeFailed)){
-				p.value = p.value.replace(matched_expr, toBeFailed.name).replace("::", "_");
-			} else{
-				//Error("Logic error: not possible!")
-			}
-			
-		} else {
-			// not valid, which means the property 
-			("The \'failed\' expression should be \'activity failed\'").errln();
-			break;
-		}
-	}
-	
-		// Processing "activity terminated on fail"
-	while(true) {
-		var segs = ad2prism_tool.parseTerm(p.value);
-		if(segs.length() = 0) {
-			// not matched
-			break;
-		}
-		("terminated: " + segs).println();
-		var seq = segs.split("\\$");
-		("size: " + seq.size()).println();
-		if (seq.size() = 2) {
-			// Valid format
-			("Matche string: " + seq.at(0)).println();
-			("Activity name: " + seq.at(1)).println();
-			var matched_expr = seq.at(0);
-			var activity_name = seq.at(1);
-			
-			// Check if the activity in properties matches
-			if (not (activity_name = act.name)) {
-				("[" + activity_name +"] in the property [" + p.value + 
-				"] is not the activity name [" + act.name + "]!").errln();
-				break;
-			}
-			
-			if(m.formulas.includes(toBeFailed)){
-				p.value = p.value.replace(matched_expr, terminated.name+" & " + toBeFailed.name).replace("::", "_");
-			} else{
-				p.value = p.value.replace(matched_expr, terminated.name).replace("::", "_");
-			}
-			
-		} else {
-			// not valid, which means the property 
-			("The \'terminated on fail\' expression should be \'activity terminated on fail\'").errln();
-			break;
-		}
-	}
-}
-
-var outputPropString = "";
-for(p in properties){
-	outputPropString = outputPropString + "\""+p.name+"\": " + p.value + "\n";
-	p.println();
-}
-
-//PROPS_FILEPATH is a parameter in configuration file to define the location of the prop file
-var filewriter = new Native("java.io.FileWriter")(PROPS_FILEPATH);
-//e.g., PROPS_FILEPATH = C:\\Users\\fy668\\workspace-papyrus\\sesame_sysml_markov_prism\\model\\travel_management_example\\prop.props
-var writer = new Native("java.io.BufferedWriter")(filewriter);
-writer.write(outputPropString);
-writer.close();
-
-
-	if(not isCTMC){
-		delete mean_duration;
-		delete default_rate;
-	}
-}
-
-
 
 operation traverseNodes(
-	m : PRISM!Model, 
-	act: AD!Activity, 
-	is_root: Boolean, 
-	INACTIVE: PRISM!Constant, 
-	toBeTerminated: PRISM!Formula,
-	toBeTerminatedIsUpdated: Boolean,
-	isCTMC: Boolean,
-	default_rate: PRISM!Formula
-	){
-	var count: Integer = 0;
-	while(toBeVisitedNodes.notEmpty()){
-		//"\ntoBeVisitedNodes.at(0):".print();
-		// toBeVisitedNodes.at(0).name.println();
-		("\ntoBeVisitedNodes: ").print(); printNodes(toBeVisitedNodes);
-		("Visiting[" + count + "]: " + toBeVisitedNodes.at(0).name).println();
-		count = count + 1;
-		var node = toBeVisitedNodes.removeAt(0);
-		
-		("\ntoBeVisitedNodes: ").print(); printNodes(toBeVisitedNodes);
-		("\nvisitedNodes: ").print(); printNodes(visitedNodes);
-		
-		if(node.instanceOf(OpaqueAction)){
-			("\nthis is a opaqueaction node: " + node.name).println();
-			//find the module that stores the node
-			//'get' method can only take one parameter, not a set
-			
-			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
-			for(oe in getAllEdgesFromNode(act,node)){
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-				//"maps:".println();maps.println();
-				toBeVisitedNodes.add(oe.target);
-				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 765").println();
-			}
-			visitedNodes.add(node);
-			//("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes)).println();
-			//("\nvisitedNodes: " + printNodes(visitedNodes)).println();
-		} else if(node.instanceOf(ForkNode)){
-			("\nthis is a Fork node: " + node.name).println();
-			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
-			var isFirst = true;
-			for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-				if(isFirst){
-					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-					addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-					//"maps:".println();maps.println();
-					isFirst = false;
-				} else {
-					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
-					//("at line 767: A new module is created for the fork node: "+ node.name  + "modname: " +newmod.name).println();
-					m.modules.add(newmod);
-					//("Currently, m.modules =  " +m.modules).println();
-					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
-					newmod.vars.add(pc);
-					
-					//create the constant for the fork node module
-					var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
-					
-					//create sync command, e.g.,
-					// [DigitalCamera::F1](DigitalCamera::F1::E3::pc= INACTIVE) &(!DigitalCamera::to_be_terminated) -> (DigitalCamera::F1::E3::pc'=DigitalCamera::F1::E3::DetLight);				
-					var action = mkSyncAction(act, node.name);
-					
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					var updates = Set{};
-					
-					if(oe.target.instanceOf(ActivityFinalNode)){
-						
-						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
-						//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
-			   
-						//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
-						if(toBeTerminatedIsUpdated){
-							toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
-						} else {
-							toBeTerminated.expr = new PRISM!VarExpr;
-							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
-							toBeTerminatedIsUpdated = true;
-						} 
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
-						} else{
-							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
-						}
-						
-						delete mod_toBeTerminated;
-						
-					} else {
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							updates.add(mkProbUpdate(rate, pc, const_nxt));
-						} else{
-							updates.add(mkUpdate(pc, const_nxt));
-						}
-							
-					}
-						
-					newmod.commands.add(mkCommand(action, grd, updates));
-													
-					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
-					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
-					//"maps:".println();maps.println();
-					delete const_nxt;//this constant is deleted, because it will be created again in the transformation section.
-				}
-				toBeVisitedNodes.add(oe.target);
-				("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 439").println();
-			}
-			visitedNodes.add(node);
+        m : PRISM!Model, 
+        act: AD!Activity, 
+        is_root: Boolean, 
+        INACTIVE: PRISM!Constant, 
+        toBeTerminated: PRISM!Formula,
+        toBeTerminatedIsUpdated: Boolean,
+        isCTMC: Boolean,
+        default_rate: PRISM!Formula
+        ){
+    var count: Integer = 0;
+    while(toBeVisitedNodes.notEmpty()){
+        dbg_print("toBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
+        dbg_print("Visiting[" + count + "]: " + toBeVisitedNodes.at(0).name, LEVEL_INFO);
+        count = count + 1;
 
-			//("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes)).println();
-			//("\nvisitedNodes: " + printNodes(visitedNodes)).println();
-		} else if(node.instanceOf(JoinNode) and (not visitedNodes.includes(node))){
-			//("This is a join node: "  + node.name).println();
-		//to check if the source node to the first edge to the join node has been processed
-		// if yes, then path continues
-		//else, do noting ,wait source node to the first edge to be processed
-		//that is for join node, the path always continue for the first incoming edge
-		//The FIRST is determined by the names of the edges using sortBy(c | c.name)
-		
-			var ie = getAllEdgesToNode(act, node).sortEdgeByName().at(0);
-			//("DEBUG JOIN NODE: ies = "+ getAllEdgesToNode(act, node).sortEdgeByName()).println();
-			//("DEBUG JOIN NODE: ie.at(0) = "+ie.name).println();
-			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = ie.source));
-			if(not (mod.isDefined())){//"not (mod.isDefined()" means that the first incoming edge of this join node is not processed yet, we need to wait the first incoming t o be processed. Now we do nothing.
-			
-				toBeVisitedNodes.add(node);
-				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 836").println();
-				//"\nThe first incoming edge of this join node is not processed yet".println();
-			} else {
-				var oe = getAllEdgesFromNode(act,node).at(0);
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-				//"maps:".println();maps.println();
-				toBeVisitedNodes.add(oe.target);
-				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 844").println();
-				visitedNodes.add(node);
-				toBeVisitedNodes.remove(node);
-			}
-		
-		
-		} else if(node.instanceOf(DecisionNode)){
-			//("\nthis is a decision node: " + node.name).println();
-			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
-			for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
-				//("at line 854 oe: "+oe.name).println();
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-				//"maps:".println();maps.println();
-				toBeVisitedNodes.add(oe.target);
-				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 859").println();
-			}
-			visitedNodes.add(node);
-			
-			//("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
-			//("\nvisitedNodes: "+visitedNodes).println();
-			
-		} else if(node.instanceOf(MergeNode) and (not visitedNodes.includes(node))){ 
-			("\nthis is a merge node: " + node.name).println();
-			var all_source_vistied = true; //this should be checked using nodeModuleMap, if the incoming edge exists in nodeModuleMap, then it is "visited"
-			var new_module_needed = false;
-						
-			var ies = getAllEdgesToNode(act,node); 
-			for(i in ies){
-				//("i.name: " +i.name).println();
-				//"nodeModuleMap.get(nodeModuleMap.keySet.selectOne(t|t.edg = i)):".println();
-				
-				if(nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).isDefined() ){
-					all_source_vistied = all_source_vistied and true;
-					//"the map that contains the incoming edge is defined as: ".println();
-					//nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).name.println();
-				} else {
-					all_source_vistied = all_source_vistied and false;
-					//"Map that contains the incoming edge is not defined, need to wait.".println();
-				}
-			}
-			
-			//("all_source_vistied = " +all_source_vistied).println();
-			
-			//allocated_mods represents the existing modules that contain this merge node, 
-			//but it is possible that at this moment, some incoming edges of this merge have not been added into the MAP
-			var allocated_mods = new Set;
-			for(k in nodeModuleMap.keySet()){
-				if(k.nd = node){
-					allocated_mods.add(nodeModuleMap.get(k));
-				}
-			}
-			
-			//("\nallocated_mods: "+allocated_mods).println();
-			//("allocated_mods.size: "+allocated_mods.size()).println();
-						
-			//the incoming edged of the node are from different moduels, a new module for this merge node is needed
-			//it is possible that at this point some incoming edges have not be processed in any moduel yet 
-			if(allocated_mods.size()>1){
-				new_module_needed = true;
-			} else {
-				//2 CASES:
-				//a. in_same_module = true, i.e.,allocated_mods.size() = 1 and all_source_vistied
-				//b. all_source_vistied = false, so can not decide if new module is needed (module.size = 1, but not all incoming edges are in this module, we need to wait either the moudle.size will increase, or all the incoming edges have been processed)
-				new_module_needed = false;
-			}
-		
-			
-			if(new_module_needed ){
-			
-				"\nA new_module_needed needed so the creation is processed".println();
-				var oe = getAllEdgesFromNode(act,node).at(0);
-				var newmod = mkModuleDef(mkModuleName(act,node), Sequence{}, Sequence{});
-				//("at line 917: A new module is created for the merge node: "+ node.name  + "modname: " +newmod.name).println();
-				m.modules.add(newmod);
-				//("Currently, m.modules =  " +m.modules).println();
-				var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
-				newmod.vars.add(pc);
+        var node = toBeVisitedNodes.removeAt(0);
 
-				var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
-				
-				//for each incoming edge, create a command
-				//E.G.,
-				//[DigitalCamera::M3::E15](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
-	//[DigitalCamera::M3::E16](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
-				for(ie in getAllEdgesToNode(act,node)){
-				
-					var action = mkSyncAction(act, node.name +"::" + ie.name);
-					
-					var grd = new PRISM!AndBoolExpr;
-					grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-					
-					var updates = Set{};
-					
-					if(oe.target.instanceOf(ActivityFinalNode)){
-					
-						var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
-				
-						//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
-			   
-						//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
-						if(toBeTerminatedIsUpdated){
-							toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
-						} else {
-							toBeTerminated.expr = new PRISM!VarExpr;
-							toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
-							toBeTerminatedIsUpdated = true;
-						} 
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
-						} else{
-							updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
-						}
-						
-						delete mod_toBeTerminated;
-						
-					} else {
-						if(isCTMC){
-							var rate = mkVarExpr(default_rate.name);
-							updates.add(mkProbUpdate(rate, pc, const_nxt));	
-						} else{
-							updates.add(mkUpdate(pc, const_nxt));	
-						}
-						
-					}
-					newmod.commands.add(mkCommand(action, grd, updates));
-				}
-				delete const_nxt;//because the const for the module will be generated again later in the transformation section
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
-				//"maps:".println();maps.println();
-				toBeVisitedNodes.add(oe.target);
-				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 965").println();
-				
-				toBeVisitedNodes.remove(node);
-				visitedNodes.add(node);
-				
-				//("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
-				//("\nvisitedNodes: "+visitedNodes).println();
-				
-			} else if(all_source_vistied and (not new_module_needed)){// continue the path within the same module
-				//"all_source_vistied =true and new_module_needed = false at line 974.".println();
-				
-				var oe = getAllEdgesFromNode(act,node).at(0);
-				var existingmod = allocated_mods.at(0);
-				
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, existingmod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, existingmod);
-				//"maps:".println();maps.println();
-				
-				toBeVisitedNodes.add(oe.target);
-				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 633").println();
-				
-				toBeVisitedNodes.remove(node);
-				visitedNodes.add(node);
-				
-				//("toBeVisitedNodes: "+toBeVisitedNodes).println();
-				//("visitedNodes: "+visitedNodes).println();
-			
-			} 
-				//("FOR MERGE NODE WHEN NOT ALL INCOMING EDGES ARE VISITED, toBeVisitedNodes.size() = "+toBeVisitedNodes.size()).println();
-				//all_source_vistied == false, new_module_needed == false
-			else{	
-			if(toBeVisitedNodes.size()=0){
-				"\ntoBeVisitedNodes.size()=0".println();
-				//("the current merge node is "+ node.name).println();
-				"The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED".println();
-					var oe = getAllEdgesFromNode(act,node).at(0);
-					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
-					("at line 1002: A new module is created for the merge node for dummy? "+ node.name + " modname: " +newmod.name).println();
-					//("newmod.name = " + newmod.name).println();
-					//TO DO: I am not sure whether the follow line is needed
-					m.modules.add(newmod);
-					//("Currently, m.modules =  " +m.modules).println();
-					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
-					newmod.vars.add(pc);
-				
-					for(ie in getAllEdgesToNode(act,node)){
-						var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as we only need the name
-						
-						var action = mkSyncAction(act, node.name +"::" + ie.name);
-					
-						var grd = new PRISM!AndBoolExpr;
-						grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-						
-						var updates = Set{};
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							
-							var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
-				
-							//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
-			   
-							//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
-							if(toBeTerminatedIsUpdated){
-								toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
-							} else {
-								toBeTerminated.expr = new PRISM!VarExpr;
-								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
-								toBeTerminatedIsUpdated = true;
-							} 
-							if(isCTMC){
-								var rate = mkVarExpr(default_rate.name);
-								updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
-							} else{
-								updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
-							}
-							
-							delete mod_toBeTerminated;
-							
-						} else {
-							if(isCTMC){
-								var rate = mkVarExpr(default_rate.name);
-								updates.add(mkProbUpdate(rate, pc, const_nxt));	
-							} else {
-								updates.add(mkUpdate(pc, const_nxt));	
-							}
-							
-						}
-							
-						newmod.commands.add(mkCommand(action, grd, updates));
-						
-						delete const_nxt;
-					}
-					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
-					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
-					//"maps:".println();maps.println();
-					
-					addMap(dummyNodeModuleSeq, node, newmod);
-					
-					toBeVisitedNodes.add(oe.target);
-					("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668").println();
-					visitedNodes.add(node);
-					
-					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
-					//("visitedNodes: "+visitedNodes).println();
-				} else // there might be multiple loops, progress_made set to false when first time that only merge node left in toBeVisitedNodes
-				if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n|not n.instanceOf(MergeNode)).size()=0 and progress_made.isEmpty()){
-					//("toBeVisitedNodes = "+ printNodes(toBeVisitedNodes)).println();
-					"Only merge left, and there are more than one merge, so set progress_made as true for all merge nodes at line 1059, this is the first time that only merge node left".println();
-					for(n in toBeVisitedNodes.select(n|n.instanceOf(MergeNode))){
-						progress_made.put(n,true);
-					}
-					progress_made.put(node,true);
-					toBeVisitedNodes.add(node);
-					continue;
-				}else if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and progress_made.get(node)){// if there is node with progress_made this is the second time meeting this merge node when only merge nodes left in toBeVisited
-					"\nIf the node is progress_made, this is the second time meeting this merge node when only merge nodes left in toBeVisited, so we set the node to progress_made as false at line 1067".println();
-					progress_made.remove(node);
-					progress_made.put(node,false);
-					toBeVisitedNodes.add(node);
-				}else if (toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and  progress_made.values().asSet().size()=1 and progress_made.values().asSet().at(0)= false) {
-				"This is when all merge nodes are making no progress, then a dummy module should be made for this merge node at line 1072".println();
-				"The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED for multiple loops".println();
-					var oe = getAllEdgesFromNode(act,node).at(0);
-					var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
-					("At line 1076: A new module is created for the merge node for dummy? "+ node.name + "modname: " +newmod.name).println();
-					//TO DO: not sure whether the follow line is needed
-					m.modules.add(newmod);
-					//("Currently, m.modules =  " +m.modules).println();
-					var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
-					newmod.vars.add(pc);
-					
-					for(ie in getAllEdgesToNode(act,node)){
-						var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as this constand will be deleted and recreated in the transformation section
-						
-						var action = mkSyncAction(act, node.name +"::" + ie.name);
-					
-						var grd = new PRISM!AndBoolExpr;
-						grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
-						
-						var updates = Set{};
-						if(oe.target.instanceOf(ActivityFinalNode)){
-							
-							var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
-				
-							//("mod_toBeTerminated is created as "+mod_toBeTerminated).println();
-			   
-							//update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
-							if(toBeTerminatedIsUpdated){
-								toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
-							} else {
-								toBeTerminated.expr = new PRISM!VarExpr;
-								toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
-								toBeTerminatedIsUpdated = true;
-							} 
-							if(isCTMC){
-								var rate = mkVarExpr(default_rate.name);
-								updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
-							}else {
-								updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
-							}
-							
-							delete mod_toBeTerminated;
-						} else {
-							if(isCTMC){
-								var rate = mkVarExpr(default_rate.name);
-								updates.add(mkProbUpdate(rate, pc, const_nxt));	
-							} else{
-								updates.add(mkUpdate(pc, const_nxt));	
-							}
-							
-						}
-						newmod.commands.add(mkCommand(action, grd, updates));
-						
-						delete const_nxt;
-					}
-					nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
-					addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
-					//"maps:".println();maps.println();
-					
-					addMap(dummyNodeModuleSeq, node, newmod);
-					toBeVisitedNodes.add(oe.target);
-					("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668").println();
-					visitedNodes.add(node);
-					
-					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
-					//("visitedNodes: "+visitedNodes).println();
-					
-					//to clear progress_made 
-					progress_made.clear();
-				}
-				
-				else {
-					"\nThe last else in line 1132 is processed".println();
-					
-					toBeVisitedNodes.add(node);
-					//("toBeVisitedNodes: "+toBeVisitedNodes).println();
-					//("visitedNodes: "+visitedNodes).println();
-				}
-			}
-		
-		} else if(node.instanceOf(FlowFinalNode) and (not visitedNodes.includes(node))){
-			"\nThis is a FlowFinalNode node".println();
-			visitedNodes.add(node);
-		} else if(node.instanceOf(ActivityFinalNode) and (not visitedNodes.includes(node))){
-			"\nThis is a ActivityFinalNode  node".println();
-			visitedNodes.add(node);
-		} else if(node.instanceOf(CallBehaviorAction)){
-			traverseNodes(node.behavior, false);			
-			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
-			for(oe in getAllEdgesFromNode(act,node)){
-				nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
-				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
-				//"maps:".println();maps.println();
-				toBeVisitedNodes.add(oe.target);				
-			}
-			visitedNodes.add(node);
-		} 
-	}
+        //dbg_print("toBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
+        dbg_print("visitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+
+        if(node.instanceOf(OpaqueAction)){
+            dbg_print("this is a opaqueaction node: " + node.name, LEVEL_TRACE);
+            //find the module that stores the node
+            //'get' method can only take one parameter, not a set
+
+            var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+            for(oe in getAllEdgesFromNode(act,node)){
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+                //dbg_print("maps:" + maps, LEVEL_TRACE);
+                //toBeVisitedNodes.add(oe.target);
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 765", LEVEL_TRACE);
+            }
+            visitedNodes.add(node);
+            //("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
+            //("\nvisitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+        } else if(node.instanceOf(ForkNode)){
+            dbg_print("this is a Fork node: " + node.name, LEVEL_TRACE);
+            var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+            var isFirst = true;
+            for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+                if(isFirst){
+                    nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+                    addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+                    //dbg_print("maps:" + maps, LEVEL_TRACE);
+                    isFirst = false;
+                } else {
+                    var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+                    //dbg_print("at line 767: A new module is created for the fork node: "+ node.name  + "modname: " +newmod.name, LEVEL_TRACE);
+                    m.modules.add(newmod);
+                    //("Currently, m.modules =  " +m.modules, LEVEL_TRACE);
+                    var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+                    newmod.vars.add(pc);
+
+                    //create the constant for the fork node module
+                    var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
+
+                    //create sync command, e.g.,
+                    // [DigitalCamera::F1](DigitalCamera::F1::E3::pc= INACTIVE) &(!DigitalCamera::to_be_terminated) -> (DigitalCamera::F1::E3::pc'=DigitalCamera::F1::E3::DetLight);				
+                    var action = mkSyncAction(act, node.name);
+
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    var updates = Set{};
+
+                    if(oe.target.instanceOf(ActivityFinalNode)){
+
+                        var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+                        //("mod_toBeTerminated is created as "+mod_toBeTerminated, LEVEL_TRACE);
+
+                        //update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+                        if(toBeTerminatedIsUpdated){
+                            toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+                        } else {
+                            toBeTerminated.expr = new PRISM!VarExpr;
+                            toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+                            toBeTerminatedIsUpdated = true;
+                        } 
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+                        } else{
+                            updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+                        }
+
+                        delete mod_toBeTerminated;
+
+                    } else {
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            updates.add(mkProbUpdate(rate, pc, const_nxt));
+                        } else{
+                            updates.add(mkUpdate(pc, const_nxt));
+                        }
+
+                    }
+
+                    newmod.commands.add(mkCommand(action, grd, updates));
+
+                    nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+                    addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+                    dbg_print("maps: " + maps, LEVEL_TRACE);
+                    delete const_nxt;//this constant is deleted, because it will be created again in the transformation section.
+                }
+                // toBeVisitedNodes.add(oe.target);
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                dbg_print("node "+ oe.target.name + "is added to toBeVisitedNodes at line 439", LEVEL_TRACE);
+            }
+            visitedNodes.add(node);
+
+            //dbg_print("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
+            //dbg_print("\nvisitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+        } else if(node.instanceOf(JoinNode) and (not visitedNodes.includes(node))){
+            //dbg_print("This is a join node: "  + node.name, LEVEL_TRACE);
+            //to check if the source node to the first edge to the join node has been processed
+            // if yes, then path continues
+            //else, do noting ,wait source node to the first edge to be processed
+            //that is for join node, the path always continue for the first incoming edge
+            //The FIRST is determined by the names of the edges using sortBy(c | c.name)
+
+            var ie = getAllEdgesToNode(act, node).sortEdgeByName().at(0);
+            //dbg_print("DEBUG JOIN NODE: ies = "+ getAllEdgesToNode(act, node).sortEdgeByName(), LEVEL_TRACE);
+            //dbg_print("DEBUG JOIN NODE: ie.at(0) = "+ie.name, LEVEL_TRACE);
+            var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = ie.source));
+            if(not (mod.isDefined())){//"not (mod.isDefined()" means that the first incoming edge of this join node is not processed yet, we need to wait the first incoming t o be processed. Now we do nothing.
+
+                toBeVisitedNodes.add(node);
+                //dbg_print("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 836", LEVEL_TRACE);
+                //dbg_print("\nThe first incoming edge of this join node is not processed yet", LEVEL_TRACE);
+            } else {
+                var oe = getAllEdgesFromNode(act,node).at(0);
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+                dbg_print("maps:" + maps, LEVEL_TRACE);
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                //dbg_print("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 844", LEVEL_TRACE);
+                visitedNodes.add(node);
+                toBeVisitedNodes.remove(node);
+            }
+
+
+        } else if(node.instanceOf(DecisionNode)){
+            //dbg_print("\nthis is a decision node: " + node.name, LEVEL_TRACE);
+            var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+            for(oe in getAllEdgesFromNode(act,node).sortEdgeByName()){
+                //dbg_print("at line 854 oe: "+oe.name, LEVEL_TRACE);
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+                //dbg_print("maps: " + maps, LEVEL_TRACE);
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                //dbg_print("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 859", LEVEL_TRACE);
+            }
+            visitedNodes.add(node);
+
+            //dbg_print("\ntoBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+            //dbg_print("\nvisitedNodes: "+visitedNodes, LEVEL_TRACE);
+
+        } else if(node.instanceOf(MergeNode) and (not visitedNodes.includes(node))){ 
+            dbg_print("\nthis is a merge node: " + node.name, LEVEL_TRACE);
+            var all_source_visited = true; //this should be checked using nodeModuleMap, if the incoming edge exists in nodeModuleMap, then it is "visited"
+            var new_module_needed = false;
+
+            var ies = getAllEdgesToNode(act,node); 
+            for(i in ies){
+                //dbg_print("i.name: " +i.name, LEVEL_TRACE);
+                //dbg_print("nodeModuleMap.get(nodeModuleMap.keySet.selectOne(t|t.edg = i)):", LEVEL_TRACE);
+
+                if(nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).isDefined() ){
+                    all_source_visited = all_source_visited and true;
+                    //dbg_print("the map that contains the incoming edge is defined as: ", LEVEL_TRACE);
+                    //nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.edg = i)).name.println();
+                } else {
+                    all_source_visited = all_source_visited and false;
+                    //"Map that contains the incoming edge is not defined, need to wait.".println();
+                }
+            }
+
+            //dbg_print("all_source_visited = " + all_source_visited, LEVEL_TRACE);
+
+            //allocated_mods represents the existing modules that contain this merge node, 
+            //but it is possible that at this moment, some incoming edges of this merge have not been added into the MAP
+            var allocated_mods = new Set;
+            for(k in nodeModuleMap.keySet()){
+                if(k.nd = node){
+                    allocated_mods.add(nodeModuleMap.get(k));
+                }
+            }
+
+            //dbg_print("\nallocated_mods: "+allocated_mods, LEVEL_TRACE);
+            //dbg_print("allocated_mods.size: "+allocated_mods.size(), LEVEL_TRACE);
+
+            //the incoming edged of the node are from different moduels, a new module for this merge node is needed
+            //it is possible that at this point some incoming edges have not be processed in any moduel yet 
+            if(allocated_mods.size()>1){
+                new_module_needed = true;
+            } else {
+                //2 CASES:
+                //a. in_same_module = true, i.e.,allocated_mods.size() = 1 and all_source_visited
+                //b. all_source_visited = false, so can not decide if new module is needed (module.size = 1, but not all incoming edges are in this module, we need to wait either the moudle.size will increase, or all the incoming edges have been processed)
+                new_module_needed = false;
+            }
+
+
+            if(new_module_needed ){
+
+                dbg_print("A new_module_needed needed so the creation is processed", LEVEL_TRACE);
+                var oe = getAllEdgesFromNode(act,node).at(0);
+                var newmod = mkModuleDef(mkModuleName(act,node), Sequence{}, Sequence{});
+                //dbg_print("at line 917: A new module is created for the merge node: "+ node.name  + "modname: " +newmod.name, LEVEL_TRACE);
+                m.modules.add(newmod);
+                //dbg_print("Currently, m.modules =  " +m.modules, LEVEL_TRACE);
+                var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+                newmod.vars.add(pc);
+
+                var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);
+
+                //for each incoming edge, create a command
+                //E.G.,
+                //[DigitalCamera::M3::E15](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
+                //[DigitalCamera::M3::E16](DigitalCamera::M3::pc= INACTIVE) & (!DigitalCamera::to_be_terminated) -> (DigitalCamera::M3::pc'=DigitalCamera::M3::TakePicture);
+                for(ie in getAllEdgesToNode(act,node)){
+
+                    var action = mkSyncAction(act, node.name +"::" + ie.name);
+
+                    var grd = new PRISM!AndBoolExpr;
+                    grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                    var updates = Set{};
+
+                    if(oe.target.instanceOf(ActivityFinalNode)){
+
+                        var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+
+                        //dbg_print("mod_toBeTerminated is created as "+mod_toBeTerminated, LEVEL_TRACE);
+
+                        //update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+                        if(toBeTerminatedIsUpdated){
+                            toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+                        } else {
+                            toBeTerminated.expr = new PRISM!VarExpr;
+                            toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+                            toBeTerminatedIsUpdated = true;
+                        } 
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+                        } else{
+                            updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+                        }
+
+                        delete mod_toBeTerminated;
+
+                    } else {
+                        if(isCTMC){
+                            var rate = mkVarExpr(default_rate.name);
+                            updates.add(mkProbUpdate(rate, pc, const_nxt));	
+                        } else{
+                            updates.add(mkUpdate(pc, const_nxt));	
+                        }
+
+                    }
+                    newmod.commands.add(mkCommand(action, grd, updates));
+                }
+                delete const_nxt;//because the const for the module will be generated again later in the transformation section
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+                //dbg_print("maps:" + maps, LEVEL_TRACE);
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 965", LEVEL_TRACE);
+
+                toBeVisitedNodes.remove(node);
+                visitedNodes.add(node);
+
+                //dbg_print("\ntoBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+                //dbg_print("\nvisitedNodes: "+visitedNodes, LEVEL_TRACE);
+
+            } else if(all_source_visited and (not new_module_needed)){// continue the path within the same module
+                                                                      //dbg_print("all_source_visited =true and new_module_needed = false at line 974., LEVEL_TRACE);
+
+                var oe = getAllEdgesFromNode(act,node).at(0);
+                var existingmod = allocated_mods.at(0);
+
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, existingmod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, existingmod);
+                //dbg_print("maps:" + maps, LEVEL_TRACE);
+
+                addNodeNoDup(toBeVisitedNodes, oe.target);
+                dbg_print("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 633", LEVEL_TRACE);
+
+                toBeVisitedNodes.remove(node);
+                visitedNodes.add(node);
+
+                //dbg_print("toBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+                //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
+
+            } 
+            //("FOR MERGE NODE WHEN NOT ALL INCOMING EDGES ARE VISITED, toBeVisitedNodes.size() = "+toBeVisitedNodes.size(), LEVEL_TRACE);
+            //all_source_visited == false, new_module_needed == false
+            else{	
+                if(toBeVisitedNodes.size()=0){
+                    dbg_print("toBeVisitedNodes.size()=0", LEVEL_TRACE);
+                    //dbg_print("the current merge node is "+ node.name, LEVEL_TRACE);
+                    dbg_print("The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED", LEVEL_TRACE);
+                    var oe = getAllEdgesFromNode(act,node).at(0);
+                    var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+                    dbg_print("at line 1002: A new module is created for the merge node for dummy? "+ node.name + " modname: " +newmod.name, LEVEL_TRACE);
+                    //dbg_print("newmod.name = " + newmod.name, LEVEL_TRACE);
+                    //TO DO: I am not sure whether the follow line is needed
+                    m.modules.add(newmod);
+                    //dbg_print("Currently, m.modules =  " +m.modules, LEVEL_TRACE);
+                    var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+                    newmod.vars.add(pc);
+
+                    for(ie in getAllEdgesToNode(act,node)){
+                        var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as we only need the name
+
+                        var action = mkSyncAction(act, node.name +"::" + ie.name);
+
+                        var grd = new PRISM!AndBoolExpr;
+                        grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                        var updates = Set{};
+                        if(oe.target.instanceOf(ActivityFinalNode)){
+
+                            var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+
+                            //dbg_print("mod_toBeTerminated is created as "+mod_toBeTerminated, LEVEL_TRACE);
+
+                            //update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+                            if(toBeTerminatedIsUpdated){
+                                toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+                            } else {
+                                toBeTerminated.expr = new PRISM!VarExpr;
+                                toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+                                toBeTerminatedIsUpdated = true;
+                            } 
+                            if(isCTMC){
+                                var rate = mkVarExpr(default_rate.name);
+                                updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+                            } else{
+                                updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+                            }
+
+                            delete mod_toBeTerminated;
+
+                        } else {
+                            if(isCTMC){
+                                var rate = mkVarExpr(default_rate.name);
+                                updates.add(mkProbUpdate(rate, pc, const_nxt));	
+                            } else {
+                                updates.add(mkUpdate(pc, const_nxt));	
+                            }
+
+                        }
+
+                        newmod.commands.add(mkCommand(action, grd, updates));
+
+                        delete const_nxt;
+                    }
+                    nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+                    addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+                    //dbg_print("maps:" + maps, LEVEL_TRACE);
+
+                    addMap(dummyNodeModuleSeq, node, newmod);
+
+                    addNodeNoDup(toBeVisitedNodes, oe.target);
+                    dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 668", LEVEL_TRACE);
+                    visitedNodes.add(node);
+
+                    //dbg_print("toBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+                    //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
+                } else // there might be multiple loops, progress_made set to false when first time that only merge node left in toBeVisitedNodes
+                    if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n|not n.instanceOf(MergeNode)).size()=0 and progress_made.isEmpty()){
+                        //dbg_print("toBeVisitedNodes = "+ printNodes(toBeVisitedNodes), LEVEL_TRACE);
+                        dbg_print("Only merge left, and there are more than one merge, so set progress_made as true for all merge nodes at line 1059, this is the first time that only merge node left", LEVEL_TRACE);
+                        for(n in toBeVisitedNodes.select(n|n.instanceOf(MergeNode))){
+                            progress_made.put(n,true);
+                        }
+                        progress_made.put(node,true);
+                        toBeVisitedNodes.add(node);
+                        continue;
+                    }else if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and progress_made.get(node)){// if there is node with progress_made this is the second time meeting this merge node when only merge nodes left in toBeVisited
+                        dbg_print("If the node is progress_made, this is the second time meeting this merge node when only merge nodes left in toBeVisited, so we set the node to progress_made as false at line 1067", LEVEL_TRACE);
+                        progress_made.remove(node);
+                        progress_made.put(node,false);
+                        toBeVisitedNodes.add(node);
+                    }else if (toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n | not n.instanceOf(MergeNode)).size() = 0 and  progress_made.values().asSet().size()=1 and progress_made.values().asSet().at(0)= false) {
+                        dbg_print("This is when all merge nodes are making no progress, then a dummy module should be made for this merge node at line 1072", LEVEL_TRACE);
+                        dbg_print("The ALGORITHM FOR DUMMY MODULE/ LOOP OF DECISION AND MERGE in traversed operation IS EXECUTED for multiple loops", LEVEL_TRACE);
+                        var oe = getAllEdgesFromNode(act,node).at(0);
+                        var newmod = mkModuleDef(mkModuleName(act,node,oe), Sequence{}, Sequence{});
+                        dbg_print("At line 1076: A new module is created for the merge node for dummy? "+ node.name + "modname: " +newmod.name, LEVEL_TRACE);
+                        //TO DO: not sure whether the follow line is needed
+                        m.modules.add(newmod);
+                        //dbg_print("Currently, m.modules =  " +m.modules, LEVEL_TRACE);
+                        var pc = mkVarDecl(newmod, -1, null, "INACTIVE");
+                        newmod.vars.add(pc);
+
+                        for(ie in getAllEdgesToNode(act,node)){
+                            var const_nxt = mkConst(newmod.name + "::" + oe.target.name, 0);//the value of const_nxt does not matter as this constand will be deleted and recreated in the transformation section
+
+                            var action = mkSyncAction(act, node.name +"::" + ie.name);
+
+                            var grd = new PRISM!AndBoolExpr;
+                            grd = mkAndBoolExpr(mkEqBoolExpr(pc, INACTIVE), mkNotBoolExpr(mkVarExpr(toBeTerminated.name)));
+
+                            var updates = Set{};
+                            if(oe.target.instanceOf(ActivityFinalNode)){
+
+                                var mod_toBeTerminated = mkBoolVarDecl(newmod.name+"::to_be_terminated", false);
+
+                                //dbg_print("mod_toBeTerminated is created as "+mod_toBeTerminated, LEVEL_TRACE);
+
+                                //update the expression of the fomula 'toBeTerminated.expr' using the local 'toBeTerminated'
+                                if(toBeTerminatedIsUpdated){
+                                    toBeTerminated.expr = mkOrBoolExpr(toBeTerminated.expr, mod_toBeTerminated);
+                                } else {
+                                    toBeTerminated.expr = new PRISM!VarExpr;
+                                    toBeTerminated.expr = mkVarExpr(mod_toBeTerminated.name);
+                                    toBeTerminatedIsUpdated = true;
+                                } 
+                                if(isCTMC){
+                                    var rate = mkVarExpr(default_rate.name);
+                                    updates.add(mkProbUpdate(rate, pc, const_nxt, mod_toBeTerminated, true)); 
+                                }else {
+                                    updates.add(mkUpdate(pc, const_nxt, mod_toBeTerminated, true)); 
+                                }
+
+                                delete mod_toBeTerminated;
+                            } else {
+                                if(isCTMC){
+                                    var rate = mkVarExpr(default_rate.name);
+                                    updates.add(mkProbUpdate(rate, pc, const_nxt));	
+                                } else{
+                                    updates.add(mkUpdate(pc, const_nxt));	
+                                }
+
+                            }
+                            newmod.commands.add(mkCommand(action, grd, updates));
+
+                            delete const_nxt;
+                        }
+                        nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
+                        addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
+                        //dbg_print("maps: " + maps, LEVEL_TRACE);
+
+                        addMap(dummyNodeModuleSeq, node, newmod);
+                        addNodeNoDup(toBeVisitedNodes, oe.target);
+                        dbg_print("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668", LEVEL_TRACE);
+                        visitedNodes.add(node);
+
+                        //dbg_print("toBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+                        //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
+
+                        //to clear progress_made 
+                        progress_made.clear();
+                    }
+
+                    else {
+                        dbg_print("The last else in line 1132 is processed", LEVEL_TRACE);
+
+                        toBeVisitedNodes.add(node);
+                        //dbg_print("toBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
+                        //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
+                    }
+            }
+
+        } else if(node.instanceOf(FlowFinalNode) and (not visitedNodes.includes(node))){
+            dbg_print("This is a FlowFinalNode node", LEVEL_TRACE);
+            visitedNodes.add(node);
+        } else if(node.instanceOf(ActivityFinalNode) and (not visitedNodes.includes(node))){
+            dbg_print("This is a ActivityFinalNode  node", LEVEL_TRACE);
+            visitedNodes.add(node);
+        } else if(node.instanceOf(CallBehaviorAction)){
+            traverseNodes(node.behavior, false);			
+            var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
+            for(oe in getAllEdgesFromNode(act,node)){
+                nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
+                addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
+                //dbg_print("maps: " + maps, LEVEL_TRACE);
+                addNodeNoDup(toBeVisitedNodes, oe.target);				
+            }
+            visitedNodes.add(node);
+        } 
+    }
 }
-
-
-
