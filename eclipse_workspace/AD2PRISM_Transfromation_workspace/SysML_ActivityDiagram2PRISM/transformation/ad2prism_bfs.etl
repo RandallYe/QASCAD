@@ -1082,13 +1082,20 @@ operation traverseNodes(
 	isCTMC: Boolean,
 	default_rate: PRISM!Formula
 	){
+	var count: Integer = 0;
 	while(toBeVisitedNodes.notEmpty()){
-		//"\ntoBeVisitedNodes.at(0):".println();
-		//toBeVisitedNodes.at(0).name.println();
+		//"\ntoBeVisitedNodes.at(0):".print();
+		// toBeVisitedNodes.at(0).name.println();
+		("\ntoBeVisitedNodes: ").print(); printNodes(toBeVisitedNodes);
+		("Visiting[" + count + "]: " + toBeVisitedNodes.at(0).name).println();
+		count = count + 1;
 		var node = toBeVisitedNodes.removeAt(0);
 		
+		("\ntoBeVisitedNodes: ").print(); printNodes(toBeVisitedNodes);
+		("\nvisitedNodes: ").print(); printNodes(visitedNodes);
+		
 		if(node.instanceOf(OpaqueAction)){
-			//("\nthis is a opaqueaction node: " + node.name).println();
+			("\nthis is a opaqueaction node: " + node.name).println();
 			//find the module that stores the node
 			//'get' method can only take one parameter, not a set
 			
@@ -1098,11 +1105,11 @@ operation traverseNodes(
 				addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
 				//"maps:".println();maps.println();
 				toBeVisitedNodes.add(oe.target);
-				//("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 765").println();
+				("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 765").println();
 			}
 			visitedNodes.add(node);
-			("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
-			("\nvisitedNodes: "+visitedNodes).println();
+			//("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes)).println();
+			//("\nvisitedNodes: " + printNodes(visitedNodes)).println();
 		} else if(node.instanceOf(ForkNode)){
 			("\nthis is a Fork node: " + node.name).println();
 			var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
@@ -1177,10 +1184,8 @@ operation traverseNodes(
 			}
 			visitedNodes.add(node);
 
-			("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
-			("\nvisitedNodes: "+visitedNodes).println();
-			
-			
+			//("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes)).println();
+			//("\nvisitedNodes: " + printNodes(visitedNodes)).println();
 		} else if(node.instanceOf(JoinNode) and (not visitedNodes.includes(node))){
 			//("This is a join node: "  + node.name).println();
 		//to check if the source node to the first edge to the join node has been processed
@@ -1227,7 +1232,7 @@ operation traverseNodes(
 			//("\nvisitedNodes: "+visitedNodes).println();
 			
 		} else if(node.instanceOf(MergeNode) and (not visitedNodes.includes(node))){ 
-			("\nthis is a merge node:" + node.name).println();
+			("\nthis is a merge node: " + node.name).println();
 			var all_source_vistied = true; //this should be checked using nodeModuleMap, if the incoming edge exists in nodeModuleMap, then it is "visited"
 			var new_module_needed = false;
 						
@@ -1342,7 +1347,7 @@ operation traverseNodes(
 				toBeVisitedNodes.remove(node);
 				visitedNodes.add(node);
 				
-				("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
+				//("\ntoBeVisitedNodes: "+toBeVisitedNodes).println();
 				//("\nvisitedNodes: "+visitedNodes).println();
 				
 			} else if(all_source_vistied and (not new_module_needed)){// continue the path within the same module
@@ -1442,7 +1447,7 @@ operation traverseNodes(
 					//("visitedNodes: "+visitedNodes).println();
 				} else // there might be multiple loops, progress_made set to false when first time that only merge node left in toBeVisitedNodes
 				if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n|not n.instanceOf(MergeNode)).size()=0 and progress_made.isEmpty()){
-					("toBeVisitedNodes = "+toBeVisitedNodes).println();
+					//("toBeVisitedNodes = "+ printNodes(toBeVisitedNodes)).println();
 					"Only merge left, and there are more than one merge, so set progress_made as true for all merge nodes at line 1059, this is the first time that only merge node left".println();
 					for(n in toBeVisitedNodes.select(n|n.instanceOf(MergeNode))){
 						progress_made.put(n,true);

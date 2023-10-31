@@ -173,7 +173,7 @@ operation mkVarDecl(
 		v.type.top = null;
 	} else v.type.top = range_top;
 	v.init = mkVarExpr(initial);
-	("a new vardecl is made, var.name = "+ v.name).println();
+	// ("a new vardecl is made, var.name = "+ v.name).println();
 	return v;
 }
 	

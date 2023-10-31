@@ -103,3 +103,13 @@ operation removeSymbolPrefix(symbol): String{
 	("in operation removeSymbolPrefix(),  symbol = " + symbol).println();
 	return symbol.substring(10, (symbol.length()-1));
 }
+
+operation printNodes(nodes: Sequence) {
+	("[").print();
+	for (n in nodes) {
+		(n.name).print();
+		if(hasMore) 
+			(",").print();
+	}
+	("]").println();
+}
