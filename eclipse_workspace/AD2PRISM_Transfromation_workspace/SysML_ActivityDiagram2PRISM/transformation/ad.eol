@@ -1,3 +1,4 @@
+import "utils.eol";
 	
 // getAllEdgesFromNode return a set of outgoing edges of a node
 operation getAllEdgesFromNode(act: AD!Activity,node: AD!ControlNode ): Set {
@@ -100,6 +101,14 @@ operation Set sortEdgeByName(): Sequence{
 }
 
 operation removeSymbolPrefix(symbol): String{
-	("in operation removeSymbolPrefix(),  symbol = " + symbol).println();
+	dbg_print("in operation removeSymbolPrefix(),  symbol = " + symbol, LEVEL_TRACE);
 	return symbol.substring(10, (symbol.length()-1));
+}
+
+operation addNodeToBeVisitedNoDup(tobeVisitedNodes: Sequence, 
+	visitedNodes: Sequence, node: AD!ActivityNode) {
+	if(tobeVisitedNodes.includes(node) or visitedNodes.includes(node)) {
+	} else {
+		tobeVisitedNodes.add(node);
+	}
 }

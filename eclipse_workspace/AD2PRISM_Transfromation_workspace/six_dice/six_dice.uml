@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39" xsi:schemaLocation="http:///schemas/workflow/_c8p1sGO2Ee6Zju61UiY0gA/39 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44" xsi:schemaLocation="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg">
   <uml:Model xmi:id="__8F7UEV-Ee6ZybDoV901-g" name="six_dice">
     <packageImport xmi:type="uml:PackageImport" xmi:id="__-HUkEV-Ee6ZybDoV901-g">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -76,15 +76,15 @@
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_ASpSQFL1Ee69cawvUnnaMA" name="0.5" value="0.5"/>
     <packagedElement xmi:type="uml:LiteralInteger" xmi:id="_uzGxUFxMEe6G0P_tKHSubg" name="reward_1" value="1"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="__9cmMEV-Ee6ZybDoV901-g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_i-us4GO2Ee6Zju61UiY0gA" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i-us4WO2Ee6Zju61UiY0gA" key="Version" value="0.0.40"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i-us4mO2Ee6Zju61UiY0gA" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i-us42O2Ee6Zju61UiY0gA" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i-us5GO2Ee6Zju61UiY0gA" key="Date" value="2023-10-05"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_i-us5WO2Ee6Zju61UiY0gA" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Zhl98HkIEe6seLuArQwQsA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Zhl98XkIEe6seLuArQwQsA" key="Version" value="0.0.45"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Zhl98nkIEe6seLuArQwQsA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Zhl983kIEe6seLuArQwQsA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Zhl99HkIEe6seLuArQwQsA" key="Date" value="2023-11-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Zhl99XkIEe6seLuArQwQsA" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__9dNQEV-Ee6ZybDoV901-g" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_c8s5AGO2Ee6Zju61UiY0gA"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
@@ -103,22 +103,24 @@
   <workflow:WeightedFlow xmi:id="_g_lYIEWEEe6ZybDoV901-g" base_ControlFlow="_81nyQEWBEe6ZybDoV901-g" probability="_6nSR8FL0Ee69cawvUnnaMA"/>
   <workflow:WeightedFlow xmi:id="_jZ7ToEWEEe6ZybDoV901-g" base_ControlFlow="_AvJBgEWCEe6ZybDoV901-g" probability="_9KywgFL0Ee69cawvUnnaMA"/>
   <workflow:WeightedFlow xmi:id="_nIkvoEWEEe6ZybDoV901-g" base_ControlFlow="_FrNS4EWCEe6ZybDoV901-g" probability="_ASpSQFL1Ee69cawvUnnaMA"/>
-  <workflow:Properties xmi:id="_hZEtMFvgEe6j4OJIcrLLig" base_Activity="__8gLAEV-Ee6ZybDoV901-g" modeltype="MDP">
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_lm2VMFvgEe6j4OJIcrLLig" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_9OsJMFvgEe6j4OJIcrLLig" name="P_O1_min" value="Pmin=? [F Six_dice reaches at Six_dice::O1]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_7y6XAFxJEe6G0P_tKHSubg" name="P_O1_max" value="Pmax=? [F Six_dice reaches at Six_dice::O1]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="__cnooFxJEe6G0P_tKHSubg" name="P_O2_min" value="Pmin=? [F Six_dice reaches at Six_dice::O2]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_FbGZQFxKEe6G0P_tKHSubg" name="P_O2_max" value="Pmax=? [F Six_dice reaches at Six_dice::O2]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_0EigoFxKEe6G0P_tKHSubg" name="P_O3_min" value="Pmin=? [F Six_dice reaches at Six_dice::O3]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_3I7esFxKEe6G0P_tKHSubg" name="P_O3_max" value="Pmax=? [F Six_dice reaches at Six_dice::O3]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_EZNpAFxLEe6G0P_tKHSubg" name="P_O4_min" value="Pmin=? [F Six_dice reaches at Six_dice::O4]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_HAjesFxLEe6G0P_tKHSubg" name="P_O4_max" value="Pmax=? [F Six_dice reaches at Six_dice::O4]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_LYuY0FxLEe6G0P_tKHSubg" name="P_O5_min" value="Pmin=? [F Six_dice reaches at Six_dice::O5]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_OExvYFxLEe6G0P_tKHSubg" name="P_O5_max" value="Pmax=? [F Six_dice reaches at Six_dice::O5]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_QK_1AFxLEe6G0P_tKHSubg" name="P_O6_min" value="Pmin=? [F Six_dice reaches at Six_dice::O6]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_TPSscFxLEe6G0P_tKHSubg" name="P_O6_max" value="Pmax=? [F Six_dice reaches at Six_dice::O6]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_KbEEoFx1Ee6OpOxfoFKoDQ" name="R_flips_to_final" value="R{&quot;reward_flip&quot;}min=? [F Six_dice reaches at Six_dice::F0]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_eJ5mwFx1Ee6OpOxfoFKoDQ" name="R_flips_to_final_max" value="R{&quot;reward_flip&quot;}max=? [F Six_dice reaches at Six_dice::F0]"/>
+  <workflow:Properties xmi:id="_hZEtMFvgEe6j4OJIcrLLig" base_Activity="__8gLAEV-Ee6ZybDoV901-g">
+    <properties xmi:type="workflow:Property" xmi:id="_c2utwHkIEe6seLuArQwQsA" name="PP">
+        <prproperties xmi:type="workflow:PRProperty" xmi:id="_lm2VMFvgEe6j4OJIcrLLig" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_9OsJMFvgEe6j4OJIcrLLig" name="P_O1_min" value="Pmin=? [F Six_dice reaches at Six_dice::O1]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_7y6XAFxJEe6G0P_tKHSubg" name="P_O1_max" value="Pmax=? [F Six_dice reaches at Six_dice::O1]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="__cnooFxJEe6G0P_tKHSubg" name="P_O2_min" value="Pmin=? [F Six_dice reaches at Six_dice::O2]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_FbGZQFxKEe6G0P_tKHSubg" name="P_O2_max" value="Pmax=? [F Six_dice reaches at Six_dice::O2]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_0EigoFxKEe6G0P_tKHSubg" name="P_O3_min" value="Pmin=? [F Six_dice reaches at Six_dice::O3]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_3I7esFxKEe6G0P_tKHSubg" name="P_O3_max" value="Pmax=? [F Six_dice reaches at Six_dice::O3]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_EZNpAFxLEe6G0P_tKHSubg" name="P_O4_min" value="Pmin=? [F Six_dice reaches at Six_dice::O4]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_HAjesFxLEe6G0P_tKHSubg" name="P_O4_max" value="Pmax=? [F Six_dice reaches at Six_dice::O4]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_LYuY0FxLEe6G0P_tKHSubg" name="P_O5_min" value="Pmin=? [F Six_dice reaches at Six_dice::O5]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_OExvYFxLEe6G0P_tKHSubg" name="P_O5_max" value="Pmax=? [F Six_dice reaches at Six_dice::O5]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_QK_1AFxLEe6G0P_tKHSubg" name="P_O6_min" value="Pmin=? [F Six_dice reaches at Six_dice::O6]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_TPSscFxLEe6G0P_tKHSubg" name="P_O6_max" value="Pmax=? [F Six_dice reaches at Six_dice::O6]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_KbEEoFx1Ee6OpOxfoFKoDQ" name="R_flips_to_final" value="R{&quot;reward_flip&quot;}min=? [F Six_dice reaches at Six_dice::F0]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_eJ5mwFx1Ee6OpOxfoFKoDQ" name="R_flips_to_final_max" value="R{&quot;reward_flip&quot;}max=? [F Six_dice reaches at Six_dice::F0]"/>
+	</properties>
   </workflow:Properties>
   <workflow:WeightedFlow xmi:id="_nIqOIFxMEe6G0P_tKHSubg" base_ControlFlow="_2zDoUEWAEe6ZybDoV901-g">
     <rewards xmi:type="workflow:Reward" xmi:id="_yO6w4FxMEe6G0P_tKHSubg" name="reward_flip" value="_uzGxUFxMEe6G0P_tKHSubg"/>

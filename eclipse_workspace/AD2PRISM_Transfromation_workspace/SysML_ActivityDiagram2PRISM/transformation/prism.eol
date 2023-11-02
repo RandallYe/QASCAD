@@ -1,4 +1,4 @@
-
+import "utils.eol";
 
 operation AD!LiteralInteger toExpr(): PRISM!IntLitExpr {
 	return mkIntLitExpr(self.value);
@@ -42,7 +42,7 @@ operation AD!Expression toExpr(): PRISM!Expr {
 	} else if (self.symbol = "-"){
 		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
 		output = mkMinusExpr(e.operand.at(0).toExpr(), e.operand.at(1).toExpr());
-		//("at line 45 of prism.eol, the type of output is "+ output.type().name).println();
+		// dbg_print("at line 45 of prism.eol, the type of output is "+ output.type().name, LEVEL_TRACE);
 		return output;
 	} else if (self.symbol = "+"){
 		var e = AD!Expression.allInstances().selectOne(e|e.name = self.name);
@@ -173,7 +173,7 @@ operation mkVarDecl(
 		v.type.top = null;
 	} else v.type.top = range_top;
 	v.init = mkVarExpr(initial);
-	("a new vardecl is made, var.name = "+ v.name).println();
+	// dbg_print("a new vardecl is made, var.name = "+ v.name, LEVEL_TRACE);
 	return v;
 }
 	
@@ -293,6 +293,17 @@ operation mkConst_boolean(cname: String) : PRISM!Constant {
 	const.type = new PRISM!BoolType;
 	return const;
 }	
+
+// Make a constant and add it to constants only if the constant name hasn't been used in constants
+operation mkConstAddToModel(cname: String, constants: Set, const_num: Integer) : Tuple {
+	if(not constants.selectOne(n|n.name = cname).isDefined()){
+		var const = mkConst(cname, const_num);
+	    constants.add(const);
+		return Tuple{cnt = const, num = const_num + 1};
+	} else {
+		return Tuple{cnt = constants.selectOne(n|n.name = cname), num = const_num};
+	}
+}
 
 //e.g.,  [DigitalCamera::I0::E0::I0] 
 operation mkAction(mod: PRISM!ModuleDef, name: String ) : PRISM!Action
@@ -449,19 +460,13 @@ operation IsProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
 				isProb = true;
 				break;
 			}
-			("oe.hasValue(st,probability)?  "+oe.hasValue(st,"probability")).println();
-			("oe.hasValue(st,Prob_p)?  "+oe.hasValue(st,"Prob_p")).println();
+			dbg_print("oe.hasValue(st,probability)?  "+oe.hasValue(st,"probability"), LEVEL_TRACE);
+			dbg_print("oe.hasValue(st,Prob_p)?  "+oe.hasValue(st,"Prob_p"), LEVEL_TRACE);
 		}
-		
-		
 	}
-	("within operation isProb = "+ isProb).println();
+	dbg_print("within operation isProb = "+ isProb, LEVEL_TRACE);
 	return isProb;
 }
-
-
-
-
 
 // prob = getProb(oe);
 //to return a probability CONSTANT  from the stereotype 
@@ -476,14 +481,14 @@ operation getProb(oe: AD!ControlFlow, m: PRISM!Model, mod:PRISM!ModuleDef): PRIS
 		for(st in oe.getAppliedStereotypes()){
 			if(oe.hasValue(st,"probability")){
 				prob = oe.getValue(st,"probability");
-				("\nthe edge is "+ oe.name).println();
-				//("probability of the edge is "+ prob).println();
+				dbg_print("\nthe edge is "+ oe.name, LEVEL_TRACE);
+				//("probability of the edge is "+ prob, LEVEL_TRACE);
 				output = prob.toExpr();
-				("at line 457, output = " + output).println();
+				dbg_print("at line 457, output = " + output, LEVEL_TRACE);
 				return output;
-				("oe.getValue(st,probability).type(): "+ oe.getValue(st,"probability").type()).println();
+				dbg_print("oe.getValue(st,probability).type(): "+ oe.getValue(st,"probability").type(), LEVEL_TRACE);
 				
-				("oe.getValue(st,probability): "+ oe.getValue(st,"probability")).println();
+				dbg_print("oe.getValue(st,probability): "+ oe.getValue(st,"probability"), LEVEL_TRACE);
 				
 							
 			}
@@ -530,7 +535,7 @@ operation getRateValue(node: AD!InitialNode, default_rate: PRISM!Formula): PRISM
 	} else {
 		rate = mkVarExpr(default_rate.name);
 	}
-	("in prism.eol line 521, rate = " + rate).println();
+	dbg_print("in prism.eol line 521, rate = " + rate, LEVEL_TRACE);
 	return rate;
 	
 }
@@ -545,7 +550,7 @@ operation getRateValue(node: AD!OpaqueAction, default_rate: PRISM!Formula): PRIS
 	if( node.getAppliedStereotypes().size()>0){
 		for(st in node.getAppliedStereotypes()){
 			if(node.hasValue(st,"duration")){
-				("in prism.eol line 535, node.getValue(st,duration) = " + node.getValue(st,"duration")).println();
+				dbg_print("in prism.eol line 535, node.getValue(st,duration) = " + node.getValue(st,"duration"), LEVEL_TRACE);
 				rate = mkDivExpr(mkDoubleLitExpr(1.0), node.getValue(st,"duration").toExpr());
 			} else if(node.hasValue(st,"rate")){
 				rate = node.getValue(st,"rate").toExpr();
@@ -572,7 +577,7 @@ operation getRewards(node: AD!OpaqueAction): Set {
 			} 
 		}
 	}
-	("rewards = "+ rewards).println();
+	dbg_print("rewards = "+ rewards, LEVEL_TRACE);
 	return rewards;
 }
 
@@ -589,7 +594,7 @@ operation getRewards(edge: AD!ControlFlow): Set {
 			} 
 		}
 	}
-	("at line 590, rewards = "+ rewards).println();
+	dbg_print("at line 590, rewards = "+ rewards, LEVEL_TRACE);
 	return rewards;
 }
 
@@ -598,7 +603,7 @@ operation getRewards(edge: AD!ControlFlow): Set {
 //to return the reward value of the reward 
 operation getRewardValue(rwd: AD!Reward): PRISM!Expr {
 	var output = rwd.value.toExpr();
-	("at line 599, the output = " + output).println();
+	dbg_print("at line 599, the output = " + output, LEVEL_TRACE);
 	return output;
 	/*
 	var reward_value;
@@ -672,10 +677,10 @@ operation mkEdgeRewardItem(
 	rewardItem.action = rwaction;
 	rewardItem.grd = rwgrd;
 	rewardItem.reward = rwvalue;
-	("rewardItem = " + rewardItem).println();
-	("rewardItem.action = " + rewardItem.action).println();
-	("rewardItem.grd = " + rewardItem.grd).println();
-	("rewardItem.reward = " + rewardItem.reward).println();
+	dbg_print("rewardItem = " + rewardItem, LEVEL_TRACE);
+	dbg_print("rewardItem.action = " + rewardItem.action, LEVEL_TRACE);
+	dbg_print("rewardItem.grd = " + rewardItem.grd, LEVEL_TRACE);
+	dbg_print("rewardItem.reward = " + rewardItem.reward, LEVEL_TRACE);
 	return rewardItem;
 }
 
@@ -700,21 +705,21 @@ operation checkAndMkEdgeReward(
 					
 					
 					for(rw in rwds){
-						("reward.type = " + rw.type()).println();
-						("reward.name = " + rw.name).println();
-						("reward.value = " + rw.value).println();
-						//("reward.value.value = " + rw.value.value).println();
-						("getRewardValue(rwd) = " + getRewardValue(rw)).println();
+						dbg_print("reward.type = " + rw.type(), LEVEL_TRACE);
+						dbg_print("reward.name = " + rw.name, LEVEL_TRACE);
+						dbg_print("reward.value = " + rw.value, LEVEL_TRACE);
+						//("reward.value.value = " + rw.value.value, LEVEL_TRACE);
+						dbg_print("getRewardValue(rwd) = " + getRewardValue(rw), LEVEL_TRACE);
 					}
-					("at line 700, rwds = " + rwds + "and edge is "+ oe.name).println();
+					dbg_print("at line 700, rwds = " + rwds + "and edge is "+ oe.name, LEVEL_TRACE);
 					for (rwd in rwds){
 						var rwaction = clone(action);
 						var rwgrd = mkEqBoolExpr(mod.vars.at(0), const);
 						var rwvalue = getRewardValue(rwd);
 						var rwname = /*act.name + "::" + */rwd.name;
 						r_edge = mkEdgeReward(rwname, rwaction, rwgrd, rwvalue);//edge reward needs action, so 4 parameters
-						("at line 707, reward r_edge = " + r_edge).println();
-						("at line 708, reward name = " + rwd.name).println();
+						dbg_print("at line 707, reward r_edge = " + r_edge, LEVEL_TRACE);
+						dbg_print("at line 708, reward name = " + rwd.name, LEVEL_TRACE);
 						var rewardIsDefined = false;
 						for(rw in m.rewards){
 							if(rw.name = r_edge.name){
@@ -722,7 +727,7 @@ operation checkAndMkEdgeReward(
 							}
 						}
 						if(rewardIsDefined){
-							("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward").println();
+							dbg_print("r_edge:"+ r_edge.name +"has been defined, only add the reward item into the existing reward", LEVEL_TRACE);
 							var rw = m.rewards.selectOne(reward|reward.name = r_edge.name);
 							rw.rewards.add(mkEdgeRewardItem(rwaction, rwgrd, rwvalue));
 							delete r_edge;
@@ -748,9 +753,9 @@ operation mkProbUpdate (
 	pc: PRISM!VarDecl, //(DigitalCamera::M1::pc'=DigitalCamera::M1::ActivityFinal)
 	const: PRISM!Constant
 	): PRISM!Update {
-	("in operation mkProbUpdate , prob = " + prob).println();
-	("                            pc = " + pc).println();
-	("                            const = " + const).println();
+	dbg_print("in operation mkProbUpdate , prob = " + prob, LEVEL_TRACE);
+	dbg_print("                            pc = " + pc, LEVEL_TRACE);
+	dbg_print("                            const = " + const, LEVEL_TRACE);
 	var update = new PRISM!Update;
 	update.probability = prob;
 	
@@ -862,7 +867,7 @@ operation mkAssignment(
 //update = true
 operation mkSkipAssignment(): PRISM!AbsAssignment{
 	var assign = new PRISM!Skip;
-	"at prism.eol line 860".println();
+	dbg_print("at prism.eol line 860", LEVEL_TRACE);
 	assign.type().name.println();
 	return assign;
 }
