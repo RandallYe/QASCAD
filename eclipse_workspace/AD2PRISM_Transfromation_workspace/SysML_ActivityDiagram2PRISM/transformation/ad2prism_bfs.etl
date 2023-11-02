@@ -187,7 +187,7 @@ to m : PRISM!Model
             addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
             dbg_print("maps: " + maps, LEVEL_TRACE);
 
-            addNodeNoDup(toBeVisitedNodes, oe.target);
+            addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
             dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 67", LEVEL_TRACE);
         }
         visitedNodes.add(inode);
@@ -351,9 +351,12 @@ each modSeq sequence corresponding to a module
 
                 //create the FIRST constant for the module
                 //assign value of constant as 0, and update at the last
-                var const = mkConst((mod.name + "::" + node.name), const_num);
+                /*var const = mkConst((mod.name + "::" + node.name), const_num);
                 m.constants.add(const);
-                const_num++;
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
 
                 var const_nxt = mkConst(mod.name + "::" + mdSeq.at(i+1).keySet().at(0).nd.name, const_num);
 
@@ -391,9 +394,12 @@ each modSeq sequence corresponding to a module
                   OpaqueAction
                  ******************************************/
             } else if(node.instanceOf(OpaqueAction)){
-                var const = mkConst(mod.name + "::" + node.name, const_num);
+                /*var const = mkConst(mod.name + "::" + node.name, const_num);
                 m.constants.add(const);
-                const_num++;
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
 
                 for(oe in getAllEdgesFromNode(act,node)){
                     var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num);
@@ -487,10 +493,13 @@ each modSeq sequence corresponding to a module
                     }
                 }
             } else if(node.instanceOf(ForkNode)){
-                var const = mkConst(mod.name + "::" + node.name, const_num);
+                /*var const = mkConst(mod.name + "::" + node.name, const_num);
                 m.constants.add(const);
-                const_num++;
-
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
+				
                 //the next node of this fork node must be the target node of the 1st outgoing edge, in fact is should be the same as mdSeq.at(i+1).keySet().at(0).nd
                 var firstOEdge = getAllEdgesFromNode(act,node).sortEdgeByName().at(0);
                 var const_nxt = mkConst(mod.name + "::" + firstOEdge.target.name, const_num);
@@ -521,9 +530,12 @@ each modSeq sequence corresponding to a module
                 // checkAndMkEdgeReward(oe, mod, node, action, const, m, act);
                 delete const_nxt;
             } else if(node.instanceOf(JoinNode)){
-                var const = mkConst(mod.name + "::" + node.name, const_num);
+                /*var const = mkConst(mod.name + "::" + node.name, const_num);
                 m.constants.add(const);
-                const_num++;
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
 
                 //only the first incoming edge of the join node can continue the path
                 if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
@@ -573,9 +585,12 @@ each modSeq sequence corresponding to a module
 
                 }
             } else if(node.instanceOf(DecisionNode)){
-                var const = mkConst(mod.name + "::" + node.name, const_num);
+                /*var const = mkConst(mod.name + "::" + node.name, const_num);
                 m.constants.add(const);
-                const_num++;
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
 
                 var branchesProbabilistic = IsProbabilistic(act,node);
                 dbg_print("branchesProbabilistic" + branchesProbabilistic, LEVEL_TRACE);
@@ -669,9 +684,12 @@ each modSeq sequence corresponding to a module
                     dbg_print("for this merge node, furtherMod = mod", LEVEL_TRACE);
                     if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
 
-                        var const = mkConst(mod.name + "::" + node.name, const_num);
+                        /*var const = mkConst(mod.name + "::" + node.name, const_num);
                         m.constants.add(const);
-                        const_num++;
+                        const_num++;*/
+                        var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+						var const = const_tuple.cnt;
+						const_num = const_tuple.num;
 
                         var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
 
@@ -711,9 +729,12 @@ each modSeq sequence corresponding to a module
                     dbg_print("furtherMod = "+ furtherMod, LEVEL_TRACE);
                     dbg_print("mod = "+ mod, LEVEL_TRACE);
 
-                    var const = mkConst(mod.name + "::" + node.name, const_num);
+                    /*var const = mkConst(mod.name + "::" + node.name, const_num);
                     m.constants.add(const);
-                    const_num++;
+                    const_num++;*/
+                    var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+					var const = const_tuple.cnt;
+					const_num = const_tuple.num;
 
                     //action for merge need to be sync: DigitalCamera::M1::E6 --->  node.name+"::"+ie.name
 
@@ -736,9 +757,12 @@ each modSeq sequence corresponding to a module
                 }
             } else if(node.instanceOf(FlowFinalNode)){
 
-                var const = mkConst(mod.name + "::" + node.name, const_num);
+                /*var const = mkConst(mod.name + "::" + node.name, const_num);
                 m.constants.add(const);
-                const_num++;
+                const_num++;*/
+                var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+				var const = const_tuple.cnt;
+				const_num = const_tuple.num;
 
                 var action = mkAction(mod, node.name);
 
@@ -758,9 +782,12 @@ each modSeq sequence corresponding to a module
             } else if(node.instanceOf(ActivityFinalNode)){
                 if(not m.constants.selectOne(n|n.name = mod.name+"::"+node.name).isDefined()){ //if is defined, then, a const has been created for this merge node, it means the mergenode has been processed, as all incoming edges are in the same module, so Merge node is to be processed only once
 
-                    var const = mkConst(mod.name + "::" + node.name, const_num);
+                    /*var const = mkConst(mod.name + "::" + node.name, const_num);
                     m.constants.add(const);
-                    const_num++;
+                    const_num++;*/
+                    var const_tuple = mkConstAddToModel(mod.name + "::" + node.name, m.constants, const_num);
+					var const = const_tuple.cnt;
+					const_num = const_tuple.num;
 
                     var action = mkSyncAction(act, "terminate");		
 
@@ -1161,7 +1188,7 @@ operation traverseNodes(
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
                 //dbg_print("maps:" + maps, LEVEL_TRACE);
                 //toBeVisitedNodes.add(oe.target);
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 765", LEVEL_TRACE);
             }
             visitedNodes.add(node);
@@ -1237,7 +1264,7 @@ operation traverseNodes(
                     delete const_nxt;//this constant is deleted, because it will be created again in the transformation section.
                 }
                 // toBeVisitedNodes.add(oe.target);
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 dbg_print("node "+ oe.target.name + "is added to toBeVisitedNodes at line 439", LEVEL_TRACE);
             }
             visitedNodes.add(node);
@@ -1266,7 +1293,7 @@ operation traverseNodes(
                 nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
                 dbg_print("maps:" + maps, LEVEL_TRACE);
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 //dbg_print("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 844", LEVEL_TRACE);
                 visitedNodes.add(node);
                 toBeVisitedNodes.remove(node);
@@ -1281,7 +1308,7 @@ operation traverseNodes(
                 nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
                 //dbg_print("maps: " + maps, LEVEL_TRACE);
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 //dbg_print("\nnode "+ oe.target.name + "is added to toBeVisitedNodes at line 859", LEVEL_TRACE);
             }
             visitedNodes.add(node);
@@ -1399,7 +1426,7 @@ operation traverseNodes(
                 nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, newmod);
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, newmod);
                 //dbg_print("maps:" + maps, LEVEL_TRACE);
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 965", LEVEL_TRACE);
 
                 toBeVisitedNodes.remove(node);
@@ -1418,7 +1445,7 @@ operation traverseNodes(
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, existingmod);
                 //dbg_print("maps:" + maps, LEVEL_TRACE);
 
-                addNodeNoDup(toBeVisitedNodes, oe.target);
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                 dbg_print("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 633", LEVEL_TRACE);
 
                 toBeVisitedNodes.remove(node);
@@ -1497,7 +1524,7 @@ operation traverseNodes(
 
                     addMap(dummyNodeModuleSeq, node, newmod);
 
-                    addNodeNoDup(toBeVisitedNodes, oe.target);
+                    addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                     dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 668", LEVEL_TRACE);
                     visitedNodes.add(node);
 
@@ -1579,7 +1606,7 @@ operation traverseNodes(
                         //dbg_print("maps: " + maps, LEVEL_TRACE);
 
                         addMap(dummyNodeModuleSeq, node, newmod);
-                        addNodeNoDup(toBeVisitedNodes, oe.target);
+                        addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
                         dbg_print("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 668", LEVEL_TRACE);
                         visitedNodes.add(node);
 
@@ -1612,7 +1639,7 @@ operation traverseNodes(
                 nodeModuleMap.put(Tuple {nd = oe.target, edg = oe}, mod);
                 addMap(maps, Tuple {nd = oe.target, edg = oe}, mod);
                 //dbg_print("maps: " + maps, LEVEL_TRACE);
-                addNodeNoDup(toBeVisitedNodes, oe.target);				
+                addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);				
             }
             visitedNodes.add(node);
         } 

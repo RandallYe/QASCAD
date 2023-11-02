@@ -104,3 +104,11 @@ operation removeSymbolPrefix(symbol): String{
 	dbg_print("in operation removeSymbolPrefix(),  symbol = " + symbol, LEVEL_TRACE);
 	return symbol.substring(10, (symbol.length()-1));
 }
+
+operation addNodeToBeVisitedNoDup(tobeVisitedNodes: Sequence, 
+	visitedNodes: Sequence, node: AD!ActivityNode) {
+	if(tobeVisitedNodes.includes(node) or visitedNodes.includes(node)) {
+	} else {
+		tobeVisitedNodes.add(node);
+	}
+}

@@ -294,6 +294,17 @@ operation mkConst_boolean(cname: String) : PRISM!Constant {
 	return const;
 }	
 
+// Make a constant and add it to constants only if the constant name hasn't been used in constants
+operation mkConstAddToModel(cname: String, constants: Set, const_num: Integer) : Tuple {
+	if(not constants.selectOne(n|n.name = cname).isDefined()){
+		var const = mkConst(cname, const_num);
+	    constants.add(const);
+		return Tuple{cnt = const, num = const_num + 1};
+	} else {
+		return Tuple{cnt = constants.selectOne(n|n.name = cname), num = const_num};
+	}
+}
+
 //e.g.,  [DigitalCamera::I0::E0::I0] 
 operation mkAction(mod: PRISM!ModuleDef, name: String ) : PRISM!Action
 {

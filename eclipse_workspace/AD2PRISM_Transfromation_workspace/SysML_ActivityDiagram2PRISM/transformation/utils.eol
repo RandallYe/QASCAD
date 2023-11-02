@@ -52,10 +52,3 @@ operation printNodes(nodes: Sequence) : String {
 	}
 	return ret + "]";
 }
-
-operation addNodeNoDup(nodes: Sequence, node: AD!ActivityNode) {
-	if(nodes.includes(node)) {
-	} else {
-		nodes.add(node);
-	}
-}
