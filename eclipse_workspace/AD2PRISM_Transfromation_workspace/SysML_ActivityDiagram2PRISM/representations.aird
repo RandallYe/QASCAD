@@ -12,7 +12,6 @@
   <semanticResources>platform:/plugin/org.eclipse.uml2.types/model/Types.ecore</semanticResources>
   <semanticResources>platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore</semanticResources>
   <semanticResources>metamodels/UML.emf</semanticResources>
-  <semanticResources>travel_management_example/Travel_management.uml</semanticResources>
   <semanticResources>pathmap://SysML16_PROFILES/SysML.profile.uml</semanticResources>
   <semanticResources>http://www.eclipse.org/papyrus/sysml/1.6/SysML/Requirements</semanticResources>
   <semanticResources>platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore</semanticResources>
@@ -20,7 +19,13 @@
   <semanticResources>pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml</semanticResources>
   <semanticResources>../../com.eclipsesource.workflow.profile/workflow.profile.profile.uml</semanticResources>
   <semanticResources>metamodels/sesame_prism.ecore</semanticResources>
-  <semanticResources>travel_management_example/travel_mngmt_prism.model</semanticResources>
-  <semanticResources>six_dice_example/six_dice_prism.model</semanticResources>
   <semanticResources>parametric_six_dice/six_dice_prism.model</semanticResources>
+  <semanticResources>2015_use_case/dc_prism.model</semanticResources>
+  <semanticResources>Travel_management/tm_prism.model</semanticResources>
+  <semanticResources>metamodels/sesame_prism.emf</semanticResources>
+  <semanticResources>six_dice_example/six_dice_prism.model</semanticResources>
+  <semanticResources>Travel_management_probability_decision/tm_prism.model</semanticResources>
+  <semanticResources>presto_autonomous_fruit_picking/afp_prism.model</semanticResources>
+  <semanticResources>Travel_management_CTMC_duration/tm_prism.model</semanticResources>
+  <semanticResources>travel_web_ctmc/twc_prism.model</semanticResources>
 </viewpoint:DAnalysis>

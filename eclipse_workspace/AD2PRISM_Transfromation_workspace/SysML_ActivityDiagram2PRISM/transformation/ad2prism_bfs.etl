@@ -29,6 +29,7 @@ pre{
     } else {
         dbg_level = DBG_LEVEL;
     }
+    
 }
 
 
@@ -44,26 +45,67 @@ to m : PRISM!Model
     if( act.getAppliedStereotypes().size()>0){
         for(st in act.getAppliedStereotypes()){
             if(st.name = "Properties") {
-                if(act.hasValue(st,"modeltype")){
-                    var modeltype = act.getValue(st,"modeltype");
-                    dbg_print("Model Type: [" + modeltype.name + "]", LEVEL_INFO);
-                    if(modeltype.name = "DTMC") {
-                        m.modelType = PRISM!ModelType#DTMC;
-                    } else if(modeltype.name = "MDP") {
-                        m.modelType = PRISM!ModelType#MDP;
-                        //("Model Type: [" + m.modelType + "]", LEVEL_TRACE);
-                    } else if(modeltype.name = "PTA") {
-                        m.modelType = PRISM!ModelType#PAT;
-                    } else if(modeltype.name = "CTMC") {
-                        m.modelType = PRISM!ModelType#CTMC;
-                    } else {
-                        dbg_print("Model Type: [" + modeltype.name + "] is not yet supported!", LEVEL_ERROR);
-                    }
-                }
+            	var toBeVerifiedGroupName = act.getValue(st, "toBeVerified");
+            	dbg_print("To be verified properties: " + toBeVerifiedGroupName, LEVEL_TRACE);
+            	
+            	if(act.hasValue(st, "properties")) {
+            		var props = act.getValue(st, "properties");
+            		dbg_print("Properties: " + props, LEVEL_TRACE);
+            		var toBeVerifiedGroup = null;
 
-                if(act.hasValue(st,"prproperties")){
-                    properties = act.getValue(st,"prproperties");
-                }
+            		for(p in props) {
+            			if(props.size() = 1) {
+	            			// we just verify this set of properties because there are only one grouped property
+	            			toBeVerifiedGroup = p;
+	            		} else {
+            				if(p.name = toBeVerifiedGroupName) {
+            					toBeVerifiedGroup = p;
+            					break;
+            				}
+            			}
+            		}
+            		
+            		if(not (toBeVerifiedGroup = null)) {
+            			dbg_print("ModelType: " + toBeVerifiedGroup.modeltype.name, LEVEL_TRACE);
+            			if(toBeVerifiedGroup.modeltype.name = "DTMC") {
+	                        m.modelType = PRISM!ModelType#DTMC;
+	                    } else if(toBeVerifiedGroup.modeltype.name = "MDP") {
+	                        m.modelType = PRISM!ModelType#MDP;
+	                        //("Model Type: [" + m.modelType + "]", LEVEL_TRACE);
+	                    } else if(toBeVerifiedGroup.modeltype.name = "PTA") {
+	                        m.modelType = PRISM!ModelType#PAT;
+	                    } else if(toBeVerifiedGroup.modeltype.name = "CTMC") {
+	                        m.modelType = PRISM!ModelType#CTMC;
+	                    } else {
+	                        dbg_print("Model Type: [" + modeltype.name + "] is not yet supported!", LEVEL_ERROR);
+	                    }
+		                  
+		                dbg_print("toBeVerifiedGroup: " + toBeVerifiedGroup, LEVEL_TRACE);
+		                properties = toBeVerifiedGroup.prproperties;
+            			/*if(act.hasValue(st,"modeltype")){
+		                    var modeltype = act.getValue(st,"modeltype");
+		                    dbg_print("Model Type: [" + modeltype.name + "]", LEVEL_INFO);
+		                    if(modeltype.name = "DTMC") {
+		                        m.modelType = PRISM!ModelType#DTMC;
+		                    } else if(modeltype.name = "MDP") {
+		                        m.modelType = PRISM!ModelType#MDP;
+		                        //("Model Type: [" + m.modelType + "]", LEVEL_TRACE);
+		                    } else if(modeltype.name = "PTA") {
+		                        m.modelType = PRISM!ModelType#PAT;
+		                    } else if(modeltype.name = "CTMC") {
+		                        m.modelType = PRISM!ModelType#CTMC;
+		                    } else {
+		                        dbg_print("Model Type: [" + modeltype.name + "] is not yet supported!", LEVEL_ERROR);
+		                    }
+		                }
+	
+		                if(act.hasValue(st,"prproperties")){
+		                    properties = act.getValue(st,"prproperties");
+		                }*/
+		                
+            		}
+            	} 
+                
             }
         }
     }
@@ -98,7 +140,14 @@ to m : PRISM!Model
     var isCTMC = false;
     if(m.modelType = PRISM!ModelType#CTMC){
         isCTMC = true;
-        mean_duration = mkConst("mean_duration", 0.000001);
+       	var p_mean_duration : Real = 0;
+	    if(MEAN_DURATION.instanceOf(String)) {
+	        p_mean_duration = MEAN_DURATION.asReal();
+	    } else {
+	        p_mean_duration = MEAN_DURATION;
+	    }
+        
+        mean_duration = mkConst("mean_duration", p_mean_duration);
         dbg_print("mean_duration = " + mean_duration.value.value, LEVEL_TRACE);
 
         m.constants.add(mean_duration);

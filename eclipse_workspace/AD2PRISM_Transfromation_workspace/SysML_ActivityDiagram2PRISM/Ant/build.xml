@@ -23,10 +23,10 @@
 	  		read="false" store="true"/>
 
 		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
-			<!--
-			Enable or disable transformation logging messages
-			-->
 			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/die.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value=""/>
 			<model ref="AD"/>
 			<model ref="PRISM"/>
 		</epsilon.etl>
@@ -80,6 +80,8 @@
 				Enable or disable transformation logging messages
 				-->
 				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/die.props"/>
+				<parameter name="DBG_OPTION" value="true"/>
+				<parameter name="DBG_LEVEL" value="4"/>
 				<model ref="AD"/>
 				<model ref="PRISM"/>
 			</epsilon.etl>
@@ -112,4 +114,398 @@
 			</exec>
 		</target>
 	
+	<target name="digital_camera">
+			<!-- 
+				1. Activity diagrams to PRISM model
+			-->
+			<epsilon.loadModel name="AD" type="UML">
+			    <parameter name="modelFile" value="/2015_use_case/2015_use_case.uml"/>
+			    <parameter name="readOnLoad" value="true"/>
+				<parameter name="storeOnDisposal" value="false"/>
+				<parameter name="expand" value="true"/>
+			</epsilon.loadModel>
+			
+		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/2015_use_case/dc_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="false" store="true"/>
+
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+				<!--
+				Enable or disable transformation logging messages
+				-->
+				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/dc.props"/>
+				<parameter name="DBG_OPTION" value="true"/>
+				<parameter name="DBG_LEVEL" value="4"/>
+				<model ref="AD"/>
+				<model ref="PRISM"/>
+			</epsilon.etl>
+			<epsilon.disposeModels/>
+				
+			<!-- 
+				2. PRISM model to code
+			-->
+			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/2015_use_case/dc_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="true" store="false"/>
+			
+			<epsilon.egl src="../transformation/PRISM.egx" >
+				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/dc.prism"/>
+				<model ref="PRISM"/>
+			</epsilon.egl>
+			
+			<epsilon.disposeModels/>
+		
+			<!-- 
+				3. Run verification
+			-->
+			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/" executable="prism" os="Linux" output="dir.txt">
+			  	<arg line="dc.prism"/>
+			  	<arg line="dc.props"/>
+				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/output.log" alwayslog="true"/>
+			</exec>
+		</target>
+	
+	<target name="travel_management">
+				<!-- 
+					1. Activity diagrams to PRISM model
+				-->
+				<epsilon.loadModel name="AD" type="UML">
+				    <parameter name="modelFile" value="/Travel_management/Travel_management.uml"/>
+				    <parameter name="readOnLoad" value="true"/>
+					<parameter name="storeOnDisposal" value="false"/>
+					<parameter name="expand" value="true"/>
+				</epsilon.loadModel>
+				
+			  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+			  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
+			  		metamodelUri="http://www.deis-project.eu/ode/prism"
+			  		expand="true"
+			  		read="false" store="true"/>
+
+				<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+					<!--
+					Enable or disable transformation logging messages
+					-->
+					<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/tm.props"/>
+					<parameter name="DBG_OPTION" value="true"/>
+					<parameter name="DBG_LEVEL" value="4"/>
+					<model ref="AD"/>
+					<model ref="PRISM"/>
+				</epsilon.etl>
+				<epsilon.disposeModels/>
+					
+				<!-- 
+					2. PRISM model to code
+				-->
+				<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+			  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
+			  		metamodelUri="http://www.deis-project.eu/ode/prism"
+			  		expand="true"
+			  		read="true" store="false"/>
+				
+				<epsilon.egl src="../transformation/PRISM.egx" >
+					<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/tm.prism"/>
+					<model ref="PRISM"/>
+				</epsilon.egl>
+				
+				<epsilon.disposeModels/>
+			
+				<!-- 
+					3. Run verification
+				-->
+				<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/" executable="prism" os="Linux" output="dir.txt">
+				  	<arg line="tm.prism"/>
+				  	<arg line="tm.props"/>
+					<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/output.log" alwayslog="true"/>
+				</exec>
+			</target>
+	
+	<target name="Travel_management_probability_decision">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/Travel_management_probability_decision/Travel_management.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="tm.prism"/>
+		  	<arg line="tm.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<target name="Travel_management_CTMC_duration">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/Travel_management_CTMC_duration/Travel_management.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="1"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="tm.prism"/>
+		  	<arg line="tm.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="model.name" value="presto_autonomous_fruit_picking"/>
+	<property name="model.shortname" value="afp"/>
+	<target name="presto_autonomous_fruit_picking">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/${model.name}/${model.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${model.shortname}.prism"/>
+		  	<arg line="${model.shortname}.props"/>
+			<arg line="-param p1=0:1,p2=0:1,p3=0:1,alpha=0:1,beta=0:1,t0=0:1,t1=0:1,t2=0:1,e0=0:1,e1=0:1,e2=0:1"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="twmodel.name" value="travel_web_ctmc"/>
+	<property name="twmodel.shortname" value="twc"/>
+	<target name="travel_web_ctmc">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/${twmodel.name}/${twmodel.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${twmodel.shortname}.prism"/>
+		  	<arg line="${twmodel.shortname}.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="itsmodel.name" value="IT_support_ctmc"/>
+	<property name="itsmodel.shortname" value="its"/>
+	<target name="IT_support_ctmc">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML">
+		    <parameter name="modelFile" value="/${itsmodel.name}/${itsmodel.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" >
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${itsmodel.shortname}.prism"/>
+		  	<arg line="${itsmodel.shortname}.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
 </project>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_GS7ncGaCEe6BzdOIuxuKKw/40" xsi:schemaLocation="http:///schemas/workflow/_GS7ncGaCEe6BzdOIuxuKKw/40 ../com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_GS8OgGaCEe6BzdOIuxuKKw">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44" xsi:schemaLocation="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44 ../com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg">
   <uml:Model xmi:id="_cUmcAGg8Ee6NzutSxN2dtw" name="presto_autonomous_fruit_picking">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_cZ4koGg8Ee6NzutSxN2dtw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -104,18 +104,27 @@
     <packagedElement xmi:type="uml:Expression" xmi:id="_PXnesGxOEe6F-I_LdLBCdw" name="t2" symbol="RefToPara(t2)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_TpXnwGxOEe6F-I_LdLBCdw" name="e2" symbol="RefToPara(e2)"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NzFmoGh5Ee6GqPFnVjDxXA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_85i_cHkHEe6seLuArQwQsA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_85i_cXkHEe6seLuArQwQsA" key="Version" value="0.0.45"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_85i_cnkHEe6seLuArQwQsA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_85i_c3kHEe6seLuArQwQsA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_85i_dHkHEe6seLuArQwQsA" key="Date" value="2023-11-01"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_85i_dXkHEe6seLuArQwQsA" key="Author" value=""/>
+      </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NzJ4EGh5Ee6GqPFnVjDxXA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_GS8OgGaCEe6BzdOIuxuKKw"/>
+        <references xmi:type="ecore:EPackage" href="../com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
   </uml:Model>
   <workflow:Properties xmi:id="_RDCUcGh5Ee6GqPFnVjDxXA" base_Activity="_cV41cGg8Ee6NzutSxN2dtw">
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_WM5KMGh5Ee6GqPFnVjDxXA" name="P_deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_psRaUGlFEe6ktL4JtFkW2w" name="P_picking_success" value="P=?[F (FruitPicking reaches at FruitPicking::picking_success)]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_nYa7AGv7Ee6O88qzSqi2ig" name="P_success_or_abandon" value="P=?[F (FruitPicking reaches at FruitPicking::picking_success)|(FruitPicking reaches at FruitPicking::picking_abandoned)]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_lTBmEGxOEe6F-I_LdLBCdw" name="R_expected_time" value="R{&quot;mean_time&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
-    <prproperties xmi:type="workflow:PRProperty" xmi:id="_pTsmMGxOEe6F-I_LdLBCdw" name="R_energy" value="R{&quot;energy&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
+    <properties xmi:type="workflow:Property" xmi:id="__T7-QHkHEe6seLuArQwQsA" name="PP">
+        <prproperties xmi:type="workflow:PRProperty" xmi:id="_WM5KMGh5Ee6GqPFnVjDxXA" name="P_deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_psRaUGlFEe6ktL4JtFkW2w" name="P_picking_success" value="P=?[F (FruitPicking reaches at FruitPicking::picking_success)]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_nYa7AGv7Ee6O88qzSqi2ig" name="P_success_or_abandon" value="P=?[F (FruitPicking reaches at FruitPicking::picking_success)|(FruitPicking reaches at FruitPicking::picking_abandoned)]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_lTBmEGxOEe6F-I_LdLBCdw" name="R_expected_time" value="R{&quot;mean_time&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
+	    <prproperties xmi:type="workflow:PRProperty" xmi:id="_pTsmMGxOEe6F-I_LdLBCdw" name="R_energy" value="R{&quot;energy&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
+	 </properties>
   </workflow:Properties>
   <workflow:WeightedFlow xmi:id="_aCeNQGh8Ee6ZtqTePaqIaQ" base_ControlFlow="_DI8QwGh8Ee6ZtqTePaqIaQ" probability="_r2N7sGh8Ee6ZtqTePaqIaQ"/>
   <workflow:WeightedFlow xmi:id="_EyRJkGh9Ee6ZtqTePaqIaQ" base_ControlFlow="_JuV3cGh8Ee6ZtqTePaqIaQ" probability="_e8vSYGh9Ee6ZtqTePaqIaQ"/>
