@@ -1,0 +1,41 @@
+pre {
+}
+
+post {
+}
+
+context AD!NamedElement {
+	
+	// Every NamedElement must define a name
+	constraint HasName {
+		
+		check : self.name <> ""
+
+		message : "Element " + self + " must define a name"
+		
+	}
+} 
+
+context AD!ActivityNode {
+
+  constraint ValidName {   
+    check : self.name.isDefined()
+ 
+    message : 'Unnamed ' + self.eClass().name + ' not allowed'
+  }
+}
+
+context AD!Activity {
+
+  constraint OnlyOneIncomingEdge {   
+    check : self.ownedNode.select(n|
+    		n.instanceOf(AD!Action) and // for the action
+    		self.edge.select(e|e.target = n).size() > 1 // whose incoming edges are more than 1 
+    	).size() = 0 // This shouldn't be the case
+ 
+    message : 'More than one incoming edges for Actions in the activity [' + self.name+ '] are not allowed'
+  }
+}
+
+
+
