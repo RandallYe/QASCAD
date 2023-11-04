@@ -204,14 +204,37 @@ to m : PRISM!Model
         dbg_print("This is the post-processing section at line 78.  dummyNodeModuleSeq.size = " + dummyNodeModuleSeq.size, LEVEL_TRACE);
         dbg_print("dummyNodeModuleSeq.size()>0, LOOP is involved, the dummy module shall be processed as follow:", LEVEL_TRACE);
         var mp = dummyNodeModuleSeq.removeAt(0);
-        dbg_print("mp: " + mp, LEVEL_TRACE);
+        dbg_print("mp: " + printNodeModuleMap(mp), LEVEL_TRACE);
         var node = mp.keySet().at(0);
         var dummymod = mp.values().at(0);
+        
+        dbg_print("node: " + node.name + ", dummymod: " + dummymod.name, LEVEL_TRACE);
 
         if(node.instanceOf(MergeNode)){
             var setMods = Set{};
             for (mp in maps.select(mp|mp.keySet().at(0).nd = node)){
                 setMods.add(mp.values().at(0));
+            }
+            
+            dbg_print("Set of modules " + printElementName(setMods) + " that leads to this MergeNode: " + node.name, LEVEL_TRACE);
+            
+            // Check whether these modules contain other to-be-processed dummy modules.
+            // In this case, skip this dummymode first by adding mp back to the end of 
+            // dummyNodeModuleSeq
+            var containsOtherDummyModules = false;
+            for(mod in setMods) {
+            	dbg_print("mod: " + mod.name, LEVEL_TRACE);
+            	dbg_print("dummyNodeModuleSeq: " + printSeqOfNodeModuleMap(dummyNodeModuleSeq), LEVEL_TRACE);
+            	if(containsMod(dummyNodeModuleSeq, mod)) {
+            		containsOtherDummyModules = true;
+            		dbg_print("The MergeNode [" + node.name + "]'s incoming modules contain other dummy modules", LEVEL_TRACE);
+            		break;
+            	}
+            }
+            
+            if(containsOtherDummyModules) {
+            	dummyNodeModuleSeq.add(mp);
+            	continue;
             }
 
             if(setMods.size() > 2) {
@@ -222,16 +245,16 @@ to m : PRISM!Model
                 // do nothing, keep using the dummy module
             } else if(setMods.size() = 2 and setMods.includes(dummymod)) { //setMods.includes(dummymod) MEANS that the loop and the merge outgoning path are in the same module, so all incoming should be in the same module
                                                                            //therefore there should be only one module for all these maps (the maps in the normal module and the dummymodule), we need to change the module name of the dummynodemodule into the module name of the module created in the normal procedure
-                dbg_print("setMods.size() = 2, it includes: " + setMods, LEVEL_TRACE);
+                dbg_print("setMods.size() = 2, it includes: " + printElementName(setMods), LEVEL_TRACE);
                 var rightmod = new PRISM!ModuleDef;
-                dbg_print("setMods.size()  = 2 and setMods.includes(dummymod), replace dummy with rightmod", LEVEL_TRACE);
+
                 // in this case, we use another module for the outgoing edge, and need to replace all occurrences of dummymod in nodeModuleMap by another moduel
                 if(setMods.at(0) = dummymod){//the first module is the dummy module, so we use the second module as the correct module name
                     rightmod  = setMods.at(1);
                 } else { //the second module is the dummy module, so we use the first module as the correct module name
                     rightmod  = setMods.at(0);
                 } 
-
+                dbg_print("setMods.size()  = 2 and setMods.includes(dummymod), replace dummy with rightmod: " + rightmod.name, LEVEL_TRACE);
 
                 //replace dummy module with rightmod module in the related maps
                 var i=1;
@@ -1168,14 +1191,14 @@ operation traverseNodes(
         ){
     var count: Integer = 0;
     while(toBeVisitedNodes.notEmpty()){
-        dbg_print("toBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
+        dbg_print("toBeVisitedNodes: " + printElementName(toBeVisitedNodes), LEVEL_TRACE);
         dbg_print("Visiting[" + count + "]: " + toBeVisitedNodes.at(0).name, LEVEL_INFO);
         count = count + 1;
 
         var node = toBeVisitedNodes.removeAt(0);
 
-        //dbg_print("toBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
-        dbg_print("visitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+        //dbg_print("toBeVisitedNodes: " + printElementName(toBeVisitedNodes), LEVEL_TRACE);
+        dbg_print("visitedNodes: " + printElementName(visitedNodes), LEVEL_TRACE);
 
         if(node.instanceOf(OpaqueAction)){
             dbg_print("this is a opaqueaction node: " + node.name, LEVEL_TRACE);
@@ -1192,8 +1215,8 @@ operation traverseNodes(
                 dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 765", LEVEL_TRACE);
             }
             visitedNodes.add(node);
-            //("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
-            //("\nvisitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+            //("\ntoBeVisitedNodes: " + printElementName(toBeVisitedNodes), LEVEL_TRACE);
+            //("\nvisitedNodes: " + printElementName(visitedNodes), LEVEL_TRACE);
         } else if(node.instanceOf(ForkNode)){
             dbg_print("this is a Fork node: " + node.name, LEVEL_TRACE);
             var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = node));
@@ -1269,8 +1292,8 @@ operation traverseNodes(
             }
             visitedNodes.add(node);
 
-            //dbg_print("\ntoBeVisitedNodes: " + printNodes(toBeVisitedNodes), LEVEL_TRACE);
-            //dbg_print("\nvisitedNodes: " + printNodes(visitedNodes), LEVEL_TRACE);
+            //dbg_print("\ntoBeVisitedNodes: " + printElementName(toBeVisitedNodes), LEVEL_TRACE);
+            //dbg_print("\nvisitedNodes: " + printElementName(visitedNodes), LEVEL_TRACE);
         } else if(node.instanceOf(JoinNode) and (not visitedNodes.includes(node))){
             //dbg_print("This is a join node: "  + node.name, LEVEL_TRACE);
             //to check if the source node to the first edge to the join node has been processed
@@ -1532,7 +1555,7 @@ operation traverseNodes(
                     //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
                 } else // there might be multiple loops, progress_made set to false when first time that only merge node left in toBeVisitedNodes
                     if(toBeVisitedNodes.select(n|n.instanceOf(MergeNode)).size()>0 and toBeVisitedNodes.select(n|not n.instanceOf(MergeNode)).size()=0 and progress_made.isEmpty()){
-                        //dbg_print("toBeVisitedNodes = "+ printNodes(toBeVisitedNodes), LEVEL_TRACE);
+                        //dbg_print("toBeVisitedNodes = "+ printElementName(toBeVisitedNodes), LEVEL_TRACE);
                         dbg_print("Only merge left, and there are more than one merge, so set progress_made as true for all merge nodes at line 1059, this is the first time that only merge node left", LEVEL_TRACE);
                         for(n in toBeVisitedNodes.select(n|n.instanceOf(MergeNode))){
                             progress_made.put(n,true);

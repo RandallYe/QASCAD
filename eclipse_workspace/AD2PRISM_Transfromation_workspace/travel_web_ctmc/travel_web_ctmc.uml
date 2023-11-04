@@ -109,7 +109,7 @@
       <operand xmi:type="uml:LiteralReal" xmi:id="_ZW6EkXStEe6eJcYoKCvanA" name="1" value="1.0"/>
       <operand xmi:type="uml:Expression" xmi:id="_ZW6EknStEe6eJcYoKCvanA" name="λ6" symbol="RefToPara(lambda6)"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_jBLKcHStEe6eJcYoKCvanA" name="1" value="1.0"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_jBLKcHStEe6eJcYoKCvanA" name="0.001" value="0.001"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_2ikyMHNoEe6_Xp0_JitH0A">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-7vWIHkGEe6seLuArQwQsA" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-7vWIXkGEe6seLuArQwQsA" key="Version" value="0.0.45"/>
@@ -138,6 +138,18 @@
   <workflow:Properties xmi:id="_Z005MHS5Ee6Ffu-XBXFlJA" base_Activity="_2hOHUHNoEe6_Xp0_JitH0A">
     <properties xmi:type="workflow:Property" xmi:id="_JGIGgHkHEe6seLuArQwQsA" modeltype="CTMC" name="P_CTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_JGIGgXkHEe6seLuArQwQsA" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_5DXzcHqZEe6MGvpYqzyqPw" name="P1_1" value="P=? [ F&lt;=1 (travel_web reaches at travel_web::ReportToUser)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Bg8csHqaEe6MGvpYqzyqPw" name="P1_2" value="P=? [ F&lt;=2 (travel_web reaches at travel_web::ReportToUser)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_DTA3QHqaEe6MGvpYqzyqPw" name="P1_3" value="P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_FRA1AHqaEe6MGvpYqzyqPw" name="P1_4" value="P=? [ F&lt;=4 (travel_web reaches at travel_web::ReportToUser)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_2NrjQHqaEe6hsarL63vASg" name="P2_1" value="P=? [ !(travel_web reaches at travel_web::SearchRestaurant) U&lt;=1 (travel_web reaches at travel_web::ReportToUser) ]/(1-p1)"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="__oEaEHqaEe6hsarL63vASg" name="P2_2" value="P=? [ !(travel_web reaches at travel_web::SearchRestaurant) U&lt;=2 (travel_web reaches at travel_web::ReportToUser) ]/(1-p1)"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_By7vIHqbEe6hsarL63vASg" name="P2_3" value="P=? [ !(travel_web reaches at travel_web::SearchRestaurant) U&lt;=3 (travel_web reaches at travel_web::ReportToUser) ]/(1-p1)"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_LQ3pMHqbEe6hsarL63vASg" name="P2_4" value="P=? [ !(travel_web reaches at travel_web::SearchRestaurant) U&lt;=4 (travel_web reaches at travel_web::ReportToUser) ]/(1-p1)"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_ZJPuQHqbEe6hsarL63vASg" name="P3_1" value="P=? [ F&lt;=1 (travel_web reaches at travel_web::ReportToUser)]-2*(1-P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)])"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_bixKYHqbEe6hsarL63vASg" name="P3_2" value="P=? [ F&lt;=2 (travel_web reaches at travel_web::ReportToUser)]-2*(1-P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)])"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_dN8SwHqbEe6hsarL63vASg" name="P3_3" value="P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)]-2*(1-P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)])"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_nNy8MHqdEe6eHuEW1QB0AA" name="P3_4" value="P=? [ F&lt;=4 (travel_web reaches at travel_web::ReportToUser)]-2*(1-P=? [ F&lt;=3 (travel_web reaches at travel_web::ReportToUser)])"/>
     </properties>
   </workflow:Properties>
 </xmi:XMI>
