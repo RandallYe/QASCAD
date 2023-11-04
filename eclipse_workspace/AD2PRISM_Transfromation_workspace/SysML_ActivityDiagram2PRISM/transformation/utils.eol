@@ -43,7 +43,7 @@ operation err_print_throw(str: String) {
 	throw new_err_str;
 }
 
-operation printNodes(nodes: Sequence) : String {
+operation printElementName(nodes: Sequence) : String {
 	var ret = "[";
 	for (n in nodes) {
 		ret = ret + n.name;
@@ -51,4 +51,44 @@ operation printNodes(nodes: Sequence) : String {
 			ret = ret + ",";
 	}
 	return ret + "]";
+}
+
+operation printElementName(nodes: Set) : String {
+	var ret = "{";
+	for (n in nodes) {
+		ret = ret + n.name;
+		if(hasMore) 
+			ret = ret + ",";
+	}
+	return ret + "}";
+}
+
+operation printNodeModuleMap(map: Map) : String {
+	var ret = "{|";
+	for (k in map.keySet()) {
+		ret = ret + "(" + k.name + ", " + map.get(k).name + ")";
+		if(hasMore) 
+			ret = ret + ",";
+	}
+	return ret + "|}";
+}
+
+operation printSeqOfNodeModuleMap(seqs: Sequence(Map)) : String {
+	var ret = "[";
+	for(map in seqs) {
+		ret = ret + printNodeModuleMap(map);
+	}
+	return ret + "]";
+}
+
+operation containsMod(seqs: Sequence(Map), modToMatch: PRISM!ModuleDef): Boolean {
+	for(map in seqs) {
+		for(mod in map.values()) {
+			if(mod = modToMatch) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
 }
