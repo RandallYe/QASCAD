@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44" xsi:schemaLocation="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_kZXjMHqREe6kf8EgWsXdNw/45" xsi:schemaLocation="http:///schemas/workflow/_kZXjMHqREe6kf8EgWsXdNw/45 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_kZbNkHqREe6kf8EgWsXdNw">
   <uml:Model xmi:id="_tEnbQHNuEe6_Xp0_JitH0A" name="IT_support_ctmc">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_tGPL4HNuEe6_Xp0_JitH0A">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -112,16 +112,24 @@
     <packagedElement xmi:type="uml:Expression" xmi:id="_9_OfsHWGEe6QJJ132xPe0A" name="p16" symbol="RefToPara(p16)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_JJcVYHWHEe6QJJ132xPe0A" name="p36" symbol="RefToPara(p36)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_PTbycHWHEe6QJJ132xPe0A" name="p31" symbol="RefToPara(p31)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_S5pHgHqSEe6kf8EgWsXdNw" name="lambda0" symbol="RefToPara(lambda0)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_ZokdoHqSEe6kf8EgWsXdNw" name="lambda1" symbol="RefToPara(lambda1)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_kdxFkHqSEe6kf8EgWsXdNw" name="lambda2" symbol="RefToPara(lambda2)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_rwJHAHqSEe6kf8EgWsXdNw" name="lambda3" symbol="RefToPara(lambda3)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_x9nV4HqSEe6kf8EgWsXdNw" name="lambda4" symbol="RefToPara(lambda4)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_41HZMHqSEe6kf8EgWsXdNw" name="lambda5" symbol="RefToPara(lambda5)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="__uCY0HqSEe6kf8EgWsXdNw" name="lambda6" symbol="RefToPara(lambda6)"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_FR1YkHqTEe6kf8EgWsXdNw" name="0.0001" value="1.0E-4"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_tF4mkHNuEe6_Xp0_JitH0A">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LS7KsHkGEe6kNdvQsMm-9A" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LS7KsXkGEe6kNdvQsMm-9A" key="Version" value="0.0.45"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LS7KsnkGEe6kNdvQsMm-9A" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LS7Ks3kGEe6kNdvQsMm-9A" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LS7KtHkGEe6kNdvQsMm-9A" key="Date" value="2023-11-01"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LS7KtXkGEe6kNdvQsMm-9A" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6k38EHqREe6kf8EgWsXdNw" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6k38EXqREe6kf8EgWsXdNw" key="Version" value="0.0.46"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6k38EnqREe6kf8EgWsXdNw" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6k38E3qREe6kf8EgWsXdNw" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6k38FHqREe6kf8EgWsXdNw" key="Date" value="2023-11-03"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6k38FXqREe6kf8EgWsXdNw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tF4mkXNuEe6_Xp0_JitH0A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_kZbNkHqREe6kf8EgWsXdNw"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
@@ -129,17 +137,19 @@
   <workflow:Properties xmi:id="_tHVNYHT1Ee6rYPqqc6GLPA" base_Activity="_tEzBcHNuEe6_Xp0_JitH0A">
     <properties xmi:type="workflow:Property" xmi:id="_ezK3MHkGEe6kNdvQsMm-9A" modeltype="CTMC" name="P_CTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_ezK3MXkGEe6kNdvQsMm-9A" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_MKoBYHu8Ee692clPXQTd2A" name="P1" value="P=? [ F&lt;=100 (IS reaches at IS::Complete)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_wcxk0Hu8Ee692clPXQTd2A" name="P2" value="P=? [( !(IS reaches at IS::Reopen)&amp; !(IS reaches at IS::AddInfo)) U&lt;=100 (IS reaches at IS::Complete) ]"/>
     </properties>
   </workflow:Properties>
-  <workflow:parameterized xmi:id="_0Hv8IHT1Ee6rYPqqc6GLPA" base_OpaqueAction="_2C_rgHNuEe6_Xp0_JitH0A" base_Action="_2C_rgHNuEe6_Xp0_JitH0A"/>
-  <workflow:parameterized xmi:id="_F-LyMHT2Ee6rYPqqc6GLPA" base_OpaqueAction="_42JIkHNuEe6_Xp0_JitH0A" base_Action="_42JIkHNuEe6_Xp0_JitH0A"/>
+  <workflow:parameterized xmi:id="_0Hv8IHT1Ee6rYPqqc6GLPA" base_OpaqueAction="_2C_rgHNuEe6_Xp0_JitH0A" base_Action="_2C_rgHNuEe6_Xp0_JitH0A" rate="_S5pHgHqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="_F-LyMHT2Ee6rYPqqc6GLPA" base_OpaqueAction="_42JIkHNuEe6_Xp0_JitH0A" base_Action="_42JIkHNuEe6_Xp0_JitH0A" rate="_ZokdoHqSEe6kf8EgWsXdNw"/>
   <workflow:WeightedFlow xmi:id="_bsre8HT2Ee6rYPqqc6GLPA" base_ControlFlow="_cW7rEHNwEe6_Xp0_JitH0A" probability="_3cfLcHWGEe6QJJ132xPe0A"/>
-  <workflow:parameterized xmi:id="_m7if4HT9Ee6GR8ssoHJ4ZA" base_OpaqueAction="_-MVKIHNuEe6_Xp0_JitH0A" base_Action="_-MVKIHNuEe6_Xp0_JitH0A"/>
-  <workflow:parameterized xmi:id="_mnjgkHWEEe6QJJ132xPe0A" base_OpaqueAction="_Ra9soHT4Ee6rYPqqc6GLPA" base_Action="_Ra9soHT4Ee6rYPqqc6GLPA"/>
-  <workflow:parameterized xmi:id="_tXRg4HWEEe6QJJ132xPe0A" base_OpaqueAction="_XLyRUHNvEe6_Xp0_JitH0A" base_Action="_XLyRUHNvEe6_Xp0_JitH0A"/>
-  <workflow:parameterized xmi:id="_1BBggHWEEe6QJJ132xPe0A" base_OpaqueAction="_RqP7YHNvEe6_Xp0_JitH0A" base_Action="_RqP7YHNvEe6_Xp0_JitH0A"/>
-  <workflow:parameterized xmi:id="__qNFsHWEEe6QJJ132xPe0A" base_OpaqueAction="_GJMTAHNvEe6_Xp0_JitH0A" base_Action="_GJMTAHNvEe6_Xp0_JitH0A"/>
-  <workflow:parameterized xmi:id="_HPusoHWFEe6QJJ132xPe0A" base_OpaqueAction="_MFOzoHNvEe6_Xp0_JitH0A" base_Action="_MFOzoHNvEe6_Xp0_JitH0A"/>
+  <workflow:parameterized xmi:id="_m7if4HT9Ee6GR8ssoHJ4ZA" base_OpaqueAction="_-MVKIHNuEe6_Xp0_JitH0A" base_Action="_-MVKIHNuEe6_Xp0_JitH0A" rate="_kdxFkHqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="_mnjgkHWEEe6QJJ132xPe0A" base_OpaqueAction="_Ra9soHT4Ee6rYPqqc6GLPA" base_Action="_Ra9soHT4Ee6rYPqqc6GLPA" rate="__uCY0HqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="_tXRg4HWEEe6QJJ132xPe0A" base_OpaqueAction="_XLyRUHNvEe6_Xp0_JitH0A" base_Action="_XLyRUHNvEe6_Xp0_JitH0A" rate="_rwJHAHqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="_1BBggHWEEe6QJJ132xPe0A" base_OpaqueAction="_RqP7YHNvEe6_Xp0_JitH0A" base_Action="_RqP7YHNvEe6_Xp0_JitH0A" rate="_x9nV4HqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="__qNFsHWEEe6QJJ132xPe0A" base_OpaqueAction="_GJMTAHNvEe6_Xp0_JitH0A" base_Action="_GJMTAHNvEe6_Xp0_JitH0A" rate="_41HZMHqSEe6kf8EgWsXdNw"/>
+  <workflow:parameterized xmi:id="_HPusoHWFEe6QJJ132xPe0A" base_OpaqueAction="_MFOzoHNvEe6_Xp0_JitH0A" base_Action="_MFOzoHNvEe6_Xp0_JitH0A" rate="_FR1YkHqTEe6kf8EgWsXdNw"/>
   <workflow:WeightedFlow xmi:id="_M6XewHWGEe6QJJ132xPe0A" base_ControlFlow="_FjGt8HNwEe6_Xp0_JitH0A" probability="_WaFhgHWGEe6QJJ132xPe0A"/>
   <workflow:WeightedFlow xmi:id="_c6LKYHWGEe6QJJ132xPe0A" base_ControlFlow="_H8XEUHNwEe6_Xp0_JitH0A" probability="_hZWrcHWGEe6QJJ132xPe0A"/>
   <workflow:WeightedFlow xmi:id="_laQ8IHWGEe6QJJ132xPe0A" base_ControlFlow="_gj0XsHNvEe6_Xp0_JitH0A" probability="_oohn4HWGEe6QJJ132xPe0A"/>
