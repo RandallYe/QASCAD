@@ -813,8 +813,8 @@ each modSeq sequence corresponding to a module
 					const_num = const_tuple.num;
 
                     var action = mkSyncAction(act, "terminate");		
-
-                    if(not is_main){// this AF node is not in the maim module, there should be terminate command for both this module and the main module
+					//The following commented out section is covered by line 848 
+                    /*if(not is_main){// this AF node is not in the maim module, there should be terminate command for both this module and the main module
                         var grd = new PRISM!VarExpr;
                         grd = mkVarExpr(toBeTerminated.name);	
 
@@ -833,7 +833,7 @@ each modSeq sequence corresponding to a module
                             //e.g., in Dice example
                             //[Six_dice_terminate] Six_dice_to_be_terminated &(! (Six_dice_terminated)) -> (Six_dice_I0_E0_pc'=INACTIVE)&(Six_dice_I0_E0_to_be_terminated'=false)&(Six_dice_terminated'=true);
                             //we create this combined command after finishing the while loop	
-                    }
+                    }*/
                 }
                 //mod.commands.add(mkCommand(act, mod, node.name, mod.vars.at(0), const, toBeTerminated, INACTIVE));
             }
@@ -846,7 +846,7 @@ each modSeq sequence corresponding to a module
         //e.g.,  [DigitalCamera::terminate]	(DigitalCamera::to_be_terminated) ->(DigitalCamera::M3::pc'=INACTIVE);
         if(is_main  = false){
             if((not hasAF(mdSeq)) and (not hasReAnnoNode(mdSeq))){
-                //add a sync command to end all the non-main module using action "terminate"
+               //add a sync command to end all the non-main module using action "terminate"
                 var action = mkSyncAction(act, "terminate");		
                 var grd = new PRISM!VarExpr;
                 grd = mkVarExpr(toBeTerminated.name);
@@ -870,7 +870,7 @@ each modSeq sequence corresponding to a module
                 } else{
                     updates.add(mkUpdate(mod.vars.at(0), INACTIVE,  mod_toBeTerminated, false));
                 }
-
+    
                 mod.commands.add(mkCommand(action, grd, updates));
             }
         }
