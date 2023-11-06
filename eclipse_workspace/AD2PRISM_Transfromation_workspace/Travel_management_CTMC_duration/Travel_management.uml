@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44" xsi:schemaLocation="http:///schemas/workflow/_aUe64HhBEe6b_LyIXdETdg/44 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_xMBBAHzbEe6sRLGeeMtT_A/46" xsi:schemaLocation="http:///schemas/workflow/_xMBBAHzbEe6sRLGeeMtT_A/46 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_xMGgkHzbEe6sRLGeeMtT_A">
   <uml:Model xmi:id="_NCMNwDhsEe6rMcaVryy_uw" name="Travel_management">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -21,21 +21,15 @@
       <edge xmi:type="uml:ControlFlow" xmi:id="_WzdhQDhxEe6rMcaVryy_uw" name="E6" target="_1l-eIDhvEe6rMcaVryy_uw" source="_AkTCUDhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_ZUO04DhxEe6rMcaVryy_uw" name="E7" target="_UXuJgDhvEe6rMcaVryy_uw" source="_M7YTwDhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_atft4DhxEe6rMcaVryy_uw" name="E9" target="_hqfAEDhvEe6rMcaVryy_uw" source="_UXuJgDhvEe6rMcaVryy_uw"/>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_lLjoMDhxEe6rMcaVryy_uw" name="E12" target="_YTMgkDhvEe6rMcaVryy_uw" source="_hqfAEDhvEe6rMcaVryy_uw">
-        <guard xmi:type="uml:LiteralString" xmi:id="_oSGYgEOMEe6ZybDoV901-g" value="g1"/>
-      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_lLjoMDhxEe6rMcaVryy_uw" name="E12" target="_YTMgkDhvEe6rMcaVryy_uw" source="_hqfAEDhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_o0SpcDhxEe6rMcaVryy_uw" name="E14" target="_UXuJgDhvEe6rMcaVryy_uw" source="_YTMgkDhvEe6rMcaVryy_uw"/>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_v2p48DhxEe6rMcaVryy_uw" name="E11" target="_ylFgADhvEe6rMcaVryy_uw" source="_hqfAEDhvEe6rMcaVryy_uw">
-        <guard xmi:type="uml:LiteralString" xmi:id="_phvbcEOMEe6ZybDoV901-g" value="else"/>
-      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_v2p48DhxEe6rMcaVryy_uw" name="E11" target="_ylFgADhvEe6rMcaVryy_uw" source="_hqfAEDhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_wjctgDhxEe6rMcaVryy_uw" name="E8" target="_ylFgADhvEe6rMcaVryy_uw" source="_1l-eIDhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_1ed2ADhxEe6rMcaVryy_uw" name="E10" target="_DLQoEDhwEe6rMcaVryy_uw" source="_ylFgADhvEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_4sLvMDhxEe6rMcaVryy_uw" name="E13" target="_FsE_ADhwEe6rMcaVryy_uw" source="_DLQoEDhwEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_6ZovgDhxEe6rMcaVryy_uw" name="E15" target="_Jm0WQDhwEe6rMcaVryy_uw" source="_FsE_ADhwEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_8em38DhxEe6rMcaVryy_uw" name="E16" target="_R5pIEDhwEe6rMcaVryy_uw" source="_Jm0WQDhwEe6rMcaVryy_uw"/>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_CykwYDhyEe6rMcaVryy_uw" name="E18" target="_T6mTMDhwEe6rMcaVryy_uw" source="_R5pIEDhwEe6rMcaVryy_uw">
-        <guard xmi:type="uml:LiteralString" xmi:id="_rH_AgEOMEe6ZybDoV901-g" value="g2"/>
-      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_CykwYDhyEe6rMcaVryy_uw" name="E18" target="_T6mTMDhwEe6rMcaVryy_uw" source="_R5pIEDhwEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_FbyOUDhyEe6rMcaVryy_uw" name="E20" target="_Jm0WQDhwEe6rMcaVryy_uw" source="_T6mTMDhwEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_ecby4DhzEe6rMcaVryy_uw" name="E1" target="_Oa9iEDhtEe6rMcaVryy_uw" source="_bFmZ8DhzEe6rMcaVryy_uw"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="__k7eYGjyEe6gQfPEZfnDaQ" name="E17" target="_wR6l0G8dEe6whKvLVGESSA" source="_R5pIEDhwEe6rMcaVryy_uw"/>
@@ -124,15 +118,15 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NH_TwDhsEe6rMcaVryy_uw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6TH-8HiHEe6gWOasxcmwnQ" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6TH-8XiHEe6gWOasxcmwnQ" key="Version" value="0.0.45"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6TH-8niHEe6gWOasxcmwnQ" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6TH-83iHEe6gWOasxcmwnQ" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6TH-9HiHEe6gWOasxcmwnQ" key="Date" value="2023-11-01"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6TH-9XiHEe6gWOasxcmwnQ" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3wbTwHzcEe6sRLGeeMtT_A" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTwXzcEe6sRLGeeMtT_A" key="Version" value="0.0.47"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTwnzcEe6sRLGeeMtT_A" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTw3zcEe6sRLGeeMtT_A" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTxHzcEe6sRLGeeMtT_A" key="Date" value="2023-11-06"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTxXzcEe6sRLGeeMtT_A" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NH_60DhsEe6rMcaVryy_uw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_aUhXIHhBEe6b_LyIXdETdg"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_xMGgkHzbEe6sRLGeeMtT_A"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
@@ -154,7 +148,7 @@
   <workflow:WeightedFlow xmi:id="_28rOIGaMEe6Dp8GTSd83xw" base_ControlFlow="_v2p48DhxEe6rMcaVryy_uw" probability="_KmCvgGaPEe6Dp8GTSd83xw"/>
   <workflow:WeightedFlow xmi:id="_9OTkQGaMEe6Dp8GTSd83xw" base_ControlFlow="_CykwYDhyEe6rMcaVryy_uw" probability="_Pt9rkGaPEe6Dp8GTSd83xw"/>
   <workflow:WeightedFlow xmi:id="_iP-EoGj0Ee6gQfPEZfnDaQ" base_ControlFlow="__k7eYGjyEe6gQfPEZfnDaQ" probability="_kxNSUGj0Ee6gQfPEZfnDaQ"/>
-  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_CTMC">
+  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_DTMC">
     <properties xmi:type="workflow:Property" xmi:id="_4Jt6sHhAEe6ORs_krC331A" modeltype="CTMC" name="P_CTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_ODJvoG0eEe6jYN7OOLxKkg" name="P_deadlock_freedom" value="!E [ F &quot;deadlock&quot; ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_R70DQG0eEe6jYN7OOLxKkg" name="P_termination" value="P=?  [ F (TM terminated successfully) ]"/>
@@ -178,6 +172,15 @@
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_gQAN0HMBEe65lYEzDPOMCQ" name="P_terminated_180" value="P=?  [ F&lt;=180 (TM terminated successfully) ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_gQAN0HMBEe65lYEzDPOMCQ" name="P_terminated_190" value="P=?  [ F&lt;=190 (TM terminated successfully) ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_gQAN0HMBEe65lYEzDPOMCQ" name="P_terminated_200" value="P=?  [ F&lt;=200 (TM terminated successfully) ]"/>
+    </properties>
+    <properties xmi:type="workflow:Property" xmi:id="_GGkA8HzfEe6sRLGeeMtT_A" name="P_DTMC">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_0fzJIHzfEe6sRLGeeMtT_A" name="DTMC_P2" value="filter(max, Pmax=? [ F ( TM terminated successfully) ], ( TM reaches at TM::checkSchedule))"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_C9PqIHzgEe6sRLGeeMtT_A" name="DTMC_P1" value=" Pmax=? [F (TM terminated successfully)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Q8w5AHzgEe6sRLGeeMtT_A" name="DTMC_P3" value="filter(max, Pmax=? [ F ( TM terminated successfully) ], ( TM reaches at TM::requestMeeting))"/>
+    </properties>
+    <properties xmi:type="workflow:Property" xmi:id="_fjZLMHzgEe6sRLGeeMtT_A" modeltype="MDP" name="P_MDP">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_mARvEHzgEe6sRLGeeMtT_A" name="MDP_P1" value="filter(max, Pmax=? [ F ( TM terminated successfully) ], ( TM reaches at TM::makeCall))"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_pzRfkHzgEe6sRLGeeMtT_A" name="MDP_P2" value="filter(min, Pmin=? [ F ( TM terminated successfully) ], ( TM reaches at TM::makeCall))"/>
     </properties>
   </workflow:Properties>
   <workflow:parameterized xmi:id="_KIXmcG8eEe6whKvLVGESSA" base_OpaqueAction="_wR6l0G8dEe6whKvLVGESSA" base_Action="_wR6l0G8dEe6whKvLVGESSA" duration="_aFjb4G8eEe6whKvLVGESSA"/>
