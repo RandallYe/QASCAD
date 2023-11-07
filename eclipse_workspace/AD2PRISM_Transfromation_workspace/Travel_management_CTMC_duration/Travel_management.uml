@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_xMBBAHzbEe6sRLGeeMtT_A/46" xsi:schemaLocation="http:///schemas/workflow/_xMBBAHzbEe6sRLGeeMtT_A/46 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_xMGgkHzbEe6sRLGeeMtT_A">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_lO7hUH1GEe6RN9hupWph4A/47" xsi:schemaLocation="http:///schemas/workflow/_lO7hUH1GEe6RN9hupWph4A/47 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_lPF5YH1GEe6RN9hupWph4A">
   <uml:Model xmi:id="_NCMNwDhsEe6rMcaVryy_uw" name="Travel_management">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -118,15 +118,15 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NH_TwDhsEe6rMcaVryy_uw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3wbTwHzcEe6sRLGeeMtT_A" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTwXzcEe6sRLGeeMtT_A" key="Version" value="0.0.47"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTwnzcEe6sRLGeeMtT_A" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTw3zcEe6sRLGeeMtT_A" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTxHzcEe6sRLGeeMtT_A" key="Date" value="2023-11-06"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3wbTxXzcEe6sRLGeeMtT_A" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_mzeGgH2kEe6PEZgoFHFsJA" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mzeGgX2kEe6PEZgoFHFsJA" key="Version" value="0.0.48"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mzeGgn2kEe6PEZgoFHFsJA" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mzeGg32kEe6PEZgoFHFsJA" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mzeGhH2kEe6PEZgoFHFsJA" key="Date" value="2023-11-07"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_mzeGhX2kEe6PEZgoFHFsJA" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NH_60DhsEe6rMcaVryy_uw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_xMGgkHzbEe6sRLGeeMtT_A"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_lPF5YH1GEe6RN9hupWph4A"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
@@ -148,7 +148,7 @@
   <workflow:WeightedFlow xmi:id="_28rOIGaMEe6Dp8GTSd83xw" base_ControlFlow="_v2p48DhxEe6rMcaVryy_uw" probability="_KmCvgGaPEe6Dp8GTSd83xw"/>
   <workflow:WeightedFlow xmi:id="_9OTkQGaMEe6Dp8GTSd83xw" base_ControlFlow="_CykwYDhyEe6rMcaVryy_uw" probability="_Pt9rkGaPEe6Dp8GTSd83xw"/>
   <workflow:WeightedFlow xmi:id="_iP-EoGj0Ee6gQfPEZfnDaQ" base_ControlFlow="__k7eYGjyEe6gQfPEZfnDaQ" probability="_kxNSUGj0Ee6gQfPEZfnDaQ"/>
-  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_DTMC">
+  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_CTMC">
     <properties xmi:type="workflow:Property" xmi:id="_4Jt6sHhAEe6ORs_krC331A" modeltype="CTMC" name="P_CTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_ODJvoG0eEe6jYN7OOLxKkg" name="P_deadlock_freedom" value="!E [ F &quot;deadlock&quot; ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_R70DQG0eEe6jYN7OOLxKkg" name="P_termination" value="P=?  [ F (TM terminated successfully) ]"/>
@@ -179,8 +179,16 @@
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_Q8w5AHzgEe6sRLGeeMtT_A" name="DTMC_P3" value="filter(max, Pmax=? [ F ( TM terminated successfully) ], ( TM reaches at TM::requestMeeting))"/>
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_fjZLMHzgEe6sRLGeeMtT_A" modeltype="MDP" name="P_MDP">
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_mARvEHzgEe6sRLGeeMtT_A" name="MDP_P1" value="filter(max, Pmax=? [ F ( TM terminated successfully) ], ( TM reaches at TM::makeCall))"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_pzRfkHzgEe6sRLGeeMtT_A" name="MDP_P2" value="filter(min, Pmin=? [ F ( TM terminated successfully) ], ( TM reaches at TM::makeCall))"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Vn0fQFMlEe6API5IJJoFpA" name="P1" value="!E [ F &quot;deadlock&quot; ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_qZeJQFMlEe6API5IJJoFpA" name="P2" value="Pmax=?  [ F (TM terminated successfully) ]"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_NU-EwHEgEe6Z3Jh_J3p7Lg" name="P_checkSchedule_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::checkSchedule)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="__S8CgHEhEe63LLw_TF_E_g" name="P_checkSchedule_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::checkSchedule)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_DV4TgHEiEe63LLw_TF_E_g" name="P_reqeustMeeting_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::requestMeeting)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_JT4jAHEiEe63LLw_TF_E_g" name="P_reqeustMeeting_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::requestMeeting)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_g_t0QHEkEe6HxOe0ivvJ6Q" name="P_makeCall_max" value="filter(max, Pmax=? [F TM terminated successfully], (TM reaches at TM::makeCall) &amp; !(TM failed))"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_nCsDUHEkEe6HxOe0ivvJ6Q" name="P_makeCall_min" value="filter(min, Pmin=? [F TM terminated successfully], (TM reaches at TM::makeCall) &amp; !(TM failed))"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_qPyRcHEkEe6HxOe0ivvJ6Q" name="P_M1_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::M1)"/>
+    <prproperties xmi:type="workflow:PRProperty" xmi:id="_s5zAoHEkEe6HxOe0ivvJ6Q" name="P_M1_min" value="filter(min, Pmin=? [F TM terminated successfully], TM reaches at TM::M1)"/>
     </properties>
   </workflow:Properties>
   <workflow:parameterized xmi:id="_KIXmcG8eEe6whKvLVGESSA" base_OpaqueAction="_wR6l0G8dEe6whKvLVGESSA" base_Action="_wR6l0G8dEe6whKvLVGESSA" duration="_aFjb4G8eEe6whKvLVGESSA"/>
