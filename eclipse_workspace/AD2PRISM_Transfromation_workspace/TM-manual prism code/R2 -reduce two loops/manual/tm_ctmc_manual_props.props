@@ -1,0 +1,4 @@
+//has warning
+P=? [ F<t AF&!fail ]
+
+filter(max, Pmax=? [ true U<=t (AF&!fail) ], i0)

@@ -1,0 +1,116 @@
+// manually defined
+
+ctmc
+//const double t ;
+const double mean_duration = 0.00001;
+const double r = 0.97;
+
+formula default_rate = (1.0/ mean_duration);
+
+
+//formula all_fail = (i0=false) & (findDuration=false) & (calculateTime=false)& (checkSchedule =false)& (F1=false)
+//& (bookParking=false)& (registerParking=false)& (J1=false)& (makeCall=false)& (M1=false)& (D1=false)
+//& (getCallInformation=false) & (requestMeeting=false)& (sendSMS=false)& (M2=false)& (D2=false)
+//& (getSMSDeliveryStatus=false)& (endWhile=false)& (AF=false);
+
+
+module tm
+
+i0: bool init true;
+findDuration: bool init false;
+calculateTime: bool init false;
+checkSchedule: bool init false;
+F1: bool init false;
+bookParking: bool init false;
+registerParking: bool init false;
+J1: bool init false;
+makeCall: bool init false;
+M1: bool init false;
+D1: bool init false;
+getCallInformation: bool init false;
+requestMeeting: bool init false;
+sendSMS: bool init false;
+M2: bool init false;
+D2: bool init false;
+getSMSDeliveryStatus: bool init false;
+endWhile: bool init false;
+AF: bool init false;
+fail:  bool init false;
+
+J1_l: bool init false;
+J1_r: bool init false;
+
+
+[] i0 & (fail = false) -> default_rate: (i0' = false) & (findDuration' = true);
+
+[] findDuration & (fail = false)-> (((1.0)/(0.8))*(0.96)): (findDuration' = false) & (calculateTime' = true)+ (((1.0)/(0.8))*((1.0)-(0.96))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] calculateTime & (fail = false) -> (((1.0)/(1.0))*(0.98)): (calculateTime' = false) & (checkSchedule' = true) +  (((1.0)/(1.0))*((1.0)-(0.98))):(fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] checkSchedule & (fail = false) -> (((1.0)/(1.8))*(0.98)): (checkSchedule' = false) & (F1' = true) + (((1.0)/(1.8))*((1.0)-(0.98))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] F1 & (fail = false)-> default_rate: (F1' = false) & (bookParking' = true) & (makeCall' = true);
+[] bookParking & (fail = false)->  (((1.0)/(3.0))*(0.95)): (bookParking' = false) & (registerParking' = true) +(((1.0)/(3.0))*((1.0)-(0.95))):(fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] makeCall & (fail = false) -> (((1.0)/(6.0))*(0.99)): (makeCall' = false) & (M1' = true) +(((1.0)/(6.0))*((1.0)-(0.99))):(fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] M1 & (fail = false) -> default_rate: (M1' = false) & (D1' = true);
+
+//[] registerParking & D1 & (fail = false)-> ((((1.0)/(3.0))*(0.95)) *(default_rate*(0.5))): (registerParking' = false) & (D1' = false) & (J1' = true) 
+//                         + (default_rate*(0.5)): (D1' = false) & (getCallInformation' = true) + (((1.0)/(3.0))*((1.0)-(0.95))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+//& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+//& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] registerParking & (fail = false)->  (((1.0)/(3.0))*(0.95)): (registerParking' = false) & (J1_l' = true) +(((1.0)/(3.0))*((1.0)-(0.95))):(fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+
+[] D1 & (fail = false)->  (default_rate*(0.5)): (D1' = false) & (J1_r' = true) + (default_rate*(0.5)) : (D1' = false) & (getCallInformation' = true);
+
+
+//default_rate??
+[] J1_l & J1_r & (fail = false)-> default_rate : (J1_l' = false) & (J1_r' = false) & (J1' = true);
+
+
+// incoming_rate * incoming_rate ?
+//[] registerParking & D1 -> ((((1.0)/(3.0))*(0.95)) * (default_rate*(0.5))): (registerParking' = false) &  (D1' = false) & (J1' = true);
+
+[] getCallInformation & (fail = false)-> (((1.0)/(6.0))*(0.99)): (getCallInformation' = false) & (M1' = true) + (((1.0)/(6.0))*((1.0)-(0.99))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+
+[] J1 & (fail = false) -> default_rate: (J1' = false) & (requestMeeting' = true);
+
+[] requestMeeting & (fail = false)-> (((1.0)/(1.2))*r): (requestMeeting' = false) & (sendSMS' = true) + (((1.0)/(1.2))*((1.0)-r)): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] sendSMS & (fail = false)-> (((1.0)/(3.0))*(0.99)): (sendSMS' = false) & (M2' = true) +  (((1.0)/(3.0))*((1.0)-(0.99))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+[] M2 & (fail = false)-> default_rate: (M2' = false) & (D2' = true);
+
+[] D2 & (fail = false)-> default_rate*0.5: (D2' = false) & (endWhile' = true) + default_rate*0.5: (D2' = false) & (getSMSDeliveryStatus' = true);
+
+[] getSMSDeliveryStatus & (fail = false)-> (((1.0)/(2.8))*(0.99)): (getSMSDeliveryStatus' = false) & (M2' = true) +  (((1.0)/(2.8))*((1.0)-(0.99))): (fail' = true) &(i0'=false) & (findDuration'=false) & (calculateTime'=false)& (checkSchedule' =false)& (F1'=false)
+& (bookParking'=false)& (registerParking'=false)& (J1'=false)& (makeCall'=false)& (M1'=false)& (D1'=false)& (getCallInformation'=false) & (requestMeeting'=false)& (sendSMS'=false)& (M2'=false)& (D2'=false)
+& (getSMSDeliveryStatus'=false)& (endWhile'=false)& (AF'=false);
+
+
+[] endWhile & (fail = false)-> default_rate: (endWhile' = false) & (AF' = true);
+
+[] (AF|fail) -> true;
+endmodule
