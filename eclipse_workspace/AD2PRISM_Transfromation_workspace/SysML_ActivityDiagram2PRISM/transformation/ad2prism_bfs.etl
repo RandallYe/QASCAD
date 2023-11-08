@@ -140,12 +140,13 @@ to m : PRISM!Model
     var isCTMC = false;
     if(m.modelType = PRISM!ModelType#CTMC){
         isCTMC = true;
-       	var p_mean_duration : Real = 0;
+       	var p_mean_duration = MEAN_DURATION;
+       	/*
 	    if(MEAN_DURATION.instanceOf(String)) {
 	        p_mean_duration = MEAN_DURATION.asReal();
 	    } else {
 	        p_mean_duration = MEAN_DURATION;
-	    }
+	    }*/
         
         mean_duration = mkConst("mean_duration", p_mean_duration);
         dbg_print("mean_duration = " + mean_duration.value.value, LEVEL_TRACE);
