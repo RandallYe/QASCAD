@@ -1,5 +1,6 @@
+const int t;
 
 filter(max, Pmax=? [ true U<=t (AF&!fail) ], i0)
 
-
+P=? [F<=t (AF & !fail)]
 
