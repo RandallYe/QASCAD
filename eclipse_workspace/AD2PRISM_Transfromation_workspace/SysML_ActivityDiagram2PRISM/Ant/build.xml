@@ -9,14 +9,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/six_dice/six_dice.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
   		
-  		<epsilon.evl src="../transformation/ad.evl">
+  		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
   				
@@ -24,9 +24,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/die.props"/>
 			<parameter name="DBG_OPTION" value="true"/>
 			<parameter name="DBG_LEVEL" value="4"/>
@@ -43,9 +43,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -66,14 +66,16 @@
 			<!-- 
 				1. Activity diagrams to PRISM model
 			-->
-			<epsilon.loadModel name="AD" type="UML">
+			<epsilon.loadModel name="AD" type="UML" profile="true">
 			    <parameter name="modelFile" value="/six_dice_parametric/six_dice.uml"/>
 			    <parameter name="readOnLoad" value="true"/>
 				<parameter name="storeOnDisposal" value="false"/>
 				<parameter name="expand" value="true"/>
+				<parameter name="profile_model_loading" value="true"/>
+				<parameter name="profiling_enabled" value="true"/>
 			</epsilon.loadModel>
 		
-			<epsilon.evl src="../transformation/ad.evl">
+			<epsilon.evl src="../transformation/ad.evl" profile="true">
 				<model ref="AD"/>
 			</epsilon.evl>
 			
@@ -81,15 +83,17 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="false" store="true"/>
+		  		read="false" store="true" profile="true"/>
 
-			<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 				<!--
 				Enable or disable transformation logging messages
 				-->
 				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/die.props"/>
 				<parameter name="DBG_OPTION" value="true"/>
 				<parameter name="DBG_LEVEL" value="4"/>
+				<parameter name="profile_model_loading" value="true"/>
+				<parameter name="profiling_enabled" value="true"/>
 				<model ref="AD"/>
 				<model ref="PRISM"/>
 			</epsilon.etl>
@@ -102,9 +106,9 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="true" store="false"/>
+		  		read="true" store="false" profile="true"/>
 			
-			<epsilon.egl src="../transformation/PRISM.egx" >
+			<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice.prism"/>
 				<model ref="PRISM"/>
 			</epsilon.egl>
@@ -126,14 +130,14 @@
 			<!-- 
 				1. Activity diagrams to PRISM model
 			-->
-			<epsilon.loadModel name="AD" type="UML">
+			<epsilon.loadModel name="AD" type="UML" profile="true">
 			    <parameter name="modelFile" value="/2015_use_case/2015_use_case.uml"/>
 			    <parameter name="readOnLoad" value="true"/>
 				<parameter name="storeOnDisposal" value="false"/>
 				<parameter name="expand" value="true"/>
 			</epsilon.loadModel>
 
-			<epsilon.evl src="../transformation/ad.evl">
+			<epsilon.evl src="../transformation/ad.evl" profile="true">
 				<model ref="AD"/>
 			</epsilon.evl>
 
@@ -141,9 +145,9 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/2015_use_case/dc_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="false" store="true"/>
+		  		read="false" store="true" profile="true"/>
 
-			<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 				<!--
 				Enable or disable transformation logging messages
 				-->
@@ -162,9 +166,9 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/2015_use_case/dc_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="true" store="false"/>
+		  		read="true" store="false" profile="true"/>
 			
-			<epsilon.egl src="../transformation/PRISM.egx" >
+			<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/dc.prism"/>
 				<model ref="PRISM"/>
 			</epsilon.egl>
@@ -185,14 +189,14 @@
 			<!-- 
 				1. Activity diagrams to PRISM model
 			-->
-			<epsilon.loadModel name="AD" type="UML">
+			<epsilon.loadModel name="AD" type="UML" profile="true">
 			    <parameter name="modelFile" value="/Travel_management/Travel_management.uml"/>
 			    <parameter name="readOnLoad" value="true"/>
 				<parameter name="storeOnDisposal" value="false"/>
 				<parameter name="expand" value="true"/>
 			</epsilon.loadModel>
 
-			<epsilon.evl src="../transformation/ad.evl">
+			<epsilon.evl src="../transformation/ad.evl" profile="true">
 				<model ref="AD"/>
 			</epsilon.evl>
 			
@@ -200,9 +204,9 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="false" store="true"/>
+		  		read="false" store="true" profile="true"/>
 
-			<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 				<!--
 				Enable or disable transformation logging messages
 				-->
@@ -221,9 +225,9 @@
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
 		  		metamodelUri="http://www.deis-project.eu/ode/prism"
 		  		expand="true"
-		  		read="true" store="false"/>
+		  		read="true" store="false" profile="true"/>
 			
-			<epsilon.egl src="../transformation/PRISM.egx" >
+			<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/tm.prism"/>
 				<model ref="PRISM"/>
 			</epsilon.egl>
@@ -244,14 +248,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/Travel_management_probability_decision/Travel_management.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
 		
-		<epsilon.evl src="../transformation/ad.evl">
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
 		
@@ -259,9 +263,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<!--
 			Enable or disable transformation logging messages
 			-->
@@ -280,9 +284,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/tm.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -303,14 +307,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/Travel_management_CTMC_duration/Travel_management.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
 
-		<epsilon.evl src="../transformation/ad.evl">
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
 		
@@ -318,16 +322,16 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<!--
 			Enable or disable transformation logging messages
 			-->
 			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm.props"/>
 			<parameter name="DBG_OPTION" value="true"/>
 			<parameter name="DBG_LEVEL" value="4"/>
-			<parameter name="MEAN_DURATION" value="1"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
 			<model ref="AD"/>
 			<model ref="PRISM"/>
 		</epsilon.etl>
@@ -340,9 +344,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -365,14 +369,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/${model.name}/${model.name}.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
 		
-		<epsilon.evl src="../transformation/ad.evl">
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
 		
@@ -380,9 +384,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<!--
 			Enable or disable transformation logging messages
 			-->
@@ -401,9 +405,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -427,14 +431,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/${twmodel.name}/${twmodel.name}.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
 
-		<epsilon.evl src="../transformation/ad.evl">
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
 		
@@ -442,9 +446,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<!--
 			Enable or disable transformation logging messages
 			-->
@@ -464,9 +468,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -489,14 +493,14 @@
 		<!-- 
 			1. Activity diagrams to PRISM model
 		-->
-		<epsilon.loadModel name="AD" type="UML">
+		<epsilon.loadModel name="AD" type="UML" profile="true">
 		    <parameter name="modelFile" value="/${itsmodel.name}/${itsmodel.name}.uml"/>
 		    <parameter name="readOnLoad" value="true"/>
 			<parameter name="storeOnDisposal" value="false"/>
 			<parameter name="expand" value="true"/>
 		</epsilon.loadModel>
 
-		<epsilon.evl src="../transformation/ad.evl">
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
 			<model ref="AD"/>
 		</epsilon.evl>
 		
@@ -504,9 +508,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="false" store="true"/>
+	  		read="false" store="true" profile="true"/>
 
-		<epsilon.etl src="../transformation/ad2prism_bfs.etl">
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
 			<!--
 			Enable or disable transformation logging messages
 			-->
@@ -526,9 +530,9 @@
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
-	  		read="true" store="false"/>
+	  		read="true" store="false" profile="true"/>
 		
-		<epsilon.egl src="../transformation/PRISM.egx" >
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
 			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}.prism"/>
 			<model ref="PRISM"/>
 		</epsilon.egl>
@@ -542,6 +546,131 @@
 		  	<arg line="${itsmodel.shortname}.prism"/>
 		  	<arg line="${itsmodel.shortname}.props"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="minodemodel.name" value="multiple_initialnodes"/>
+	<property name="minodemodel.shortname" value="minodes"/>
+	<target name="multiple_initialnodes">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML" profile="true">
+		    <parameter name="modelFile" value="/${minodemodel.name}/${minodemodel.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+		</epsilon.loadModel>
+
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
+			<model ref="AD"/>
+		</epsilon.evl>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true" profile="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false" profile="true"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${minodemodel.shortname}.prism"/>
+		  	<arg line="${minodemodel.shortname}.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="palmodel.name" value="pal"/>
+	<property name="palmodel.shortname" value="pal"/>
+	<target name="pal">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML" profile="true">
+		    <parameter name="modelFile" value="/${palmodel.name}/${palmodel.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+			<parameter name="profile_model_loading" value="true"/>
+		</epsilon.loadModel>
+
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
+			<model ref="AD"/>
+		</epsilon.evl>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true" profile="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false" profile="true"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${palmodel.shortname}.prism"/>
+		  	<arg line="${palmodel.shortname}.props"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
 </project>

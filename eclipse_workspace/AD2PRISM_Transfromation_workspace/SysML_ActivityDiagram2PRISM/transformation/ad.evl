@@ -25,6 +25,15 @@ context AD!ActivityNode {
   }
 }
 
+context AD!ActivityEdge {
+
+  constraint ValidName {   
+    check : self.name.isDefined()
+ 
+    message : 'Unnamed ' + self.eClass().name + ' not allowed'
+  }
+}
+
 context AD!Activity {
 
   constraint OnlyOneIncomingEdge {   
