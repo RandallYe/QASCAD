@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_q2jGUILGEe6ECJzuMwbgTA/48" xsi:schemaLocation="http:///schemas/workflow/_q2jGUILGEe6ECJzuMwbgTA/48 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_q2ol4ILGEe6ECJzuMwbgTA">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_NaXY4Iz9Ee67KISOTitqrQ/49" xsi:schemaLocation="http:///schemas/workflow/_NaXY4Iz9Ee67KISOTitqrQ/49 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_NaZ1IIz9Ee67KISOTitqrQ">
   <uml:Model xmi:id="_fqPfIIz8Ee67KISOTitqrQ" name="pal">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_fxRUMIz8Ee67KISOTitqrQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -22,6 +22,10 @@
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_tgqJoI0uEe67KISOTitqrQ" name="p_c_b">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ky2DsJCEEe6WqvJJZp_xcw" name="p_pre">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_Ky2qwJCEEe6WqvJJZp_xcw" name="0.999" value="0.999"/>
       </ownedParameter>
       <edge xmi:type="uml:ControlFlow" xmi:id="_iTZn0Iz-Ee67KISOTitqrQ" name="E1" target="_ponXUIz9Ee67KISOTitqrQ" source="_u0W44Iz8Ee67KISOTitqrQ"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_w4XtIIz-Ee67KISOTitqrQ" name="E2" target="_0pQaQIz9Ee67KISOTitqrQ" source="_ponXUIz9Ee67KISOTitqrQ"/>
@@ -57,7 +61,7 @@
       <edge xmi:type="uml:ControlFlow" xmi:id="_iRZYsI0qEe67KISOTitqrQ" name="E32" target="__FfhEI0oEe67KISOTitqrQ" source="_Y1ZYUI0qEe67KISOTitqrQ"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_jTd5sI0qEe67KISOTitqrQ" name="E33" target="_B_hCMI0pEe67KISOTitqrQ" source="__FfhEI0oEe67KISOTitqrQ"/>
       <node xmi:type="uml:InitialNode" xmi:id="_u0W44Iz8Ee67KISOTitqrQ" name="I0" outgoing="_iTZn0Iz-Ee67KISOTitqrQ"/>
-      <node xmi:type="uml:OpaqueAction" xmi:id="_ponXUIz9Ee67KISOTitqrQ" name="Idle at station" incoming="_iTZn0Iz-Ee67KISOTitqrQ" outgoing="_w4XtIIz-Ee67KISOTitqrQ"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_ponXUIz9Ee67KISOTitqrQ" name="Prepare" incoming="_iTZn0Iz-Ee67KISOTitqrQ" outgoing="_w4XtIIz-Ee67KISOTitqrQ"/>
       <node xmi:type="uml:ForkNode" xmi:id="_0pQaQIz9Ee67KISOTitqrQ" name="F1" incoming="_w4XtIIz-Ee67KISOTitqrQ" outgoing="__WY14Iz-Ee67KISOTitqrQ _HK3iMI0oEe67KISOTitqrQ"/>
       <node xmi:type="uml:OpaqueAction" xmi:id="_9dIqsIz9Ee67KISOTitqrQ" name="R1ToCorA" incoming="__WY14Iz-Ee67KISOTitqrQ" outgoing="_BCkD0Iz_Ee67KISOTitqrQ"/>
       <node xmi:type="uml:OpaqueAction" xmi:id="_B5m2AIz-Ee67KISOTitqrQ" name="R2ToCorC" incoming="_HK3iMI0oEe67KISOTitqrQ" outgoing="_IlzPII0oEe67KISOTitqrQ"/>
@@ -101,6 +105,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Expression" xmi:id="_0HA9II0vEe67KISOTitqrQ" name="p_d_1" symbol="RefToPara(p_d_12)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_aFth8I0wEe67KISOTitqrQ" name="1-p_d_1" symbol="-">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
       <operand xmi:type="uml:LiteralReal" xmi:id="_aFth8Y0wEe67KISOTitqrQ" name="1" value="1.0"/>
       <operand xmi:type="uml:Expression" xmi:id="_aFth8o0wEe67KISOTitqrQ" name="p_d_1" symbol="RefToPara(p_d_1)"/>
     </packagedElement>
@@ -119,21 +124,22 @@
       <operand xmi:type="uml:LiteralReal" xmi:id="_tKwqwY0xEe67KISOTitqrQ" name="1" value="1.0"/>
       <operand xmi:type="uml:Expression" xmi:id="_tKwqwo0xEe67KISOTitqrQ" name="p_c_c" symbol="RefToPara(p_c_c)"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_WLmrsJCEEe6WqvJJZp_xcw" name="p_pre" symbol="RefToPara(p_pre)"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_fvWooIz8Ee67KISOTitqrQ">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fvdWUIz8Ee67KISOTitqrQ" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fvdWUYz8Ee67KISOTitqrQ" key="Version" value="0.0.49"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fvdWUoz8Ee67KISOTitqrQ" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fvdWU4z8Ee67KISOTitqrQ" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fvdWVIz8Ee67KISOTitqrQ" key="Date" value="2023-11-14"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_fvdWVYz8Ee67KISOTitqrQ" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7Ok50I3sEe6hkIVA7L9fwg" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok50Y3sEe6hkIVA7L9fwg" key="Version" value="0.0.50"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok50o3sEe6hkIVA7L9fwg" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok5043sEe6hkIVA7L9fwg" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok51I3sEe6hkIVA7L9fwg" key="Date" value="2023-11-27"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok51Y3sEe6hkIVA7L9fwg" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fvYd0Iz8Ee67KISOTitqrQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_q2ol4ILGEe6ECJzuMwbgTA"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_NaZ1IIz9Ee67KISOTitqrQ"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
   </uml:Model>
-  <workflow:ParameterizedNode xmi:id="_3elsAI0mEe67KISOTitqrQ" base_OpaqueAction="_ponXUIz9Ee67KISOTitqrQ" base_Action="_ponXUIz9Ee67KISOTitqrQ" duration="_Duc7II0nEe67KISOTitqrQ"/>
+  <workflow:ParameterizedNode xmi:id="_3elsAI0mEe67KISOTitqrQ" reliability="_WLmrsJCEEe6WqvJJZp_xcw" base_OpaqueAction="_ponXUIz9Ee67KISOTitqrQ" base_Action="_ponXUIz9Ee67KISOTitqrQ" duration="_Duc7II0nEe67KISOTitqrQ"/>
   <workflow:ParameterizedNode xmi:id="_Uih8UI0nEe67KISOTitqrQ" base_OpaqueAction="_9dIqsIz9Ee67KISOTitqrQ" base_Action="_9dIqsIz9Ee67KISOTitqrQ" duration="_Xy2dkI0nEe67KISOTitqrQ"/>
   <workflow:ParameterizedNode xmi:id="_n8aiII0nEe67KISOTitqrQ" base_OpaqueAction="_ISqCwIz-Ee67KISOTitqrQ" base_Action="_ISqCwIz-Ee67KISOTitqrQ" duration="_s36y0I0nEe67KISOTitqrQ"/>
   <workflow:ParameterizedNode xmi:id="_22_rEI0nEe67KISOTitqrQ" base_OpaqueAction="_B5m2AIz-Ee67KISOTitqrQ" base_Action="_B5m2AIz-Ee67KISOTitqrQ" duration="_5AVWII0nEe67KISOTitqrQ"/>
