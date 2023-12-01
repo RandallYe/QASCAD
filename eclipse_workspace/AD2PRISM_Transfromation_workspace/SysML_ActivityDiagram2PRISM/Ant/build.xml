@@ -331,7 +331,7 @@
 			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/tm.props"/>
 			<parameter name="DBG_OPTION" value="true"/>
 			<parameter name="DBG_LEVEL" value="4"/>
-			<parameter name="MEAN_DURATION" value="0.001"/>
+			<parameter name="MEAN_DURATION" value="0.1"/>
 			<model ref="AD"/>
 			<model ref="PRISM"/>
 		</epsilon.etl>

@@ -92,9 +92,9 @@ operation hasAF(mdSeq: Sequence):Boolean{
 	var k = 0; //the index of map in the sequence mdSeq
  	var hasAF = false;
  	while(k<mdSeq.size()){ //processing each map in the sequence
- 	var node = mdSeq.at(k).keySet().at(0).nd;
- 	if(node.instanceOf(ActivityFinalNode) ){
-		hasAF = true;
+	 	var node = mdSeq.at(k).keySet().at(0).nd;
+	 	if(node.instanceOf(ActivityFinalNode) ){
+			hasAF = true;
 		}
 		k++;
 	}

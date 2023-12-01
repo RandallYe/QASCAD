@@ -561,9 +561,17 @@ each modSeq sequence corresponding to a module
 				var const = const_tuple.cnt;
 				const_num = const_tuple.num;
 
+                var oe = getAllEdgesFromNode(act, node).at(0);
+
+                //furtherMod is the module that contains the target of joinnode.oe, so this should be searched in the entire collection of 'maps'
+                var furtherMod = maps.selectOne(mp|mp.keySet().at(0) = Tuple{nd = oe.target, edg = oe}).values().at(0);
+                // Because we have changed the first incoming edge to arbitrary one, we need to compare if current module is the same as the further module.
+                if(furtherMod = mod){
+                    dbg_print("for this merge node, furtherMod = mod", LEVEL_TRACE);
+
                 //only the first incoming edge of the join node can continue the path
-                if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
-                    var oe = getAllEdgesFromNode(act,node).at(0);
+                // if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
+                 //   var oe = getAllEdgesFromNode(act,node).at(0);
                     var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
                     var action = mkSyncAction(act, node.name);
 
@@ -1303,7 +1311,9 @@ operation traverseNodes(
             //that is for join node, the path always continue for the first incoming edge
             //The FIRST is determined by the names of the edges using sortBy(c | c.name)
 
-            var ie = getAllEdgesToNode(act, node).sortEdgeByName().at(0);
+            // var ie = getAllEdgesToNode(act, node).sortEdgeByName().at(0);
+            // Randomly choose one incoming edge, and so the outgoing edge will be in the same module as this incoming edge.
+            var ie = getAllEdgesToNode(act, node).sortEdgeByName().random();
             //dbg_print("DEBUG JOIN NODE: ies = "+ getAllEdgesToNode(act, node).sortEdgeByName(), LEVEL_TRACE);
             //dbg_print("DEBUG JOIN NODE: ie.at(0) = "+ie.name, LEVEL_TRACE);
             var mod = nodeModuleMap.get(nodeModuleMap.keySet().selectOne(t|t.nd = ie.source));
@@ -1342,6 +1352,7 @@ operation traverseNodes(
 
         } else if(node.instanceOf(MergeNode) and (not visitedNodes.includes(node))){ 
             dbg_print("\nthis is a merge node: " + node.name, LEVEL_TRACE);
+            dbg_print("progress_made: " + progress_made, LEVEL_TRACE);
             var all_source_visited = true; //this should be checked using nodeModuleMap, if the incoming edge exists in nodeModuleMap, then it is "visited"
             var new_module_needed = false;
 
@@ -1456,6 +1467,9 @@ operation traverseNodes(
                 toBeVisitedNodes.remove(node);
                 visitedNodes.add(node);
 
+                //to clear progress_made since this merge has made a progress
+                progress_made.clear();
+                
                 //dbg_print("\ntoBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
                 //dbg_print("\nvisitedNodes: "+visitedNodes, LEVEL_TRACE);
 
@@ -1470,10 +1484,13 @@ operation traverseNodes(
                 //dbg_print("maps:" + maps, LEVEL_TRACE);
 
                 addNodeToBeVisitedNoDup(toBeVisitedNodes, visitedNodes, oe.target);
-                dbg_print("\nnode "+ oe.target.name + " is added to toBeVisitedNodes at line 633", LEVEL_TRACE);
+                dbg_print("node "+ oe.target.name + " is added to toBeVisitedNodes at line 633", LEVEL_TRACE);
 
                 toBeVisitedNodes.remove(node);
                 visitedNodes.add(node);
+                
+                //to clear progress_made since this merge has made a progress
+                progress_made.clear();
 
                 //dbg_print("toBeVisitedNodes: "+toBeVisitedNodes, LEVEL_TRACE);
                 //dbg_print("visitedNodes: "+visitedNodes, LEVEL_TRACE);
