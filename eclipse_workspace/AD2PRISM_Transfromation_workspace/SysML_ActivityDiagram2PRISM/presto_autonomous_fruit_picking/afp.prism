@@ -1,0 +1,96 @@
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+// PRISM Output
+
+dtmc
+
+const int INACTIVE = (-1);
+const int FruitPicking_I1_e1_I1 = (0);
+const int FruitPicking_I1_e1_M1 = (1);
+const int FruitPicking_I1_e1_positioning = (2);
+const int FruitPicking_I1_e1_D1 = (3);
+const int FruitPicking_I1_e1_picking = (4);
+const int FruitPicking_I1_e1_M3 = (5);
+const int FruitPicking_I1_e1_D2 = (6);
+const int FruitPicking_I1_e1_decision = (7);
+const int FruitPicking_I1_e1_picking_success = (8);
+const int FruitPicking_I1_e1_D3 = (9);
+const int FruitPicking_I1_e1_M2 = (10);
+const int FruitPicking_I1_e1_picking_abandoned = (11);
+const int FruitPicking_I1_e1_done = (12);
+const int FruitPicking_I1_e1_F1 = (13);
+const double p1;
+const double p2;
+const double p3;
+const double alpha;
+const double beta;
+const double t0;
+const double t1;
+const double t2;
+const double e0;
+const double e1;
+const double e2;
+
+
+
+formula FruitPicking_to_be_terminated = FruitPicking_I1_e1_to_be_terminated;		
+		
+
+
+
+rewards "mean_time"
+	[FruitPicking_I1_e1_positioning] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_positioning)) : t0;	
+	[FruitPicking_I1_e1_picking] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking)) : t1;	
+	[FruitPicking_I1_e1_decision] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_decision)) : t2;	
+endrewards
+
+
+rewards "energy"
+	[FruitPicking_I1_e1_positioning] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_positioning)) : e0;	
+	[FruitPicking_I1_e1_picking] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking)) : e1;	
+	[FruitPicking_I1_e1_decision] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_decision)) : e2;	
+endrewards
+
+
+
+
+module FruitPicking_I1_e1
+    FruitPicking_I1_e1_pc : [-1..13] init 0;
+    FruitPicking_I1_e1_to_be_terminated : bool init false;
+    FruitPicking_terminated : bool init false;
+
+    [FruitPicking_I1_e1_I1] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_I1))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M1);
+
+    [FruitPicking_I1_e1_M1] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_M1))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_positioning);
+
+    [FruitPicking_I1_e1_positioning] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_positioning))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_D1);
+
+    [FruitPicking_I1_e1_D1] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_D1))&(! (FruitPicking_to_be_terminated)) -> ((1.0)-(alpha*p1)):(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M3) + (alpha*p1):(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_picking);
+
+    [FruitPicking_I1_e1_picking] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_D2);
+
+    [FruitPicking_I1_e1_M3] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_M3))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_picking_abandoned);
+
+    [FruitPicking_I1_e1_D2] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_D2))&(! (FruitPicking_to_be_terminated)) -> (beta*p2):(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_decision) + ((1.0)-(beta*p2)):(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_picking_success);
+
+    [FruitPicking_I1_e1_decision] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_decision))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_D3);
+
+    [FruitPicking_I1_e1_picking_success] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_success))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M2);
+
+    [FruitPicking_I1_e1_D3] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_D3))&(! (FruitPicking_to_be_terminated)) -> p3:(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M1) + ((1.0)-p3):(FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M3);
+
+    [FruitPicking_I1_e1_M2] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_M2))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_done);
+
+    [FruitPicking_I1_e1_picking_abandoned] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_abandoned))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_M2);
+
+    [FruitPicking_I1_e1_done] ((FruitPicking_I1_e1_pc=FruitPicking_I1_e1_done))&(! (FruitPicking_to_be_terminated)) -> (FruitPicking_I1_e1_pc'=FruitPicking_I1_e1_F1)&(FruitPicking_I1_e1_to_be_terminated'=true);
+
+    [FruitPicking_terminate] (FruitPicking_to_be_terminated)&(! (FruitPicking_terminated)) -> (FruitPicking_I1_e1_pc'=INACTIVE)&(FruitPicking_terminated'=true)&(FruitPicking_I1_e1_to_be_terminated'=false);
+
+    [] ((FruitPicking_I1_e1_pc=INACTIVE))&((FruitPicking_terminated)&(! (FruitPicking_to_be_terminated))) -> true;
+
+endmodule
+
+

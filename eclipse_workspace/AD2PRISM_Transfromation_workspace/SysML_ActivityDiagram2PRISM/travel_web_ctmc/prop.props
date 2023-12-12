@@ -1,0 +1,13 @@
+"P_deadlock_free": !E [F "deadlock"]
+"P1_1": P=? [ F<=1 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]
+"P1_2": P=? [ F<=2 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]
+"P1_3": P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]
+"P1_4": P=? [ F<=4 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]
+"P2_1": P=? [ !(travel_web_i0_E0_pc = travel_web_i0_E0_SearchRestaurant) U<=1 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser) ]/(1-p1)
+"P2_2": P=? [ !(travel_web_i0_E0_pc = travel_web_i0_E0_SearchRestaurant) U<=2 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser) ]/(1-p1)
+"P2_3": P=? [ !(travel_web_i0_E0_pc = travel_web_i0_E0_SearchRestaurant) U<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser) ]/(1-p1)
+"P2_4": P=? [ !(travel_web_i0_E0_pc = travel_web_i0_E0_SearchRestaurant) U<=4 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser) ]/(1-p1)
+"P3_1": P=? [ F<=1 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)])
+"P3_2": P=? [ F<=2 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)])
+"P3_3": P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)])
+"P3_4": P=? [ F<=4 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc = travel_web_i0_E0_ReportToUser)])

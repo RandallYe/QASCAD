@@ -1,0 +1,5 @@
+"P_deadlock_freedom": !E [F "deadlock"]
+"P_picking_success": P=?[F (FruitPicking_I1_e1_pc = FruitPicking_I1_e1_picking_success)]
+"P_success_or_abandon": P=?[F (FruitPicking_I1_e1_pc = FruitPicking_I1_e1_picking_success)|(FruitPicking_I1_e1_pc = FruitPicking_I1_e1_picking_abandoned)]
+"R_expected_time": R{"mean_time"}=? [F FruitPicking_I1_e1_pc = FruitPicking_I1_e1_done]
+"R_energy": R{"energy"}=? [F FruitPicking_I1_e1_pc = FruitPicking_I1_e1_done]

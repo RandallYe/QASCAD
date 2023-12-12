@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+  <prism:Model modelType="CTMC">
+    <constants name="INACTIVE">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="-1"/>
+    </constants>
+    <constants name="mean_duration">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0E-4"/>
+    </constants>
+    <constants name="travel_web::i0::E0::i0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="travel_web::i0::E0::FindTrainStation">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="travel_web::i0::E0::D1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="travel_web::i0::E0::ArrivalTime">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="travel_web::i0::E0::M2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="travel_web::i0::E0::SearchRestaurant">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="travel_web::i0::E0::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="travel_web::i0::E0::FindDestination">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="travel_web::i0::E0::WeatherForecast">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="8"/>
+    </constants>
+    <constants name="travel_web::i0::E0::D2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="9"/>
+    </constants>
+    <constants name="travel_web::i0::E0::RouteReport">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="10"/>
+    </constants>
+    <constants name="travel_web::i0::E0::ReportToUser">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="11"/>
+    </constants>
+    <constants name="travel_web::i0::E0::AF">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="12"/>
+    </constants>
+    <constants name="p1">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.3"/>
+    </constants>
+    <constants name="p2">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.1"/>
+    </constants>
+    <constants name="lambda1">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="9.62"/>
+    </constants>
+    <constants name="lambda2">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="19.88"/>
+    </constants>
+    <constants name="lambda3">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="19.46"/>
+    </constants>
+    <constants name="lambda4">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.85"/>
+    </constants>
+    <constants name="lambda5">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.11"/>
+    </constants>
+    <constants name="lambda6">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="2.51"/>
+    </constants>
+    <modules xsi:type="prism:ModuleDef" name="travel_web::i0::E0">
+      <vars name="travel_web::i0::E0::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="12"/>
+        <init xsi:type="prism:VarExpr" name="0"/>
+      </vars>
+      <vars name="travel_web::i0::E0::to_be_terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <vars name="travel_web::terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <commands>
+        <action name="travel_web::i0::E0::i0"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::i0"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::FindTrainStation"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::FindTrainStation"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::FindTrainStation"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda1"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::D1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::D1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p1"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::ArrivalTime"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p1"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::ArrivalTime"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::ArrivalTime"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda2"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::SearchRestaurant"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::M2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::M2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::FindDestination"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::SearchRestaurant"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::SearchRestaurant"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda4"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::M1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::RouteReport"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::FindDestination"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::FindDestination"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda3"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::WeatherForecast"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::WeatherForecast"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::WeatherForecast"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda5"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::D2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::D2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p2"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::M2"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p2"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::RouteReport"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::RouteReport"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="lambda6"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::ReportToUser"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::i0::E0::ReportToUser"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="travel_web::i0::E0::ReportToUser"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:DoubleLitExpr" value="0.001"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::AF"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="travel_web::terminate"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="travel_web::terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::i0::E0::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:VarExpr" name="travel_web::terminated"/>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="travel_web::to_be_terminated"/>
+            </right>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Skip"/>
+        </updates>
+      </commands>
+    </modules>
+    <formulas name="travel_web::to_be_terminated">
+      <expr xsi:type="prism:VarExpr" name="travel_web::i0::E0::to_be_terminated"/>
+    </formulas>
+    <formulas name="default_rate">
+      <expr xsi:type="prism:DivExpr">
+        <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+        <right xsi:type="prism:VarExpr" name="mean_duration"/>
+      </expr>
+    </formulas>
+  </prism:Model>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:ModuleDef/>
+  <prism:VarDecl/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda1"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::FindTrainStation"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:VarExpr name="p1"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p1"/>
+  </prism:MinusExpr>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda2"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::ArrivalTime"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda4"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::SearchRestaurant"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda3"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::FindDestination"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda5"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::WeatherForecast"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p2"/>
+  </prism:MinusExpr>
+  <prism:VarExpr name="p2"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DivExpr">
+      <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+      <right xsi:type="prism:VarExpr" name="lambda6"/>
+    </right>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::RouteReport"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:DoubleLitExpr" value="0.001"/>
+  </prism:DivExpr>
+  <prism:Action name="travel_web::i0::E0::ReportToUser"/>
+  <prism:Action name="travel_web::terminate"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+</xmi:XMI>

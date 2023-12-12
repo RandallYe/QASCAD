@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+  <prism:Model>
+    <constants name="INACTIVE">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="-1"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::I1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::positioning">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::D1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::picking">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::M3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::D2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::decision">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::picking_success">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="8"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::D3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="9"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::M2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="10"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::picking_abandoned">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="11"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::done">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="12"/>
+    </constants>
+    <constants name="FruitPicking::I1::e1::F1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="13"/>
+    </constants>
+    <constants name="p1">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p2">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p3">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="alpha">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="beta">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="t0">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="t1">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="t2">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="e0">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="e1">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="e2">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <modules xsi:type="prism:ModuleDef" name="FruitPicking::I1::e1">
+      <vars name="FruitPicking::I1::e1::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="13"/>
+        <init xsi:type="prism:VarExpr" name="0"/>
+      </vars>
+      <vars name="FruitPicking::I1::e1::to_be_terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <vars name="FruitPicking::terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <commands>
+        <action name="FruitPicking::I1::e1::I1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::I1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::M1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::positioning"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::positioning"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::positioning"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="alpha"/>
+            <right xsi:type="prism:VarExpr" name="p1"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MinusExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:MultExpr">
+              <left xsi:type="prism:VarExpr" name="alpha"/>
+              <right xsi:type="prism:VarExpr" name="p1"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::picking"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::M3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking_abandoned"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MinusExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:MultExpr">
+              <left xsi:type="prism:VarExpr" name="beta"/>
+              <right xsi:type="prism:VarExpr" name="p2"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking_success"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="beta"/>
+            <right xsi:type="prism:VarExpr" name="p2"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::decision"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::decision"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::decision"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::picking_success"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking_success"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::D3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="p3"/>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M1"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MinusExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="p3"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::M2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::done"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::picking_abandoned"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking_abandoned"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::I1::e1::done"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::done"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::F1"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="FruitPicking::terminate"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="FruitPicking::terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="FruitPicking::I1::e1::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:VarExpr" name="FruitPicking::terminated"/>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="FruitPicking::to_be_terminated"/>
+            </right>
+          </right>
+        </grd>
+        <updates>
+          <assigns xsi:type="prism:Skip"/>
+        </updates>
+      </commands>
+    </modules>
+    <rewards name="mean_time">
+      <rewards>
+        <action name="FruitPicking::I1::e1::positioning"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::positioning"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="t0"/>
+      </rewards>
+      <rewards>
+        <action name="FruitPicking::I1::e1::picking"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="t1"/>
+      </rewards>
+      <rewards>
+        <action name="FruitPicking::I1::e1::decision"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::decision"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="t2"/>
+      </rewards>
+    </rewards>
+    <rewards name="energy">
+      <rewards>
+        <action name="FruitPicking::I1::e1::positioning"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::positioning"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="e0"/>
+      </rewards>
+      <rewards>
+        <action name="FruitPicking::I1::e1::picking"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::picking"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="e1"/>
+      </rewards>
+      <rewards>
+        <action name="FruitPicking::I1::e1::decision"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::pc"/>
+          <right xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::decision"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="e2"/>
+      </rewards>
+    </rewards>
+    <formulas name="FruitPicking::to_be_terminated">
+      <expr xsi:type="prism:VarExpr" name="FruitPicking::I1::e1::to_be_terminated"/>
+    </formulas>
+  </prism:Model>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:ModuleDef/>
+  <prism:VarDecl/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::positioning"/>
+  <prism:Action name="FruitPicking::I1::e1::positioning"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::picking"/>
+  <prism:Action name="FruitPicking::I1::e1::picking"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::decision"/>
+  <prism:Action name="FruitPicking::I1::e1::decision"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::picking_success"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::picking_abandoned"/>
+  <prism:AndBoolExpr/>
+  <prism:Action name="FruitPicking::I1::e1::done"/>
+  <prism:Action name="FruitPicking::terminate"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+</xmi:XMI>

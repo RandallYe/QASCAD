@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project default="main">
+	<property name="workspace.dir" value="C:/Users/fy668/workspace-papyrus"/>
+	<property name="prism.model.name" value="six_dice_prism.model"/>
+	<property name="prism.code.name" value="six_dice.prism"/>
+	<property name="property.file.name" value="die.props"/>
+
+  	<target name="main">
+  		
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML" profile="true">
+		    <parameter name="modelFile" value="/six_dice/six_dice.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+			<parameter name="profile_model_loading" value="true"/>
+			<parameter name="profiling_enabled" value="true"/>
+		</epsilon.loadModel>
+  		
+  		<epsilon.evl src="../transformation/ad.evl" profile="true">
+			<model ref="AD"/>
+		</epsilon.evl>
+  				
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true" profile="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/die.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value=""/>
+			<parameter name="profile_model_loading" value="true"/>
+			<parameter name="profiling_enabled" value="true"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false" profile="true"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice.prism"/>
+			<model ref="PRISM"/>
+			
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+  		<!-- 
+  					3. Run verification
+  				-->
+  		<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/output.log" alwayslog="true"/>
+  		  		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/" executable="C:/Program Files/prism-4.8/bin/xprism.bat" os="windows" output="dir.txt">
+  			  	<arg line="${prism.code.name}"/>
+  			  	<arg line="${property.file.name}"/>
+  				</exec>
+  		
+	</target>
+</project>

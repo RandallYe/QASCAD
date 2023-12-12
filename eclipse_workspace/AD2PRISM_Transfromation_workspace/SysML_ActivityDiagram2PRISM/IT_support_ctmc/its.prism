@@ -1,0 +1,88 @@
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+// PRISM Output
+
+ctmc
+
+const int INACTIVE = (-1);
+const double mean_duration = (0.001);
+const int IS_i0_E0_i0 = (0);
+const int IS_i0_E0_CreateAndAllocateTicket = (1);
+const int IS_i0_E0_M1 = (2);
+const int IS_i0_E0_ProcessTicket = (3);
+const int IS_i0_E0_D1 = (4);
+const int IS_i0_E0_SignOff = (5);
+const int IS_i0_E0_Reallocate = (6);
+const int IS_i0_E0_AddInfo = (7);
+const int IS_i0_E0_M2 = (8);
+const int IS_i0_E0_D2 = (9);
+const int IS_i0_E0_D3 = (10);
+const int IS_i0_E0_Reopen = (11);
+const int IS_i0_E0_Complete = (12);
+const int IS_i0_E0_Abandoned = (13);
+const int IS_i0_E0_AF = (14);
+const double lambda0 = (0.08248);
+const double lambda1 = (0.09799);
+const double lambda2 = (0.01167);
+const double lambda3 = (0.02006);
+const double lambda4 = (0.02839);
+const double lambda5 = (0.09988);
+const double p12 = (0.756028369);
+const double p13 = (0.034042553);
+const double p14 = (0.04822695);
+const double p16 = (0.161706128);
+const double p25 = (0.060037523);
+const double p27 = (0.939962477);
+const double p31 = (0.666666667);
+const double p36 = (0.333333333);
+
+
+
+formula IS_to_be_terminated = IS_i0_E0_to_be_terminated;		
+formula default_rate = ((1.0)/mean_duration);		
+		
+
+
+
+
+
+module IS_i0_E0
+    IS_i0_E0_pc : [-1..14] init 0;
+    IS_i0_E0_to_be_terminated : bool init false;
+    IS_terminated : bool init false;
+
+    [IS_i0_E0_i0] ((IS_i0_E0_pc=IS_i0_E0_i0))&(! (IS_to_be_terminated)) -> default_rate:(IS_i0_E0_pc'=IS_i0_E0_CreateAndAllocateTicket);
+
+    [IS_i0_E0_CreateAndAllocateTicket] ((IS_i0_E0_pc=IS_i0_E0_CreateAndAllocateTicket))&(! (IS_to_be_terminated)) -> lambda0:(IS_i0_E0_pc'=IS_i0_E0_M1);
+
+    [IS_i0_E0_M1] ((IS_i0_E0_pc=IS_i0_E0_M1))&(! (IS_to_be_terminated)) -> default_rate:(IS_i0_E0_pc'=IS_i0_E0_ProcessTicket);
+
+    [IS_i0_E0_ProcessTicket] ((IS_i0_E0_pc=IS_i0_E0_ProcessTicket))&(! (IS_to_be_terminated)) -> lambda1:(IS_i0_E0_pc'=IS_i0_E0_D1);
+
+    [IS_i0_E0_D1] ((IS_i0_E0_pc=IS_i0_E0_D1))&(! (IS_to_be_terminated)) -> (default_rate*p13):(IS_i0_E0_pc'=IS_i0_E0_AddInfo) + (default_rate*p16):(IS_i0_E0_pc'=IS_i0_E0_M2) + (default_rate*p14):(IS_i0_E0_pc'=IS_i0_E0_Reallocate) + (default_rate*p12):(IS_i0_E0_pc'=IS_i0_E0_SignOff);
+
+    [IS_i0_E0_SignOff] ((IS_i0_E0_pc=IS_i0_E0_SignOff))&(! (IS_to_be_terminated)) -> lambda2:(IS_i0_E0_pc'=IS_i0_E0_D2);
+
+    [IS_i0_E0_Reallocate] ((IS_i0_E0_pc=IS_i0_E0_Reallocate))&(! (IS_to_be_terminated)) -> lambda4:(IS_i0_E0_pc'=IS_i0_E0_M1);
+
+    [IS_i0_E0_AddInfo] ((IS_i0_E0_pc=IS_i0_E0_AddInfo))&(! (IS_to_be_terminated)) -> lambda3:(IS_i0_E0_pc'=IS_i0_E0_D3);
+
+    [IS_i0_E0_M2] ((IS_i0_E0_pc=IS_i0_E0_M2))&(! (IS_to_be_terminated)) -> default_rate:(IS_i0_E0_pc'=IS_i0_E0_Abandoned);
+
+    [IS_i0_E0_D2] ((IS_i0_E0_pc=IS_i0_E0_D2))&(! (IS_to_be_terminated)) -> (default_rate*p25):(IS_i0_E0_pc'=IS_i0_E0_Reopen) + (default_rate*p27):(IS_i0_E0_pc'=IS_i0_E0_Complete);
+
+    [IS_i0_E0_D3] ((IS_i0_E0_pc=IS_i0_E0_D3))&(! (IS_to_be_terminated)) -> (default_rate*p36):(IS_i0_E0_pc'=IS_i0_E0_M2) + (default_rate*p31):(IS_i0_E0_pc'=IS_i0_E0_M1);
+
+    [IS_i0_E0_Reopen] ((IS_i0_E0_pc=IS_i0_E0_Reopen))&(! (IS_to_be_terminated)) -> lambda5:(IS_i0_E0_pc'=IS_i0_E0_M1);
+
+    [IS_i0_E0_Complete] ((IS_i0_E0_pc=IS_i0_E0_Complete))&(! (IS_to_be_terminated)) -> (1.0E-4):(IS_i0_E0_pc'=IS_i0_E0_AF)&(IS_i0_E0_to_be_terminated'=true);
+
+    [IS_terminate] (IS_to_be_terminated)&(! (IS_terminated)) -> default_rate:(IS_i0_E0_pc'=INACTIVE)&(IS_terminated'=true)&(IS_i0_E0_to_be_terminated'=false);
+
+    [] ((IS_i0_E0_pc=INACTIVE))&((IS_terminated)&(! (IS_to_be_terminated))) -> default_rate:true;
+
+endmodule
+
+

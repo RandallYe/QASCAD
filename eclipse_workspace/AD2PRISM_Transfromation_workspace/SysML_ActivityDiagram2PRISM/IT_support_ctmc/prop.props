@@ -1,0 +1,3 @@
+"P_deadlock_free": !E [F "deadlock"]
+"P1": P=? [ F<=100 (IS_i0_E0_pc = IS_i0_E0_Complete)]
+"P2": P=? [( !(IS_i0_E0_pc = IS_i0_E0_Reopen)& !(IS_i0_E0_pc = IS_i0_E0_AddInfo)) U<=100 (IS_i0_E0_pc = IS_i0_E0_Complete) ]

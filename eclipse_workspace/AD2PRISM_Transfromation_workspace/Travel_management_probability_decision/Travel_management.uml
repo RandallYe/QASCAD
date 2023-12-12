@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_-bxkEHg_Ee6ORs_krC331A/43" xsi:schemaLocation="http:///schemas/workflow/_-bxkEHg_Ee6ORs_krC331A/43 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_-b0AUHg_Ee6ORs_krC331A">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:workflow="http:///schemas/workflow/_NaXY4Iz9Ee67KISOTitqrQ/49" xsi:schemaLocation="http:///schemas/workflow/_NaXY4Iz9Ee67KISOTitqrQ/49 /com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_NaZ1IIz9Ee67KISOTitqrQ">
   <uml:Model xmi:id="_NCMNwDhsEe6rMcaVryy_uw" name="Travel_management">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_NIseYDhsEe6rMcaVryy_uw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -113,53 +113,57 @@
       <appliedProfile xmi:type="uml:Profile" href="pathmap://SysML16_PROFILES/SysML.profile.uml#SysML"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NH_TwDhsEe6rMcaVryy_uw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_IHy9cHhAEe6ORs_krC331A" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IHy9cXhAEe6ORs_krC331A" key="Version" value="0.0.44"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IHy9cnhAEe6ORs_krC331A" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IHy9c3hAEe6ORs_krC331A" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IHy9dHhAEe6ORs_krC331A" key="Date" value="2023-10-31"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_IHy9dXhAEe6ORs_krC331A" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GgTt0JRxEe6QS_WdeQGtBQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GgTt0ZRxEe6QS_WdeQGtBQ" key="Version" value="0.0.50"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GgTt0pRxEe6QS_WdeQGtBQ" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GgTt05RxEe6QS_WdeQGtBQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GgTt1JRxEe6QS_WdeQGtBQ" key="Date" value="2023-11-27"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_GgTt1ZRxEe6QS_WdeQGtBQ" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NH_60DhsEe6rMcaVryy_uw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_-b0AUHg_Ee6ORs_krC331A"/>
+        <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_NaZ1IIz9Ee67KISOTitqrQ"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_dmETMMVtEeei9vqqQSCeug"/>
     </profileApplication>
   </uml:Model>
-  <workflow:parameterized xmi:id="_XFGAoDhtEe6rMcaVryy_uw" reliability="_foGJoFLeEe6b35UbuRRGnA" base_OpaqueAction="_Oa9iEDhtEe6rMcaVryy_uw" base_Action="_Oa9iEDhtEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_hxk8ADhuEe6rMcaVryy_uw" reliability="_liuVAFLeEe6b35UbuRRGnA" base_OpaqueAction="_SMQCYDhtEe6rMcaVryy_uw" base_Action="_SMQCYDhtEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_xl2tEDhuEe6rMcaVryy_uw" reliability="_rKnKkFLeEe6b35UbuRRGnA" base_OpaqueAction="_uZHEQDhuEe6rMcaVryy_uw" base_Action="_uZHEQDhuEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_Kb3kYDhvEe6rMcaVryy_uw" reliability="_uhSygFLeEe6b35UbuRRGnA" base_OpaqueAction="_AkTCUDhvEe6rMcaVryy_uw" base_Action="_AkTCUDhvEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_O9-doDhvEe6rMcaVryy_uw" reliability="_zcJi8FLeEe6b35UbuRRGnA" base_OpaqueAction="_M7YTwDhvEe6rMcaVryy_uw" base_Action="_M7YTwDhvEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_32H70DhvEe6rMcaVryy_uw" reliability="_5qQrAFLeEe6b35UbuRRGnA" base_OpaqueAction="_YTMgkDhvEe6rMcaVryy_uw" base_Action="_YTMgkDhvEe6rMcaVryy_uw">
+  <workflow:ParameterizedNode xmi:id="_XFGAoDhtEe6rMcaVryy_uw" reliability="_foGJoFLeEe6b35UbuRRGnA" base_OpaqueAction="_Oa9iEDhtEe6rMcaVryy_uw" base_Action="_Oa9iEDhtEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_hxk8ADhuEe6rMcaVryy_uw" reliability="_liuVAFLeEe6b35UbuRRGnA" base_OpaqueAction="_SMQCYDhtEe6rMcaVryy_uw" base_Action="_SMQCYDhtEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_xl2tEDhuEe6rMcaVryy_uw" reliability="_rKnKkFLeEe6b35UbuRRGnA" base_OpaqueAction="_uZHEQDhuEe6rMcaVryy_uw" base_Action="_uZHEQDhuEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_Kb3kYDhvEe6rMcaVryy_uw" reliability="_uhSygFLeEe6b35UbuRRGnA" base_OpaqueAction="_AkTCUDhvEe6rMcaVryy_uw" base_Action="_AkTCUDhvEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_O9-doDhvEe6rMcaVryy_uw" reliability="_zcJi8FLeEe6b35UbuRRGnA" base_OpaqueAction="_M7YTwDhvEe6rMcaVryy_uw" base_Action="_M7YTwDhvEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_32H70DhvEe6rMcaVryy_uw" reliability="_5qQrAFLeEe6b35UbuRRGnA" base_OpaqueAction="_YTMgkDhvEe6rMcaVryy_uw" base_Action="_YTMgkDhvEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_CJznYFMlEe6API5IJJoFpA" name="R1" value="_GK-90FMlEe6API5IJJoFpA"/>
     <rewards xmi:type="workflow:Reward" xmi:id="_MV-OgFMnEe6QQLdCEJTbVw" name="R2" value="_MJ-Z4FMnEe6QQLdCEJTbVw"/>
-  </workflow:parameterized>
-  <workflow:parameterized xmi:id="_7HgNADhvEe6rMcaVryy_uw" reliability="_2iisIFLeEe6b35UbuRRGnA" base_OpaqueAction="_1l-eIDhvEe6rMcaVryy_uw" base_Action="_1l-eIDhvEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_oWmdUDhwEe6rMcaVryy_uw" reliability="_CTmfYFLfEe6b35UbuRRGnA" base_OpaqueAction="_DLQoEDhwEe6rMcaVryy_uw" base_Action="_DLQoEDhwEe6rMcaVryy_uw">
+  </workflow:ParameterizedNode>
+  <workflow:ParameterizedNode xmi:id="_7HgNADhvEe6rMcaVryy_uw" reliability="_2iisIFLeEe6b35UbuRRGnA" base_OpaqueAction="_1l-eIDhvEe6rMcaVryy_uw" base_Action="_1l-eIDhvEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_oWmdUDhwEe6rMcaVryy_uw" reliability="_CTmfYFLfEe6b35UbuRRGnA" base_OpaqueAction="_DLQoEDhwEe6rMcaVryy_uw" base_Action="_DLQoEDhwEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_9JAbcFMuEe6QQLdCEJTbVw" name="R1" value="_89r8QFMuEe6QQLdCEJTbVw"/>
     <rewards xmi:type="workflow:Reward" xmi:id="_8rKDYFOSEe6QQLdCEJTbVw" name="R3" value="_8eijsFOSEe6QQLdCEJTbVw"/>
-  </workflow:parameterized>
-  <workflow:parameterized xmi:id="_rVqPcDhwEe6rMcaVryy_uw" reliability="_BwFS4FLwEe69cawvUnnaMA" base_OpaqueAction="_FsE_ADhwEe6rMcaVryy_uw" base_Action="_FsE_ADhwEe6rMcaVryy_uw"/>
-  <workflow:parameterized xmi:id="_uT-asDhwEe6rMcaVryy_uw" reliability="_XldI4FLeEe6b35UbuRRGnA" base_OpaqueAction="_T6mTMDhwEe6rMcaVryy_uw" base_Action="_T6mTMDhwEe6rMcaVryy_uw"/>
-  <workflow:Properties xmi:id="_Pm3pcFMlEe6API5IJJoFpA" base_Activity="_NDWEUDhsEe6rMcaVryy_uw"/>
-  <workflow:WeightedFlow xmi:id="_uKH68FMmEe6QQLdCEJTbVw" base_ControlFlow="_wjctgDhxEe6rMcaVryy_uw">
+  </workflow:ParameterizedNode>
+  <workflow:ParameterizedNode xmi:id="_rVqPcDhwEe6rMcaVryy_uw" reliability="_BwFS4FLwEe69cawvUnnaMA" base_OpaqueAction="_FsE_ADhwEe6rMcaVryy_uw" base_Action="_FsE_ADhwEe6rMcaVryy_uw"/>
+  <workflow:ParameterizedNode xmi:id="_uT-asDhwEe6rMcaVryy_uw" reliability="_XldI4FLeEe6b35UbuRRGnA" base_OpaqueAction="_T6mTMDhwEe6rMcaVryy_uw" base_Action="_T6mTMDhwEe6rMcaVryy_uw"/>
+  <workflow:Properties xmi:id="_Pm3pcFMlEe6API5IJJoFpA" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="pp">
+    <properties xmi:type="workflow:Property" xmi:id="_UpBU8JRxEe6QS_WdeQGtBQ" modeltype="MDP" name="pp">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_UpBU8ZRxEe6QS_WdeQGtBQ" name="checkSchedule_max" value="filter(max, Pmax=? [F TM terminated successfully], TM reaches at TM::checkSchedule)"/>
+    </properties>
+  </workflow:Properties>
+  <workflow:ParameterizedFlow xmi:id="_uKH68FMmEe6QQLdCEJTbVw" base_ControlFlow="_wjctgDhxEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_z8dtAFMmEe6QQLdCEJTbVw" name="R1" value="_zw258FMmEe6QQLdCEJTbVw"/>
-  </workflow:WeightedFlow>
-  <workflow:WeightedFlow xmi:id="_vsbzEFOmEe6QQLdCEJTbVw" base_ControlFlow="_4sLvMDhxEe6rMcaVryy_uw">
+  </workflow:ParameterizedFlow>
+  <workflow:ParameterizedFlow xmi:id="_vsbzEFOmEe6QQLdCEJTbVw" base_ControlFlow="_4sLvMDhxEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_xNbrwFOmEe6QQLdCEJTbVw" name="R2" value="_3YLWwFOmEe6QQLdCEJTbVw"/>
-  </workflow:WeightedFlow>
-  <workflow:WeightedFlow xmi:id="_N95UgFOpEe6QQLdCEJTbVw" base_ControlFlow="_8em38DhxEe6rMcaVryy_uw">
+  </workflow:ParameterizedFlow>
+  <workflow:ParameterizedFlow xmi:id="_N95UgFOpEe6QQLdCEJTbVw" base_ControlFlow="_8em38DhxEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_SUBAMFOpEe6QQLdCEJTbVw" name="R4" value="_SFajgFOpEe6QQLdCEJTbVw"/>
-  </workflow:WeightedFlow>
-  <workflow:WeightedFlow xmi:id="_dqH4oFOwEe6QQLdCEJTbVw" base_ControlFlow="_6ZovgDhxEe6rMcaVryy_uw">
+  </workflow:ParameterizedFlow>
+  <workflow:ParameterizedFlow xmi:id="_dqH4oFOwEe6QQLdCEJTbVw" base_ControlFlow="_6ZovgDhxEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_gvAl8FOwEe6QQLdCEJTbVw" name="R4" value="_gihCEFOwEe6QQLdCEJTbVw"/>
-  </workflow:WeightedFlow>
-  <workflow:WeightedFlow xmi:id="_wD6b8FPHEe6QQLdCEJTbVw" base_ControlFlow="_AIoSoDhyEe6rMcaVryy_uw">
+  </workflow:ParameterizedFlow>
+  <workflow:ParameterizedFlow xmi:id="_wD6b8FPHEe6QQLdCEJTbVw" base_ControlFlow="_AIoSoDhyEe6rMcaVryy_uw">
     <rewards xmi:type="workflow:Reward" xmi:id="_zbQyQFPHEe6QQLdCEJTbVw" name="R5" value="_zRhncFPHEe6QQLdCEJTbVw"/>
-  </workflow:WeightedFlow>
-  <workflow:WeightedFlow xmi:id="_xddzcGaMEe6Dp8GTSd83xw" base_ControlFlow="_lLjoMDhxEe6rMcaVryy_uw" probability="_Nf-KAGaPEe6Dp8GTSd83xw"/>
-  <workflow:WeightedFlow xmi:id="_28rOIGaMEe6Dp8GTSd83xw" base_ControlFlow="_v2p48DhxEe6rMcaVryy_uw" probability="_KmCvgGaPEe6Dp8GTSd83xw"/>
-  <workflow:WeightedFlow xmi:id="_9OTkQGaMEe6Dp8GTSd83xw" base_ControlFlow="_CykwYDhyEe6rMcaVryy_uw" probability="_Pt9rkGaPEe6Dp8GTSd83xw"/>
-  <workflow:WeightedFlow xmi:id="_Eko4oGaNEe6Dp8GTSd83xw" base_ControlFlow="_-C_b0DhxEe6rMcaVryy_uw" probability="_X2kKYGaPEe6Dp8GTSd83xw"/>
+  </workflow:ParameterizedFlow>
+  <workflow:ParameterizedFlow xmi:id="_xddzcGaMEe6Dp8GTSd83xw" base_ControlFlow="_lLjoMDhxEe6rMcaVryy_uw" probability="_Nf-KAGaPEe6Dp8GTSd83xw"/>
+  <workflow:ParameterizedFlow xmi:id="_28rOIGaMEe6Dp8GTSd83xw" base_ControlFlow="_v2p48DhxEe6rMcaVryy_uw" probability="_KmCvgGaPEe6Dp8GTSd83xw"/>
+  <workflow:ParameterizedFlow xmi:id="_9OTkQGaMEe6Dp8GTSd83xw" base_ControlFlow="_CykwYDhyEe6rMcaVryy_uw" probability="_Pt9rkGaPEe6Dp8GTSd83xw"/>
+  <workflow:ParameterizedFlow xmi:id="_Eko4oGaNEe6Dp8GTSd83xw" base_ControlFlow="_-C_b0DhxEe6rMcaVryy_uw" probability="_X2kKYGaPEe6Dp8GTSd83xw"/>
 </xmi:XMI>

@@ -1,0 +1,141 @@
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+// PRISM Output
+
+dtmc
+
+const int INACTIVE = (-1);
+const int TM_I0_E1_I0 = (0);
+const int TM_I0_E1_findDuration = (1);
+const int TM_I0_E1_calculateTime = (2);
+const int TM_I0_E1_checkSchedule = (3);
+const int TM_I0_E1_F1 = (4);
+const int TM_I0_E1_bookParking = (5);
+const int TM_I0_E1_registerParking = (6);
+const int TM_I0_E1_J1 = (7);
+const int TM_I0_E1_requestMeeting = (8);
+const int TM_I0_E1_sendSMS = (9);
+const int TM_I0_E1_M2 = (10);
+const int TM_I0_E1_D2 = (11);
+const int TM_I0_E1_EndWhile = (12);
+const int TM_I0_E1_getSMSDeliveryStatus = (13);
+const int TM_I0_E1_AF = (14);
+const int TM_F1_E5_makeCall = (0);
+const int TM_F1_E5_M1 = (1);
+const int TM_F1_E5_D1 = (2);
+const int TM_F1_E5_J1 = (3);
+const int TM_F1_E5_getCallInformation = (4);
+const double r = (0.97);
+const double rewd = (1.0);
+
+global TM_D2_else : bool init true;  
+global TM_g2 : bool init false;  
+global TM_D1_else : bool init true;  
+global TM_g1 : bool init false;  
+
+
+formula TM_to_be_terminated = (TM_I0_E1_to_be_terminated)|(TM_F1_E5_to_be_terminated);		
+formula TM_to_be_failed = (TM_I0_E1_to_be_failed)|(TM_F1_E5_to_be_failed);		
+		
+
+
+
+rewards "R1"
+	[TM_I0_E1_registerParking] ((TM_I0_E1_pc=TM_I0_E1_registerParking)) : (1.0);	
+	[TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting)) : (3.0);	
+	[TM_F1_E5_getCallInformation] ((TM_F1_E5_pc=TM_F1_E5_getCallInformation)) : (1.0);	
+endrewards
+
+
+rewards "R2"
+	[TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting)) : rewd;	
+	[TM_F1_E5_getCallInformation] ((TM_F1_E5_pc=TM_F1_E5_getCallInformation)) : (2.0);	
+endrewards
+
+
+rewards "R3"
+	[TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting)) : rewd;	
+endrewards
+
+
+rewards "R4"
+	[TM_I0_E1_sendSMS] ((TM_I0_E1_pc=TM_I0_E1_sendSMS)) : (4.0);	
+	[TM_I0_E1_M2] ((TM_I0_E1_pc=TM_I0_E1_M2)) : (1.5);	
+endrewards
+
+
+rewards "R5"
+	[TM_I0_E1_EndWhile] ((TM_I0_E1_pc=TM_I0_E1_EndWhile)) : (5.1);	
+endrewards
+
+
+
+
+module TM_F1_E5
+    TM_F1_E5_pc : [-1..4] init INACTIVE;
+    TM_F1_E5_to_be_terminated : bool init false;
+    TM_F1_E5_to_be_failed : bool init false;
+
+    [TM_F1] ((TM_F1_E5_pc=INACTIVE))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=TM_F1_E5_makeCall);
+
+    [TM_F1_E5_makeCall] ((TM_F1_E5_pc=TM_F1_E5_makeCall))&(! (TM_to_be_terminated)) -> (0.99):(TM_F1_E5_pc'=TM_F1_E5_M1) + ((1.0)-(0.99)):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true);
+
+    [TM_F1_E5_M1] ((TM_F1_E5_pc=TM_F1_E5_M1))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=TM_F1_E5_D1);
+
+    [TM_F1_E5_D1] (((TM_F1_E5_pc=TM_F1_E5_D1))&(! (TM_to_be_terminated)))&(TM_D1_else) -> (TM_F1_E5_pc'=TM_F1_E5_J1);
+
+    [TM_F1_E5_D1] (((TM_F1_E5_pc=TM_F1_E5_D1))&(! (TM_to_be_terminated)))&(TM_g1) -> (TM_F1_E5_pc'=TM_F1_E5_getCallInformation);
+
+    [TM_J1] ((TM_F1_E5_pc=TM_F1_E5_J1))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=INACTIVE);
+
+    [TM_F1_E5_getCallInformation] ((TM_F1_E5_pc=TM_F1_E5_getCallInformation))&(! (TM_to_be_terminated)) -> (0.99):(TM_F1_E5_pc'=TM_F1_E5_M1) + ((1.0)-(0.99)):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true);
+
+    [TM_terminate] TM_to_be_terminated -> (TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_terminated'=false);
+
+endmodule
+
+module TM_I0_E1
+    TM_I0_E1_pc : [-1..14] init 0;
+    TM_I0_E1_to_be_terminated : bool init false;
+    TM_I0_E1_to_be_failed : bool init false;
+    TM_terminated : bool init false;
+
+    [TM_I0_E1_I0] ((TM_I0_E1_pc=TM_I0_E1_I0))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_findDuration);
+
+    [TM_I0_E1_findDuration] ((TM_I0_E1_pc=TM_I0_E1_findDuration))&(! (TM_to_be_terminated)) -> (0.96):(TM_I0_E1_pc'=TM_I0_E1_calculateTime) + ((1.0)-(0.96)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_I0_E1_calculateTime] ((TM_I0_E1_pc=TM_I0_E1_calculateTime))&(! (TM_to_be_terminated)) -> (0.98):(TM_I0_E1_pc'=TM_I0_E1_checkSchedule) + ((1.0)-(0.98)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_I0_E1_checkSchedule] ((TM_I0_E1_pc=TM_I0_E1_checkSchedule))&(! (TM_to_be_terminated)) -> ((1.0)-(0.98)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (0.98):(TM_I0_E1_pc'=TM_I0_E1_F1);
+
+    [TM_F1] ((TM_I0_E1_pc=TM_I0_E1_F1))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_bookParking);
+
+    [TM_I0_E1_bookParking] ((TM_I0_E1_pc=TM_I0_E1_bookParking))&(! (TM_to_be_terminated)) -> (0.95):(TM_I0_E1_pc'=TM_I0_E1_registerParking) + ((1.0)-(0.95)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_I0_E1_registerParking] ((TM_I0_E1_pc=TM_I0_E1_registerParking))&(! (TM_to_be_terminated)) -> (0.95):(TM_I0_E1_pc'=TM_I0_E1_J1) + ((1.0)-(0.95)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_J1] ((TM_I0_E1_pc=TM_I0_E1_J1))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_requestMeeting);
+
+    [TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting))&(! (TM_to_be_terminated)) -> ((1.0)-r):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + r:(TM_I0_E1_pc'=TM_I0_E1_sendSMS);
+
+    [TM_I0_E1_sendSMS] ((TM_I0_E1_pc=TM_I0_E1_sendSMS))&(! (TM_to_be_terminated)) -> (0.99):(TM_I0_E1_pc'=TM_I0_E1_M2) + ((1.0)-(0.99)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_I0_E1_M2] ((TM_I0_E1_pc=TM_I0_E1_M2))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_D2);
+
+    [TM_I0_E1_D2] (((TM_I0_E1_pc=TM_I0_E1_D2))&(! (TM_to_be_terminated)))&(TM_D2_else) -> (TM_I0_E1_pc'=TM_I0_E1_EndWhile);
+
+    [TM_I0_E1_D2] (((TM_I0_E1_pc=TM_I0_E1_D2))&(! (TM_to_be_terminated)))&(TM_g2) -> (TM_I0_E1_pc'=TM_I0_E1_getSMSDeliveryStatus);
+
+    [TM_I0_E1_EndWhile] ((TM_I0_E1_pc=TM_I0_E1_EndWhile))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_AF)&(TM_I0_E1_to_be_terminated'=true);
+
+    [TM_I0_E1_getSMSDeliveryStatus] ((TM_I0_E1_pc=TM_I0_E1_getSMSDeliveryStatus))&(! (TM_to_be_terminated)) -> ((1.0)-(0.99)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (0.99):(TM_I0_E1_pc'=TM_I0_E1_M2);
+
+    [TM_terminate] (TM_to_be_terminated)&(! (TM_terminated)) -> (TM_I0_E1_pc'=INACTIVE)&(TM_terminated'=true)&(TM_I0_E1_to_be_terminated'=false);
+
+    [] ((TM_I0_E1_pc=INACTIVE))&((TM_terminated)&(! (TM_to_be_terminated))) -> true;
+
+endmodule
+
+
