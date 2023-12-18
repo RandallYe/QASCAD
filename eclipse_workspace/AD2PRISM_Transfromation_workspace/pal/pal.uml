@@ -239,10 +239,10 @@
     <properties xmi:type="workflow:Property" xmi:id="_RYGK4JNtEe687IQJuX9EJg" modeltype="CTMC" name="p_ctmc">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_VjzWUJNtEe687IQJuX9EJg" name="Single_robot_Route_I_t" value="P=? [F&lt;=t (PAL reaches at PAL::R1DeliveredRoomD)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_e4X5AJNtEe687IQJuX9EJg" name="Single_robot_Route_II_t" value="P=? [F&lt;=t (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_6IeNIJNtEe687IQJuX9EJg" name="Single_robot_Route_I" value="filter(max, Pmax=? [F (PAL reaches at PAL::R1DeliveredRoomD)], PAL reaches at PAL::R1ToCorA)"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_9LggUJNtEe687IQJuX9EJg" name="Single_robot_Route_II" value="filter(max, Pmax=? [F (PAL reaches at PAL::R2DeliveredRoomD)], PAL reaches at PAL::R2ToCorC)"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="filter(max, Pmax=? [true U&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD) )], true)"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="filter(max, Pmax=? [true U&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD) )], true)"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_6IeNIJNtEe687IQJuX9EJg" name="Single_robot_Route_I" value="P=? [F (PAL reaches at PAL::R1DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_9LggUJNtEe687IQJuX9EJg" name="Single_robot_Route_II" value="P=? [F (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="P=? [ F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="P=? [F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_916n4JNwEe687IQJuX9EJg" name="stuck" value="P=? [F&lt;=t  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_Ct6RkJNxEe687IQJuX9EJg" name="terminate_t" value="Pmax=? [ F&lt;=t PAL reaches at PAL::AF ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_FDoy0JNxEe687IQJuX9EJg" name="terminate" value="Pmax=? [ F PAL reaches at PAL::AF ]"/>
