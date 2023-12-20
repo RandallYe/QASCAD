@@ -7,27 +7,21 @@
     <packagedElement xmi:type="uml:Activity" xmi:id="_frdnIIz8Ee67KISOTitqrQ" name="PAL" visibility="public" node="_u0W44Iz8Ee67KISOTitqrQ _0pQaQIz9Ee67KISOTitqrQ _9dIqsIz9Ee67KISOTitqrQ _B5m2AIz-Ee67KISOTitqrQ _ISqCwIz-Ee67KISOTitqrQ _RUTpcIz-Ee67KISOTitqrQ _ToOz4Iz-Ee67KISOTitqrQ _bAmIkIz-Ee67KISOTitqrQ _enkPQIz-Ee67KISOTitqrQ _PErXEI0oEe67KISOTitqrQ _UtG_MI0oEe67KISOTitqrQ _V1h_0I0oEe67KISOTitqrQ _YCQ9II0oEe67KISOTitqrQ _aacVcI0oEe67KISOTitqrQ _cO6jwI0oEe67KISOTitqrQ _dJy3oI0oEe67KISOTitqrQ _pwNlkI0oEe67KISOTitqrQ _rvt_MI0oEe67KISOTitqrQ _wGnuAI0oEe67KISOTitqrQ _3uSqAI0oEe67KISOTitqrQ _8FmogI0oEe67KISOTitqrQ __FfhEI0oEe67KISOTitqrQ _B_hCMI0pEe67KISOTitqrQ _Q2avkI0qEe67KISOTitqrQ _Y1ZYUI0qEe67KISOTitqrQ _aEPxEI0qEe67KISOTitqrQ _ponXUIz9Ee67KISOTitqrQ">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Wzt3oI0uEe67KISOTitqrQ" name="p_c_a">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_1uPdQJQMEe687IQJuX9EJg" name="0.989" value="0.989"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_hkt8EI0uEe67KISOTitqrQ" name="p_d_12">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_6z8LwJQMEe687IQJuX9EJg" name="0.5" value="0.5"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_kOWQwI0uEe67KISOTitqrQ" name="p_d_1">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_A8b0AJQNEe687IQJuX9EJg" name="0.96" value="0.96"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_l3YEEI0uEe67KISOTitqrQ" name="p_d_2">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_GVqigJQNEe687IQJuX9EJg" name="0.96" value="0.96"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_rozQII0uEe67KISOTitqrQ" name="p_c_c">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_UkwecJQNEe687IQJuX9EJg" name="0.995" value="0.995"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_tgqJoI0uEe67KISOTitqrQ" name="p_c_b">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_LSGAQJQNEe687IQJuX9EJg" name="0.989" value="0.989"/>
       </ownedParameter>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Ky2DsJCEEe6WqvJJZp_xcw" name="r_prep">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
@@ -84,6 +78,10 @@
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_VDCi4JN-Ee687IQJuX9EJg" name="d_r2_delivered">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
         <defaultValue xmi:type="uml:LiteralReal" xmi:id="_VDCi4ZN-Ee687IQJuX9EJg" name="0.5" value="0.5"/>
+      </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_3w9PsJ9AEe6lOu-Ad9pWtw" name="t">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_3w9PsZ9AEe6lOu-Ad9pWtw" name="10" value="10.0"/>
       </ownedParameter>
       <edge xmi:type="uml:ControlFlow" xmi:id="_iTZn0Iz-Ee67KISOTitqrQ" name="E1" target="_ponXUIz9Ee67KISOTitqrQ" source="_u0W44Iz8Ee67KISOTitqrQ"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_w4XtIIz-Ee67KISOTitqrQ" name="E2" target="_0pQaQIz9Ee67KISOTitqrQ" source="_ponXUIz9Ee67KISOTitqrQ"/>
@@ -237,18 +235,17 @@
   <workflow:ParameterizedFlow xmi:id="_nn77YI0xEe67KISOTitqrQ" base_ControlFlow="_fS4ZII0qEe67KISOTitqrQ" probability="_tKwqwI0xEe67KISOTitqrQ"/>
   <workflow:Properties xmi:id="_gZwLAJNTEe687IQJuX9EJg" base_Activity="_frdnIIz8Ee67KISOTitqrQ" toBeVerified="p_ctmc">
     <properties xmi:type="workflow:Property" xmi:id="_RYGK4JNtEe687IQJuX9EJg" modeltype="CTMC" name="p_ctmc">
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_VjzWUJNtEe687IQJuX9EJg" name="Single_robot_Route_I_t" value="P=? [F&lt;=t (PAL reaches at PAL::R1DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_e4X5AJNtEe687IQJuX9EJg" name="Single_robot_Route_II_t" value="P=? [F&lt;=t (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_6IeNIJNtEe687IQJuX9EJg" name="Single_robot_Route_I" value="P=? [F (PAL reaches at PAL::R1DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_9LggUJNtEe687IQJuX9EJg" name="Single_robot_Route_II" value="P=? [F (PAL reaches at PAL::R2DeliveredRoomD)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="P=? [ F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="P=? [F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_916n4JNwEe687IQJuX9EJg" name="stuck" value="P=? [F&lt;=t  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_Ct6RkJNxEe687IQJuX9EJg" name="terminate_t" value="Pmax=? [ F&lt;=t PAL reaches at PAL::AF ]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_FDoy0JNxEe687IQJuX9EJg" name="terminate" value="Pmax=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_zuNcEJ95Ee6lOu-Ad9pWtw" name="reward" value="R{&quot;reward_door12_attempt&quot;}=? [ C&lt;=t ]"/>
     </properties>
-    <properties xmi:type="workflow:Property" xmi:id="_eKErsJQ1Ee687IQJuX9EJg" name="p_dtmc">
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_eKErsZQ1Ee687IQJuX9EJg" name="reward_loop" value="R{&quot;reward_loop&quot;}=? [ F PAL reaches at PAL::R1DeliveredRoomD ]"/>
+    <properties xmi:type="workflow:Property" xmi:id="_eKErsJQ1Ee687IQJuX9EJg" modeltype="CTMC" name="p_parametric">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_eKErsZQ1Ee687IQJuX9EJg" name="either_success" value="P=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_EqzgEJ96Ee6lOu-Ad9pWtw" name="both_success" value="P=? [ F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_HARioJ96Ee6lOu-Ad9pWtw" name="terminate" value="Pmax=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_R_-KYJ96Ee6lOu-Ad9pWtw" name="both_stuck" value="P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&amp;(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]"/>
     </properties>
   </workflow:Properties>
   <workflow:ParameterizedFlow xmi:id="_KQmxgJNyEe687IQJuX9EJg" base_ControlFlow="_zmdcgI0pEe67KISOTitqrQ">
