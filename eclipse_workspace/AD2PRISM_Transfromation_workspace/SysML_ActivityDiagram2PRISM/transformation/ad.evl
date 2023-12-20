@@ -1,4 +1,10 @@
 pre {
+	// We support there is only one activity now.
+	if(AD!Activity.allInstances().size() = 0) {
+		("There must be at least one Activity!").errln();
+	}
+	var root_activity = AD!Activity.allInstances().at(0);
+	("Root activity: " + root_activity.name).println();
 }
 
 post {
@@ -34,6 +40,30 @@ context AD!ActivityEdge {
   }
 }
 
+context AD!DecisionNode {
+
+  constraint AllProbabilisticOrGuarded {   
+    check : isAllProbabilistic(root_activity, self) or isAllGuarded(root_activity, self)
+ 
+    message : 'Not all edges from a DecisionNode ' + self.name + ' are guarded or probabilistic!'
+  }
+  
+  constraint ProbabilityIn0_1 {   
+  	guard : isAllProbabilistic(root_activity, self)
+    check : getAllEdgesFromNode(root_activity, self).forAll(oe | isProbWithin0_1(oe))
+ 
+    message : 'Not all probabilistic edges from a DecisionNode ' + self.name + ' have their values within [0,1]!'
+  }
+  
+  constraint ProbabilitiesSumTo1 {   
+  	guard : isAllProbabilistic(root_activity, self) and 
+  			getAllEdgesFromNode(root_activity, self).forAll(oe | isProbLiteralReal(oe))
+    check : IsProbSumTo1(root_activity, self)
+ 
+    message : 'The probabilities of edges from ' + self.name + ' do not sum to 1!'
+  }
+}
+
 context AD!Activity {
 
   constraint OnlyOneIncomingEdge {   
@@ -44,6 +74,86 @@ context AD!Activity {
  
     message : 'More than one incoming edges for Actions in the activity [' + self.name+ '] are not allowed'
   }
+}
+
+operation getAllEdgesFromNode(act: AD!Activity,node: AD!ControlNode ): Set {
+	return act.edge.select(e|e.source = node);
+}
+
+operation isAllProbabilistic(act: AD!Activity, node: AD!DecisionNode): Boolean {
+	for(oe in getAllEdgesFromNode(act, node)) {
+		if( oe.getAppliedStereotypes().size()>0){
+			if(oe.getAppliedStereotypes().select(st | oe.hasValue(st,"probability")).size() = 1) {
+				
+			} else {
+				// without probability stereotype
+				return false;
+			}
+		} else {
+			// If no stereotypes, then they are not all probabilistic.
+			return false;
+		}
+	}
+	return true;
+}
+
+operation isAllGuarded(act: AD!Activity, node: AD!DecisionNode): Boolean {
+	for(oe in getAllEdgesFromNode(act, node)) {
+		if(oe.`guard`.isDefined()) {
+		} else {
+			return false;
+		}
+	}
+	return true;
+}
+
+operation isProbLiteralReal(oe: AD!ControlFlow): Boolean {
+	var st = oe.getAppliedStereotypes().select(st | oe.hasValue(st,"probability")).at(0);
+	var prob = oe.getValue(st,"probability");
+	if(prob.type().name = "LiteralReal") {
+		return true;
+	} 
+	return false;
+}
+
+operation isProbWithin0_1(oe: AD!ControlFlow): Boolean {
+	var st = oe.getAppliedStereotypes().select(st | oe.hasValue(st,"probability")).at(0);
+	var prob = oe.getValue(st,"probability");
+	if(prob.type().name = "LiteralReal") {
+		if(prob.value < 0 or prob.value > 1) {
+			("The probability of " + oe.name + " is " + prob.value + " which is out of range [0,1]").println();
+			return false;
+		}
+	} else if(prob.type().name = "Expression") {
+		("The probability of " + oe.name + " is an expression. We are not able to check the validity of its values, so assume it is valid.").errln();
+	} else {
+		("The type of the probability of " + oe.name + " is " + prob.type().name + " which is not LiteralReal or Expression.").errln();
+		return false;
+	}
+	return true;
+}
+
+operation IsProbSumTo1(act: AD!Activity, node: AD!DecisionNode): Boolean {
+	var sum = 0;
+	for(oe in getAllEdgesFromNode(act, node)) {
+		sum += getProbLiteralReal(oe);
+	}
+	
+	("Probabilities of all edges from " + node.name + " sum to " + sum).println();
+	if(sum = 1.0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+operation getProbLiteralReal(oe: AD!ControlFlow): Real {
+	var st = oe.getAppliedStereotypes().select(st | oe.hasValue(st,"probability")).at(0);
+	var prob = oe.getValue(st,"probability");
+	if(prob.type().name = "LiteralReal") {
+		return prob.value;
+	}
+	return -1;
 }
 
 
