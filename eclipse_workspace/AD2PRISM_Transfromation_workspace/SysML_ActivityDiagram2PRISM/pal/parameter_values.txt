@@ -1,0 +1,21 @@
+
+const double p_c_a = (0.989);
+const double p_d_12 = (0.5);
+const double p_d_1 = (0.96);
+const double p_d_2 = (0.96);
+const double p_c_c = (0.995);
+const double p_c_b = (0.989);
+const double r_prep = (0.9998);
+const double r1 = (1.0);
+const double d_prep = (0.5);
+const double d_cor_a = (0.2);
+const double d_cor_c = (0.2);
+const double d_door_ab = (0.5);
+const double d_door_cd = (2.5);
+const double d_cor_b_d1 = (0.5);
+const double d_cor_b_d2 = (0.5);
+const double d_r1_rd = (1.0);
+const double d_r1_stuck = (1.0);
+const double d_r2_stuck = (1.0);
+const double d_r1_delivered = (0.5);
+const double d_r2_delivered = (0.5);

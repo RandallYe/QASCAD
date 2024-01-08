@@ -3,6 +3,11 @@ import "prism.eol";
 import "ad.eol";
 
 pre{
+    var sdf =  new Native("java.text.SimpleDateFormat")("yyyy-MM-dd HH:mm:ss.SSS");
+    var startTime = new Native("java.util.Date");
+    "ETL start time:".println();
+    sdf.format(startTime).println();
+ 
     var toBeVisitedNodes = new Sequence;
     var visitedNodes = new Sequence;
     //nodeModuleMap is a map containing many map
@@ -570,7 +575,7 @@ each modSeq sequence corresponding to a module
                     dbg_print("for this merge node, furtherMod = mod", LEVEL_TRACE);
 
                 //only the first incoming edge of the join node can continue the path
-                // if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {
+                /* if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {*/
                  //   var oe = getAllEdgesFromNode(act,node).at(0);
                     var const_nxt = mkConst(mod.name + "::" + oe.target.name, const_num+1);
                     var action = mkSyncAction(act, node.name);
@@ -1186,6 +1191,15 @@ each modSeq sequence corresponding to a module
         delete mean_duration;
         delete default_rate;
     }
+    
+   
+    var endTime = new Native("java.util.Date");
+    "ETL ending time:".println();
+    sdf.format(endTime).println();
+    
+   
+   
+    
 }
 
 operation traverseNodes(

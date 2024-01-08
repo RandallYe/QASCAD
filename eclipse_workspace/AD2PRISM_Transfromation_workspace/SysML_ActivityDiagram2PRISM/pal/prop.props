@@ -1,10 +1,9 @@
-"Single_robot_Route_I_t": filter(max, Pmax=? [F<=t (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD)], PAL_I0_E1_pc = PAL_I0_E1_R1ToCorA)
-"Single_robot_Route_II_t": filter(max, Pmax=? [F<=t (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)], PAL_F1_E25_pc = PAL_F1_E25_R2ToCorC)
-"Single_robot_Route_I": filter(max, Pmax=? [F (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD)], PAL_I0_E1_pc = PAL_I0_E1_R1ToCorA)
-"Single_robot_Route_II": filter(max, Pmax=? [F (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)], PAL_F1_E25_pc = PAL_F1_E25_R2ToCorC)
-"either_success": filter(max, Pmax=? [true U<=t  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD) )], true)
-"both_success": filter(max, Pmax=? [true U<=t  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD) )], true)
-"stuck": filter(max, Pmax=? [true U<=t  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck) | (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck) )], true)
-"terminate_t": Pmax=? [ F<=t PAL_F1_E25_pc = PAL_F1_E25_AF ]
-"terminate": Pmax=? [ F PAL_F1_E25_pc = PAL_F1_E25_AF ]
-"loops_at_doors": R{"reward_loops"}=? [ F PAL_I0_E1_pc = PAL_I0_E1_R1ToRoomD ]
+"either_success_max": Pmax=? [ F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)]
+"either_success_min": Pmin=? [ F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)]
+"both_success_max": Pmax=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD )]
+"both_success_min": Pmin=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD )]
+"stuck_max": Pmax=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck)& (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck)]
+"stuck_min": Pmin=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck)& (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck)]
+"terminate_max": Pmax=? [ F PAL_F1_E25_pc = PAL_F1_E25_AF ]
+"terminate_min": Pmin=? [ F PAL_F1_E25_pc = PAL_F1_E25_AF ]
+"reward": R{"rwd_door12_attempt"}=? [ C ]
