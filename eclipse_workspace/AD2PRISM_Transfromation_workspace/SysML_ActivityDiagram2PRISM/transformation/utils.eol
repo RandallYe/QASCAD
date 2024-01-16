@@ -81,6 +81,24 @@ operation printSeqOfNodeModuleMap(seqs: Sequence(Map)) : String {
 	return ret + "]";
 }
 
+operation printNodeEdgeModuleMap(map: Map) : String {
+	var ret = "{|";
+	for (k in map.keySet()) {
+		ret = ret + "((" + k.nd.name + ", " + k.edg.name + "), " + map.get(k).name + ")";
+		if(hasMore) 
+			ret = ret + ",";
+	}
+	return ret + "|}";
+}
+
+operation printSeqOfNodeEdgeModuleMap(seqs: Sequence(Map)) : String {
+	var ret = "[";
+	for(map in seqs) {
+		ret = ret + printNodeEdgeModuleMap(map);
+	}
+	return ret + "]";
+}
+
 operation containsMod(seqs: Sequence(Map), modToMatch: PRISM!ModuleDef): Boolean {
 	for(map in seqs) {
 		for(mod in map.values()) {

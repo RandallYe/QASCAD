@@ -306,10 +306,11 @@ to m : PRISM!Model
         mdSeq.println();
     }
     dbg_print("maps.size: " + maps.size(), LEVEL_TRACE);
-    for(mp in maps){
+    dbg_print("Processed maps: " + printSeqOfNodeEdgeModuleMap(maps), LEVEL_TRACE);
+    /*for(mp in maps){
         mp.println();
         dbg_print("" + mp, LEVEL_TRACE);
-    }
+    }*/
 
 
     /********************************************
