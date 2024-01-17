@@ -573,7 +573,7 @@ each modSeq sequence corresponding to a module
                 var furtherMod = maps.selectOne(mp|mp.keySet().at(0) = Tuple{nd = oe.target, edg = oe}).values().at(0);
                 // Because we have changed the first incoming edge to arbitrary one, we need to compare if current module is the same as the further module.
                 if(furtherMod = mod){
-                    dbg_print("for this merge node, furtherMod = mod", LEVEL_TRACE);
+                    dbg_print("for this joint node, furtherMod = mod", LEVEL_TRACE);
 
                 //only the first incoming edge of the join node can continue the path
                 /* if(ie = getAllEdgesToNode(act,node).sortEdgeByName().at(0)) {*/
@@ -897,7 +897,7 @@ each modSeq sequence corresponding to a module
             terminated = mkBoolVarDecl(act.name + "::terminated", false);
             mod.vars.add(terminated);
 
-            if(not hasAF(mdSeq)){
+            if(not hasAF(mdSeq) and (not hasReAnnoNode(mdSeq))) {
                 //create a termin ation command only for the main module
                 //e.g.,  [DigitalCamera::terminate]  (DigitalCamera::to_be_terminated) &         (!DigitalCamera::terminated) ->   (DigitalCamera::I0::E0::pc'=INACTIVE)&       (DigitalCamera::terminated'=true);
 

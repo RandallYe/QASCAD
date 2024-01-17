@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project default="main">
-	<property name="workspace.dir" value="/scratch/staff/ky582/SESAME_repo_for_code_model/sesame_activity_prism_workspace"/>
+	<property name="workspace.dir" value="/home/rye/workspaces/sesame_activity_prism_workspace"/>
 	<property name="prism.model.name" value="six_dice_prism.model"/>
 	<property name="prism.code.name" value="six_dice.prism"/>
 	<property name="property.file.name" value="die.props"/>
@@ -57,6 +57,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${prism.code.name}"/>
 		  	<arg line="${property.file.name}"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -122,6 +123,7 @@
 			  	<arg line="${prism.code.name}"/>
 			  	<arg line="${property.file.name}"/>
 				<arg line="-param p=0:1"/>
+				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -181,6 +183,7 @@
 			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/" executable="prism" os="Linux" output="dir.txt">
 			  	<arg line="dc.prism"/>
 			  	<arg line="dc.props"/>
+				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/2015_use_case/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -240,6 +243,7 @@
 			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/" executable="prism" os="Linux" output="dir.txt">
 			  	<arg line="tm.prism"/>
 			  	<arg line="tm.props"/>
+				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -299,6 +303,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="tm.prism"/>
 		  	<arg line="tm.props"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_probability_decision/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -359,6 +364,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="tm.prism"/>
 		  	<arg line="tm.props"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management_CTMC_duration/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -421,6 +427,7 @@
 		  	<arg line="${model.shortname}.prism"/>
 		  	<arg line="${model.shortname}.props"/>
 			<arg line="-param p1=0:1,p2=0:1,p3=0:1,alpha=0:1,beta=0:1,t0=0:1,t1=0:1,t2=0:1,e0=0:1,e1=0:1,e2=0:1"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -483,6 +490,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${twmodel.shortname}.prism"/>
 		  	<arg line="${twmodel.shortname}.props"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -545,6 +553,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${itsmodel.shortname}.prism"/>
 		  	<arg line="${itsmodel.shortname}.props"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -607,6 +616,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${minodemodel.shortname}.prism"/>
 		  	<arg line="${minodemodel.shortname}.props"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -670,7 +680,74 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${palmodel.shortname}.prism"/>
 		  	<arg line="${palmodel.shortname}.props"/>
+			<arg line="-const p_c_a=0.989 -const p_d_12=0.5 -const p_d_1=0.96 -const p_d_2=0.96 -const p_c_c=0.995 -const p_c_b=0.989"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/output.log" alwayslog="true"/>
+		</exec>
+	</target>
+	
+	<property name="palparamodel.name" value="pal_para"/>
+	<property name="palparamodel.shortname" value="pal_para"/>
+	<target name="pal_para">
+		<!-- 
+			1. Activity diagrams to PRISM model
+		-->
+		<epsilon.loadModel name="AD" type="UML" profile="true">
+		    <parameter name="modelFile" value="/${palmodel.name}/${palmodel.name}.uml"/>
+		    <parameter name="readOnLoad" value="true"/>
+			<parameter name="storeOnDisposal" value="false"/>
+			<parameter name="expand" value="true"/>
+			<parameter name="profile_model_loading" value="true"/>
+		</epsilon.loadModel>
+
+		<epsilon.evl src="../transformation/ad.evl" profile="true">
+			<model ref="AD"/>
+		</epsilon.evl>
+		
+	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="false" store="true" profile="true"/>
+
+		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
+			<!--
+			Enable or disable transformation logging messages
+			-->
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}.props"/>
+			<parameter name="DBG_OPTION" value="true"/>
+			<parameter name="DBG_LEVEL" value="4"/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
+			<model ref="AD"/>
+			<model ref="PRISM"/>
+		</epsilon.etl>
+		<epsilon.disposeModels/>
+			
+		<!-- 
+			2. PRISM model to code
+		-->
+		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}_prism.model"
+	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		expand="true"
+	  		read="true" store="false" profile="true"/>
+		
+		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}.prism"/>
+			<model ref="PRISM"/>
+		</epsilon.egl>
+		
+		<epsilon.disposeModels/>
+	
+		<!-- 
+			3. Run verification
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palparamodel.name}/" executable="prism" os="Linux" output="dir.txt">
+		  	<arg line="${palparamodel.shortname}.prism"/>
+		  	<arg line="${palparamodel.shortname}.props"/>
+			<arg line="-param p_c_a,p_d_12,p_d_1,p_d_2,p_c_c,p_c_b"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palparamodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
 </project>
