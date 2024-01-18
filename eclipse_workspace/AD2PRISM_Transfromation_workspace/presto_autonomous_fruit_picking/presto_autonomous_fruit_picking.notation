@@ -296,54 +296,54 @@
         <element xmi:type="uml:MergeNode" href="presto_autonomous_fruit_picking.uml#_zhQ6kGkmEe6B9ufM-BuwhQ"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zjZBgWkmEe6B9ufM-BuwhQ" x="255" y="308"/>
       </children>
-      <children xmi:type="notation:Shape" xmi:id="_pIDTwJKWEe6x2oZqdA5l6g" type="StereotypeComment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_pIDTwZKWEe6x2oZqdA5l6g"/>
-        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pIDTw5KWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+      <children xmi:type="notation:Shape" xmi:id="_RZWJo7X_Ee6lOu-Ad9pWtw" type="StereotypeComment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RZWJpLX_Ee6lOu-Ad9pWtw"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZWJprX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
           <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_oNs-4GhmEe6GqPFnVjDxXA"/>
         </styles>
         <element xsi:nil="true"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pIDTwpKWEe6x2oZqdA5l6g" x="295" y="163"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RZWJpbX_Ee6lOu-Ad9pWtw" x="295" y="163"/>
       </children>
-      <children xmi:type="notation:Shape" xmi:id="_pITLYJKWEe6x2oZqdA5l6g" type="StereotypeComment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_pITLYZKWEe6x2oZqdA5l6g"/>
-        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pITLY5KWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+      <children xmi:type="notation:Shape" xmi:id="_RZi98LX_Ee6lOu-Ad9pWtw" type="StereotypeComment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RZi98bX_Ee6lOu-Ad9pWtw"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZi987X_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
           <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_DI8QwGh8Ee6ZtqTePaqIaQ"/>
         </styles>
         <element xsi:nil="true"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pITLYpKWEe6x2oZqdA5l6g" x="100" y="100"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RZi98rX_Ee6lOu-Ad9pWtw" x="100" y="100"/>
       </children>
-      <children xmi:type="notation:Shape" xmi:id="_pIexkJKWEe6x2oZqdA5l6g" type="StereotypeComment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_pIexkZKWEe6x2oZqdA5l6g"/>
-        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pIfYoJKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+      <children xmi:type="notation:Shape" xmi:id="_RZsH6bX_Ee6lOu-Ad9pWtw" type="StereotypeComment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RZsH6rX_Ee6lOu-Ad9pWtw"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZsH7LX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
           <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_y2NpIGh7Ee6ZtqTePaqIaQ"/>
         </styles>
         <element xsi:nil="true"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pIexkpKWEe6x2oZqdA5l6g" x="475" y="88"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RZsH67X_Ee6lOu-Ad9pWtw" x="475" y="88"/>
       </children>
-      <children xmi:type="notation:Shape" xmi:id="_pI62cJKWEe6x2oZqdA5l6g" type="StereotypeComment">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_pI62cZKWEe6x2oZqdA5l6g"/>
-        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pI62c5KWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+      <children xmi:type="notation:Shape" xmi:id="_RaGXk7X_Ee6lOu-Ad9pWtw" type="StereotypeComment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RaGXlLX_Ee6lOu-Ad9pWtw"/>
+        <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RaGXlrX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
           <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_GYH3oGh-Ee6ZtqTePaqIaQ"/>
         </styles>
         <element xsi:nil="true"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pI62cpKWEe6x2oZqdA5l6g" x="755" y="248"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RaGXlbX_Ee6lOu-Ad9pWtw" x="755" y="248"/>
       </children>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_P2g8Ee6NzutSxN2dtw"/>
     </children>
     <element xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_QGg8Ee6NzutSxN2dtw" width="801" height="541"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cWw_QGg8Ee6NzutSxN2dtw" width="961" height="641"/>
   </children>
-  <children xmi:type="notation:Shape" xmi:id="_pHyOAJKWEe6x2oZqdA5l6g" type="StereotypeComment">
-    <styles xmi:type="notation:TitleStyle" xmi:id="_pHyOAZKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pHyOA5KWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <children xmi:type="notation:Shape" xmi:id="_RZJVUrX_Ee6lOu-Ad9pWtw" type="StereotypeComment">
+    <styles xmi:type="notation:TitleStyle" xmi:id="_RZJVU7X_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZJVVbX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
     </styles>
     <element xsi:nil="true"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pHyOApKWEe6x2oZqdA5l6g" x="200"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RZJVVLX_Ee6lOu-Ad9pWtw" x="200"/>
   </children>
   <styles xmi:type="notation:StringValueStyle" xmi:id="_cWw_QWg8Ee6NzutSxN2dtw" name="diagram_compatibility_version" stringValue="1.4.0"/>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_cWw_Qmg8Ee6NzutSxN2dtw"/>
-  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_cWw_Q2g8Ee6NzutSxN2dtw" diagramKindId="org.eclipse.papyrus.uml.diagram.activity">
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_cWw_Q2g8Ee6NzutSxN2dtw" diagramKindId="org.eclipse.papyrus.sysml16.diagram.activity">
     <owner xmi:type="uml:Model" href="presto_autonomous_fruit_picking.uml#_cUmcAGg8Ee6NzutSxN2dtw"/>
   </styles>
   <element xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
@@ -764,54 +764,54 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J-zeoGknEe6B9ufM-BuwhQ" id="(1.0,0.5)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J-zeoWknEe6B9ufM-BuwhQ" id="(0.038461538461538464,0.35)"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_pHyOBJKWEe6x2oZqdA5l6g" type="StereotypeCommentLink" source="_cWwYIWg8Ee6NzutSxN2dtw" target="_pHyOAJKWEe6x2oZqdA5l6g">
-    <styles xmi:type="notation:FontStyle" xmi:id="_pHyOBZKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pHy1EpKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <edges xmi:type="notation:Connector" xmi:id="_RZJVVrX_Ee6lOu-Ad9pWtw" type="StereotypeCommentLink" source="_cWwYIWg8Ee6NzutSxN2dtw" target="_RZJVUrX_Ee6lOu-Ad9pWtw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RZJVV7X_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZJVW7X_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:Activity" href="presto_autonomous_fruit_picking.uml#_cV41cGg8Ee6NzutSxN2dtw"/>
     </styles>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pHyOBpKWEe6x2oZqdA5l6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pHy1EJKWEe6x2oZqdA5l6g"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pHy1EZKWEe6x2oZqdA5l6g"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RZJVWLX_Ee6lOu-Ad9pWtw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZJVWbX_Ee6lOu-Ad9pWtw"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZJVWrX_Ee6lOu-Ad9pWtw"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_pIDTxJKWEe6x2oZqdA5l6g" type="StereotypeCommentLink" source="_psADsGh4Ee6GqPFnVjDxXA" target="_pIDTwJKWEe6x2oZqdA5l6g">
-    <styles xmi:type="notation:FontStyle" xmi:id="_pIDTxZKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pIDTyZKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <edges xmi:type="notation:Connector" xmi:id="_RZWJp7X_Ee6lOu-Ad9pWtw" type="StereotypeCommentLink" source="_psADsGh4Ee6GqPFnVjDxXA" target="_RZWJo7X_Ee6lOu-Ad9pWtw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RZWJqLX_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZWJrLX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_oNs-4GhmEe6GqPFnVjDxXA"/>
     </styles>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pIDTxpKWEe6x2oZqdA5l6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pIDTx5KWEe6x2oZqdA5l6g"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pIDTyJKWEe6x2oZqdA5l6g"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RZWJqbX_Ee6lOu-Ad9pWtw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZWJqrX_Ee6lOu-Ad9pWtw"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZWJq7X_Ee6lOu-Ad9pWtw"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_pITycJKWEe6x2oZqdA5l6g" type="StereotypeCommentLink" source="_DJV5YGh8Ee6ZtqTePaqIaQ" target="_pITLYJKWEe6x2oZqdA5l6g">
-    <styles xmi:type="notation:FontStyle" xmi:id="_pITycZKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pITydZKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <edges xmi:type="notation:Connector" xmi:id="_RZi99LX_Ee6lOu-Ad9pWtw" type="StereotypeCommentLink" source="_DJV5YGh8Ee6ZtqTePaqIaQ" target="_RZi98LX_Ee6lOu-Ad9pWtw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RZi99bX_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZi9-bX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:ControlFlow" href="presto_autonomous_fruit_picking.uml#_DI8QwGh8Ee6ZtqTePaqIaQ"/>
     </styles>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pITycpKWEe6x2oZqdA5l6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pITyc5KWEe6x2oZqdA5l6g"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pITydJKWEe6x2oZqdA5l6g"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RZi99rX_Ee6lOu-Ad9pWtw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZi997X_Ee6lOu-Ad9pWtw"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZi9-LX_Ee6lOu-Ad9pWtw"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_pIfYoZKWEe6x2oZqdA5l6g" type="StereotypeCommentLink" source="_A_aYcGh8Ee6ZtqTePaqIaQ" target="_pIexkJKWEe6x2oZqdA5l6g">
-    <styles xmi:type="notation:FontStyle" xmi:id="_pIfYopKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pIfYppKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <edges xmi:type="notation:Connector" xmi:id="_RZsH7bX_Ee6lOu-Ad9pWtw" type="StereotypeCommentLink" source="_A_aYcGh8Ee6ZtqTePaqIaQ" target="_RZsH6bX_Ee6lOu-Ad9pWtw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RZsH7rX_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RZsu8rX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_y2NpIGh7Ee6ZtqTePaqIaQ"/>
     </styles>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pIfYo5KWEe6x2oZqdA5l6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pIfYpJKWEe6x2oZqdA5l6g"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pIfYpZKWEe6x2oZqdA5l6g"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RZsH77X_Ee6lOu-Ad9pWtw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZsu8LX_Ee6lOu-Ad9pWtw"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RZsu8bX_Ee6lOu-Ad9pWtw"/>
   </edges>
-  <edges xmi:type="notation:Connector" xmi:id="_pI62dJKWEe6x2oZqdA5l6g" type="StereotypeCommentLink" source="_GYcAsGh-Ee6ZtqTePaqIaQ" target="_pI62cJKWEe6x2oZqdA5l6g">
-    <styles xmi:type="notation:FontStyle" xmi:id="_pI62dZKWEe6x2oZqdA5l6g"/>
-    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_pI62eZKWEe6x2oZqdA5l6g" name="BASE_ELEMENT">
+  <edges xmi:type="notation:Connector" xmi:id="_RaGXl7X_Ee6lOu-Ad9pWtw" type="StereotypeCommentLink" source="_GYcAsGh-Ee6ZtqTePaqIaQ" target="_RaGXk7X_Ee6lOu-Ad9pWtw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_RaGXmLX_Ee6lOu-Ad9pWtw"/>
+    <styles xmi:type="notation:EObjectValueStyle" xmi:id="_RaGXnLX_Ee6lOu-Ad9pWtw" name="BASE_ELEMENT">
       <eObjectValue xmi:type="uml:OpaqueAction" href="presto_autonomous_fruit_picking.uml#_GYH3oGh-Ee6ZtqTePaqIaQ"/>
     </styles>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pI62dpKWEe6x2oZqdA5l6g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pI62d5KWEe6x2oZqdA5l6g"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pI62eJKWEe6x2oZqdA5l6g"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RaGXmbX_Ee6lOu-Ad9pWtw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RaGXmrX_Ee6lOu-Ad9pWtw"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RaGXm7X_Ee6lOu-Ad9pWtw"/>
   </edges>
 </notation:Diagram>

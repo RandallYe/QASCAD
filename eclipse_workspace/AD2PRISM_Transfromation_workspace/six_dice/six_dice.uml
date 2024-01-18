@@ -76,12 +76,12 @@
     <packagedElement xmi:type="uml:LiteralReal" xmi:id="_ASpSQFL1Ee69cawvUnnaMA" name="0.5" value="0.5"/>
     <packagedElement xmi:type="uml:LiteralInteger" xmi:id="_uzGxUFxMEe6G0P_tKHSubg" name="reward_1" value="1"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="__9cmMEV-Ee6ZybDoV901-g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aBpnQJKUEe6x2oZqdA5l6g" source="PapyrusVersion">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aBpnQZKUEe6x2oZqdA5l6g" key="Version" value="0.0.50"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aBpnQpKUEe6x2oZqdA5l6g" key="Comment" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aBpnQ5KUEe6x2oZqdA5l6g" key="Copyright" value=""/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aBpnRJKUEe6x2oZqdA5l6g" key="Date" value="2023-11-27"/>
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aBpnRZKUEe6x2oZqdA5l6g" key="Author" value=""/>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Wo4woLX_Ee6lOu-Ad9pWtw" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo4wobX_Ee6lOu-Ad9pWtw" key="Version" value="0.0.50"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo4worX_Ee6lOu-Ad9pWtw" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo4wo7X_Ee6lOu-Ad9pWtw" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo4wpLX_Ee6lOu-Ad9pWtw" key="Date" value="2023-11-27"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Wo4wpbX_Ee6lOu-Ad9pWtw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__9dNQEV-Ee6ZybDoV901-g" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="/com.eclipsesource.workflow.profile/workflow.profile.profile.uml#_NaZ1IIz9Ee67KISOTitqrQ"/>

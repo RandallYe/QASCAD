@@ -124,6 +124,7 @@
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_nYa7AGv7Ee6O88qzSqi2ig" name="P_success_or_abandon" value="P=?[F (FruitPicking reaches at FruitPicking::picking_success)|(FruitPicking reaches at FruitPicking::picking_abandoned)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_lTBmEGxOEe6F-I_LdLBCdw" name="R_expected_time" value="R{&quot;mean_time&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_pTsmMGxOEe6F-I_LdLBCdw" name="R_energy" value="R{&quot;energy&quot;}=? [F FruitPicking reaches at FruitPicking::done]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_UAPTYLX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
     </properties>
   </workflow:Properties>
   <workflow:ParameterizedFlow xmi:id="_aCeNQGh8Ee6ZtqTePaqIaQ" base_ControlFlow="_DI8QwGh8Ee6ZtqTePaqIaQ" probability="_r2N7sGh8Ee6ZtqTePaqIaQ"/>
