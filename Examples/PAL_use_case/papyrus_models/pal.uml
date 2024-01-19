@@ -4,7 +4,7 @@
     <packageImport xmi:type="uml:PackageImport" xmi:id="_fxRUMIz8Ee67KISOTitqrQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Activity" xmi:id="_frdnIIz8Ee67KISOTitqrQ" name="PAL" visibility="public" node="_u0W44Iz8Ee67KISOTitqrQ _0pQaQIz9Ee67KISOTitqrQ _9dIqsIz9Ee67KISOTitqrQ _B5m2AIz-Ee67KISOTitqrQ _ISqCwIz-Ee67KISOTitqrQ _RUTpcIz-Ee67KISOTitqrQ _ToOz4Iz-Ee67KISOTitqrQ _bAmIkIz-Ee67KISOTitqrQ _enkPQIz-Ee67KISOTitqrQ _PErXEI0oEe67KISOTitqrQ _UtG_MI0oEe67KISOTitqrQ _V1h_0I0oEe67KISOTitqrQ _YCQ9II0oEe67KISOTitqrQ _aacVcI0oEe67KISOTitqrQ _cO6jwI0oEe67KISOTitqrQ _dJy3oI0oEe67KISOTitqrQ _pwNlkI0oEe67KISOTitqrQ _rvt_MI0oEe67KISOTitqrQ _wGnuAI0oEe67KISOTitqrQ _3uSqAI0oEe67KISOTitqrQ _8FmogI0oEe67KISOTitqrQ __FfhEI0oEe67KISOTitqrQ _B_hCMI0pEe67KISOTitqrQ _Q2avkI0qEe67KISOTitqrQ _Y1ZYUI0qEe67KISOTitqrQ _aEPxEI0qEe67KISOTitqrQ _ponXUIz9Ee67KISOTitqrQ">
+    <packagedElement xmi:type="uml:Activity" xmi:id="_frdnIIz8Ee67KISOTitqrQ" name="PAL" visibility="package" node="_u0W44Iz8Ee67KISOTitqrQ _0pQaQIz9Ee67KISOTitqrQ _9dIqsIz9Ee67KISOTitqrQ _B5m2AIz-Ee67KISOTitqrQ _ISqCwIz-Ee67KISOTitqrQ _RUTpcIz-Ee67KISOTitqrQ _ToOz4Iz-Ee67KISOTitqrQ _bAmIkIz-Ee67KISOTitqrQ _enkPQIz-Ee67KISOTitqrQ _PErXEI0oEe67KISOTitqrQ _UtG_MI0oEe67KISOTitqrQ _V1h_0I0oEe67KISOTitqrQ _YCQ9II0oEe67KISOTitqrQ _aacVcI0oEe67KISOTitqrQ _cO6jwI0oEe67KISOTitqrQ _dJy3oI0oEe67KISOTitqrQ _pwNlkI0oEe67KISOTitqrQ _rvt_MI0oEe67KISOTitqrQ _wGnuAI0oEe67KISOTitqrQ _3uSqAI0oEe67KISOTitqrQ _8FmogI0oEe67KISOTitqrQ __FfhEI0oEe67KISOTitqrQ _B_hCMI0pEe67KISOTitqrQ _Q2avkI0qEe67KISOTitqrQ _Y1ZYUI0qEe67KISOTitqrQ _aEPxEI0qEe67KISOTitqrQ _ponXUIz9Ee67KISOTitqrQ">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_Wzt3oI0uEe67KISOTitqrQ" name="p_c_a">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
       </ownedParameter>
@@ -78,10 +78,6 @@
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_VDCi4JN-Ee687IQJuX9EJg" name="d_r2_delivered">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
         <defaultValue xmi:type="uml:LiteralReal" xmi:id="_VDCi4ZN-Ee687IQJuX9EJg" name="0.5" value="0.5"/>
-      </ownedParameter>
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_3w9PsJ9AEe6lOu-Ad9pWtw" name="t">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
-        <defaultValue xmi:type="uml:LiteralReal" xmi:id="_3w9PsZ9AEe6lOu-Ad9pWtw" name="10" value="10.0"/>
       </ownedParameter>
       <edge xmi:type="uml:ControlFlow" xmi:id="_iTZn0Iz-Ee67KISOTitqrQ" name="E1" target="_ponXUIz9Ee67KISOTitqrQ" source="_u0W44Iz8Ee67KISOTitqrQ"/>
       <edge xmi:type="uml:ControlFlow" xmi:id="_w4XtIIz-Ee67KISOTitqrQ" name="E2" target="_0pQaQIz9Ee67KISOTitqrQ" source="_ponXUIz9Ee67KISOTitqrQ"/>
@@ -195,6 +191,8 @@
     <packagedElement xmi:type="uml:Expression" xmi:id="_ivyHEJN7Ee687IQJuX9EJg" name="d_r1_stuck" symbol="RefToPara(d_r1_stuck)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_pCCIQJN7Ee687IQJuX9EJg" name="d_door_cd" symbol="RefToPara(d_door_cd)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_ujciYJN7Ee687IQJuX9EJg" name="d_cor_c" symbol="RefToPara(d_cor_c)"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_-TwVMKo_Ee6lOu-Ad9pWtw" name="[(name=reward_door12_attempt, value=r1)]" symbol=""/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_h_pJ4KpAEe6lOu-Ad9pWtw" name="[(name=reward_door12_attempt, value=r1)]"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_fvWooIz8Ee67KISOTitqrQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7Ok50I3sEe6hkIVA7L9fwg" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok50Y3sEe6hkIVA7L9fwg" key="Version" value="0.0.50"/>
@@ -235,23 +233,45 @@
   <workflow:ParameterizedFlow xmi:id="_nn77YI0xEe67KISOTitqrQ" base_ControlFlow="_fS4ZII0qEe67KISOTitqrQ" probability="_tKwqwI0xEe67KISOTitqrQ"/>
   <workflow:Properties xmi:id="_gZwLAJNTEe687IQJuX9EJg" base_Activity="_frdnIIz8Ee67KISOTitqrQ" toBeVerified="p_ctmc">
     <properties xmi:type="workflow:Property" xmi:id="_RYGK4JNtEe687IQJuX9EJg" modeltype="CTMC" name="p_ctmc">
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="P=? [ F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="P=? [F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_916n4JNwEe687IQJuX9EJg" name="stuck" value="P=? [F&lt;=t  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Ct6RkJNxEe687IQJuX9EJg" name="terminate_t" value="Pmax=? [ F&lt;=t PAL reaches at PAL::AF ]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_zuNcEJ95Ee6lOu-Ad9pWtw" name="reward" value="R{&quot;reward_door12_attempt&quot;}=? [ C&lt;=t ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="P=? [ F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="P=? [F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_916n4JNwEe687IQJuX9EJg" name="stuck" value="P=? [F&lt;=10  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Ct6RkJNxEe687IQJuX9EJg" name="terminate_t" value="P=? [ F&lt;=10 PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_zuNcEJ95Ee6lOu-Ad9pWtw" name="reward" value="R{&quot;rwd_door12_attempt&quot;}=? [ C&lt;=10]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_FuEOQLX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_eKErsJQ1Ee687IQJuX9EJg" modeltype="CTMC" name="p_parametric">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_eKErsZQ1Ee687IQJuX9EJg" name="either_success" value="P=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_EqzgEJ96Ee6lOu-Ad9pWtw" name="both_success" value="P=? [ F&lt;=t  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_HARioJ96Ee6lOu-Ad9pWtw" name="terminate" value="Pmax=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_EqzgEJ96Ee6lOu-Ad9pWtw" name="both_success" value="P=? [ F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_HARioJ96Ee6lOu-Ad9pWtw" name="terminate" value="P=? [ F PAL reaches at PAL::AF ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_R_-KYJ96Ee6lOu-Ad9pWtw" name="both_stuck" value="P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&amp;(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_KbKPgLX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value=" !E [F &quot;deadlock&quot;]"/>
+    </properties>
+    <properties xmi:type="workflow:Property" xmi:id="_i2vEQK4BEe6lOu-Ad9pWtw" name="p_dtmc">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_2d0pgK4KEe6lOu-Ad9pWtw" name="either_success" value="P=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_7c8O4K4KEe6lOu-Ad9pWtw" name="both_success" value="P=? [F  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="__0EnMK4KEe6lOu-Ad9pWtw" name="stuck" value="P=? [F  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_DqGdkK4LEe6lOu-Ad9pWtw" name="terminate" value="P=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_I29kAK4LEe6lOu-Ad9pWtw" name="reward" value="R{&quot;rwd_door12_attempt&quot;}=? [ C ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_MLlrULX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
+    </properties>
+    <properties xmi:type="workflow:Property" xmi:id="_kiPYQK4LEe6lOu-Ad9pWtw" modeltype="MDP" name="p_mdp">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_nphSQK4LEe6lOu-Ad9pWtw" name="either_success_max" value="Pmax=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_phzpkK4LEe6lOu-Ad9pWtw" name="either_success_min" value="Pmin=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_tbURwK4LEe6lOu-Ad9pWtw" name="both_success_max" value="Pmax=? [F  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_vW8Q8K4LEe6lOu-Ad9pWtw" name="both_success_min" value="Pmin=? [F  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_zD0LUK4LEe6lOu-Ad9pWtw" name="stuck_max" value="Pmax=? [F  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_08XBUK4LEe6lOu-Ad9pWtw" name="stuck_min" value="Pmin=? [F  (PAL reaches at PAL::R1Stuck)&amp; (PAL reaches at PAL::R2Stuck)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_60BYQK4LEe6lOu-Ad9pWtw" name="terminate_max" value="Pmax=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_DlvskK4MEe6lOu-Ad9pWtw" name="terminate_min" value="Pmin=? [ F PAL reaches at PAL::AF ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_0KYVUK4MEe6lOu-Ad9pWtw" name="reward" value="R{&quot;rwd_door12_attempt&quot;}=? [ C ]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_N0lCYLX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value="!E [F &quot;deadlock&quot;]"/>
     </properties>
   </workflow:Properties>
   <workflow:ParameterizedFlow xmi:id="_KQmxgJNyEe687IQJuX9EJg" base_ControlFlow="_zmdcgI0pEe67KISOTitqrQ">
-    <rewards xmi:type="workflow:Reward" xmi:id="_RiBwsJNyEe687IQJuX9EJg" name="reward_door12_attempt" value="_RQetsJNyEe687IQJuX9EJg"/>
+    <rewards xmi:type="workflow:Reward" xmi:id="_RiBwsJNyEe687IQJuX9EJg" name="rwd_door12_attempt" value="_RQetsJNyEe687IQJuX9EJg"/>
   </workflow:ParameterizedFlow>
   <workflow:ParameterizedFlow xmi:id="_TE21YJNyEe687IQJuX9EJg" base_ControlFlow="_5n4MYI0pEe67KISOTitqrQ">
-    <rewards xmi:type="workflow:Reward" xmi:id="_UV-fAJNyEe687IQJuX9EJg" name="reward_door12_attempt" value="_XbdpQJNyEe687IQJuX9EJg"/>
+    <rewards xmi:type="workflow:Reward" xmi:id="_UV-fAJNyEe687IQJuX9EJg" name="rwd_door12_attempt" value="_XbdpQJNyEe687IQJuX9EJg"/>
   </workflow:ParameterizedFlow>
 </xmi:XMI>
