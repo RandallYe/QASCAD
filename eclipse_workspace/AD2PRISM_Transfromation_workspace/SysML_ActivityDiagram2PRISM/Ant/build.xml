@@ -684,6 +684,17 @@
 			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/output.log" alwayslog="true"/>
 		</exec>
+		
+		<!-- 
+			4. Run verification (storm)
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/" executable="storm" os="Linux" output="dir.txt">
+		  	<arg line="--prism ${palmodel.shortname}.prism"/>
+		  	<arg line="--prop ${palmodel.shortname}.props"/>
+			<arg line="-pc"/>
+			<arg line="-const p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/output_storm.log" alwayslog="true"/>
+		</exec>
 	</target>
 	
 	<property name="palparamodel.name" value="pal_para"/>

@@ -1176,7 +1176,7 @@ each modSeq sequence corresponding to a module
 
     var outputPropString = "";
     for(p in properties){
-        outputPropString = outputPropString + "\""+p.name+"\": " + p.value + "\n";
+        outputPropString = outputPropString + "\""+p.name+"\": " + p.value + ";\n";
         dbg_print("" + p, LEVEL_TRACE);
     }
 
