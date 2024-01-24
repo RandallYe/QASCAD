@@ -493,6 +493,17 @@
 			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/output.log" alwayslog="true"/>
 		</exec>
+		
+		<!-- 
+			4. Run verification (storm)
+		-->
+		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/" executable="storm" os="Linux" output="dir.txt">
+		  	<arg line="--prism ${twmodel.shortname}.prism"/>
+		  	<arg line="--prop ${twmodel.shortname}.props"/>
+			<arg line="-pc"/>
+			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/output_storm.log" alwayslog="true"/>
+		</exec>
+
 	</target>
 	
 	<property name="itsmodel.name" value="IT_support_ctmc"/>
