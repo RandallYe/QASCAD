@@ -1,6 +1,0 @@
-!E [ F "deadlock" ]
-
-Pmax=? [ F DigitalCamera_terminated ]
-
-A [F DigitalCamera_terminated]
-

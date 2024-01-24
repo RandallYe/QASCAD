@@ -1,0 +1,4 @@
+"DTMC_P1":  P=? [F (TM_terminated & !TM_to_be_failed)];
+"DTMC_P2": filter(max, P=? [ F ( TM_terminated & !TM_to_be_failed) ], ( TM_I0_E1_pc = TM_I0_E1_checkSchedule));
+"DTMC_P3": filter(max, P=? [ F ( TM_terminated & !TM_to_be_failed) ], ( TM_I0_E1_pc = TM_I0_E1_requestMeeting));
+"deadlock_freedom": !E [F "deadlock"];

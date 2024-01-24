@@ -1,0 +1,523 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Wed Jan 24 09:57:37 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism twc.prism twc.props -nofixdl -nossdetect
+
+Parsing model file "twc.prism"...
+
+Type:        CTMC
+Modules:     travel_web_i0_E0
+Variables:   travel_web_i0_E0_pc travel_web_i0_E0_to_be_terminated travel_web_terminated
+
+Parsing properties file "twc.props"...
+
+13 properties:
+(1) "P_deadlock_free": !E [ F "deadlock" ]
+(2) "P1_1": P=? [ F<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+(3) "P1_2": P=? [ F<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+(4) "P1_3": P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+(5) "P1_4": P=? [ F<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+(6) "P2_1": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+(7) "P2_2": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+(8) "P2_3": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+(9) "P2_4": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+(10) "P3_1": P=? [ F<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+(11) "P3_2": P=? [ F<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+(12) "P3_3": P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+(13) "P3_4": P=? [ F<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+
+---------------------------------------------------------------------
+
+Model checking: "P_deadlock_free": !E [ F "deadlock" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 10 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.026 seconds.
+
+Type:        CTMC
+States:      14 (1 initial)
+Transitions: 16
+
+Rate matrix: 131 nodes (13 terminal), 16 minterms, vars: 6r/6c
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.014 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P1_1": P=? [ F<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 1.000000 = 102000000.000000
+Fox-Glynn: left = 101929301, right = 102085699
+
+Starting iterations...
+Iteration 78555717 (of 102085699): 5.00 sec so far
+
+Iterative method: 102085699 iterations in 6.51 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.4146950095517946
+
+Time for model checking: 6.527 seconds.
+
+Result: 0.4146950095517946
+
+---------------------------------------------------------------------
+
+Model checking: "P1_2": P=? [ F<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 2.000000 = 204000000.000000
+Fox-Glynn: left = 203900017, right = 204121196
+
+Starting iterations...
+Iteration 78494956 (of 204121196): 5.00 sec so far
+Iteration 156883490 (of 204121196): 10.00 sec so far
+
+Iterative method: 204121196 iterations in 13.02 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.788073632809265
+
+Time for model checking: 13.028 seconds.
+
+Result: 0.788073632809265
+
+---------------------------------------------------------------------
+
+Model checking: "P1_3": P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 78437684 (of 306148434): 5.00 sec so far
+Iteration 156640944 (of 306148434): 10.00 sec so far
+Iteration 228075599 (of 306148434): 15.00 sec so far
+Iteration 283570813 (of 306148434): 20.00 sec so far
+
+Iterative method: 306148434 iterations in 22.12 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.9258562767358663
+
+Time for model checking: 22.136 seconds.
+
+Result: 0.9258562767358663
+
+---------------------------------------------------------------------
+
+Model checking: "P1_4": P=? [ F<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 4.000000 = 408000000.000000
+Fox-Glynn: left = 407858604, right = 408171396
+
+Starting iterations...
+Iteration 52958712 (of 408171396): 5.00 sec so far
+Iteration 109175551 (of 408171396): 10.00 sec so far
+Iteration 163837004 (of 408171396): 15.00 sec so far
+Iteration 221085673 (of 408171396): 20.00 sec so far
+Iteration 272115166 (of 408171396): 25.01 sec so far
+Iteration 326841298 (of 408171396): 30.01 sec so far
+Iteration 379314514 (of 408171396): 35.01 sec so far
+
+Iterative method: 408171396 iterations in 38.16 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.973511747142715
+
+Time for model checking: 38.174 seconds.
+
+Result: 0.973511747142715
+
+---------------------------------------------------------------------
+
+Model checking: "P2_1": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 12 of 14 (85.7%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=114] [5.3 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.1 KB]
+Creating vector for diagonals... [dist=7, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [5.9 KB]
+
+Uniformisation: q.t = 102000000.000000 x 1.000000 = 102000000.000000
+Fox-Glynn: left = 101929301, right = 102085699
+
+Starting iterations...
+Iteration 50919455 (of 102085699): 5.00 sec so far
+
+Iterative method: 102085699 iterations in 9.60 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.36252564798234205
+
+Time for model checking: 9.611 seconds.
+
+Result: 0.36252564798234205
+
+---------------------------------------------------------------------
+
+Model checking: "P2_2": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 12 of 14 (85.7%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=114] [5.3 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.1 KB]
+Creating vector for diagonals... [dist=7, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [5.9 KB]
+
+Uniformisation: q.t = 102000000.000000 x 2.000000 = 204000000.000000
+Fox-Glynn: left = 203900017, right = 204121196
+
+Starting iterations...
+Iteration 53829855 (of 204121196): 5.00 sec so far
+Iteration 107428345 (of 204121196): 10.00 sec so far
+Iteration 163449672 (of 204121196): 15.00 sec so far
+
+Iterative method: 204121196 iterations in 19.66 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7399714840611382
+
+Time for model checking: 19.672 seconds.
+
+Result: 0.7399714840611382
+
+---------------------------------------------------------------------
+
+Model checking: "P2_3": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 12 of 14 (85.7%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=114] [5.3 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.1 KB]
+Creating vector for diagonals... [dist=7, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [5.9 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 61119466 (of 306148434): 5.00 sec so far
+Iteration 141034134 (of 306148434): 10.00 sec so far
+Iteration 220809550 (of 306148434): 15.00 sec so far
+Iteration 300310321 (of 306148434): 20.00 sec so far
+
+Iterative method: 306148434 iterations in 20.39 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.9017314712817569
+
+Time for model checking: 20.401 seconds.
+
+Result: 0.9017314712817569
+
+---------------------------------------------------------------------
+
+Model checking: "P2_4": P=? [ !(travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant) U<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]/(1-p1)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 12 of 14 (85.7%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=114] [5.3 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.1 KB]
+Creating vector for diagonals... [dist=7, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [5.9 KB]
+
+Uniformisation: q.t = 102000000.000000 x 4.000000 = 408000000.000000
+Fox-Glynn: left = 407858604, right = 408171396
+
+Starting iterations...
+Iteration 77971949 (of 408171396): 5.00 sec so far
+Iteration 155517801 (of 408171396): 10.00 sec so far
+Iteration 229298517 (of 408171396): 15.00 sec so far
+Iteration 305003019 (of 408171396): 20.00 sec so far
+Iteration 370849258 (of 408171396): 25.04 sec so far
+
+Iterative method: 408171396 iterations in 27.79 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.963438525475502
+
+Time for model checking: 27.805 seconds.
+
+Result: 0.963438525475502
+
+---------------------------------------------------------------------
+
+Model checking: "P3_1": P=? [ F<=1 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 1.000000 = 102000000.000000
+Fox-Glynn: left = 101929301, right = 102085699
+
+Starting iterations...
+Iteration 70130702 (of 102085699): 5.00 sec so far
+
+Iterative method: 102085699 iterations in 7.31 seconds (average 0.000000, setup 0.03)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 54504629 (of 306148434): 5.00 sec so far
+Iteration 107591285 (of 306148434): 10.00 sec so far
+Iteration 163415924 (of 306148434): 15.00 sec so far
+Iteration 217161471 (of 306148434): 20.00 sec so far
+Iteration 272110419 (of 306148434): 25.01 sec so far
+
+Iterative method: 306148434 iterations in 28.12 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.2664075630235273
+
+Time for model checking: 35.451 seconds.
+
+Result: 0.2664075630235273
+
+---------------------------------------------------------------------
+
+Model checking: "P3_2": P=? [ F<=2 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 2.000000 = 204000000.000000
+Fox-Glynn: left = 203900017, right = 204121196
+
+Starting iterations...
+Iteration 45968948 (of 204121196): 5.00 sec so far
+Iteration 89607310 (of 204121196): 10.00 sec so far
+Iteration 143173946 (of 204121196): 15.00 sec so far
+Iteration 196074394 (of 204121196): 20.00 sec so far
+
+Iterative method: 204121196 iterations in 20.73 seconds (average 0.000000, setup 0.02)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 56104438 (of 306148434): 5.00 sec so far
+Iteration 126210405 (of 306148434): 10.00 sec so far
+Iteration 186251672 (of 306148434): 15.00 sec so far
+Iteration 250656691 (of 306148434): 20.01 sec so far
+
+Iterative method: 306148434 iterations in 24.43 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.6397861862809977
+
+Time for model checking: 45.181 seconds.
+
+Result: 0.6397861862809977
+
+---------------------------------------------------------------------
+
+Model checking: "P3_3": P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 70060822 (of 306148434): 5.00 sec so far
+Iteration 141061062 (of 306148434): 10.00 sec so far
+Iteration 206093296 (of 306148434): 15.00 sec so far
+Iteration 267583064 (of 306148434): 20.00 sec so far
+
+Iterative method: 306148434 iterations in 23.31 seconds (average 0.000000, setup 0.02)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 67421778 (of 306148434): 5.00 sec so far
+Iteration 143545280 (of 306148434): 10.00 sec so far
+Iteration 211434241 (of 306148434): 15.00 sec so far
+Iteration 282280747 (of 306148434): 20.00 sec so far
+
+Iterative method: 306148434 iterations in 22.05 seconds (average 0.000000, setup 0.04)
+
+Value in the initial state: 0.777568830207599
+
+Time for model checking: 45.413 seconds.
+
+Result: 0.777568830207599
+
+---------------------------------------------------------------------
+
+Model checking: "P3_4": P=? [ F<=4 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ]-2*(1-P=? [ F<=3 (travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser) ])
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 4.000000 = 408000000.000000
+Fox-Glynn: left = 407858604, right = 408171396
+
+Starting iterations...
+Iteration 65168187 (of 408171396): 5.00 sec so far
+Iteration 137059889 (of 408171396): 10.00 sec so far
+Iteration 210725781 (of 408171396): 15.00 sec so far
+Iteration 285623733 (of 408171396): 20.00 sec so far
+Iteration 355035999 (of 408171396): 25.01 sec so far
+
+Iterative method: 408171396 iterations in 29.59 seconds (average 0.000000, setup 0.12)
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 13 of 14 (92.9%)
+
+Building hybrid MTBDD matrix... [levels=6, nodes=122] [5.7 KB]
+Adding explicit sparse matrices... [levels=6, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [6.3 KB]
+
+Uniformisation: q.t = 102000000.000000 x 3.000000 = 306000000.000000
+Fox-Glynn: left = 305877547, right = 306148434
+
+Starting iterations...
+Iteration 68929472 (of 306148434): 5.00 sec so far
+Iteration 142214511 (of 306148434): 10.00 sec so far
+Iteration 209775502 (of 306148434): 15.00 sec so far
+Iteration 276423963 (of 306148434): 20.00 sec so far
+
+Iterative method: 306148434 iterations in 22.64 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.8252243006144477
+
+Time for model checking: 52.261 seconds.
+
+Result: 0.8252243006144477

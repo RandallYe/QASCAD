@@ -319,13 +319,13 @@
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O6"/>
           </assigns>
         </updates>
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O6"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
           </assigns>
         </updates>
       </commands>
@@ -478,13 +478,13 @@
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M1"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O1"/>
           </assigns>
         </updates>
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O1"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M1"/>
           </assigns>
         </updates>
       </commands>
@@ -502,13 +502,13 @@
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O3"/>
           </assigns>
         </updates>
         <updates>
           <probability xsi:type="prism:DoubleLitExpr" value="0.5"/>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O3"/>
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
           </assigns>
         </updates>
       </commands>

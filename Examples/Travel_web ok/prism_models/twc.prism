@@ -1,0 +1,78 @@
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+// PRISM Output
+
+ctmc
+
+const int INACTIVE = (-1);
+const double mean_duration = (1.0E-8);
+const int travel_web_i0_E0_i0 = (0);
+const int travel_web_i0_E0_FindTrainStation = (1);
+const int travel_web_i0_E0_D1 = (2);
+const int travel_web_i0_E0_ArrivalTime = (3);
+const int travel_web_i0_E0_M2 = (4);
+const int travel_web_i0_E0_SearchRestaurant = (5);
+const int travel_web_i0_E0_M1 = (6);
+const int travel_web_i0_E0_FindDestination = (7);
+const int travel_web_i0_E0_WeatherForecast = (8);
+const int travel_web_i0_E0_D2 = (9);
+const int travel_web_i0_E0_RouteReport = (10);
+const int travel_web_i0_E0_ReportToUser = (11);
+const int travel_web_i0_E0_AF = (12);
+const double p1 = (0.3);
+const double p2 = (0.1);
+const double lambda1 = (9.62);
+const double lambda2 = (19.88);
+const double lambda3 = (19.46);
+const double lambda4 = (1.85);
+const double lambda5 = (1.11);
+const double lambda6 = (2.51);
+
+
+
+formula travel_web_to_be_terminated = travel_web_i0_E0_to_be_terminated;		
+formula default_rate = ((1.0)/mean_duration);		
+		
+
+
+
+
+
+module travel_web_i0_E0
+    travel_web_i0_E0_pc : [-1..12] init 0;
+    travel_web_i0_E0_to_be_terminated : bool init false;
+    travel_web_terminated : bool init false;
+
+    [travel_web_i0_E0_i0] ((travel_web_i0_E0_pc=travel_web_i0_E0_i0))&(! (travel_web_to_be_terminated)) -> default_rate:(travel_web_i0_E0_pc'=travel_web_i0_E0_FindTrainStation);
+
+    [travel_web_i0_E0_FindTrainStation] ((travel_web_i0_E0_pc=travel_web_i0_E0_FindTrainStation))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda1)):(travel_web_i0_E0_pc'=travel_web_i0_E0_D1);
+
+    [travel_web_i0_E0_D1] ((travel_web_i0_E0_pc=travel_web_i0_E0_D1))&(! (travel_web_to_be_terminated)) -> (default_rate*p1):(travel_web_i0_E0_pc'=travel_web_i0_E0_ArrivalTime) + (default_rate*((1.0)-p1)):(travel_web_i0_E0_pc'=travel_web_i0_E0_M2);
+
+    [travel_web_i0_E0_ArrivalTime] ((travel_web_i0_E0_pc=travel_web_i0_E0_ArrivalTime))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda2)):(travel_web_i0_E0_pc'=travel_web_i0_E0_SearchRestaurant);
+
+    [travel_web_i0_E0_M2] ((travel_web_i0_E0_pc=travel_web_i0_E0_M2))&(! (travel_web_to_be_terminated)) -> default_rate:(travel_web_i0_E0_pc'=travel_web_i0_E0_FindDestination);
+
+    [travel_web_i0_E0_SearchRestaurant] ((travel_web_i0_E0_pc=travel_web_i0_E0_SearchRestaurant))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda4)):(travel_web_i0_E0_pc'=travel_web_i0_E0_M1);
+
+    [travel_web_i0_E0_M1] ((travel_web_i0_E0_pc=travel_web_i0_E0_M1))&(! (travel_web_to_be_terminated)) -> default_rate:(travel_web_i0_E0_pc'=travel_web_i0_E0_RouteReport);
+
+    [travel_web_i0_E0_FindDestination] ((travel_web_i0_E0_pc=travel_web_i0_E0_FindDestination))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda3)):(travel_web_i0_E0_pc'=travel_web_i0_E0_WeatherForecast);
+
+    [travel_web_i0_E0_WeatherForecast] ((travel_web_i0_E0_pc=travel_web_i0_E0_WeatherForecast))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda5)):(travel_web_i0_E0_pc'=travel_web_i0_E0_D2);
+
+    [travel_web_i0_E0_D2] ((travel_web_i0_E0_pc=travel_web_i0_E0_D2))&(! (travel_web_to_be_terminated)) -> (default_rate*p2):(travel_web_i0_E0_pc'=travel_web_i0_E0_M2) + (default_rate*((1.0)-p2)):(travel_web_i0_E0_pc'=travel_web_i0_E0_M1);
+
+    [travel_web_i0_E0_RouteReport] ((travel_web_i0_E0_pc=travel_web_i0_E0_RouteReport))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda6)):(travel_web_i0_E0_pc'=travel_web_i0_E0_ReportToUser);
+
+    [travel_web_i0_E0_ReportToUser] ((travel_web_i0_E0_pc=travel_web_i0_E0_ReportToUser))&(! (travel_web_to_be_terminated)) -> ((1.0)/(0.001)):(travel_web_i0_E0_pc'=travel_web_i0_E0_AF)&(travel_web_i0_E0_to_be_terminated'=true);
+
+    [travel_web_terminate] (travel_web_to_be_terminated)&(! (travel_web_terminated)) -> default_rate:(travel_web_i0_E0_pc'=INACTIVE)&(travel_web_terminated'=true)&(travel_web_i0_E0_to_be_terminated'=false);
+
+    [] ((travel_web_i0_E0_pc=INACTIVE))&((travel_web_terminated)&(! (travel_web_to_be_terminated))) -> default_rate:true;
+
+endmodule
+
+

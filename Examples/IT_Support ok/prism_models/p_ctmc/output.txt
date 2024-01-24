@@ -1,0 +1,103 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Mon Jan 22 09:18:16 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism its.prism its.props -nossdetect -epsilon 1e9 -nofixdl
+
+Parsing model file "its.prism"...
+
+Type:        CTMC
+Modules:     IS_i0_E0
+Variables:   IS_i0_E0_pc IS_i0_E0_to_be_terminated IS_terminated
+
+Parsing properties file "its.props"...
+
+3 properties:
+(1) "P_deadlock_free": !E [ F "deadlock" ]
+(2) "P1": P=? [ F<=100 (IS_i0_E0_pc=IS_i0_E0_Complete) ]
+(3) "P2": P=? [ (!(IS_i0_E0_pc=IS_i0_E0_Reopen)&!(IS_i0_E0_pc=IS_i0_E0_AddInfo)) U<=100 (IS_i0_E0_pc=IS_i0_E0_Complete) ]
+
+---------------------------------------------------------------------
+
+Model checking: "P_deadlock_free": !E [ F "deadlock" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 9 iterations in 0.00 seconds (average 0.000111, setup 0.00)
+
+Time for model construction: 0.059 seconds.
+
+Type:        CTMC
+States:      17 (1 initial)
+Transitions: 22
+
+Rate matrix: 175 nodes (17 terminal), 22 minterms, vars: 7r/7c
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.007 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P1": P=? [ F<=100 (IS_i0_E0_pc=IS_i0_E0_Complete) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 16 of 17 (94.1%)
+
+Building hybrid MTBDD matrix... [levels=7, nodes=173] [8.1 KB]
+Adding explicit sparse matrices... [levels=7, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=10, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [8.8 KB]
+
+Uniformisation: q.t = 1020.004080 x 100.000000 = 102000.408000
+Fox-Glynn: left = 101678, right = 102002
+
+Starting iterations...
+
+Iterative method: 102002 iterations in 0.07 seconds (average 0.000000, setup 0.04)
+
+Value in the initial state: 0.43901515549646414
+
+Time for model checking: 0.087 seconds.
+
+Result: 0.43901515549646414
+
+---------------------------------------------------------------------
+
+Model checking: "P2": P=? [ (!(IS_i0_E0_pc=IS_i0_E0_Reopen)&!(IS_i0_E0_pc=IS_i0_E0_AddInfo)) U<=100 (IS_i0_E0_pc=IS_i0_E0_Complete) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 14 of 17 (82.4%)
+
+Building hybrid MTBDD matrix... [levels=7, nodes=157] [7.4 KB]
+Adding explicit sparse matrices... [levels=7, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=8, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.1 KB]
+TOTAL: [8.1 KB]
+
+Uniformisation: q.t = 1020.004080 x 100.000000 = 102000.408000
+Fox-Glynn: left = 101678, right = 102002
+
+Starting iterations...
+
+Iterative method: 102002 iterations in 0.09 seconds (average 0.000000, setup 0.06)
+
+Value in the initial state: 0.4292575344087623
+
+Time for model checking: 0.122 seconds.
+
+Result: 0.4292575344087623

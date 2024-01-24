@@ -1,4 +1,0 @@
-"P_deadlock_free": !E [F "deadlock"]
-"P_maximum_termined": Pmax = ? [F dc_M1_pc = dc_M1_AF]
-"P_always_terminated": A [F dc_M1_pc = dc_M1_AF]
-"P4": Pmax=? [F (dc_terminated)]

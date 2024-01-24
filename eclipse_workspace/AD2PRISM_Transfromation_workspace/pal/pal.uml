@@ -231,7 +231,7 @@
   <workflow:ParameterizedFlow xmi:id="_Uy1doI0xEe67KISOTitqrQ" base_ControlFlow="_GTp7cI0qEe67KISOTitqrQ" probability="_bHFC4I0xEe67KISOTitqrQ"/>
   <workflow:ParameterizedFlow xmi:id="_fqwpcI0xEe67KISOTitqrQ" base_ControlFlow="_WnTJEI0qEe67KISOTitqrQ" probability="_jfffUI0xEe67KISOTitqrQ"/>
   <workflow:ParameterizedFlow xmi:id="_nn77YI0xEe67KISOTitqrQ" base_ControlFlow="_fS4ZII0qEe67KISOTitqrQ" probability="_tKwqwI0xEe67KISOTitqrQ"/>
-  <workflow:Properties xmi:id="_gZwLAJNTEe687IQJuX9EJg" base_Activity="_frdnIIz8Ee67KISOTitqrQ" toBeVerified="p_ctmc">
+  <workflow:Properties xmi:id="_gZwLAJNTEe687IQJuX9EJg" base_Activity="_frdnIIz8Ee67KISOTitqrQ" toBeVerified="p_mdp">
     <properties xmi:type="workflow:Property" xmi:id="_RYGK4JNtEe687IQJuX9EJg" modeltype="CTMC" name="p_ctmc">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_gD1xIJNuEe687IQJuX9EJg" name="either_success" value="P=? [ F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_cZB20JNvEe687IQJuX9EJg" name="both_success" value="P=? [F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
@@ -242,10 +242,9 @@
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_eKErsJQ1Ee687IQJuX9EJg" modeltype="CTMC" name="p_parametric">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_eKErsZQ1Ee687IQJuX9EJg" name="either_success" value="P=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_EqzgEJ96Ee6lOu-Ad9pWtw" name="both_success" value="P=? [ F&lt;=10  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_HARioJ96Ee6lOu-Ad9pWtw" name="terminate" value="P=? [ F PAL reaches at PAL::AF ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_R_-KYJ96Ee6lOu-Ad9pWtw" name="both_stuck" value="P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&amp;(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_KbKPgLX_Ee6lOu-Ad9pWtw" name="deadlock_freedom" value=" !E [F &quot;deadlock&quot;]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_c9BxoLeTEe6lOu-Ad9pWtw" name="both_success" value="P=? [F  (PAL reaches at PAL::R1DeliveredRoomD) &amp; (PAL reaches at PAL::R2DeliveredRoomD )]"/>
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_i2vEQK4BEe6lOu-Ad9pWtw" name="p_dtmc">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_2d0pgK4KEe6lOu-Ad9pWtw" name="either_success" value="P=? [ F  (PAL reaches at PAL::R1DeliveredRoomD) | (PAL reaches at PAL::R2DeliveredRoomD)]"/>

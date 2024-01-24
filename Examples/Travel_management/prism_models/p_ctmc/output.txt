@@ -1,0 +1,765 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Wed Jan 24 12:08:01 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism tm.prism tm.props -nofixdl -nossdetect
+
+Parsing model file "tm.prism"...
+
+Type:        CTMC
+Modules:     TM_F1_E5 TM_I0_E1
+Variables:   TM_F1_E5_pc TM_F1_E5_to_be_terminated TM_F1_E5_to_be_failed TM_I0_E1_pc TM_I0_E1_to_be_terminated TM_I0_E1_to_be_failed TM_terminated
+
+Parsing properties file "tm.props"...
+
+22 properties:
+(1) "P_deadlock_freedom": !E [ F "deadlock" ]
+(2) "P_termination": P=? [ F (TM_terminated&!TM_to_be_failed) ]
+(3) "P_terminated_10": P=? [ F<=10 (TM_terminated&!TM_to_be_failed) ]
+(4) "P_terminated_20": P=? [ F<=20 (TM_terminated&!TM_to_be_failed) ]
+(5) "P_terminated_30": P=? [ F<=30 (TM_terminated&!TM_to_be_failed) ]
+(6) "P_terminated_40": P=? [ F<=40 (TM_terminated&!TM_to_be_failed) ]
+(7) "P_terminated_50": P=? [ F<=50 (TM_terminated&!TM_to_be_failed) ]
+(8) "P_terminated_60": P=? [ F<=60 (TM_terminated&!TM_to_be_failed) ]
+(9) "P_terminated_70": P=? [ F<=70 (TM_terminated&!TM_to_be_failed) ]
+(10) "P_terminated_80": P=? [ F<=80 (TM_terminated&!TM_to_be_failed) ]
+(11) "P_terminated_90": P=? [ F<=90 (TM_terminated&!TM_to_be_failed) ]
+(12) "P_terminated_100": P=? [ F<=100 (TM_terminated&!TM_to_be_failed) ]
+(13) "P_terminated_110": P=? [ F<=110 (TM_terminated&!TM_to_be_failed) ]
+(14) "P_terminated_120": P=? [ F<=120 (TM_terminated&!TM_to_be_failed) ]
+(15) "P_terminated_130": P=? [ F<=130 (TM_terminated&!TM_to_be_failed) ]
+(16) "P_terminated_140": P=? [ F<=140 (TM_terminated&!TM_to_be_failed) ]
+(17) "P_terminated_150": P=? [ F<=150 (TM_terminated&!TM_to_be_failed) ]
+(18) "P_terminated_160": P=? [ F<=160 (TM_terminated&!TM_to_be_failed) ]
+(19) "P_terminated_170": P=? [ F<=170 (TM_terminated&!TM_to_be_failed) ]
+(20) "P_terminated_180": P=? [ F<=180 (TM_terminated&!TM_to_be_failed) ]
+(21) "P_terminated_190": P=? [ F<=190 (TM_terminated&!TM_to_be_failed) ]
+(22) "P_terminated_200": P=? [ F<=200 (TM_terminated&!TM_to_be_failed) ]
+
+---------------------------------------------------------------------
+
+Model checking: "P_deadlock_freedom": !E [ F "deadlock" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.037 seconds.
+
+Type:        CTMC
+States:      39 (1 initial)
+Transitions: 73
+
+Rate matrix: 416 nodes (21 terminal), 73 minterms, vars: 12r/12c
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.005 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P_termination": P=? [ F (TM_terminated&!TM_to_be_failed) ]
+
+Diagonals vector: 107 nodes (12 terminal), 39 minterms
+Embedded Markov chain: 462 nodes (21 terminal), 73 minterms
+
+Prob0: 18 iterations in 0.00 seconds (average 0.000056, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=12, nodes=408] [19.1 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.4 KB]
+Creating vector for diagonals... [dist=1, compact] [0.1 KB]
+Creating vector for RHS... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [2 x 0.3 KB]
+TOTAL: [20.3 KB]
+
+Starting iterations...
+
+Jacobi: 82 iterations in 0.01 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754779482569824
+
+Time for model checking: 0.051 seconds.
+
+Result: 0.7754779482569824 (+/- 4.490384644384449E-6 estimated; rel err 5.790473674302856E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_10": P=? [ F<=10 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10177641, right = 10227102
+
+Starting iterations...
+
+Iterative method: 10227102 iterations in 2.01 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.03304190433092544
+
+Time for model checking: 2.025 seconds.
+
+Result: 0.03304190433092544
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_20": P=? [ F<=20 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 20.000000 = 20400000.000000
+Fox-Glynn: left = 20368381, right = 20438327
+
+Starting iterations...
+
+Iterative method: 20438327 iterations in 4.01 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.31602179929712854
+
+Time for model checking: 4.026 seconds.
+
+Result: 0.31602179929712854
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_30": P=? [ F<=30 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 30.000000 = 30600000.000000
+Fox-Glynn: left = 30561275, right = 30646940
+
+Starting iterations...
+Iteration 25961334 (of 30646940): 5.00 sec so far
+
+Iterative method: 30646940 iterations in 5.97 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.5685576250630481
+
+Time for model checking: 5.978 seconds.
+
+Result: 0.5685576250630481
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_40": P=? [ F<=40 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 40.000000 = 40800000.000000
+Fox-Glynn: left = 40755285, right = 40854202
+
+Starting iterations...
+Iteration 25745974 (of 40854202): 5.00 sec so far
+
+Iterative method: 40854202 iterations in 7.97 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.6876169043930774
+
+Time for model checking: 7.988 seconds.
+
+Result: 0.6876169043930774
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_50": P=? [ F<=50 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 50.000000 = 51000000.000000
+Fox-Glynn: left = 50950007, right = 51060599
+
+Starting iterations...
+Iteration 25443068 (of 51060599): 5.00 sec so far
+Iteration 48323986 (of 51060599): 10.00 sec so far
+
+Iterative method: 51060599 iterations in 10.57 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.7380502743010527
+
+Time for model checking: 10.582 seconds.
+
+Result: 0.7380502743010527
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_60": P=? [ F<=60 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 60.000000 = 61200000.000000
+Fox-Glynn: left = 61145236, right = 61266383
+
+Starting iterations...
+Iteration 23779726 (of 61266383): 5.00 sec so far
+Iteration 48370138 (of 61266383): 10.00 sec so far
+
+Iterative method: 61266383 iterations in 12.77 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7594318750751955
+
+Time for model checking: 12.776 seconds.
+
+Result: 0.7594318750751955
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_70": P=? [ F<=70 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 70.000000 = 71400000.000000
+Fox-Glynn: left = 71340848, right = 71471701
+
+Starting iterations...
+Iteration 24163829 (of 71471701): 5.00 sec so far
+Iteration 48497351 (of 71471701): 10.00 sec so far
+Iteration 69366636 (of 71471701): 15.00 sec so far
+
+Iterative method: 71471701 iterations in 15.45 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7685767681855726
+
+Time for model checking: 15.461 seconds.
+
+Result: 0.7685767681855726
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_80": P=? [ F<=80 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 80.000000 = 81600000.000000
+Fox-Glynn: left = 81536764, right = 81676652
+
+Starting iterations...
+Iteration 24471631 (of 81676652): 5.00 sec so far
+Iteration 49021070 (of 81676652): 10.00 sec so far
+Iteration 72915009 (of 81676652): 15.01 sec so far
+
+Iterative method: 81676652 iterations in 16.82 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.7725062128172985
+
+Time for model checking: 16.838 seconds.
+
+Result: 0.7725062128172985
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_90": P=? [ F<=90 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 90.000000 = 91800000.000000
+Fox-Glynn: left = 91732929, right = 91881301
+
+Starting iterations...
+Iteration 24076593 (of 91881301): 5.00 sec so far
+Iteration 45014952 (of 91881301): 10.00 sec so far
+Iteration 69245916 (of 91881301): 15.00 sec so far
+
+Iterative method: 91881301 iterations in 19.83 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7741979177993927
+
+Time for model checking: 19.844 seconds.
+
+Result: 0.7741979177993927
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_100": P=? [ F<=100 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 100.000000 = 102000000.000000
+Fox-Glynn: left = 101929301, right = 102085699
+
+Starting iterations...
+Iteration 23766322 (of 102085699): 5.00 sec so far
+Iteration 47900036 (of 102085699): 10.00 sec so far
+Iteration 71750304 (of 102085699): 15.01 sec so far
+Iteration 95295474 (of 102085699): 20.01 sec so far
+
+Iterative method: 102085699 iterations in 21.85 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7749267841345664
+
+Time for model checking: 21.862 seconds.
+
+Result: 0.7749267841345664
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_110": P=? [ F<=110 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 110.000000 = 112200000.000000
+Fox-Glynn: left = 112125850, right = 112289882
+
+Starting iterations...
+Iteration 23383193 (of 112289882): 5.00 sec so far
+Iteration 47514448 (of 112289882): 10.00 sec so far
+Iteration 71269233 (of 112289882): 15.00 sec so far
+Iteration 95646084 (of 112289882): 20.00 sec so far
+
+Iterative method: 112289882 iterations in 23.46 seconds (average 0.000000, setup 0.04)
+
+Value in the initial state: 0.7752409060131932
+
+Time for model checking: 23.491 seconds.
+
+Result: 0.7752409060131932
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_120": P=? [ F<=120 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 120.000000 = 122400000.000000
+Fox-Glynn: left = 122322553, right = 122493879
+
+Starting iterations...
+Iteration 24126472 (of 122493879): 5.00 sec so far
+Iteration 48147081 (of 122493879): 10.00 sec so far
+Iteration 70835719 (of 122493879): 15.00 sec so far
+Iteration 94219801 (of 122493879): 20.00 sec so far
+Iteration 118576779 (of 122493879): 25.00 sec so far
+
+Iterative method: 122493879 iterations in 25.94 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7753762993038131
+
+Time for model checking: 25.955 seconds.
+
+Result: 0.7753762993038131
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_130": P=? [ F<=130 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 130.000000 = 132600000.000000
+Fox-Glynn: left = 132519391, right = 132697712
+
+Starting iterations...
+Iteration 24678952 (of 132697712): 5.00 sec so far
+Iteration 45337763 (of 132697712): 10.00 sec so far
+Iteration 67870543 (of 132697712): 15.00 sec so far
+Iteration 92638223 (of 132697712): 20.01 sec so far
+Iteration 116080534 (of 132697712): 25.01 sec so far
+
+Iterative method: 132697712 iterations in 28.43 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 0.7754346592145278
+
+Time for model checking: 28.446 seconds.
+
+Result: 0.7754346592145278
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_140": P=? [ F<=140 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 140.000000 = 142800000.000000
+Fox-Glynn: left = 142716348, right = 142901400
+
+Starting iterations...
+Iteration 23970851 (of 142901400): 5.00 sec so far
+Iteration 45281525 (of 142901400): 10.00 sec so far
+Iteration 68941840 (of 142901400): 15.00 sec so far
+Iteration 93306808 (of 142901400): 20.00 sec so far
+Iteration 116801560 (of 142901400): 25.01 sec so far
+Iteration 139792785 (of 142901400): 30.01 sec so far
+
+Iterative method: 142901400 iterations in 30.66 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754598149262301
+
+Time for model checking: 30.668 seconds.
+
+Result: 0.7754598149262301
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_150": P=? [ F<=150 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 150.000000 = 153000000.000000
+Fox-Glynn: left = 152913412, right = 153104959
+
+Starting iterations...
+Iteration 24160311 (of 153104959): 5.00 sec so far
+Iteration 48339186 (of 153104959): 10.00 sec so far
+Iteration 69786305 (of 153104959): 15.00 sec so far
+Iteration 94080134 (of 153104959): 20.00 sec so far
+Iteration 118644728 (of 153104959): 25.01 sec so far
+Iteration 139669268 (of 153104959): 30.01 sec so far
+
+Iterative method: 153104959 iterations in 32.80 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.7754706582353171
+
+Time for model checking: 32.813 seconds.
+
+Result: 0.7754706582353171
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_160": P=? [ F<=160 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 160.000000 = 163200000.000000
+Fox-Glynn: left = 163110572, right = 163308401
+
+Starting iterations...
+Iteration 23584665 (of 163308401): 5.00 sec so far
+Iteration 47155115 (of 163308401): 10.00 sec so far
+Iteration 71431963 (of 163308401): 15.00 sec so far
+Iteration 95524924 (of 163308401): 20.00 sec so far
+Iteration 119572030 (of 163308401): 25.01 sec so far
+Iteration 140541862 (of 163308401): 30.01 sec so far
+
+Iterative method: 163308401 iterations in 34.94 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754753322554034
+
+Time for model checking: 34.948 seconds.
+
+Result: 0.7754753322554034
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_170": P=? [ F<=170 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 170.000000 = 173400000.000000
+Fox-Glynn: left = 173307820, right = 173511737
+
+Starting iterations...
+Iteration 22499920 (of 173511737): 5.00 sec so far
+Iteration 45612963 (of 173511737): 10.00 sec so far
+Iteration 68623518 (of 173511737): 15.00 sec so far
+Iteration 93114568 (of 173511737): 20.01 sec so far
+Iteration 117516448 (of 173511737): 25.01 sec so far
+Iteration 139454009 (of 173511737): 30.01 sec so far
+Iteration 161925005 (of 173511737): 35.01 sec so far
+
+Iterative method: 173511737 iterations in 37.35 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754773469984557
+
+Time for model checking: 37.365 seconds.
+
+Result: 0.7754773469984557
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_180": P=? [ F<=180 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 180.000000 = 183600000.000000
+Fox-Glynn: left = 183505148, right = 183714977
+
+Starting iterations...
+Iteration 23676825 (of 183714977): 5.00 sec so far
+Iteration 48060083 (of 183714977): 10.00 sec so far
+Iteration 72001854 (of 183714977): 15.00 sec so far
+Iteration 96366597 (of 183714977): 20.00 sec so far
+Iteration 120451512 (of 183714977): 25.00 sec so far
+Iteration 141866653 (of 183714977): 30.01 sec so far
+Iteration 166199661 (of 183714977): 35.01 sec so far
+
+Iterative method: 183714977 iterations in 38.57 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754782154563187
+
+Time for model checking: 38.583 seconds.
+
+Result: 0.7754782154563187
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_190": P=? [ F<=190 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 190.000000 = 193800000.000000
+Fox-Glynn: left = 193702549, right = 193918127
+
+Starting iterations...
+Iteration 24781060 (of 193918127): 5.00 sec so far
+Iteration 48448865 (of 193918127): 10.00 sec so far
+Iteration 73419948 (of 193918127): 15.00 sec so far
+Iteration 97784407 (of 193918127): 20.00 sec so far
+Iteration 121747536 (of 193918127): 25.01 sec so far
+Iteration 146323083 (of 193918127): 30.01 sec so far
+Iteration 170392380 (of 193918127): 35.01 sec so far
+
+Iterative method: 193918127 iterations in 39.90 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.7754785898060752
+
+Time for model checking: 39.909 seconds.
+
+Result: 0.7754785898060752
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated_200": P=? [ F<=200 (TM_terminated&!TM_to_be_failed) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 38 of 39 (97.4%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=430] [20.2 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=13, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.7 KB]
+
+Uniformisation: q.t = 1020000.000000 x 200.000000 = 204000000.000000
+Fox-Glynn: left = 203900017, right = 204121196
+
+Starting iterations...
+Iteration 24566067 (of 204121196): 5.00 sec so far
+Iteration 47844306 (of 204121196): 10.00 sec so far
+Iteration 69876202 (of 204121196): 15.00 sec so far
+Iteration 93938627 (of 204121196): 20.00 sec so far
+Iteration 118602524 (of 204121196): 25.00 sec so far
+Iteration 143140080 (of 204121196): 30.01 sec so far
+Iteration 164144335 (of 204121196): 35.01 sec so far
+Iteration 187132140 (of 204121196): 40.01 sec so far
+
+Iterative method: 204121196 iterations in 43.55 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.7754787511695039
+
+Time for model checking: 43.571 seconds.
+
+Result: 0.7754787511695039
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

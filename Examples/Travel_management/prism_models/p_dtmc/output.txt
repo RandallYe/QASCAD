@@ -1,0 +1,148 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Wed Jan 24 12:00:33 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism tm.prism tm.props -nofixdl -nossdetect
+
+Parsing model file "tm.prism"...
+
+Type:        DTMC
+Modules:     TM_I0_E1 TM_F1_E5
+Variables:   TM_I0_E1_pc TM_I0_E1_to_be_terminated TM_I0_E1_to_be_failed TM_terminated TM_F1_E5_pc TM_F1_E5_to_be_terminated TM_F1_E5_to_be_failed
+
+Parsing properties file "tm.props"...
+
+4 properties:
+(1) "DTMC_P1": P=? [ F (TM_terminated&!TM_to_be_failed) ]
+(2) "DTMC_P2": filter(max, P=? [ F (TM_terminated&!TM_to_be_failed) ], (TM_I0_E1_pc=TM_I0_E1_checkSchedule))
+(3) "DTMC_P3": filter(max, P=? [ F (TM_terminated&!TM_to_be_failed) ], (TM_I0_E1_pc=TM_I0_E1_requestMeeting))
+(4) "deadlock_freedom": !E [ F "deadlock" ]
+
+---------------------------------------------------------------------
+
+Model checking: "DTMC_P1": P=? [ F (TM_terminated&!TM_to_be_failed) ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.03 seconds.
+
+Type:        DTMC
+States:      39 (1 initial)
+Transitions: 73
+
+Transition matrix: 441 nodes (18 terminal), 73 minterms, vars: 12r/12c
+
+Prob0: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=12, nodes=405] [19.0 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.4 KB]
+Creating vector for diagonals... [dist=1, compact] [0.1 KB]
+Creating vector for RHS... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [2 x 0.3 KB]
+TOTAL: [20.2 KB]
+
+Starting iterations...
+
+Jacobi: 82 iterations in 0.03 seconds (average 0.000000, setup 0.03)
+
+Value in the initial state: 0.7754779482569824
+
+Time for model checking: 0.062 seconds.
+
+Result: 0.7754779482569824 (+/- 4.490384645450262E-6 estimated; rel err 5.790473675677251E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "DTMC_P2": filter(max, P=? [ F (TM_terminated&!TM_to_be_failed) ], (TM_I0_E1_pc=TM_I0_E1_checkSchedule))
+
+Prob0: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=12, nodes=405] [19.0 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.4 KB]
+Creating vector for diagonals... [dist=1, compact] [0.1 KB]
+Creating vector for RHS... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [2 x 0.3 KB]
+TOTAL: [20.2 KB]
+
+Starting iterations...
+
+Jacobi: 82 iterations in 0.02 seconds (average 0.000073, setup 0.02)
+
+States satisfying filter (TM_I0_E1_pc=TM_I0_E1_checkSchedule): 1
+
+Maximum value over states satisfying filter: 0.8242755073293442
+
+There are 1 states with (approximately) this value:
+12:(3,false,false,false,-1,false,false)
+
+Time for model checking: 0.063 seconds.
+
+Result: 0.8242755073293442
+
+---------------------------------------------------------------------
+
+Model checking: "DTMC_P3": filter(max, P=? [ F (TM_terminated&!TM_to_be_failed) ], (TM_I0_E1_pc=TM_I0_E1_requestMeeting))
+
+Prob0: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=12, nodes=405] [19.0 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.4 KB]
+Creating vector for diagonals... [dist=1, compact] [0.1 KB]
+Creating vector for RHS... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [2 x 0.3 KB]
+TOTAL: [20.2 KB]
+
+Starting iterations...
+
+Jacobi: 82 iterations in 0.01 seconds (average 0.000012, setup 0.01)
+
+States satisfying filter (TM_I0_E1_pc=TM_I0_E1_requestMeeting): 1
+
+Maximum value over states satisfying filter: 0.9507920738075207
+
+There are 1 states with (approximately) this value:
+32:(8,false,false,false,-1,false,false)
+
+Time for model checking: 0.038 seconds.
+
+Result: 0.9507920738075207
+
+---------------------------------------------------------------------
+
+Model checking: "deadlock_freedom": !E [ F "deadlock" ]
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.011 seconds.
+
+Result: true

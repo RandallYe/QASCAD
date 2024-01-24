@@ -22,16 +22,16 @@
 		</epsilon.evl>
   				
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
-	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/Travel_management_prism.model"
+	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
 	  		metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
 		<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
-			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/Travel_management.props"/>
+			<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/tm.props"/>
 			<parameter name="DBG_OPTION" value="true"/>
 			<parameter name="DBG_LEVEL" value="4"/>
-			<parameter name="MEAN_DURATION" value=""/>
+			<parameter name="MEAN_DURATION" value="0.001"/>
 			<parameter name="profile_model_loading" value="true"/>
 			<parameter name="profiling_enabled" value="true"/>
 			<model ref="AD"/>
@@ -43,13 +43,13 @@
 			2. PRISM model to code
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
-			modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/Travel_management_prism.model"
+			modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
 			metamodelUri="http://www.deis-project.eu/ode/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
 		<epsilon.egl src="../transformation/PRISM.egx" profile="true">
-			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/Travel_management.prism"/>
+			<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/tm.prism"/>
 			<model ref="PRISM"/>
 			
 		</epsilon.egl>

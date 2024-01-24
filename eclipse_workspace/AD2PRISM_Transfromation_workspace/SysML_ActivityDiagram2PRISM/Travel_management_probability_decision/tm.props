@@ -1,1 +1,0 @@
-"checkSchedule_max": filter(max, Pmax=? [F TM_terminated & !TM_to_be_failed], TM_I0_E1_pc = TM_I0_E1_checkSchedule)
