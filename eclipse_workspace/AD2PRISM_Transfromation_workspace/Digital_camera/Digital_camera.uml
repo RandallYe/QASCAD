@@ -115,6 +115,11 @@
       <operand xmi:type="uml:Expression" xmi:id="_zHE3Erq2Ee6Xg8_EENHXSg" name="p2" symbol="RefToPara(p2)"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Expression" xmi:id="__zpQULq2Ee6Xg8_EENHXSg" name="p2" symbol="RefToPara(p2)"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_hOmRALtjEe6Xg8_EENHXSg" name="2.0" value="2.0"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_r4j5ULtjEe6Xg8_EENHXSg" name="1.5" value="1.5"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_2YgqALtjEe6Xg8_EENHXSg" name="0.5" value="0.5"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_H3ykULtkEe6Xg8_EENHXSg" name="3" value="3.0"/>
+    <packagedElement xmi:type="uml:LiteralReal" xmi:id="_NCJwYLtkEe6Xg8_EENHXSg" name="2.5" value="2.5"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Q1OqACzFEe6bXox5wGa5rQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0PuvILX-Ee6lOu-Ad9pWtw" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0PuvIbX-Ee6lOu-Ad9pWtw" key="Version" value="0.0.50"/>
@@ -133,26 +138,50 @@
   <workflow:ParameterizedFlow xmi:id="_aQ2TMD7JEe6q_M-tqTi4sg" base_ControlFlow="_MrCaICzIEe6bXox5wGa5rQ" probability="_jaCWAFI1Ee6b35UbuRRGnA"/>
   <workflow:ParameterizedFlow xmi:id="_7sx3cD7JEe6q_M-tqTi4sg" base_ControlFlow="_V-uBcCzHEe6bXox5wGa5rQ" probability="_NvnwoFI4Ee6b35UbuRRGnA"/>
   <workflow:ParameterizedFlow xmi:id="_QlPoME19Ee6m4bOn_leH6Q" base_ControlFlow="_XrTpoCzIEe6bXox5wGa5rQ" probability="_iE2sMLq2Ee6Xg8_EENHXSg"/>
-  <workflow:Properties xmi:id="_MsDZkFLiEe6b35UbuRRGnA" base_Activity="_Q0LhICzFEe6bXox5wGa5rQ" toBeVerified="P_MDP">
+  <workflow:Properties xmi:id="_MsDZkFLiEe6b35UbuRRGnA" base_Activity="_Q0LhICzFEe6bXox5wGa5rQ" toBeVerified="P_CTMC">
     <properties xmi:type="workflow:Property" xmi:id="_mPXtkHkHEe6seLuArQwQsA" name="P_DTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_OiEgAFLiEe6b35UbuRRGnA" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_1CSYEFYEEe6qlcqyqpXIwQ" name="P_always_terminated" value="A [F dc reaches at dc::AF]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_PiMgQFLiEe6b35UbuRRGnA" name="P_termined" value="P = ? [F dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_PiMgQFLiEe6b35UbuRRGnA" name="P_terminated" value="P = ? [F dc reaches at dc::AF]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_yN5hoFbEEe6qlcqyqpXIwQ" name="P_terminate_success" value="P=? [F (dc terminated successfully)]"/>
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_i1x2ILbBEe6lOu-Ad9pWtw" modeltype="MDP" name="P_MDP">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_2YtqQLbBEe6lOu-Ad9pWtw" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_4sx-oLbBEe6lOu-Ad9pWtw" name="P_always_terminated" value="A [F dc reaches at dc::AF]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_3LRvoLbBEe6lOu-Ad9pWtw" name="P_termined_min" value="Pmin = ? [F dc reaches at dc::AF]"/>
-      <prproperties xmi:type="workflow:PRProperty" xmi:id="_38UyELbBEe6lOu-Ad9pWtw" name="P_termined_max" value="Pmax = ? [F dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_3LRvoLbBEe6lOu-Ad9pWtw" name="P_terminated_min" value="Pmin = ? [F dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_38UyELbBEe6lOu-Ad9pWtw" name="P_terminated_max" value="Pmax = ? [F dc reaches at dc::AF]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_5kUqoLbBEe6lOu-Ad9pWtw" name="P_terminate_success_min" value="Pmin=? [F (dc terminated successfully)]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_6UotQLbBEe6lOu-Ad9pWtw" name="P_terminate_success_max" value="Pmax=? [F (dc terminated successfully)]"/>
     </properties>
+    <properties xmi:type="workflow:Property" xmi:id="_0S5L4LtkEe6Xg8_EENHXSg" modeltype="CTMC" name="P_CTMC">
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_5Do-ELtkEe6Xg8_EENHXSg" name="P_deadlock_free" value="!E [F &quot;deadlock&quot;]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_BTBrQLtuEe6EOaFZS0PfLQ" name="not_enabled" value="P=? [F&lt;=10 ((dc reaches at dc::TurnOff) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_4bdysLuDEe6EOaFZS0PfLQ" name="terminate_2" value="P = ? [F&lt;=2 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_6nb7ALuDEe6EOaFZS0PfLQ" name="terminate_4" value="P = ? [F&lt;=4 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_7sXiwLuDEe6EOaFZS0PfLQ" name="terminate_6" value="P = ? [F&lt;=6 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_8-kKcLuDEe6EOaFZS0PfLQ" name="terminate_8" value="P = ? [F&lt;=8 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Ael7oLuEEe6EOaFZS0PfLQ" name="terminate_10" value="P = ? [F&lt;=10 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_Bnak4LuEEe6EOaFZS0PfLQ" name="terminate_12" value="P = ? [F&lt;=12 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_CeWz8LuEEe6EOaFZS0PfLQ" name="terminate_14" value="P = ? [F&lt;=14 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_DdsKALuEEe6EOaFZS0PfLQ" name="terminate_16" value="P = ? [F&lt;=16 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_EqPcsLuEEe6EOaFZS0PfLQ" name="terminate_18" value="P = ? [F&lt;=18 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_GGL2QLuEEe6EOaFZS0PfLQ" name="terminate_20" value="P = ? [F&lt;=20 dc reaches at dc::AF]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_WNPZYLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_2" value="P=? [F&lt;=2 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_ZWqocLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_4" value="P=? [F&lt;=4 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_asWpALuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_6" value="P=? [F&lt;=6 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_b4rSMLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_8" value="P=? [F&lt;=8 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_dPEdYLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_10" value="P=? [F&lt;=10 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_eRgKwLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_12" value="P=? [F&lt;=12 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_fa_iYLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_14" value="P=? [F&lt;=14 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_gzEIkLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_16" value="P=? [F&lt;=16 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_h8JQgLuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_18" value="P=? [F&lt;=18 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+      <prproperties xmi:type="workflow:PRProperty" xmi:id="_jOcl4LuEEe6EOaFZS0PfLQ" name="memfulOrAutoFAndTakePic_20" value="P=? [F&lt;=20 ((dc reaches at dc::M1) | (dc reaches at dc::AutoFocus)) &amp; (dc reaches at dc::TakePicture)]"/>
+    </properties>
   </workflow:Properties>
-  <workflow:ParameterizedNode xmi:id="_zin48FYAEe6qlcqyqpXIwQ" base_OpaqueAction="_d9IUYCzFEe6bXox5wGa5rQ" base_Action="_d9IUYCzFEe6bXox5wGa5rQ">
+  <workflow:ParameterizedNode xmi:id="_zin48FYAEe6qlcqyqpXIwQ" base_OpaqueAction="_d9IUYCzFEe6bXox5wGa5rQ" base_Action="_d9IUYCzFEe6bXox5wGa5rQ" duration="_r4j5ULtjEe6Xg8_EENHXSg">
     <rewards xmi:type="workflow:Reward" xmi:id="_4ZrHcFYAEe6qlcqyqpXIwQ" name="R1" value="_4Q7bIFYAEe6qlcqyqpXIwQ"/>
   </workflow:ParameterizedNode>
-  <workflow:ParameterizedNode xmi:id="_Bh7FYFYBEe6qlcqyqpXIwQ" base_OpaqueAction="_fgfkkCzFEe6bXox5wGa5rQ" base_Action="_fgfkkCzFEe6bXox5wGa5rQ">
+  <workflow:ParameterizedNode xmi:id="_Bh7FYFYBEe6qlcqyqpXIwQ" base_OpaqueAction="_fgfkkCzFEe6bXox5wGa5rQ" base_Action="_fgfkkCzFEe6bXox5wGa5rQ" duration="_2YgqALtjEe6Xg8_EENHXSg">
     <rewards xmi:type="workflow:Reward" xmi:id="_DwiSAFYBEe6qlcqyqpXIwQ" name="R1" value="_GvcTIFYBEe6qlcqyqpXIwQ"/>
   </workflow:ParameterizedNode>
   <workflow:ParameterizedFlow xmi:id="_Ib7qIFYBEe6qlcqyqpXIwQ" base_ControlFlow="_RU1FMCzHEe6bXox5wGa5rQ">
@@ -161,4 +190,7 @@
   </workflow:ParameterizedFlow>
   <workflow:ParameterizedFlow xmi:id="_rsyPwLq2Ee6Xg8_EENHXSg" base_ControlFlow="_Efp_ACzGEe6bXox5wGa5rQ" probability="_zHE3ELq2Ee6Xg8_EENHXSg"/>
   <workflow:ParameterizedFlow xmi:id="_8ysAwLq2Ee6Xg8_EENHXSg" base_ControlFlow="_JmncUCzHEe6bXox5wGa5rQ" probability="__zpQULq2Ee6Xg8_EENHXSg"/>
+  <workflow:ParameterizedNode xmi:id="_dLOiMLtjEe6Xg8_EENHXSg" base_OpaqueAction="_VQFEsCzFEe6bXox5wGa5rQ" base_Action="_VQFEsCzFEe6bXox5wGa5rQ" duration="_hOmRALtjEe6Xg8_EENHXSg"/>
+  <workflow:ParameterizedNode xmi:id="_FB2R8LtkEe6Xg8_EENHXSg" base_OpaqueAction="_uru_sCzFEe6bXox5wGa5rQ" base_Action="_uru_sCzFEe6bXox5wGa5rQ" duration="_H3ykULtkEe6Xg8_EENHXSg"/>
+  <workflow:ParameterizedNode xmi:id="_KPCIgLtkEe6Xg8_EENHXSg" base_OpaqueAction="_ZORE8C3rEe6bXox5wGa5rQ" base_Action="_ZORE8C3rEe6bXox5wGa5rQ" duration="_NCJwYLtkEe6Xg8_EENHXSg"/>
 </xmi:XMI>

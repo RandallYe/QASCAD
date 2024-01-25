@@ -34,6 +34,7 @@
 				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/Digital_camera/dc.props"/>
 				<parameter name="DBG_OPTION" value="true"/>
 				<parameter name="DBG_LEVEL" value="4"/>
+				<parameter name="MEAN_DURATION" value="0.1"/>
 				<parameter name="profile_model_loading" value="true"/>
 				<parameter name="profiling_enabled" value="true"/>
 				<model ref="AD"/>
