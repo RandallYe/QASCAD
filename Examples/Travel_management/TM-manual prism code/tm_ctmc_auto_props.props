@@ -1,6 +1,0 @@
-const double T;
-
-P=? [ F<=T (TM_terminated&!TM_to_be_failed) ]
-
-filter(max, P=? [ true U<T (TM_terminated&!TM_to_be_failed)],TM_I0_E1_pc=TM_I0_E1_I0)
-
