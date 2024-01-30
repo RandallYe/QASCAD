@@ -1,0 +1,194 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Tue Jan 30 11:20:37 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism pal.prism pal.props -nofixdl -nossdetect -epsilon 1e9
+
+Parsing model file "pal.prism"...
+
+Type:        CTMC
+Modules:     PAL_F1_E25 PAL_I0_E1
+Variables:   PAL_F1_E25_pc PAL_F1_E25_to_be_terminated PAL_I0_E1_pc PAL_I0_E1_to_be_terminated PAL_I0_E1_to_be_failed PAL_terminated
+
+Parsing properties file "pal.props"...
+
+6 properties:
+(1) "either_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(2) "both_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(3) "stuck": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+(4) "terminate_t": P=? [ F<=10 PAL_F1_E25_pc=PAL_F1_E25_AF ]
+(5) "reward": R{"rwd_door12_attempt"}=? [ C<=10 ]
+(6) "p_deadlock_free": !E [ F "deadlock" ]
+
+---------------------------------------------------------------------
+
+Model checking: "either_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.037 seconds.
+
+Type:        CTMC
+States:      126 (1 initial)
+Transitions: 275
+
+Rate matrix: 491 nodes (20 terminal), 275 minterms, vars: 13r/13c
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 103 of 126 (81.7%)
+
+Building hybrid MTBDD matrix... [levels=13, nodes=509] [23.9 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.2 KB]
+Creating vector for diagonals... [dist=19, compact] [0.4 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [28.4 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10196804, right = 10200002
+
+Starting iterations...
+Iteration 8126174 (of 10200002): 5.00 sec so far
+
+Iterative method: 10200002 iterations in 6.27 seconds (average 0.000001, setup 0.01)
+
+Value in the initial state: 0.9992145447541632
+
+Time for model checking: 6.281 seconds.
+
+Result: 0.9992145447541632
+
+---------------------------------------------------------------------
+
+Model checking: "both_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 125 of 126 (99.2%)
+
+Building hybrid MTBDD matrix... [levels=13, nodes=530] [24.8 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [29.5 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10196804, right = 10200002
+
+Starting iterations...
+Iteration 7491753 (of 10200002): 5.00 sec so far
+
+Iterative method: 10200002 iterations in 7.11 seconds (average 0.000001, setup 0.01)
+
+Value in the initial state: 0.1757066184957249
+
+Time for model checking: 7.116 seconds.
+
+Result: 0.1757066184957249
+
+---------------------------------------------------------------------
+
+Model checking: "stuck": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 125 of 126 (99.2%)
+
+Building hybrid MTBDD matrix... [levels=13, nodes=530] [24.8 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [29.5 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10196804, right = 10200002
+
+Starting iterations...
+Iteration 5907090 (of 10200002): 5.00 sec so far
+
+Iterative method: 10200002 iterations in 9.40 seconds (average 0.000001, setup 0.01)
+
+Value in the initial state: 6.509499173163557E-5
+
+Time for model checking: 9.403 seconds.
+
+Result: 6.509499173163557E-5
+
+---------------------------------------------------------------------
+
+Model checking: "terminate_t": P=? [ F<=10 PAL_F1_E25_pc=PAL_F1_E25_AF ]
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 125 of 126 (99.2%)
+
+Building hybrid MTBDD matrix... [levels=13, nodes=494] [23.2 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [27.9 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10196804, right = 10200002
+
+Starting iterations...
+Iteration 4430712 (of 10200002): 5.00 sec so far
+Iteration 9543443 (of 10200002): 10.00 sec so far
+
+Iterative method: 10200002 iterations in 10.79 seconds (average 0.000001, setup 0.01)
+
+Value in the initial state: 0.9675165611479972
+
+Time for model checking: 10.807 seconds.
+
+Result: 0.9675165611479972
+
+---------------------------------------------------------------------
+
+Model checking: "reward": R{"rwd_door12_attempt"}=? [ C<=10 ]
+
+Computing rewards...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=517] [24.2 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
+Creating vector for diagonals... [dist=19, compact] [0.4 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [28.9 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10196804, right = 10200002
+
+Starting iterations...
+Iteration 4980864 (of 10200002): 5.00 sec so far
+
+Iterative method: 10200002 iterations in 9.52 seconds (average 0.000001, setup 0.01)
+
+Value in the initial state: 1.1110119391776696
+
+Time for model checking: 9.531 seconds.
+
+Result: 1.1110119391776696
+
+---------------------------------------------------------------------
+
+Model checking: "p_deadlock_free": !E [ F "deadlock" ]
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.01 seconds.
+
+Result: true
