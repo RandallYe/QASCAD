@@ -56,22 +56,27 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
 
 ### Steps 
 1. Install Java 17. For example, `$sudo apt install openjdk-17-jdk` on Ubuntu
-2. Download the "Eclipse Modeling Tools" for your platform from [Eclipse 2023-03](https://www.eclipse.org/downloads/packages/release/2023-03/r)
-3. Install the Eclipse
-4. In Eclipse, choose "Install New Software", then "Manage", "Available Software Sites", uncheck "JustJ", "Latest Eclipse IDE...", "Latest Eclipse Simulation..."
-5. In Eclipse, from "Available Software", choose "All Available Sites", then filter "Papyrus", install "Papyrus UML 6.4.0". Now Eclipse can open and edit Papyrus models.
-6. Install Epsilon 2.4 in Eclipse using the update site (http://download.eclipse.org/epsilon/updates/2.4/)
+2. Clone or download the GitHub repository into your local folder (e.g., ~/QASCAD_demo): `$ git clone git@github.com:RandallYe/QASCAD.git`
+3. Download the "Eclipse Modeling Tools" for your platform from [Eclipse 2023-03](https://www.eclipse.org/downloads/packages/release/2023-03/r)
+4. Install the Eclipse
+5. In Eclipse, choose "Install New Software", then "Manage", "Available Software Sites", uncheck "JustJ", "Latest Eclipse IDE...", "Latest Eclipse Simulation..."
+6. In Eclipse, from "Available Software", choose "All Available Sites", then filter "Papyrus", install "Papyrus UML 6.4.0". Now Eclipse can open and edit Papyrus models.
+7. Install Epsilon 2.4 in Eclipse using the update site (http://download.eclipse.org/epsilon/updates/2.4/)
    - Choose "Install New Software" and then add this update site
    - Choose "Epsilon core", "Epsilon EMF integration", and "Epsilon UML integration" to install
-7. Import [SysML_ActivityDiagram2PRISM](./eclipse_workspace/AD2PRISM_Transfromation_workspace/SysML_ActivityDiagram2PRISM/), [com.eclipsesource.workflow.profile](./eclipse_workspace/AD2PRISM_Transfromation_workspace/com.eclipsesource.workflow.profile/) and [org.eclipse.epsilon.ad2prism.tools](./eclipse_workspace/AD2PRISM_Transfromation_workspace/org.eclipse.epsilon.ad2prism.tools/) projects into the new installed Eclipse
-8. See [instruction](./eclipse_workspace/AD2PRISM_Transfromation_workspace/readme.md) to deploy the plugin "org.eclipse.epsilon.ad2prism.tools" into your Eclipse
-9. Config Ant build: 
-    * In Eclipse, "Windows", "Show View" and search "Ant" to show Ant tab
-    * In the Ant tab, add the buildfile [build.xml](./eclipse_workspace/AD2PRISM_Transfromation_workspace/SysML_ActivityDiagram2PRISM/Ant/build.xml)
-    * In the Ant tab, right-click a target in the buildfile and choose "Run As...", then "2 Ant build ...", remember to set "Runtime JRE" in the JRE tab to "Run in the same JRE as the workspace" 
+8. In Eclipse, from "Windows", "Perspective", "Open Perspective", and choose "Papyrus" 
+  - In the "Project Explorer", "Import ...", Select "Projects from folders or Archive", then choose the folder `~/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace/`, select all projects to import them into the new installed Eclipse
+9. Deploy the plugin "org.eclipse.epsilon.ad2prism.tools" into your Eclipse
+  * Select the "org.eclipse.epsilon.ad2prism.tools" project, right click, and choose "Export...", "Deployable plugins and fragments", and "Install into host. Repository"
 10. Register the PRISM ecore metamodel. 
-    * In Eclipse, right click the [sesame_prism.ecore](./eclipse_workspace/AD2PRISM_Transfromation_workspace/SysML_ActivityDiagram2PRISM/metamodels/sesame_prism.ecore) file, and then choose "Register EPackages" to register the ecore file
-11. Import the [Six-side dice](./eclipse_workspace/AD2PRISM_Transfromation_workspace/six_dice/) project into the Eclipse and then choose the "main" target in the Ant tab, right click it and choose "Run As ...", then "1. Ant build..." to run the transformation and verification automatically
+  * In Eclipse, right click the [sesame_prism.ecore](./eclipse_workspace/AD2PRISM_Transfromation_workspace/SysML_ActivityDiagram2PRISM/metamodels/sesame_prism.ecore) file, and then choose "Register EPackages" to register the ecore file
+11. Config Ant build: 
+  * In Eclipse, "Windows", "Show View" and search "Ant" to show Ant tab
+  * In the Ant tab, add the buildfile [build.xml](./eclipse_workspace/AD2PRISM_Transfromation_workspace/SysML_ActivityDiagram2PRISM/Ant/build.xml)
+  * In the Ant tab, right-click a target in the buildfile and choose "Run As...", then "2 Ant build ...", remember to set "Runtime JRE" in the JRE tab to "Run in the same JRE as the workspace" 
+  * Change workspace path in `build.xml`: 
+    - Change the value "workspace.dir" to `~/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace/`
+  * In the Ant tab, choose the "main" target (the default `six_side`), right click it and choose "Run As ...", then "1. Ant build..." to run the transformation and verification automatically
 
 # Structure of this repository
 ```
