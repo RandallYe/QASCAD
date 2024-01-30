@@ -1,0 +1,268 @@
+
+PRISM
+=====
+
+Version: 4.8
+Date: Tue Jan 30 11:39:56 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism pal.prism pal.props -nofixdl -nossdetect
+
+Parsing model file "pal.prism"...
+
+Type:        MDP
+Modules:     PAL_I0_E1 PAL_F1_E25
+Variables:   PAL_I0_E1_pc PAL_I0_E1_to_be_terminated PAL_I0_E1_to_be_failed PAL_terminated PAL_F1_E25_pc PAL_F1_E25_to_be_terminated
+
+Parsing properties file "pal.props"...
+
+10 properties:
+(1) "either_success_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(2) "either_success_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(3) "both_success_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(4) "both_success_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(5) "stuck_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+(6) "stuck_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+(7) "terminate_max": Pmax=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+(8) "terminate_min": Pmin=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+(9) "reward": R{"rwd_door12_attempt"}=? [ C ]
+(10) "deadlock_freedom": !E [ F "deadlock" ]
+
+---------------------------------------------------------------------
+
+Model checking: "either_success_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.044 seconds.
+
+Type:        MDP
+States:      126 (1 initial)
+Transitions: 275
+Choices:     222
+
+Transition matrix: 1147 nodes (15 terminal), 275 minterms, vars: 13r/13c/27nd
+
+Prob0A: 11 iterations in 0.00 seconds (average 0.000273, setup 0.00)
+
+Prob1E: 10 iterations in 0.00 seconds (average 0.000200, setup 0.00)
+
+yes = 23, no = 16, maybe = 87
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=23, levels=13, nodes=1007] [47.2 KB]
+Adding sparse bits... [levels=13-13, num=23, compact=23/23] [3.8 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [54.3 KB]
+
+Starting iterations...
+
+Iterative method: 35 iterations in 0.03 seconds (average 0.000314, setup 0.02)
+
+Value in the initial state: 0.9996055322491435
+
+Time for model checking: 0.073 seconds.
+
+Result: 0.9996055322491435 (+/- 1.73367440874795E-6 estimated; rel err 1.7343585572672139E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "either_success_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Prob0E: 13 iterations in 0.01 seconds (average 0.000692, setup 0.00)
+
+Prob1A: 11 iterations in 0.00 seconds (average 0.000273, setup 0.00)
+
+yes = 23, no = 16, maybe = 87
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=23, levels=13, nodes=1007] [47.2 KB]
+Adding sparse bits... [levels=13-13, num=23, compact=23/23] [3.8 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [54.3 KB]
+
+Starting iterations...
+
+Iterative method: 40 iterations in 0.03 seconds (average 0.000050, setup 0.02)
+
+Value in the initial state: 0.9996053980196741
+
+Time for model checking: 0.056 seconds.
+
+Result: 0.9996053980196741 (+/- 1.7541936716148511E-6 estimated; rel err 1.754886153166137E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "both_success_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Prob0A: 17 iterations in 0.00 seconds (average 0.000176, setup 0.00)
+
+Prob1E: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 1, no = 71, maybe = 54
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=20, levels=13, nodes=870] [40.8 KB]
+Adding sparse bits... [levels=13-13, num=20, compact=20/20] [3.2 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [47.2 KB]
+
+Starting iterations...
+
+Iterative method: 41 iterations in 0.02 seconds (average 0.000049, setup 0.02)
+
+Value in the initial state: 0.9720437908905275
+
+Time for model checking: 0.042 seconds.
+
+Result: 0.9720437908905275 (+/- 1.685872466587357E-6 estimated; rel err 1.7343585570798854E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "both_success_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Prob0E: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1A: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 1, no = 125, maybe = 0
+
+Value in the initial state: 0.0
+
+Time for model checking: 0.01 seconds.
+
+Result: 0.0 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "stuck_max": Pmax=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+
+Prob0A: 12 iterations in 0.00 seconds (average 0.000250, setup 0.00)
+
+Prob1E: 12 iterations in 0.00 seconds (average 0.000250, setup 0.00)
+
+yes = 2, no = 67, maybe = 57
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=21, levels=13, nodes=905] [42.4 KB]
+Adding sparse bits... [levels=13-13, num=21, compact=21/21] [3.4 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [49.0 KB]
+
+Starting iterations...
+
+Iterative method: 37 iterations in 0.04 seconds (average 0.000189, setup 0.03)
+
+Value in the initial state: 1.9438902331038284E-4
+
+Time for model checking: 0.069 seconds.
+
+Result: 1.9438902331038284E-4 (+/- 8.106975957773818E-10 estimated; rel err 4.170490606781501E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "stuck_min": Pmin=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+
+Prob0E: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1A: 1 iterations in 0.00 seconds (average 0.001000, setup 0.00)
+
+yes = 1, no = 125, maybe = 0
+
+Value in the initial state: 0.0
+
+Time for model checking: 0.031 seconds.
+
+Result: 0.0 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "terminate_max": Pmax=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+
+Prob0A: 16 iterations in 0.01 seconds (average 0.000375, setup 0.00)
+
+Prob1E: 34 iterations in 0.00 seconds (average 0.000118, setup 0.00)
+
+yes = 121, no = 3, maybe = 2
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=2, levels=13, nodes=75] [3.5 KB]
+Adding sparse bits... [levels=13-13, num=2, compact=2/2] [0.3 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [7.0 KB]
+
+Starting iterations...
+
+Iterative method: 3 iterations in 0.03 seconds (average 0.003667, setup 0.02)
+
+Value in the initial state: 0.9998
+
+Time for model checking: 0.066 seconds.
+
+Result: 0.9998 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "terminate_min": Pmin=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+
+Prob0E: 16 iterations in 0.00 seconds (average 0.000250, setup 0.00)
+
+Prob1A: 3 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 121, no = 3, maybe = 2
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=2, levels=13, nodes=75] [3.5 KB]
+Adding sparse bits... [levels=13-13, num=2, compact=2/2] [0.3 KB]
+Creating vector for yes... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [3 x 1.0 KB]
+TOTAL: [7.0 KB]
+
+Starting iterations...
+
+Iterative method: 3 iterations in 0.03 seconds (average 0.001667, setup 0.03)
+
+Value in the initial state: 0.9998
+
+Time for model checking: 0.074 seconds.
+
+Result: 0.9998 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "reward": R{"rwd_door12_attempt"}=? [ C ]
+
+Error: Can't use "R=?" for nondeterministic models; use "Rmin=?" or "Rmax=?".
+
+---------------------------------------------------------------------
+
+Model checking: "deadlock_freedom": !E [ F "deadlock" ]
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.004 seconds.
+
+Result: true

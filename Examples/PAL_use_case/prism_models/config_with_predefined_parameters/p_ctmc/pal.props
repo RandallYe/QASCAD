@@ -1,0 +1,6 @@
+"either_success": P=? [ F<=10  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)]
+"both_success": P=? [F<=10  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD )]
+"stuck": P=? [F<=10  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck)& (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck)]
+"terminate_t": P=? [ F<=10 PAL_F1_E25_pc = PAL_F1_E25_AF ]
+"reward": R{"rwd_door12_attempt"}=? [ C<=10]
+"p_deadlock_free": !E [F "deadlock"]

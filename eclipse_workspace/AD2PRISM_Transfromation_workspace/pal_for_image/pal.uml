@@ -197,6 +197,8 @@
     <packagedElement xmi:type="uml:Expression" xmi:id="_ujciYJN7Ee687IQJuX9EJg" name="d_cor_cextend" symbol="RefToPara(d_cor_c)"/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_-TwVMKo_Ee6lOu-Ad9pWtw" name="[(name=reward_door12_attempt, value=r1)]" symbol=""/>
     <packagedElement xmi:type="uml:Expression" xmi:id="_h_pJ4KpAEe6lOu-Ad9pWtw" name="[(name=reward_door12_attempt, value=r1)]"/>
+    <packagedElement xmi:type="uml:Expression" xmi:id="_L9JH4L7MEe6CqPGkSAdOIA" name="[(name=rwd_door12_attempt),value]"/>
+    <packagedElement xmi:type="uml:LiteralString" xmi:id="_lb7PYL7MEe6CqPGkSAdOIA" name="[(name=rwd_door12_attempt),value]"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_fvWooIz8Ee67KISOTitqrQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7Ok50I3sEe6hkIVA7L9fwg" source="PapyrusVersion">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7Ok50Y3sEe6hkIVA7L9fwg" key="Version" value="0.0.50"/>
@@ -251,10 +253,10 @@
     </properties>
     <properties xmi:type="workflow:Property" xmi:id="_i2vEQK4BEe6lOu-Ad9pWtw" name="p_dtmc"/>
   </workflow:Properties>
-  <workflow:ParameterizedFlow xmi:id="_KQmxgJNyEe687IQJuX9EJg" base_ControlFlow="_zmdcgI0pEe67KISOTitqrQ">
+  <workflow:ParameterizedFlow xmi:id="_KQmxgJNyEe687IQJuX9EJg" base_ControlFlow="_zmdcgI0pEe67KISOTitqrQ" probability="_L9JH4L7MEe6CqPGkSAdOIA">
     <rewards xmi:type="workflow:Reward" xmi:id="_RiBwsJNyEe687IQJuX9EJg" name="rwd_door12_attempt" value="_RQetsJNyEe687IQJuX9EJg"/>
   </workflow:ParameterizedFlow>
-  <workflow:ParameterizedFlow xmi:id="_TE21YJNyEe687IQJuX9EJg" base_ControlFlow="_5n4MYI0pEe67KISOTitqrQ">
+  <workflow:ParameterizedFlow xmi:id="_TE21YJNyEe687IQJuX9EJg" base_ControlFlow="_5n4MYI0pEe67KISOTitqrQ" probability="_lb7PYL7MEe6CqPGkSAdOIA">
     <rewards xmi:type="workflow:Reward" xmi:id="_UV-fAJNyEe687IQJuX9EJg" name="rwd_door12_attempt" value="_XbdpQJNyEe687IQJuX9EJg"/>
   </workflow:ParameterizedFlow>
 </xmi:XMI>

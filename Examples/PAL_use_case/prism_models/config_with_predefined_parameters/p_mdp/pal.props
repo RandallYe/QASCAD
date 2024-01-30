@@ -1,0 +1,10 @@
+"either_success_max": Pmax=? [ F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)];
+"either_success_min": Pmin=? [ F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) | (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD)];
+"both_success_max": Pmax=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD )];
+"both_success_min": Pmin=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1DeliveredRoomD) & (PAL_F1_E25_pc = PAL_F1_E25_R2DeliveredRoomD )];
+"stuck_max": Pmax=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck)& (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck)];
+"stuck_min": Pmin=? [F  (PAL_I0_E1_pc = PAL_I0_E1_R1Stuck)& (PAL_F1_E25_pc = PAL_F1_E25_R2Stuck)];
+"terminate_max": Pmax=? [ F PAL_F1_E25_pc = PAL_F1_E25_AF ];
+"terminate_min": Pmin=? [ F PAL_F1_E25_pc = PAL_F1_E25_AF ];
+"reward": R{"rwd_door12_attempt"}=? [ C ];
+"deadlock_freedom": !E [F "deadlock"];

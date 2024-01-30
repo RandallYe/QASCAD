@@ -1,0 +1,202 @@
+
+PRISM
+=====
+
+Version: 4.8
+Date: Tue Jan 30 11:31:52 GMT 2024
+Hostname: COMPSCILAP134
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism pal.prism pal.props -nofixdl -nossdetect
+
+Parsing model file "pal.prism"...
+
+Type:        DTMC
+Modules:     PAL_I0_E1 PAL_F1_E25
+Variables:   PAL_I0_E1_pc PAL_I0_E1_to_be_terminated PAL_I0_E1_to_be_failed PAL_terminated PAL_F1_E25_pc PAL_F1_E25_to_be_terminated
+
+Parsing properties file "pal.props"...
+
+6 properties:
+(1) "either_success": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(2) "both_success": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+(3) "stuck": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+(4) "terminate": P=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+(5) "reward": R{"rwd_door12_attempt"}=? [ C ]
+(6) "deadlock_freedom": !E [ F "deadlock" ]
+
+---------------------------------------------------------------------
+
+Model checking: "either_success": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.039 seconds.
+
+Type:        DTMC
+States:      126 (1 initial)
+Transitions: 275
+
+Transition matrix: 550 nodes (26 terminal), 275 minterms, vars: 13r/13c
+
+Prob0: 11 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 11 iterations in 0.00 seconds (average 0.000091, setup 0.00)
+
+yes = 23, no = 16, maybe = 87
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=549] [25.7 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.1 KB]
+Creating vector for diagonals... [dist=1, compact] [0.3 KB]
+Creating vector for RHS... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [29.3 KB]
+
+Starting iterations...
+
+Jacobi: 37 iterations in 0.02 seconds (average 0.000027, setup 0.02)
+
+Value in the initial state: 0.9996054046923334
+
+Time for model checking: 0.054 seconds.
+
+Result: 0.9996054046923334 (+/- 1.8351192088150727E-6 estimated; rel err 1.83584362409475E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "both_success": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
+
+Prob0: 17 iterations in 0.00 seconds (average 0.000059, setup 0.00)
+
+Prob1: 5 iterations in 0.00 seconds (average 0.000200, setup 0.00)
+
+yes = 1, no = 71, maybe = 54
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=453] [21.2 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [0.8 KB]
+Creating vector for diagonals... [dist=1, compact] [0.3 KB]
+Creating vector for RHS... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [24.5 KB]
+
+Starting iterations...
+
+Jacobi: 29 iterations in 0.01 seconds (average 0.000000, setup 0.01)
+
+Value in the initial state: 0.03070355682955213
+
+Time for model checking: 0.028 seconds.
+
+Result: 0.03070355682955213 (+/- 8.620755525642898E-9 estimated; rel err 2.807738391190376E-7)
+
+---------------------------------------------------------------------
+
+Model checking: "stuck": P=? [ F (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
+
+Prob0: 12 iterations in 0.00 seconds (average 0.000083, setup 0.00)
+
+Prob1: 5 iterations in 0.00 seconds (average 0.000200, setup 0.00)
+
+yes = 1, no = 67, maybe = 58
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=457] [21.4 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [0.8 KB]
+Creating vector for diagonals... [dist=1, compact] [0.3 KB]
+Creating vector for RHS... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [24.7 KB]
+
+Starting iterations...
+
+Jacobi: 26 iterations in 0.02 seconds (average 0.000077, setup 0.02)
+
+Value in the initial state: 4.0126294508013003E-5
+
+Time for model checking: 0.047 seconds.
+
+Result: 4.0126294508013003E-5 (+/- 2.359795079679675E-11 estimated; rel err 5.880919503315804E-7)
+
+---------------------------------------------------------------------
+
+Model checking: "terminate": P=? [ F PAL_F1_E25_pc=PAL_F1_E25_AF ]
+
+Prob0: 16 iterations in 0.00 seconds (average 0.000063, setup 0.00)
+
+Prob1: 3 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 121, no = 3, maybe = 2
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=67] [3.1 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=1, compact] [0.3 KB]
+Creating vector for RHS... [dist=2, compact] [0.3 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [5.8 KB]
+
+Starting iterations...
+
+Jacobi: 3 iterations in 0.03 seconds (average 0.002667, setup 0.02)
+
+Value in the initial state: 0.9998
+
+Time for model checking: 0.054 seconds.
+
+Result: 0.9998 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "reward": R{"rwd_door12_attempt"}=? [ C ]
+
+SCCs: 9, BSCCs: 2, non-BSCC states: 124
+BSCC sizes: 1:1 2:1
+States in non-zero reward BSCCs: 0
+Prob0: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+inf = 0, maybe = 126
+
+Computing remaining rewards...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=13, nodes=567] [26.6 KB]
+Adding explicit sparse matrices... [levels=13, num=1, compact] [1.4 KB]
+Creating vector for diagonals... [dist=1, compact] [0.3 KB]
+Creating vector for RHS... [dist=3, compact] [0.3 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [30.5 KB]
+
+Starting iterations...
+
+Jacobi: 38 iterations in 0.02 seconds (average 0.000000, setup 0.02)
+
+Value in the initial state: 1.1110134913600294
+
+Time for model checking: 0.052 seconds.
+
+Result: 1.1110134913600294 (+/- 1.9268951722962853E-6 estimated; rel err 1.7343580319060821E-6)
+
+---------------------------------------------------------------------
+
+Model checking: "deadlock_freedom": !E [ F "deadlock" ]
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.013 seconds.
+
+Result: true
