@@ -15,6 +15,7 @@ Table of Contents
   - [Installation](#installation)
     - [Prerequisites](#prerequisites)
     - [Steps](#steps)
+    - [Installation video](#installation-video)
 - [Structure of this repository](#structure-of-this-repository)
 
 
@@ -77,6 +78,9 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
   * Change workspace path in `build.xml`: 
     - Change the value "workspace.dir" to `~/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace/`
   * In the Ant tab, choose the "main" target (the default `six_side`), right click it and choose "Run As ...", then "1. Ant build..." to run the transformation and verification automatically
+
+### Installation video
+[![QASCAD Installation](https://github.com/RandallYe/QASCAD/blob/master/overall_approach.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
 
 # Structure of this repository
 ```
