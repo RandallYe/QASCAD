@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project default="main">
-	<property name="workspace.dir" value="/home/rye/workspaces/sesame_activity_prism_workspace"/>
+	<property name="workspace.dir" value="/Users/ky582/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace"/>
 	<property name="prism.model.name" value="six_dice_prism.model"/>
 	<property name="prism.code.name" value="six_dice.prism"/>
 	<property name="property.file.name" value="die.props"/>
@@ -57,7 +57,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${prism.code.name}"/>
 		  	<arg line="${property.file.name}"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/six_dice_example/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -123,7 +123,7 @@
 			  	<arg line="${prism.code.name}"/>
 			  	<arg line="${property.file.name}"/>
 				<arg line="-param p=0:1"/>
-				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+				<arg line="-nofixdl"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/parametric_six_dice/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -184,7 +184,7 @@
 			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Digital_camera/" executable="prism" os="Linux" output="dir.txt">
 			  	<arg line="dc.prism"/>
 			  	<arg line="dc.props"/>
-				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+				<arg line="-nofixdl"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Digital_camera/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -308,7 +308,7 @@
 		  	<arg line="${model.shortname}.prism"/>
 		  	<arg line="${model.shortname}.props"/>
 			<arg line="-param p1=0:1,p2=0:1,p3=0:1,alpha=0:1,beta=0:1,t0=0:1,t1=0:1,t2=0:1,e0=0:1,e1=0:1,e2=0:1"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -508,7 +508,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${minodemodel.shortname}.prism"/>
 		  	<arg line="${minodemodel.shortname}.props"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${minodemodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
