@@ -16,6 +16,7 @@ Table of Contents
     - [Prerequisites](#prerequisites)
     - [Steps](#steps)
     - [Installation video](#installation-video)
+    - [Other considerations](#other-considerations)
 - [Structure of this repository](#structure-of-this-repository)
 
 
@@ -81,6 +82,11 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
 
 ### Installation video
 [![QASCAD Installation](https://github.com/RandallYe/QASCAD/blob/master/overall_approach.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
+
+### Other considerations
+- A separate Java 17 installation might not be required if the Eclipse we are installing already comes with Java 17
+- We have tried to install Eclipse 2023-03, Papyrus 6.4.0, and Epsilon 2.4 on Mac OS X with Silicon M1, but failed. 
+- We have also tried to install Eclipse 2023-12, Papyrus 6.6.0, and Epsilon 2.4 on Mac OS X with Silicon M1, and it succeeded (can edit activity diagrams and run transformation). But it failed to run the verification by PRISM automatically. You may need to adapt the ANT build file to make it work. 
 
 # Structure of this repository
 ```
