@@ -5,7 +5,7 @@ Version: 4.8
 Date: Tue Jan 30 11:20:37 GMT 2024
 Hostname: COMPSCILAP134
 Memory limits: cudd=1g, java(heap)=1g
-Command line: prism pal.prism pal.props -nofixdl -nossdetect -epsilon 1e9
+Command line: prism pal.prism pal.props -nofixdl -nossdetect -epsilon 1e-9
 
 Parsing model file "pal.prism"...
 

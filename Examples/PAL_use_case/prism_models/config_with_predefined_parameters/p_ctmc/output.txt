@@ -2,16 +2,16 @@ PRISM
 =====
 
 Version: 4.8
-Date: Wed Jan 17 20:50:17 UTC 2024
-Hostname: ubuntu-server-macos
+Date: Wed Jan 31 20:38:37 GMT 2024
+Hostname: UOY22M081
 Memory limits: cudd=1g, java(heap)=1g
-Command line: prism pal.prism pal.props -const p_c_a=0.989 -const p_d_12=0.5 -const p_d_1=0.96 -const p_d_2=0.96 -const p_c_c=0.995 -const p_c_b=0.989 -nofixdl -nossdetect -epsilon 1e9
+Command line: prism pal.prism pal.props -nofixdl -nossdetect -epsilon 1e-9
 
 Parsing model file "pal.prism"...
 
 Type:        CTMC
-Modules:     PAL_I0_E1 PAL_F1_E25
-Variables:   PAL_I0_E1_pc PAL_I0_E1_to_be_terminated PAL_I0_E1_to_be_failed PAL_terminated PAL_F1_E25_pc PAL_F1_E25_to_be_terminated
+Modules:     PAL_F1_E25 PAL_I0_E1
+Variables:   PAL_F1_E25_pc PAL_F1_E25_to_be_terminated PAL_I0_E1_pc PAL_I0_E1_to_be_terminated PAL_I0_E1_to_be_failed PAL_terminated
 
 Parsing properties file "pal.props"...
 
@@ -26,165 +26,158 @@ Parsing properties file "pal.props"...
 ---------------------------------------------------------------------
 
 Model checking: "either_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)|(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Building model...
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Computing reachable states...
 
-Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000053, setup 0.00)
+Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000000, setup 0.00)
 
-Time for model construction: 0.02 seconds.
+Time for model construction: 0.009 seconds.
 
 Type:        CTMC
 States:      126 (1 initial)
 Transitions: 275
 
-Rate matrix: 461 nodes (16 terminal), 275 minterms, vars: 13r/13c
+Rate matrix: 456 nodes (16 terminal), 275 minterms, vars: 13r/13c
 
 Computing probabilities...
 Engine: Hybrid
 
 Number of non-absorbing states: 103 of 126 (81.7%)
 
-Building hybrid MTBDD matrix... [levels=13, nodes=495] [23.2 KB]
+Building hybrid MTBDD matrix... [levels=13, nodes=476] [22.3 KB]
 Adding explicit sparse matrices... [levels=13, num=1, compact] [1.1 KB]
-Creating vector for diagonals... [dist=20, compact] [0.4 KB]
+Creating vector for diagonals... [dist=19, compact] [0.4 KB]
 Allocating iteration vectors... [3 x 1.0 KB]
-TOTAL: [27.7 KB]
+TOTAL: [26.8 KB]
 
 Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
-Fox-Glynn: left = 10196804, right = 10200002
+Fox-Glynn: left = 10174447, right = 10231618
 
 Starting iterations...
 
-Iterative method: 10200002 iterations in 3.22 seconds (average 0.000000, setup 0.00)
+Iterative method: 10231618 iterations in 3.80 seconds (average 0.000000, setup 0.00)
 
-Value in the initial state: 0.9991306515472587
+Value in the initial state: 0.9991309971762218
 
-Time for model checking: 6.337 seconds.
+Time for model checking: 7.25 seconds.
 
-Result: 0.9991306515472587
+Result: 0.9991309971762218
 
 ---------------------------------------------------------------------
 
 Model checking: "both_success": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1DeliveredRoomD)&(PAL_F1_E25_pc=PAL_F1_E25_R2DeliveredRoomD) ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Computing probabilities...
 Engine: Hybrid
 
 Number of non-absorbing states: 125 of 126 (99.2%)
 
-Building hybrid MTBDD matrix... [levels=13, nodes=515] [24.1 KB]
+Building hybrid MTBDD matrix... [levels=13, nodes=497] [23.3 KB]
 Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
-Creating vector for diagonals... [dist=21, compact] [0.4 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
 Allocating iteration vectors... [3 x 1.0 KB]
-TOTAL: [28.8 KB]
+TOTAL: [28.0 KB]
 
 Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
-Fox-Glynn: left = 10196804, right = 10200002
+Fox-Glynn: left = 10174447, right = 10231618
 
 Starting iterations...
 
-Iterative method: 10200002 iterations in 3.50 seconds (average 0.000000, setup 0.00)
+Iterative method: 10231618 iterations in 4.09 seconds (average 0.000000, setup 0.00)
 
-Value in the initial state: 0.17770620337199433
+Value in the initial state: 0.1777062172823482
 
-Time for model checking: 6.325 seconds.
+Time for model checking: 7.468 seconds.
 
-Result: 0.17770620337199433
+Result: 0.1777062172823482
 
 ---------------------------------------------------------------------
 
 Model checking: "stuck": P=? [ F<=10 (PAL_I0_E1_pc=PAL_I0_E1_R1Stuck)&(PAL_F1_E25_pc=PAL_F1_E25_R2Stuck) ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Computing probabilities...
 Engine: Hybrid
 
 Number of non-absorbing states: 125 of 126 (99.2%)
 
-Building hybrid MTBDD matrix... [levels=13, nodes=511] [24.0 KB]
+Building hybrid MTBDD matrix... [levels=13, nodes=497] [23.3 KB]
 Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
-Creating vector for diagonals... [dist=21, compact] [0.4 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
 Allocating iteration vectors... [3 x 1.0 KB]
-TOTAL: [28.6 KB]
+TOTAL: [28.0 KB]
 
 Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
-Fox-Glynn: left = 10196804, right = 10200002
+Fox-Glynn: left = 10174447, right = 10231618
 
 Starting iterations...
 
-Iterative method: 10200002 iterations in 3.42 seconds (average 0.000000, setup 0.00)
+Iterative method: 10231618 iterations in 4.17 seconds (average 0.000000, setup 0.00)
 
-Value in the initial state: 3.615556122257933E-5
+Value in the initial state: 3.61555652409591E-5
 
-Time for model checking: 6.044 seconds.
+Time for model checking: 7.546 seconds.
 
-Result: 3.615556122257933E-5
+Result: 3.61555652409591E-5
 
 ---------------------------------------------------------------------
 
 Model checking: "terminate_t": P=? [ F<=10 PAL_F1_E25_pc=PAL_F1_E25_AF ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Computing probabilities...
 Engine: Hybrid
 
 Number of non-absorbing states: 125 of 126 (99.2%)
 
-Building hybrid MTBDD matrix... [levels=13, nodes=475] [22.3 KB]
+Building hybrid MTBDD matrix... [levels=13, nodes=461] [21.6 KB]
 Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
-Creating vector for diagonals... [dist=21, compact] [0.4 KB]
+Creating vector for diagonals... [dist=20, compact] [0.4 KB]
 Allocating iteration vectors... [3 x 1.0 KB]
-TOTAL: [26.9 KB]
+TOTAL: [26.3 KB]
 
 Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
-Fox-Glynn: left = 10196804, right = 10200002
+Fox-Glynn: left = 10174447, right = 10231618
 
 Starting iterations...
 
-Iterative method: 10200002 iterations in 3.20 seconds (average 0.000000, setup 0.00)
+Iterative method: 10231618 iterations in 4.17 seconds (average 0.000000, setup 0.00)
 
-Value in the initial state: 0.9676623136663314
+Value in the initial state: 0.9676815535473848
 
-Time for model checking: 5.979 seconds.
+Time for model checking: 7.562 seconds.
 
-Result: 0.9676623136663314
+Result: 0.9676815535473848
 
 ---------------------------------------------------------------------
 
 Model checking: "reward": R{"rwd_door12_attempt"}=? [ C<=10 ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 Computing rewards...
 Engine: Hybrid
 
-Building hybrid MTBDD matrix... [levels=13, nodes=485] [22.7 KB]
+Building hybrid MTBDD matrix... [levels=13, nodes=484] [22.7 KB]
 Adding explicit sparse matrices... [levels=13, num=1, compact] [1.3 KB]
-Creating vector for diagonals... [dist=20, compact] [0.4 KB]
+Creating vector for diagonals... [dist=19, compact] [0.4 KB]
 Allocating iteration vectors... [3 x 1.0 KB]
-TOTAL: [27.4 KB]
+TOTAL: [27.3 KB]
 
 Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
-Fox-Glynn: left = 10196804, right = 10200002
+Fox-Glynn: left = 10174447, right = 10231618
 
 Starting iterations...
 
-Iterative method: 10200002 iterations in 3.62 seconds (average 0.000000, setup 0.00)
+Iterative method: 10231618 iterations in 4.37 seconds (average 0.000000, setup 0.00)
 
-Value in the initial state: 1.0300013369123235
+Value in the initial state: 1.0300013393333454
 
-Time for model checking: 6.219 seconds.
+Time for model checking: 7.762 seconds.
 
-Result: 1.0300013369123235
+Result: 1.0300013393333454
 
 ---------------------------------------------------------------------
 
 Model checking: "p_deadlock_free": !E [ F "deadlock" ]
-Model constants: p_c_a=0.989,p_d_12=0.5,p_d_1=0.96,p_d_2=0.96,p_c_c=0.995,p_c_b=0.989
 
 CTL EU fixpoint: 1 iterations in 0.0 seconds
 
