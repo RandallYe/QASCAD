@@ -81,7 +81,7 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
   * In the Ant tab, choose the "main" target (the default `six_side`), right click it and choose "Run As ...", then "1. Ant build..." to run the transformation and verification automatically
 
 ### Installation video
-[![QASCAD Installation](https://github.com/RandallYe/QASCAD/blob/master/overall_approach.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
+[![QASCAD Installation](./QASCAD_Eclipse_IDE.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
 
 ### Other considerations
 - A separate Java 17 installation might not be required if the Eclipse we are installing already comes with Java 17
