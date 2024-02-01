@@ -22,10 +22,10 @@ Table of Contents
 
 # Overview 
 ## our approach
-![Our Approach](./overall_approach.png)
+![Our Approach](./pics/overall_approach.png)
 
 ## Tool workflow
-![Tool workflow](./detailed_framework.png)
+![Tool workflow](./pics/detailed_framework.png)
 
 # What are contained in this repository?
 - [eclipse_workspace/AD2PRISM_Transfromation_workspace](./eclipse_workspace/AD2PRISM_Transfromation_workspace): an Eclipse workspace with all necessary projects to set up the tool, and the developing version of all case studies
