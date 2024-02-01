@@ -11,12 +11,12 @@ Table of Contents
   - [our approach](#our-approach)
   - [Tool workflow](#tool-workflow)
 - [What are contained in this repository?](#what-are-contained-in-this-repository)
-- [How to use the tool?](#how-to-use-the-tool)
-  - [Installation](#installation)
-    - [Prerequisites](#prerequisites)
-    - [Steps](#steps)
-    - [Installation video](#installation-video)
-    - [Other considerations](#other-considerations)
+- [How to install our tool?](#how-to-install-our-tool)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+  - [Installation video](#installation-video)
+  - [Other considerations](#other-considerations)
+- [How to use our tool?](#how-to-use-our-tool)
 - [Structure of this repository](#structure-of-this-repository)
 
 
@@ -47,16 +47,15 @@ Table of Contents
 
 - [Examples](./Examples/): the release version of case studies, including activity diagrams, corresponding generated PRISM code and properties, and verification results for various Markov models
 
-# How to use the tool?
+# How to install our tool?
 QASCAD is an Eclipse-based tool, uses the [Papyrus](https://eclipse.dev/papyrus/) and [Epsilon](https://eclipse.dev/epsilon/) projects. In order to use it, we need to install an Eclipse and the corresponding plugins.
 
-## Installation
-### Prerequisites
+## Prerequisites
 Our tool generates PRISM code from UML activity diagrams. In order for verification, we need PRISM and/or Storm to be installed. Follow the [PRISM instruction](https://www.prismmodelchecker.org/download.php) or [Storm instruction](https://www.stormchecker.org/) to download and install PRISM or Storm.
 
 - Remember to add "prism" and "storm" into your OS path. For example, add `export PATH=$PATH:/path/to/prism_installation/bin` in your `.bashrc` file
 
-### Steps 
+## Steps 
 1. Install Java 17. For example, `$sudo apt install openjdk-17-jdk` on Ubuntu
 2. Clone or download the GitHub repository into your local folder (e.g., ~/QASCAD_demo): `$ git clone git@github.com:RandallYe/QASCAD.git`
 3. Download the "Eclipse Modeling Tools" for your platform from [Eclipse 2023-03](https://www.eclipse.org/downloads/packages/release/2023-03/r)
@@ -80,13 +79,27 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
     - Change the value "workspace.dir" to `~/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace/`
   * In the Ant tab, choose the "main" target (the default `six_side`), right click it and choose "Run As ...", then "1. Ant build..." to run the transformation and verification automatically
 
-### Installation video
-[![QASCAD Installation](https://github.com/RandallYe/QASCAD/blob/master/overall_approach.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
+## Installation video
+- Installation of Eclipse, Papyrus, and Epsilon
 
-### Other considerations
+[![QASCAD Installation](./pics/QASCAD_Eclipse_IDE_installation_1.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
+
+- Configuration
+
+[![QASCAD Configuration](./pics/QASCAD_Eclipse_IDE_installation_2.png)](https://www.youtube.com/watch?v=NTyLdK8tQvo "QASCAD Configuration")
+
+## Other considerations
 - A separate Java 17 installation might not be required if the Eclipse we are installing already comes with Java 17
 - We have tried to install Eclipse 2023-03, Papyrus 6.4.0, and Epsilon 2.4 on Mac OS X with Silicon M1, but failed. 
 - We have also tried to install Eclipse 2023-12, Papyrus 6.6.0, and Epsilon 2.4 on Mac OS X with Silicon M1, and it succeeded (can edit activity diagrams and run transformation). But it failed to run the verification by PRISM automatically. You may need to adapt the ANT build file to make it work. 
+
+# How to use our tool?
+
+A tutorial (2 videos) below shows how to use QASCAD for verification.
+
+[![QASCAD Tutorial 1](./pics/QASCAD_tutorial_1.png)](https://www.youtube.com/watch?v=FSZNu-mDdGE "QASCAD Tutorial 1")
+
+[![QASCAD Tutorial 1](./pics/QASCAD_tutorial_2.png)](https://www.youtube.com/watch?v=LlJRZk5iegQ "QASCAD Tutorial 2")
 
 # Structure of this repository
 ```

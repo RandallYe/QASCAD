@@ -245,7 +245,7 @@
 			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/" executable="prism" os="Linux" output="dir.txt">
 			  	<arg line="tm.prism"/>
 			  	<arg line="tm.props"/>
-				<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+				<arg line="-nofixdl -nossdetect -epsilon 1e-9"/>
 				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/Travel_management/output.log" alwayslog="true"/>
 			</exec>
 		</target>
@@ -371,7 +371,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${twmodel.shortname}.prism"/>
 		  	<arg line="${twmodel.shortname}.props"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e-9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${twmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 		
@@ -445,7 +445,7 @@
 		<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/" executable="prism" os="Linux" output="dir.txt">
 		  	<arg line="${itsmodel.shortname}.prism"/>
 		  	<arg line="${itsmodel.shortname}.props"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e-9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${itsmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
@@ -573,7 +573,7 @@
 		  	<arg line="${palmodel.shortname}.prism"/>
 		  	<arg line="${palmodel.shortname}.props"/>
 			<arg line="-const p_c_a=0.989 -const p_d_12=0.5 -const p_d_1=0.96 -const p_d_2=0.96 -const p_c_c=0.995 -const p_c_b=0.989"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e-9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palmodel.name}/output.log" alwayslog="true"/>
 		</exec>
 		
@@ -649,7 +649,7 @@
 		  	<arg line="${palparamodel.shortname}.prism"/>
 		  	<arg line="${palparamodel.shortname}.props"/>
 			<arg line="-param p_c_a,p_d_12,p_d_1,p_d_2,p_c_c,p_c_b"/>
-			<arg line="-nofixdl -nossdetect -epsilon 1e9"/>
+			<arg line="-nofixdl -nossdetect -epsilon 1e-9"/>
 			<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${palparamodel.name}/output.log" alwayslog="true"/>
 		</exec>
 	</target>
