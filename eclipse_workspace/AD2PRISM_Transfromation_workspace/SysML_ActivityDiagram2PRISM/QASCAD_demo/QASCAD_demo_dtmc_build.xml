@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project default="main">
+	<property name="workspace.dir" value="/home/rye/QASCAD_demo/QASCAD/eclipse_workspace/AD2PRISM_Transfromation_workspace"/>
+		<property name="model.name" value="QASCAD_demo"/>
+		<property name="model.shortname" value="QASCAD_demo"/>
+		<target name="main">
+			<!-- 
+				1. Activity diagrams to PRISM model
+			-->
+			<epsilon.loadModel name="AD" type="UML" profile="true">
+			    <parameter name="modelFile" value="/${model.name}/${model.name}.uml"/>
+			    <parameter name="readOnLoad" value="true"/>
+				<parameter name="storeOnDisposal" value="false"/>
+				<parameter name="expand" value="true"/>
+				<parameter name="profile_model_loading" value="true"/>
+			</epsilon.loadModel>
+
+			<epsilon.evl src="../transformation/ad.evl" profile="true">
+				<model ref="AD"/>
+			</epsilon.evl>
+			
+		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="false" store="true" profile="true"/>
+
+			<epsilon.etl src="../transformation/ad2prism_bfs.etl" profile="true">
+				<!--
+				Enable or disable transformation logging messages
+				-->
+				<parameter name="PROPS_FILEPATH" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}.props"/>
+				<parameter name="DBG_OPTION" value="true"/>
+				<parameter name="DBG_LEVEL" value="4"/>
+				<parameter name="MEAN_DURATION" value="0.001"/>
+				<model ref="AD"/>
+				<model ref="PRISM"/>
+			</epsilon.etl>
+			<epsilon.disposeModels/>
+				
+			<!-- 
+				2. PRISM model to code
+			-->
+			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
+		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
+		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		expand="true"
+		  		read="true" store="false" profile="true"/>
+			
+			<epsilon.egl src="../transformation/PRISM.egx" profile="true">
+				<parameter name="TARGET" value="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}.prism"/>
+				<model ref="PRISM"/>
+			</epsilon.egl>
+			
+			<epsilon.disposeModels/>
+		
+			<!-- 
+				3. Run verification
+			-->
+			<exec dir="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/" executable="prism" os="Linux" output="dir.txt">
+			  	<arg line="${model.shortname}.prism"/>
+			  	<arg line="${model.shortname}.props"/>
+				<arg line="-const p1=1"/>
+				<arg line="-nofixdl"/>
+				<redirector output="${workspace.dir}/SysML_ActivityDiagram2PRISM/${model.name}/output.log" alwayslog="true"/>
+			</exec>
+		</target>
+</project>
