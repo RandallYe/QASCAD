@@ -82,12 +82,11 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
 ## Installation video
 - Installation of Eclipse, Papyrus, and Epsilon
 
-[![QASCAD Installation](./QASCAD_Eclipse_IDE.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
+[![QASCAD Installation](./pics/QASCAD_Eclipse_IDE_installation_1.png)](https://www.youtube.com/watch?v=EhhQAlD1P2Q "QASCAD Installation")
 
 - Configuration
 
-[![QASCAD Configuration](./QASCAD_Eclipse_IDE.png)](https://www.youtube.com/watch?v=NTyLdK8tQvo "QASCAD Configuration")
-
+[![QASCAD Configuration](./pics/QASCAD_Eclipse_IDE_installation_2.png)](https://www.youtube.com/watch?v=NTyLdK8tQvo "QASCAD Configuration")
 
 ## Other considerations
 - A separate Java 17 installation might not be required if the Eclipse we are installing already comes with Java 17
@@ -95,6 +94,12 @@ Our tool generates PRISM code from UML activity diagrams. In order for verificat
 - We have also tried to install Eclipse 2023-12, Papyrus 6.6.0, and Epsilon 2.4 on Mac OS X with Silicon M1, and it succeeded (can edit activity diagrams and run transformation). But it failed to run the verification by PRISM automatically. You may need to adapt the ANT build file to make it work. 
 
 # How to use our tool?
+
+A tutorial (2 videos) below shows how to use QASCAD for verification.
+
+[![QASCAD Tutorial 1](./pics/QASCAD_tutorial_1.png)](https://www.youtube.com/watch?v=FSZNu-mDdGE "QASCAD Tutorial 1")
+
+[![QASCAD Tutorial 1](./pics/QASCAD_tutorial_2.png)](https://www.youtube.com/watch?v=LlJRZk5iegQ "QASCAD Tutorial 2")
 
 # Structure of this repository
 ```
