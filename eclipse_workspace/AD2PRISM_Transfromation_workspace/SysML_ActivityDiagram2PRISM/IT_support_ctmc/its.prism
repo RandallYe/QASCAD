@@ -7,7 +7,7 @@
 ctmc
 
 const int INACTIVE = (-1);
-const double mean_duration = (0.001);
+const double mean_duration = (0.01);
 const int IS_i0_E0_i0 = (0);
 const int IS_i0_E0_CreateAndAllocateTicket = (1);
 const int IS_i0_E0_M1 = (2);
@@ -62,7 +62,7 @@ module IS_i0_E0
 
     [IS_i0_E0_ProcessTicket] ((IS_i0_E0_pc=IS_i0_E0_ProcessTicket))&(! (IS_to_be_terminated)) -> lambda1:(IS_i0_E0_pc'=IS_i0_E0_D1);
 
-    [IS_i0_E0_D1] ((IS_i0_E0_pc=IS_i0_E0_D1))&(! (IS_to_be_terminated)) -> (default_rate*p12):(IS_i0_E0_pc'=IS_i0_E0_SignOff) + (default_rate*p14):(IS_i0_E0_pc'=IS_i0_E0_Reallocate) + (default_rate*p13):(IS_i0_E0_pc'=IS_i0_E0_AddInfo) + (default_rate*p16):(IS_i0_E0_pc'=IS_i0_E0_M2);
+    [IS_i0_E0_D1] ((IS_i0_E0_pc=IS_i0_E0_D1))&(! (IS_to_be_terminated)) -> (default_rate*p13):(IS_i0_E0_pc'=IS_i0_E0_AddInfo) + (default_rate*p16):(IS_i0_E0_pc'=IS_i0_E0_M2) + (default_rate*p14):(IS_i0_E0_pc'=IS_i0_E0_Reallocate) + (default_rate*p12):(IS_i0_E0_pc'=IS_i0_E0_SignOff);
 
     [IS_i0_E0_SignOff] ((IS_i0_E0_pc=IS_i0_E0_SignOff))&(! (IS_to_be_terminated)) -> lambda2:(IS_i0_E0_pc'=IS_i0_E0_D2);
 
@@ -72,9 +72,9 @@ module IS_i0_E0
 
     [IS_i0_E0_M2] ((IS_i0_E0_pc=IS_i0_E0_M2))&(! (IS_to_be_terminated)) -> default_rate:(IS_i0_E0_pc'=IS_i0_E0_Abandoned);
 
-    [IS_i0_E0_D2] ((IS_i0_E0_pc=IS_i0_E0_D2))&(! (IS_to_be_terminated)) -> (default_rate*p25):(IS_i0_E0_pc'=IS_i0_E0_Reopen) + (default_rate*p27):(IS_i0_E0_pc'=IS_i0_E0_Complete);
+    [IS_i0_E0_D2] ((IS_i0_E0_pc=IS_i0_E0_D2))&(! (IS_to_be_terminated)) -> (default_rate*p27):(IS_i0_E0_pc'=IS_i0_E0_Complete) + (default_rate*p25):(IS_i0_E0_pc'=IS_i0_E0_Reopen);
 
-    [IS_i0_E0_D3] ((IS_i0_E0_pc=IS_i0_E0_D3))&(! (IS_to_be_terminated)) -> (default_rate*p31):(IS_i0_E0_pc'=IS_i0_E0_M1) + (default_rate*p36):(IS_i0_E0_pc'=IS_i0_E0_M2);
+    [IS_i0_E0_D3] ((IS_i0_E0_pc=IS_i0_E0_D3))&(! (IS_to_be_terminated)) -> (default_rate*p36):(IS_i0_E0_pc'=IS_i0_E0_M2) + (default_rate*p31):(IS_i0_E0_pc'=IS_i0_E0_M1);
 
     [IS_i0_E0_Reopen] ((IS_i0_E0_pc=IS_i0_E0_Reopen))&(! (IS_to_be_terminated)) -> lambda5:(IS_i0_E0_pc'=IS_i0_E0_M1);
 

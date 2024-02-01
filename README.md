@@ -43,7 +43,7 @@ Table of Contents
   + [six_dice_parametric](./eclipse_workspace/AD2PRISM_Transfromation_workspace/six_dice_parametric/): a case study from literature
   + [Travel_management](./eclipse_workspace/AD2PRISM_Transfromation_workspace/Travel_management/): a case study from literature
   + [travel_web_ctmc](./eclipse_workspace/AD2PRISM_Transfromation_workspace/travel_web_ctmc/): a case study from literature
-
+  + [QASCAD_demo](./eclipse_workspace/AD2PRISM_Transfromation_workspace/QASCAD_demo/): a dummy example for the tutorial or demonstration 
 
 - [Examples](./Examples/): the release version of case studies, including activity diagrams, corresponding generated PRISM code and properties, and verification results for various Markov models
 
@@ -141,6 +141,7 @@ A tutorial (2 videos) below shows how to use QASCAD for verification.
         ├── org.eclipse.epsilon.ad2prism.tools
         ├── pal
         ├── presto_autonomous_fruit_picking
+        ├── QASCAD_demo
         ├── six_dice
         ├── six_dice_parametric
         └── travel_web_ctmc

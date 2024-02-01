@@ -1,0 +1,86 @@
+// This model is automatically generated from the PRISM model 
+
+// All changes made will be lost after regeneration. 
+ 
+// PRISM Output
+
+ctmc
+
+const int INACTIVE = (-1);
+const double mean_duration = (0.001);
+const int act_i0_e1_i0 = (0);
+const int act_i0_e1_A1 = (1);
+const int act_i0_e1_F1 = (2);
+const int act_i0_e1_A2 = (3);
+const int act_i0_e1_M1 = (4);
+const int act_i0_e1_A4 = (5);
+const int act_i0_e1_D1 = (6);
+const int act_i0_e1_J1 = (7);
+const int act_F1_e4_A3 = (0);
+const int act_F1_e4_D2 = (1);
+const int act_F1_e4_A5 = (2);
+const int act_F1_e4_AF1 = (3);
+const int act_F1_e4_J1 = (4);
+const int act_F1_e4_AF2 = (5);
+const double p1;
+const double p2 = (0.5);
+
+
+
+formula act_to_be_terminated = (act_i0_e1_to_be_terminated)|(act_F1_e4_to_be_terminated);		
+formula act_to_be_failed = (act_i0_e1_to_be_failed)|(act_F1_e4_to_be_failed);		
+formula default_rate = ((1.0)/mean_duration);		
+		
+
+
+
+
+
+module act_F1_e4
+    act_F1_e4_pc : [-1..5] init INACTIVE;
+    act_F1_e4_to_be_terminated : bool init false;
+    act_F1_e4_to_be_failed : bool init false;
+
+    [act_F1] ((act_F1_e4_pc=INACTIVE))&(! (act_to_be_terminated)) -> default_rate:(act_F1_e4_pc'=act_F1_e4_A3);
+
+    [act_F1_e4_A3] ((act_F1_e4_pc=act_F1_e4_A3))&(! (act_to_be_terminated)) -> (((1.0)/(2.5))*((1.0)-(0.85))):(act_F1_e4_pc'=INACTIVE)&(act_F1_e4_to_be_failed'=true)&(act_F1_e4_to_be_terminated'=true) + (((1.0)/(2.5))*(0.85)):(act_F1_e4_pc'=act_F1_e4_D2);
+
+    [act_F1_e4_D2] ((act_F1_e4_pc=act_F1_e4_D2))&(! (act_to_be_terminated)) -> (default_rate*(0.5)):(act_F1_e4_pc'=act_F1_e4_A5) + (default_rate*(0.5)):(act_F1_e4_pc'=act_F1_e4_AF1)&(act_F1_e4_to_be_terminated'=true);
+
+    [act_F1_e4_A5] ((act_F1_e4_pc=act_F1_e4_A5))&(! (act_to_be_terminated)) -> (((1.0)/(1.2))*(0.91)):(act_F1_e4_pc'=act_F1_e4_J1) + (((1.0)/(1.2))*((1.0)-(0.91))):(act_F1_e4_pc'=INACTIVE)&(act_F1_e4_to_be_failed'=true)&(act_F1_e4_to_be_terminated'=true);
+
+    [act_J1] ((act_F1_e4_pc=act_F1_e4_J1))&(! (act_to_be_terminated)) -> default_rate:(act_F1_e4_pc'=act_F1_e4_AF2)&(act_F1_e4_to_be_terminated'=true);
+
+    [act_terminate] act_to_be_terminated -> default_rate:(act_F1_e4_pc'=INACTIVE)&(act_F1_e4_to_be_terminated'=false);
+
+endmodule
+
+module act_i0_e1
+    act_i0_e1_pc : [-1..7] init 0;
+    act_i0_e1_to_be_terminated : bool init false;
+    act_i0_e1_to_be_failed : bool init false;
+    act_terminated : bool init false;
+
+    [act_i0_e1_i0] ((act_i0_e1_pc=act_i0_e1_i0))&(! (act_to_be_terminated)) -> default_rate:(act_i0_e1_pc'=act_i0_e1_A1);
+
+    [act_i0_e1_A1] ((act_i0_e1_pc=act_i0_e1_A1))&(! (act_to_be_terminated)) -> (((1.0)/(2.0))*((1.0)-(0.98))):(act_i0_e1_pc'=INACTIVE)&(act_i0_e1_to_be_failed'=true)&(act_i0_e1_to_be_terminated'=true) + (((1.0)/(2.0))*(0.98)):(act_i0_e1_pc'=act_i0_e1_F1);
+
+    [act_F1] ((act_i0_e1_pc=act_i0_e1_F1))&(! (act_to_be_terminated)) -> default_rate:(act_i0_e1_pc'=act_i0_e1_A2);
+
+    [act_i0_e1_A2] ((act_i0_e1_pc=act_i0_e1_A2))&(! (act_to_be_terminated)) -> (((1.0)/(1.5))*(0.98)):(act_i0_e1_pc'=act_i0_e1_M1) + (((1.0)/(1.5))*((1.0)-(0.98))):(act_i0_e1_pc'=INACTIVE)&(act_i0_e1_to_be_failed'=true)&(act_i0_e1_to_be_terminated'=true);
+
+    [act_i0_e1_M1] ((act_i0_e1_pc=act_i0_e1_M1))&(! (act_to_be_terminated)) -> default_rate:(act_i0_e1_pc'=act_i0_e1_A4);
+
+    [act_i0_e1_A4] ((act_i0_e1_pc=act_i0_e1_A4))&(! (act_to_be_terminated)) -> (((1.0)/(0.5))*((1.0)-(0.95))):(act_i0_e1_pc'=INACTIVE)&(act_i0_e1_to_be_failed'=true)&(act_i0_e1_to_be_terminated'=true) + (((1.0)/(0.5))*(0.95)):(act_i0_e1_pc'=act_i0_e1_D1);
+
+    [act_i0_e1_D1] ((act_i0_e1_pc=act_i0_e1_D1))&(! (act_to_be_terminated)) -> (default_rate*((1.0)-p1)):(act_i0_e1_pc'=act_i0_e1_M1) + (default_rate*p1):(act_i0_e1_pc'=act_i0_e1_J1);
+
+    [act_J1] ((act_i0_e1_pc=act_i0_e1_J1))&(! (act_to_be_terminated)) -> default_rate:(act_i0_e1_pc'=INACTIVE);
+
+    [act_terminate] (act_to_be_terminated)&(! (act_terminated)) -> default_rate:(act_i0_e1_pc'=INACTIVE)&(act_terminated'=true)&(act_i0_e1_to_be_terminated'=false);
+
+    [] ((act_i0_e1_pc=INACTIVE))&((act_terminated)&(! (act_to_be_terminated))) -> default_rate:true;
+
+endmodule
+
+

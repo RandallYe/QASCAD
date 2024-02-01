@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="https://www.sesame-project.org/prism">
   <prism:Model>
     <constants name="INACTIVE">
       <type xsi:type="prism:IntType"/>
@@ -333,18 +333,18 @@
           </right>
         </grd>
         <updates>
-          <probability xsi:type="prism:VarExpr" name="p"/>
-          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
-          </assigns>
-        </updates>
-        <updates>
           <probability xsi:type="prism:MinusExpr">
             <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
             <right xsi:type="prism:VarExpr" name="p"/>
           </probability>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
             <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O6"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="p"/>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::M2"/>
           </assigns>
         </updates>
       </commands>
@@ -525,18 +525,18 @@
           </right>
         </grd>
         <updates>
+          <probability xsi:type="prism:VarExpr" name="p"/>
+          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
+          </assigns>
+        </updates>
+        <updates>
           <probability xsi:type="prism:MinusExpr">
             <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
             <right xsi:type="prism:VarExpr" name="p"/>
           </probability>
           <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
             <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O3"/>
-          </assigns>
-        </updates>
-        <updates>
-          <probability xsi:type="prism:VarExpr" name="p"/>
-          <assigns xsi:type="prism:Assignment" variable="Six_dice::I0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="Six_dice::I0::E0::O2"/>
           </assigns>
         </updates>
       </commands>

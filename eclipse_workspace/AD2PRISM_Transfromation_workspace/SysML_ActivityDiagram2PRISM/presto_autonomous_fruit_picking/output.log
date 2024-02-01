@@ -1,0 +1,97 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Thu Feb 01 20:09:37 UTC 2024
+Hostname: ubuntu-server-macos
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism afp.prism afp.props -param 'p1=0:1,p2=0:1,p3=0:1,alpha=0:1,beta=0:1,t0=0:1,t1=0:1,t2=0:1,e0=0:1,e1=0:1,e2=0:1' -nofixdl
+
+Parsing model file "afp.prism"...
+
+Type:        DTMC
+Modules:     FruitPicking_I1_e1
+Variables:   FruitPicking_I1_e1_pc FruitPicking_I1_e1_to_be_terminated FruitPicking_terminated
+
+Parsing properties file "afp.props"...
+
+4 properties:
+(1) "P_picking_success": P=? [ F (FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_success) ]
+(2) "P_success_or_abandon": P=? [ F (FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_success)|(FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_abandoned) ]
+(3) "R_expected_time": R{"mean_time"}=? [ F FruitPicking_I1_e1_pc=FruitPicking_I1_e1_done ]
+(4) "R_energy": R{"energy"}=? [ F FruitPicking_I1_e1_pc=FruitPicking_I1_e1_done ]
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_picking_success": P=? [ F (FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_success) ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.021 secs.
+
+States:      15 (1 initial)
+Transitions: 18
+
+Time for model construction: 0.022 seconds.
+
+Time for model checking: 0.054 seconds.
+
+Result (probability): ([0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0]): { beta * alpha * p2 * p1 - alpha * p1 | beta * alpha * p3 * p2 * p1 - 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_success_or_abandon": P=? [ F (FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_success)|(FruitPicking_I1_e1_pc=FruitPicking_I1_e1_picking_abandoned) ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.002 secs.
+
+States:      15 (1 initial)
+Transitions: 18
+
+Time for model construction: 0.002 seconds.
+
+Time for model checking: 0.015 seconds.
+
+Result (probability): ([0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0]): { 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "R_expected_time": R{"mean_time"}=? [ F FruitPicking_I1_e1_pc=FruitPicking_I1_e1_done ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.003 secs.
+
+States:      15 (1 initial)
+Transitions: 18
+
+Time for model construction: 0.003 seconds.
+Building reward structure...
+
+Time for model checking: 0.043 seconds.
+
+Result (expected mean_time): ([0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0]): { ( -1 ) t2 * beta * alpha * p2 * p1 - t1 * alpha * p1 - t0 | beta * alpha * p3 * p2 * p1 - 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "R_energy": R{"energy"}=? [ F FruitPicking_I1_e1_pc=FruitPicking_I1_e1_done ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.001 secs.
+
+States:      15 (1 initial)
+Transitions: 18
+
+Time for model construction: 0.001 seconds.
+Building reward structure...
+
+Time for model checking: 0.008 seconds.
+
+Result (expected energy): ([0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0],[0.0,1.0]): { ( -1 ) e2 * beta * alpha * p2 * p1 - e1 * alpha * p1 - e0 | beta * alpha * p3 * p2 * p1 - 1  }
+

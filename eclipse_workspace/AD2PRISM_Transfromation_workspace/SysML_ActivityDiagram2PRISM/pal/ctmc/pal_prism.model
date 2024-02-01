@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="https://www.sesame-project.org/prism">
+  <prism:Model modelType="CTMC">
+    <constants name="INACTIVE">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="-1"/>
+    </constants>
+    <constants name="mean_duration">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.001"/>
+    </constants>
+    <constants name="PAL::I0::E1::I0">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="PAL::I0::E1::Prepare">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="PAL::I0::E1::F1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1ToCorA">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1ToDoorAB">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="PAL::I0::E1::D1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="PAL::I0::E1::M1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="PAL::I0::E1::M3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="PAL::I0::E1::D2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="8"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1ToCorBThrDoor1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="9"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1ToCorBThrDoor2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="10"/>
+    </constants>
+    <constants name="PAL::I0::E1::D3">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="11"/>
+    </constants>
+    <constants name="PAL::I0::E1::D4">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="12"/>
+    </constants>
+    <constants name="PAL::I0::E1::M2">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="13"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1ToRoomD">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="14"/>
+    </constants>
+    <constants name="PAL::I0::E1::D5">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="15"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1DeliveredRoomD">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="16"/>
+    </constants>
+    <constants name="PAL::I0::E1::M4">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="17"/>
+    </constants>
+    <constants name="PAL::I0::E1::R1Stuck">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="18"/>
+    </constants>
+    <constants name="PAL::I0::E1::J1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="19"/>
+    </constants>
+    <constants name="PAL::F1::E25::R2ToCorC">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr"/>
+    </constants>
+    <constants name="PAL::F1::E25::R2ToDoorCD">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="1"/>
+    </constants>
+    <constants name="PAL::F1::E25::D6">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="2"/>
+    </constants>
+    <constants name="PAL::F1::E25::R2DeliveredRoomD">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="3"/>
+    </constants>
+    <constants name="PAL::F1::E25::R2Stuck">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="4"/>
+    </constants>
+    <constants name="PAL::F1::E25::M5">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="5"/>
+    </constants>
+    <constants name="PAL::F1::E25::J1">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="6"/>
+    </constants>
+    <constants name="PAL::F1::E25::AF">
+      <type xsi:type="prism:IntType"/>
+      <value xsi:type="prism:IntLitExpr" value="7"/>
+    </constants>
+    <constants name="p_c_a">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p_d_12">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p_d_1">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p_d_2">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p_c_c">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="p_c_b">
+      <type xsi:type="prism:DoubleType"/>
+    </constants>
+    <constants name="r_prep">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.9998"/>
+    </constants>
+    <constants name="r1">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    </constants>
+    <constants name="d_prep">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <constants name="d_cor_a">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.2"/>
+    </constants>
+    <constants name="d_cor_c">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.2"/>
+    </constants>
+    <constants name="d_door_ab">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <constants name="d_door_cd">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="2.5"/>
+    </constants>
+    <constants name="d_cor_b_d1">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <constants name="d_cor_b_d2">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <constants name="d_r1_rd">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    </constants>
+    <constants name="d_r1_stuck">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    </constants>
+    <constants name="d_r2_stuck">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    </constants>
+    <constants name="d_r1_delivered">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <constants name="d_r2_delivered">
+      <type xsi:type="prism:DoubleType"/>
+      <value xsi:type="prism:DoubleLitExpr" value="0.5"/>
+    </constants>
+    <modules xsi:type="prism:ModuleDef" name="PAL::I0::E1">
+      <vars name="PAL::I0::E1::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="19"/>
+        <init xsi:type="prism:VarExpr" name="0"/>
+      </vars>
+      <vars name="PAL::I0::E1::to_be_terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <vars name="PAL::I0::E1::to_be_failed">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <vars name="PAL::terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <commands>
+        <action name="PAL::I0::E1::I0"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::I0"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::Prepare"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::Prepare"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::Prepare"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="d_prep"/>
+            </left>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="r_prep"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::to_be_failed">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:DivExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="d_prep"/>
+            </left>
+            <right xsi:type="prism:VarExpr" name="r_prep"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::F1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::F1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorA"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1ToCorA"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorA"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_cor_a"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToDoorAB"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1ToDoorAB"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToDoorAB"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_door_ab"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::D1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::D1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::D1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_c_a"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M3"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_c_a"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::M1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::M1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::D2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::M3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::M3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1Stuck"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::D2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::D2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_d_12"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_d_12"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_cor_b_d1"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::D3"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_cor_b_d2"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::D4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::D3"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::D3"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_d_1"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M1"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_d_1"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M2"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::D4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::D4"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_d_2"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M2"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_d_2"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::M2"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::M2"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToRoomD"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1ToRoomD"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToRoomD"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_r1_rd"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::D5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::D5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::D5"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_c_b"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M3"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_c_b"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::R1DeliveredRoomD"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1DeliveredRoomD"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1DeliveredRoomD"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_r1_delivered"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::M4"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::M4"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::J1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::I0::E1::R1Stuck"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1Stuck"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_r1_stuck"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M4"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::J1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::I0::E1::J1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::terminate"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:AndBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::terminated"/>
+            <right xsi:type="prism:NotBoolExpr">
+              <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+            </right>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Skip"/>
+        </updates>
+      </commands>
+    </modules>
+    <modules xsi:type="prism:ModuleDef" name="PAL::F1::E25">
+      <vars name="PAL::F1::E25::pc">
+        <type xsi:type="prism:RangeType" bottom="-1" top="7"/>
+        <init xsi:type="prism:VarExpr" name="INACTIVE"/>
+      </vars>
+      <vars name="PAL::F1::E25::to_be_terminated">
+        <type xsi:type="prism:BoolType"/>
+        <init xsi:type="prism:BoolLitExpr"/>
+      </vars>
+      <commands>
+        <action name="PAL::F1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2ToCorC"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::R2ToCorC"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::R2ToCorC"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_cor_c"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2ToDoorCD"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::R2ToDoorCD"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::R2ToDoorCD"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_door_cd"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::D6"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::D6"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::D6"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p_c_c"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2DeliveredRoomD"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:MinusExpr">
+              <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+              <right xsi:type="prism:VarExpr" name="p_c_c"/>
+            </right>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2Stuck"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::R2DeliveredRoomD"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::R2DeliveredRoomD"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_r2_delivered"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::M5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::R2Stuck"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::R2Stuck"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:DivExpr">
+            <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+            <right xsi:type="prism:VarExpr" name="d_r2_stuck"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::M5"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::F1::E25::M5"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::M5"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::J1"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::J1"/>
+        <grd xsi:type="prism:AndBoolExpr">
+          <left xsi:type="prism:EqBoolExpr">
+            <left xsi:type="prism:VarExpr" name="PAL::F1::E25::pc"/>
+            <right xsi:type="prism:VarExpr" name="PAL::F1::E25::J1"/>
+          </left>
+          <right xsi:type="prism:NotBoolExpr">
+            <value xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+          </right>
+        </grd>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::AF"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr" value="true"/>
+          </assigns>
+        </updates>
+      </commands>
+      <commands>
+        <action name="PAL::terminate"/>
+        <grd xsi:type="prism:VarExpr" name="PAL::to_be_terminated"/>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="default_rate"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="INACTIVE"/>
+          </assigns>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::to_be_terminated">
+            <value xsi:type="prism:BoolLitExpr"/>
+          </assigns>
+        </updates>
+      </commands>
+    </modules>
+    <rewards name="rwd_door12_attempt">
+      <rewards>
+        <action name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+          <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="r1"/>
+      </rewards>
+      <rewards>
+        <action name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+        <grd xsi:type="prism:EqBoolExpr">
+          <left xsi:type="prism:VarExpr" name="PAL::I0::E1::pc"/>
+          <right xsi:type="prism:VarExpr" name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+        </grd>
+        <reward xsi:type="prism:VarExpr" name="r1"/>
+      </rewards>
+    </rewards>
+    <formulas name="PAL::to_be_terminated">
+      <expr xsi:type="prism:OrBoolExpr">
+        <left xsi:type="prism:VarExpr" name="PAL::I0::E1::to_be_terminated"/>
+        <right xsi:type="prism:VarExpr" name="PAL::F1::E25::to_be_terminated"/>
+      </expr>
+    </formulas>
+    <formulas name="PAL::to_be_failed">
+      <expr xsi:type="prism:VarExpr" name="PAL::I0::E1::to_be_failed"/>
+    </formulas>
+    <formulas name="default_rate">
+      <expr xsi:type="prism:DivExpr">
+        <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+        <right xsi:type="prism:VarExpr" name="mean_duration"/>
+      </expr>
+    </formulas>
+  </prism:Model>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:ModuleDef/>
+  <prism:VarDecl/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_prep"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::Prepare"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_cor_a"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1ToCorA"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_door_ab"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1ToDoorAB"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:VarExpr name="p_c_a"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_c_a"/>
+  </prism:MinusExpr>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:VarExpr name="p_d_12"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_d_12"/>
+  </prism:MinusExpr>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_cor_b_d1"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1ToCorBThrDoor1"/>
+  <prism:VarExpr name="r1"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_cor_b_d2"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1ToCorBThrDoor2"/>
+  <prism:VarExpr name="r1"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_d_1"/>
+  </prism:MinusExpr>
+  <prism:VarExpr name="p_d_1"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_d_2"/>
+  </prism:MinusExpr>
+  <prism:VarExpr name="p_d_2"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_r1_rd"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1ToRoomD"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_c_b"/>
+  </prism:MinusExpr>
+  <prism:VarExpr name="p_c_b"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_r1_delivered"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1DeliveredRoomD"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_r1_stuck"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::I0::E1::R1Stuck"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:VarDecl/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_cor_c"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::F1::E25::R2ToCorC"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_door_cd"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::F1::E25::R2ToDoorCD"/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:VarExpr name="p_c_c"/>
+  <prism:MinusExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="p_c_c"/>
+  </prism:MinusExpr>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_r2_delivered"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::F1::E25::R2DeliveredRoomD"/>
+  <prism:AndBoolExpr/>
+  <prism:DivExpr>
+    <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
+    <right xsi:type="prism:VarExpr" name="d_r2_stuck"/>
+  </prism:DivExpr>
+  <prism:Action name="PAL::F1::E25::R2Stuck"/>
+  <prism:AndBoolExpr/>
+  <prism:AndBoolExpr/>
+  <prism:VarExpr name="default_rate"/>
+  <prism:Action name="PAL::terminate"/>
+  <prism:VarExpr/>
+</xmi:XMI>

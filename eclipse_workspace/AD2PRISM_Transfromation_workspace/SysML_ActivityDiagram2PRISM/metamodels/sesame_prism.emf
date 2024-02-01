@@ -1,4 +1,4 @@
-@namespace(uri="http://www.robocalc.circus/prism", prefix="prism")
+@namespace(uri="https://www.sesame-project.org/prism", prefix="prism")
 package prism;
 
 class Comment {
@@ -42,7 +42,7 @@ class IntLitExpr extends Expr {
 }
 
 class VarExpr extends Expr, BoolExpr {
-	attr Name name;
+	attr String name;
 }
 
 abstract class UnaryExpr extends Expr {
@@ -132,7 +132,7 @@ class MaxExpr extends ManyaryExpr {
 }
 
 class CallExpr extends Expr {
-	attr Name name;
+	attr String name;
 	val Expr[*] args;
 }
 
@@ -150,8 +150,8 @@ enum RenameType {
 }
 
 class RenamingPair {
-	attr Name old_name;
-	attr Name new_name;
+	attr String old_name;
+	attr String new_name;
 	attr RenameType type;
 }
 
@@ -168,7 +168,7 @@ class Model extends Comment {
 
 class Constant extends Comment {
 	val Type type;
-	attr Name name;
+	attr String name;
 	val Expr value;
 }
 
@@ -176,25 +176,25 @@ abstract class PRModule {
 }
 
 class ModuleDef extends Comment, PRModule {
-	attr Name name;
+	attr String name;
 	val VarDecl[+] vars;
 	val Command[+] commands;
 }
 
 class RenPair {
-	attr Name old_name;
-	attr Name new_name;
+	attr String old_name;
+	attr String new_name;
 }
 
 class ModuleRename extends Comment, PRModule {
-	attr Name name;
-	attr Name old_mod_name;
+	attr String name;
+	attr String old_mod_name;
 	val RenPair[+] renames;
 }
 
 @"http://www.obeo.fr/dsl/dnc/archetype"(archetype="Role")
 class VarDecl extends Comment {
-	attr Name name;
+	attr String name;
 	val Type type;
 	val Expr init;
 }
@@ -209,12 +209,12 @@ abstract class AbsAssignment {
 }
 
 class Assignment extends AbsAssignment {
-	attr Name variable;
+	attr String variable;
 	val Expr value;
 }
 
 class Call extends AbsAssignment {
-	attr Name name;
+	attr String name;
 	val Expr[*] args;
 }
 
@@ -227,11 +227,11 @@ class Update {
 }
 
 class Action {
-	attr Name name;
+	attr String name;
 }
 
 class Rewards extends Comment {
-	attr Name name;
+	attr String name;
 	val RewardItem[+] rewards;
 }
 
@@ -242,20 +242,19 @@ class RewardItem {
 }
 
 class Formula {
-	attr Name[1] name;
+	attr String[1] name;
 	val Expr[1] expr;
 }
 
 class Label {
-	attr Name[1] name;
+	attr String[1] name;
 	val BoolExpr[1] cond;
 }
-
-datatype Name : java.lang.Object;
 
 enum ModelType {
 	DTMC = 0;
 	MDP = 0;
 	PTA = 0;
+	CTMC = 0;
 }
 

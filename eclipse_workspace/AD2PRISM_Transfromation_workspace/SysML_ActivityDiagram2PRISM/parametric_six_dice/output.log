@@ -1,0 +1,153 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Thu Feb 01 20:08:47 UTC 2024
+Hostname: ubuntu-server-macos
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism six_dice.prism die.props -param 'p=0:1' -nofixdl
+
+Parsing model file "six_dice.prism"...
+
+Type:        DTMC
+Modules:     Six_dice_I0_E0
+Variables:   Six_dice_I0_E0_pc Six_dice_I0_E0_to_be_terminated Six_dice_terminated
+
+Parsing properties file "die.props"...
+
+7 properties:
+(1) "P_O1_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O1 ]
+(2) "P_O2_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O2 ]
+(3) "P_O3_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O3 ]
+(4) "P_O4_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O4 ]
+(5) "P_O5_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O5 ]
+(6) "P_O6_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O6 ]
+(7) "R_flips_to_final": R{"reward_flip"}=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_F0 ]
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O1_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O1 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.016 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.017 seconds.
+
+Time for model checking: 0.036 seconds.
+
+Result (probability): ([0.0,1.0]): { p^2 | p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O2_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O2 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.006 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.006 seconds.
+
+Time for model checking: 0.006 seconds.
+
+Result (probability): ([0.0,1.0]): { p^2 | p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O3_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O3 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.001 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.001 seconds.
+
+Time for model checking: 0.006 seconds.
+
+Result (probability): ([0.0,1.0]): { ( -1 ) p^2 + p | p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O4_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O4 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.002 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.002 seconds.
+
+Time for model checking: 0.01 seconds.
+
+Result (probability): ([0.0,1.0]): { ( -1 ) p^3 + p^2 | p^2 - p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O5_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O5 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.001 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.001 seconds.
+
+Time for model checking: 0.006 seconds.
+
+Result (probability): ([0.0,1.0]): { p^3 - 2 p^2 + p | p^2 - p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "P_O6_para": P=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_O6 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.003 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.003 seconds.
+
+Time for model checking: 0.006 seconds.
+
+Result (probability): ([0.0,1.0]): { ( -1 ) p^3 + 3 p^2 - 3 p + 1  | p^2 - p + 1  }
+
+---------------------------------------------------------------------
+
+Parametric model checking: "R_flips_to_final": R{"reward_flip"}=? [ F Six_dice_I0_E0_pc=Six_dice_I0_E0_F0 ]
+
+Building model (parametric engine)...
+
+Computing reachable states...
+Reachable states exploration and model construction done in 0.001 secs.
+
+States:      25 (1 initial)
+Transitions: 32
+
+Time for model construction: 0.001 seconds.
+Building reward structure...
+
+Time for model checking: 0.049 seconds.
+
+Result (expected reward_flip): ([0.0,1.0]): { p^4 - 5 p^3 + 4 p^2 + p - 3  | p^4 - p^3 + p - 1  }
+

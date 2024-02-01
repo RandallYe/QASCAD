@@ -148,7 +148,7 @@
   <workflow:ParameterizedFlow xmi:id="_28rOIGaMEe6Dp8GTSd83xw" base_ControlFlow="_v2p48DhxEe6rMcaVryy_uw" probability="_KmCvgGaPEe6Dp8GTSd83xw"/>
   <workflow:ParameterizedFlow xmi:id="_9OTkQGaMEe6Dp8GTSd83xw" base_ControlFlow="_CykwYDhyEe6rMcaVryy_uw" probability="_Pt9rkGaPEe6Dp8GTSd83xw"/>
   <workflow:ParameterizedFlow xmi:id="_iP-EoGj0Ee6gQfPEZfnDaQ" base_ControlFlow="__k7eYGjyEe6gQfPEZfnDaQ" probability="_kxNSUGj0Ee6gQfPEZfnDaQ"/>
-  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_DTMC">
+  <workflow:Properties xmi:id="_O36_8Gj2Ee6gQfPEZfnDaQ" base_Activity="_NDWEUDhsEe6rMcaVryy_uw" toBeVerified="P_CTMC">
     <properties xmi:type="workflow:Property" xmi:id="_4Jt6sHhAEe6ORs_krC331A" modeltype="CTMC" name="P_CTMC">
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_ODJvoG0eEe6jYN7OOLxKkg" name="P_deadlock_freedom" value="!E [ F &quot;deadlock&quot; ]"/>
       <prproperties xmi:type="workflow:PRProperty" xmi:id="_R70DQG0eEe6jYN7OOLxKkg" name="P_termination" value="P=?  [ F (TM terminated successfully) ]"/>

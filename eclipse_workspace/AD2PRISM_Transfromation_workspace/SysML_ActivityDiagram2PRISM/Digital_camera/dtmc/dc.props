@@ -1,0 +1,4 @@
+"P_deadlock_free": !E [F "deadlock"];
+"P_always_terminated": A [F dc_M1_pc = dc_M1_AF];
+"P_terminated": P = ? [F dc_M1_pc = dc_M1_AF];
+"P_terminate_success": P=? [F (dc_terminated)];

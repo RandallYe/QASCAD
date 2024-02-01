@@ -63,17 +63,27 @@ endrewards
 
 
 
-module dc_M1
-    dc_M1_pc : [-1..1] init INACTIVE;
-    dc_M1_to_be_terminated : bool init false;
+module dc_I0_E0
+    dc_I0_E0_pc : [-1..6] init 0;
+    dc_terminated : bool init false;
 
-    [dc_M1_E22] ((dc_M1_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_TurnOff);
+    [dc_I0_E0_I0] ((dc_I0_E0_pc=dc_I0_E0_I0))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=dc_I0_E0_TurnOn);
 
-    [dc_M1_E9] ((dc_M1_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_TurnOff);
+    [dc_I0_E0_TurnOn] ((dc_I0_E0_pc=dc_I0_E0_TurnOn))&(! (dc_to_be_terminated)) -> ((1.0)/(2.0)):(dc_I0_E0_pc'=dc_I0_E0_F1);
 
-    [dc_M1_TurnOff] ((dc_M1_pc=dc_M1_TurnOff))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_AF)&(dc_M1_to_be_terminated'=true);
+    [dc_F1] ((dc_I0_E0_pc=dc_I0_E0_F1))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=dc_I0_E0_AutoFocus);
 
-    [dc_terminate] dc_to_be_terminated -> default_rate:(dc_M1_pc'=INACTIVE)&(dc_M1_to_be_terminated'=false);
+    [dc_I0_E0_AutoFocus] ((dc_I0_E0_pc=dc_I0_E0_AutoFocus))&(! (dc_to_be_terminated)) -> ((1.0)/(1.5)):(dc_I0_E0_pc'=dc_I0_E0_D1);
+
+    [dc_I0_E0_D1] ((dc_I0_E0_pc=dc_I0_E0_D1))&(! (dc_to_be_terminated)) -> (default_rate*(0.8)):(dc_I0_E0_pc'=dc_I0_E0_J2) + (default_rate*(0.2)):(dc_I0_E0_pc'=dc_I0_E0_M1);
+
+    [dc_M1_E9] ((dc_I0_E0_pc=dc_I0_E0_M1))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE);
+
+    [dc_J2] ((dc_I0_E0_pc=dc_I0_E0_J2))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE);
+
+    [dc_terminate] (dc_to_be_terminated)&(! (dc_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE)&(dc_terminated'=true);
+
+    [] ((dc_I0_E0_pc=INACTIVE))&((dc_terminated)&(! (dc_to_be_terminated))) -> default_rate:true;
 
 endmodule
 
@@ -117,23 +127,6 @@ module dc_F1_E4
 
 endmodule
 
-module dc_M3
-    dc_M3_pc : [-1..2] init INACTIVE;
-
-    [dc_M3_E15] ((dc_M3_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_TakePicture);
-
-    [dc_M3_E17] ((dc_M3_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_TakePicture);
-
-    [dc_M3_TakePicture] ((dc_M3_pc=dc_M3_TakePicture))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_WriteMem);
-
-    [dc_M3_WriteMem] ((dc_M3_pc=dc_M3_WriteMem))&(! (dc_to_be_terminated)) -> ((1.0)/(2.5)):(dc_M3_pc'=dc_M3_M1);
-
-    [dc_M1_E22] ((dc_M3_pc=dc_M3_M1))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=INACTIVE);
-
-    [dc_terminate] dc_to_be_terminated -> default_rate:(dc_M3_pc'=INACTIVE);
-
-endmodule
-
 module dc_F2_E18
     dc_F2_E18_pc : [-1..1] init INACTIVE;
 
@@ -147,27 +140,34 @@ module dc_F2_E18
 
 endmodule
 
-module dc_I0_E0
-    dc_I0_E0_pc : [-1..6] init 0;
-    dc_terminated : bool init false;
+module dc_M3
+    dc_M3_pc : [-1..2] init INACTIVE;
 
-    [dc_I0_E0_I0] ((dc_I0_E0_pc=dc_I0_E0_I0))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=dc_I0_E0_TurnOn);
+    [dc_M3_E17] ((dc_M3_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_TakePicture);
 
-    [dc_I0_E0_TurnOn] ((dc_I0_E0_pc=dc_I0_E0_TurnOn))&(! (dc_to_be_terminated)) -> ((1.0)/(2.0)):(dc_I0_E0_pc'=dc_I0_E0_F1);
+    [dc_M3_E15] ((dc_M3_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_TakePicture);
 
-    [dc_F1] ((dc_I0_E0_pc=dc_I0_E0_F1))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=dc_I0_E0_AutoFocus);
+    [dc_M3_TakePicture] ((dc_M3_pc=dc_M3_TakePicture))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=dc_M3_WriteMem);
 
-    [dc_I0_E0_AutoFocus] ((dc_I0_E0_pc=dc_I0_E0_AutoFocus))&(! (dc_to_be_terminated)) -> ((1.0)/(1.5)):(dc_I0_E0_pc'=dc_I0_E0_D1);
+    [dc_M3_WriteMem] ((dc_M3_pc=dc_M3_WriteMem))&(! (dc_to_be_terminated)) -> ((1.0)/(2.5)):(dc_M3_pc'=dc_M3_M1);
 
-    [dc_I0_E0_D1] ((dc_I0_E0_pc=dc_I0_E0_D1))&(! (dc_to_be_terminated)) -> (default_rate*(0.8)):(dc_I0_E0_pc'=dc_I0_E0_J2) + (default_rate*(0.2)):(dc_I0_E0_pc'=dc_I0_E0_M1);
+    [dc_M1_E22] ((dc_M3_pc=dc_M3_M1))&(! (dc_to_be_terminated)) -> default_rate:(dc_M3_pc'=INACTIVE);
 
-    [dc_M1_E9] ((dc_I0_E0_pc=dc_I0_E0_M1))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE);
+    [dc_terminate] dc_to_be_terminated -> default_rate:(dc_M3_pc'=INACTIVE);
 
-    [dc_J2] ((dc_I0_E0_pc=dc_I0_E0_J2))&(! (dc_to_be_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE);
+endmodule
 
-    [dc_terminate] (dc_to_be_terminated)&(! (dc_terminated)) -> default_rate:(dc_I0_E0_pc'=INACTIVE)&(dc_terminated'=true);
+module dc_M1
+    dc_M1_pc : [-1..1] init INACTIVE;
+    dc_M1_to_be_terminated : bool init false;
 
-    [] ((dc_I0_E0_pc=INACTIVE))&((dc_terminated)&(! (dc_to_be_terminated))) -> default_rate:true;
+    [dc_M1_E9] ((dc_M1_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_TurnOff);
+
+    [dc_M1_E22] ((dc_M1_pc=INACTIVE))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_TurnOff);
+
+    [dc_M1_TurnOff] ((dc_M1_pc=dc_M1_TurnOff))&(! (dc_to_be_terminated)) -> default_rate:(dc_M1_pc'=dc_M1_AF)&(dc_M1_to_be_terminated'=true);
+
+    [dc_terminate] dc_to_be_terminated -> default_rate:(dc_M1_pc'=INACTIVE)&(dc_M1_to_be_terminated'=false);
 
 endmodule
 
