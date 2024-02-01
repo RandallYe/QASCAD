@@ -23,7 +23,7 @@
   				
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -44,7 +44,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 			modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
-			metamodelUri="http://www.deis-project.eu/ode/prism"
+			metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		

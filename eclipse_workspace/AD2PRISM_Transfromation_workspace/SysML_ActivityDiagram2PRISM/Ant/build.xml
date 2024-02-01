@@ -22,7 +22,7 @@
   				
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -41,7 +41,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/six_dice_example/six_dice_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -82,7 +82,7 @@
 			
 		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="false" store="true" profile="true"/>
 
@@ -105,7 +105,7 @@
 			-->
 			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/parametric_six_dice/six_dice_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="true" store="false" profile="true"/>
 			
@@ -145,7 +145,7 @@
 
 		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Digital_camera/dc_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="false" store="true" profile="true"/>
 
@@ -167,7 +167,7 @@
 			-->
 			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Digital_camera/dc_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="true" store="false" profile="true"/>
 			
@@ -206,7 +206,7 @@
 			
 		  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="false" store="true" profile="true"/>
 
@@ -228,7 +228,7 @@
 			-->
 			<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 		  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/Travel_management/tm_prism.model"
-		  		metamodelUri="http://www.deis-project.eu/ode/prism"
+		  		metamodelUri="https://www.sesame-project.org/prism"
 		  		expand="true"
 		  		read="true" store="false" profile="true"/>
 			
@@ -269,7 +269,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -290,7 +290,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${model.name}/${model.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -332,7 +332,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -354,7 +354,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${twmodel.name}/${twmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -406,7 +406,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -428,7 +428,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${itsmodel.name}/${itsmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -469,7 +469,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -491,7 +491,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${minodemodel.name}/${minodemodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -533,7 +533,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -555,7 +555,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palmodel.name}/${palmodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		
@@ -609,7 +609,7 @@
 		
 	  	<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="false" store="true" profile="true"/>
 
@@ -631,7 +631,7 @@
 		-->
 		<epsilon.emf.loadModel name="PRISM" aliases = "PRISM"
 	  		modelUri="platform:/resource/SysML_ActivityDiagram2PRISM/${palparamodel.name}/${palparamodel.shortname}_prism.model"
-	  		metamodelUri="http://www.deis-project.eu/ode/prism"
+	  		metamodelUri="https://www.sesame-project.org/prism"
 	  		expand="true"
 	  		read="true" store="false" profile="true"/>
 		

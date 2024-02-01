@@ -1,0 +1,4 @@
+"P_deadlock_free": !E [F "deadlock"];
+"P_termination": P=? [F (act_terminated & !act_to_be_failed)];
+"P_termination_5": P=? [F<=5 (act_terminated & !act_to_be_failed)];
+"P_termination_10": P=? [F<=10 (act_terminated & !act_to_be_failed)];
