@@ -1,0 +1,143 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Thu Feb 01 20:00:56 UTC 2024
+Hostname: ubuntu-server-macos
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism QASCAD_demo.prism QASCAD_demo.props -const p1=0.6 -nofixdl -nossdetect -epsilon 1e-9
+
+Parsing model file "QASCAD_demo.prism"...
+
+Type:        CTMC
+Modules:     act_F1_e4 act_i0_e1
+Variables:   act_F1_e4_pc act_F1_e4_to_be_terminated act_F1_e4_to_be_failed act_i0_e1_pc act_i0_e1_to_be_terminated act_i0_e1_to_be_failed act_terminated
+
+Parsing properties file "QASCAD_demo.props"...
+
+4 properties:
+(1) "P_deadlock_free": !E [ F "deadlock" ]
+(2) "P_termination": P=? [ F (act_terminated&!act_to_be_failed) ]
+(3) "P_termination_5": P=? [ F<=5 (act_terminated&!act_to_be_failed) ]
+(4) "P_termination_10": P=? [ F<=10 (act_terminated&!act_to_be_failed) ]
+
+---------------------------------------------------------------------
+
+Model checking: "P_deadlock_free": !E [ F "deadlock" ]
+Model constants: p1=0.6
+
+Building model...
+Model constants: p1=0.6
+
+Computing reachable states...
+
+Reachability (BFS): 12 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.013 seconds.
+
+Type:        CTMC
+States:      42 (1 initial)
+Transitions: 82
+
+Rate matrix: 379 nodes (16 terminal), 82 minterms, vars: 12r/12c
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.001 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P_termination": P=? [ F (act_terminated&!act_to_be_failed) ]
+Model constants: p1=0.6
+
+Diagonals vector: 139 nodes (17 terminal), 42 minterms
+Embedded Markov chain: 704 nodes (47 terminal), 82 minterms
+
+Prob0: 8 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 8, no = 12, maybe = 22
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=12, nodes=630] [29.5 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.6 KB]
+Creating vector for diagonals... [dist=1, compact] [0.1 KB]
+Creating vector for RHS... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [2 x 0.3 KB]
+TOTAL: [31.0 KB]
+
+Starting iterations...
+
+Jacobi: 71 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.7372224566854159
+
+Time for model checking: 0.002 seconds.
+
+Result: 0.7372224566854159 (+/- 3.175427876184135E-9 estimated; rel err 4.307285877401234E-9)
+
+---------------------------------------------------------------------
+
+Model checking: "P_termination_5": P=? [ F<=5 (act_terminated&!act_to_be_failed) ]
+Model constants: p1=0.6
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 41 of 42 (97.6%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=414] [19.4 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=17, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.1 KB]
+
+Uniformisation: q.t = 1020000.000000 x 5.000000 = 5100000.000000
+Fox-Glynn: left = 5081931, right = 5122358
+
+Starting iterations...
+
+Iterative method: 5122358 iterations in 0.65 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.40133389460206953
+
+Time for model checking: 2.236 seconds.
+
+Result: 0.40133389460206953
+
+---------------------------------------------------------------------
+
+Model checking: "P_termination_10": P=? [ F<=10 (act_terminated&!act_to_be_failed) ]
+Model constants: p1=0.6
+
+Computing probabilities...
+Engine: Hybrid
+
+Number of non-absorbing states: 41 of 42 (97.6%)
+
+Building hybrid MTBDD matrix... [levels=12, nodes=414] [19.4 KB]
+Adding explicit sparse matrices... [levels=12, num=1, compact] [0.5 KB]
+Creating vector for diagonals... [dist=17, compact] [0.2 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [21.1 KB]
+
+Uniformisation: q.t = 1020000.000000 x 10.000000 = 10200000.000000
+Fox-Glynn: left = 10174447, right = 10231618
+
+Starting iterations...
+
+Iterative method: 10231618 iterations in 1.33 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.6697249743470073
+
+Time for model checking: 4.251 seconds.
+
+Result: 0.6697249743470073
+

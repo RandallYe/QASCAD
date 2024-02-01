@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="https://www.sesame-project.org/prism">
   <prism:Model modelType="CTMC">
     <constants name="INACTIVE">
       <type xsi:type="prism:IntType"/>
@@ -7,7 +7,7 @@
     </constants>
     <constants name="mean_duration">
       <type xsi:type="prism:DoubleType"/>
-      <value xsi:type="prism:DoubleLitExpr" value="1.0E-4"/>
+      <value xsi:type="prism:DoubleLitExpr" value="1.0E-8"/>
     </constants>
     <constants name="travel_web::i0::E0::i0">
       <type xsi:type="prism:IntType"/>
@@ -162,15 +162,6 @@
         <updates>
           <probability xsi:type="prism:MultExpr">
             <left xsi:type="prism:VarExpr" name="default_rate"/>
-            <right xsi:type="prism:VarExpr" name="p1"/>
-          </probability>
-          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
-            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::ArrivalTime"/>
-          </assigns>
-        </updates>
-        <updates>
-          <probability xsi:type="prism:MultExpr">
-            <left xsi:type="prism:VarExpr" name="default_rate"/>
             <right xsi:type="prism:MinusExpr">
               <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
               <right xsi:type="prism:VarExpr" name="p1"/>
@@ -178,6 +169,15 @@
           </probability>
           <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
             <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::M2"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:MultExpr">
+            <left xsi:type="prism:VarExpr" name="default_rate"/>
+            <right xsi:type="prism:VarExpr" name="p1"/>
+          </probability>
+          <assigns xsi:type="prism:Assignment" variable="travel_web::i0::E0::pc">
+            <value xsi:type="prism:VarExpr" name="travel_web::i0::E0::ArrivalTime"/>
           </assigns>
         </updates>
       </commands>

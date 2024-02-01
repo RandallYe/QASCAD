@@ -1,0 +1,94 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Thu Feb 01 23:39:44 UTC 2024
+Hostname: ubuntu-server-macos
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism dc.prism dc.props -nofixdl
+
+Parsing model file "dc.prism"...
+
+Type:        DTMC
+Modules:     dc_I0_E0 dc_F1_E3 dc_F1_E4 dc_M3 dc_M1 dc_F2_E18
+Variables:   dc_I0_E0_pc dc_terminated dc_F1_E3_pc dc_F1_E4_pc dc_M3_pc dc_M1_pc dc_M1_to_be_terminated dc_F2_E18_pc
+
+Parsing properties file "dc.props"...
+
+4 properties:
+(1) "P_deadlock_free": !E [ F "deadlock" ]
+(2) "P_always_terminated": A [ F dc_M1_pc=dc_M1_AF ]
+(3) "P_terminated": P=? [ F dc_M1_pc=dc_M1_AF ]
+(4) "P_terminate_success": P=? [ F (dc_terminated) ]
+
+---------------------------------------------------------------------
+
+Model checking: "P_deadlock_free": !E [ F "deadlock" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 19 iterations in 0.00 seconds (average 0.000053, setup 0.00)
+
+Time for model construction: 0.019 seconds.
+
+Type:        DTMC
+States:      226 (1 initial)
+Transitions: 514
+
+Transition matrix: 1424 nodes (17 terminal), 514 minterms, vars: 18r/18c
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.001 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P_always_terminated": A [ F dc_M1_pc=dc_M1_AF ]
+
+CTL EG non-trivial SCC states: 1
+CTL EG reachability fixpoint: 2 iterations in 0.004 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.004 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminated": P=? [ F dc_M1_pc=dc_M1_AF ]
+
+Prob0: 10 iterations in 0.00 seconds (average 0.000100, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 225, no = 1, maybe = 0
+
+Value in the initial state: 1.0
+
+Time for model checking: 0.003 seconds.
+
+Result: 1.0 (exact floating point)
+
+---------------------------------------------------------------------
+
+Model checking: "P_terminate_success": P=? [ F (dc_terminated) ]
+
+Prob0: 11 iterations in 0.00 seconds (average 0.000091, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 226, no = 0, maybe = 0
+
+Value in the initial state: 1.0
+
+Time for model checking: 0.001 seconds.
+
+Result: 1.0 (exact floating point)
+

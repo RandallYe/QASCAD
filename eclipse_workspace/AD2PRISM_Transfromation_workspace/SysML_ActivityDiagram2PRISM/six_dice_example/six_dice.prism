@@ -61,7 +61,7 @@ module Six_dice_I0_E0
 
     [Six_dice_I0_E0_A0] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_A0))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_D1);
 
-    [Six_dice_I0_E0_D1] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D1))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M2) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M1);
+    [Six_dice_I0_E0_D1] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D1))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M1) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M2);
 
     [Six_dice_I0_E0_M1] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_M1))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_A1);
 
@@ -75,7 +75,7 @@ module Six_dice_I0_E0
 
     [Six_dice_I0_E0_A6] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_A6))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_D7);
 
-    [Six_dice_I0_E0_D6] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D6))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O4) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O5);
+    [Six_dice_I0_E0_D6] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D6))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O5) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O4);
 
     [Six_dice_I0_E0_D7] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D7))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O6) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M2);
 
@@ -87,13 +87,13 @@ module Six_dice_I0_E0
 
     [Six_dice_I0_E0_A1] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_A1))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_D2);
 
-    [Six_dice_I0_E0_D2] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D2))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_A3) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_A4);
+    [Six_dice_I0_E0_D2] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D2))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_A4) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_A3);
 
     [Six_dice_I0_E0_A3] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_A3))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_D4);
 
     [Six_dice_I0_E0_A4] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_A4))&(! (Six_dice_to_be_terminated)) -> (Six_dice_I0_E0_pc'=Six_dice_I0_E0_D5);
 
-    [Six_dice_I0_E0_D4] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D4))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O1) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M1);
+    [Six_dice_I0_E0_D4] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D4))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_M1) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O1);
 
     [Six_dice_I0_E0_D5] ((Six_dice_I0_E0_pc=Six_dice_I0_E0_D5))&(! (Six_dice_to_be_terminated)) -> (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O3) + (0.5):(Six_dice_I0_E0_pc'=Six_dice_I0_E0_O2);
 

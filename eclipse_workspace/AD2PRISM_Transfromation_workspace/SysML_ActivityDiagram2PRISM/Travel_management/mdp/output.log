@@ -1,0 +1,357 @@
+PRISM
+=====
+
+Version: 4.8
+Date: Thu Feb 01 23:22:23 UTC 2024
+Hostname: ubuntu-server-macos
+Memory limits: cudd=1g, java(heap)=1g
+Command line: prism tm.prism tm.props -nofixdl -nossdetect -epsilon 1e-9
+
+Parsing model file "tm.prism"...
+
+Type:        MDP
+Modules:     TM_I0_E1 TM_F1_E5
+Variables:   TM_I0_E1_pc TM_I0_E1_to_be_terminated TM_I0_E1_to_be_failed TM_terminated TM_F1_E5_pc TM_F1_E5_to_be_terminated TM_F1_E5_to_be_failed
+
+Parsing properties file "tm.props"...
+
+10 properties:
+(1) "P1": !E [ F "deadlock" ]
+(2) "P2": Pmax=? [ F (TM_terminated&!TM_to_be_failed) ]
+(3) "P_checkSchedule_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_checkSchedule)
+(4) "P_checkSchedule_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_checkSchedule)
+(5) "P_reqeustMeeting_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_requestMeeting)
+(6) "P_reqeustMeeting_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_requestMeeting)
+(7) "P_makeCall_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed))
+(8) "P_makeCall_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed))
+(9) "P_M1_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_F1_E5_pc=TM_F1_E5_M1)
+(10) "P_M1_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_F1_E5_pc=TM_F1_E5_M1)
+
+---------------------------------------------------------------------
+
+Model checking: "P1": !E [ F "deadlock" ]
+
+Building model...
+
+Computing reachable states...
+
+Reachability (BFS): 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.011 seconds.
+
+Type:        MDP
+States:      39 (1 initial)
+Transitions: 73
+Choices:     47
+
+Transition matrix: 752 nodes (13 terminal), 73 minterms, vars: 12r/12c/19nd
+
+CTL EU fixpoint: 1 iterations in 0.0 seconds
+
+Property satisfied in 1 of 1 initial states.
+
+Time for model checking: 0.001 seconds.
+
+Result: true
+
+---------------------------------------------------------------------
+
+Model checking: "P2": Pmax=? [ F (TM_terminated&!TM_to_be_failed) ]
+
+Prob0A: 18 iterations in 0.00 seconds (average 0.000111, setup 0.00)
+
+Prob1E: 14 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000009, setup 0.00)
+
+Value in the initial state: 0.7754788726131846
+
+Time for model checking: 0.005 seconds.
+
+Result: 0.7754788726131846 (+/- 5.6182770435952986E-9 estimated; rel err 7.244913100808283E-9)
+
+---------------------------------------------------------------------
+
+Model checking: "P_checkSchedule_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_checkSchedule)
+
+Prob0A: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1E: 14 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter TM_I0_E1_pc=TM_I0_E1_checkSchedule: 1
+
+Maximum value over states satisfying filter: 0.8242760131537121
+
+There are 1 states with (approximately) this value:
+12:(3,false,false,false,-1,false,false)
+
+Time for model checking: 0.003 seconds.
+
+Result: 0.8242760131537121
+
+---------------------------------------------------------------------
+
+Model checking: "P_checkSchedule_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_checkSchedule)
+
+Prob0E: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1A: 4 iterations in 0.00 seconds (average 0.000250, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter TM_I0_E1_pc=TM_I0_E1_checkSchedule: 1
+
+Minimum value over states satisfying filter: 0.824276013153712
+
+There are 1 states with (approximately) this value:
+12:(3,false,false,false,-1,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.824276013153712
+
+---------------------------------------------------------------------
+
+Model checking: "P_reqeustMeeting_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_requestMeeting)
+
+Prob0A: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1E: 14 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000009, setup 0.00)
+
+States satisfying filter TM_I0_E1_pc=TM_I0_E1_requestMeeting: 1
+
+Maximum value over states satisfying filter: 0.9507920792031512
+
+There are 1 states with (approximately) this value:
+32:(8,false,false,false,-1,false,false)
+
+Time for model checking: 0.002 seconds.
+
+Result: 0.9507920792031512
+
+---------------------------------------------------------------------
+
+Model checking: "P_reqeustMeeting_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_I0_E1_pc=TM_I0_E1_requestMeeting)
+
+Prob0E: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1A: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.01 seconds (average 0.000000, setup 0.01)
+
+States satisfying filter TM_I0_E1_pc=TM_I0_E1_requestMeeting: 1
+
+Minimum value over states satisfying filter: 0.9507920792031512
+
+There are 1 states with (approximately) this value:
+32:(8,false,false,false,-1,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.9507920792031512
+
+---------------------------------------------------------------------
+
+Model checking: "P_makeCall_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed))
+
+Prob0A: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1E: 14 iterations in 0.00 seconds (average 0.000071, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed): 3
+
+Maximum value over states satisfying filter: 0.93196451292669
+
+There are 1 states with (approximately) this value:
+27:(7,false,false,false,0,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.93196451292669
+
+---------------------------------------------------------------------
+
+Model checking: "P_makeCall_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed))
+
+Prob0E: 18 iterations in 0.00 seconds (average 0.000056, setup 0.00)
+
+Prob1A: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter (TM_F1_E5_pc=TM_F1_E5_makeCall)&!(TM_to_be_failed): 3
+
+Minimum value over states satisfying filter: 0.8410979729163376
+
+There are 1 states with (approximately) this value:
+15:(5,false,false,false,0,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.8410979729163376
+
+---------------------------------------------------------------------
+
+Model checking: "P_M1_max": filter(max, Pmax=? [ F TM_terminated&!TM_to_be_failed ], TM_F1_E5_pc=TM_F1_E5_M1)
+
+Prob0A: 18 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1E: 14 iterations in 0.00 seconds (average 0.000071, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter TM_F1_E5_pc=TM_F1_E5_M1: 4
+
+Maximum value over states satisfying filter: 0.9413782960624877
+
+There are 1 states with (approximately) this value:
+28:(7,false,false,false,1,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.9413782960624877
+
+---------------------------------------------------------------------
+
+Model checking: "P_M1_min": filter(min, Pmin=? [ F TM_terminated&!TM_to_be_failed ], TM_F1_E5_pc=TM_F1_E5_M1)
+
+Prob0E: 18 iterations in 0.01 seconds (average 0.000278, setup 0.00)
+
+Prob1A: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 3, no = 11, maybe = 25
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrices... [nm=17, levels=12, nodes=690] [32.3 KB]
+Adding sparse bits... [levels=12-12, num=17, compact=17/17] [1.1 KB]
+Creating vector for yes... [dist=2, compact] [0.1 KB]
+Allocating iteration vectors... [3 x 0.3 KB]
+TOTAL: [34.4 KB]
+
+Starting iterations...
+
+Iterative method: 112 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter TM_F1_E5_pc=TM_F1_E5_M1: 4
+
+Minimum value over states satisfying filter: 0.0
+
+There are 1 states with (approximately) this value:
+5:(-1,true,true,false,1,false,false)
+
+Time for model checking: 0.001 seconds.
+
+Result: 0.0
+

@@ -7,7 +7,7 @@
 ctmc
 
 const int INACTIVE = (-1);
-const double mean_duration = (1.0E-4);
+const double mean_duration = (1.0E-8);
 const int travel_web_i0_E0_i0 = (0);
 const int travel_web_i0_E0_FindTrainStation = (1);
 const int travel_web_i0_E0_D1 = (2);
@@ -49,7 +49,7 @@ module travel_web_i0_E0
 
     [travel_web_i0_E0_FindTrainStation] ((travel_web_i0_E0_pc=travel_web_i0_E0_FindTrainStation))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda1)):(travel_web_i0_E0_pc'=travel_web_i0_E0_D1);
 
-    [travel_web_i0_E0_D1] ((travel_web_i0_E0_pc=travel_web_i0_E0_D1))&(! (travel_web_to_be_terminated)) -> (default_rate*p1):(travel_web_i0_E0_pc'=travel_web_i0_E0_ArrivalTime) + (default_rate*((1.0)-p1)):(travel_web_i0_E0_pc'=travel_web_i0_E0_M2);
+    [travel_web_i0_E0_D1] ((travel_web_i0_E0_pc=travel_web_i0_E0_D1))&(! (travel_web_to_be_terminated)) -> (default_rate*((1.0)-p1)):(travel_web_i0_E0_pc'=travel_web_i0_E0_M2) + (default_rate*p1):(travel_web_i0_E0_pc'=travel_web_i0_E0_ArrivalTime);
 
     [travel_web_i0_E0_ArrivalTime] ((travel_web_i0_E0_pc=travel_web_i0_E0_ArrivalTime))&(! (travel_web_to_be_terminated)) -> ((1.0)/((1.0)/lambda2)):(travel_web_i0_E0_pc'=travel_web_i0_E0_SearchRestaurant);
 

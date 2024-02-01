@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="http://www.deis-project.eu/ode/prism">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:prism="https://www.sesame-project.org/prism">
   <prism:Model modelType="MDP">
     <constants name="INACTIVE">
       <type xsi:type="prism:IntType"/>
@@ -237,6 +237,12 @@
           </right>
         </grd>
         <updates>
+          <probability xsi:type="prism:VarExpr" name="r_prep"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::F1"/>
+          </assigns>
+        </updates>
+        <updates>
           <probability xsi:type="prism:MinusExpr">
             <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
             <right xsi:type="prism:VarExpr" name="r_prep"/>
@@ -249,12 +255,6 @@
           </assigns>
           <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::to_be_terminated">
             <value xsi:type="prism:BoolLitExpr" value="true"/>
-          </assigns>
-        </updates>
-        <updates>
-          <probability xsi:type="prism:VarExpr" name="r_prep"/>
-          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
-            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::F1"/>
           </assigns>
         </updates>
       </commands>
@@ -443,18 +443,18 @@
           </right>
         </grd>
         <updates>
-          <probability xsi:type="prism:VarExpr" name="p_d_1"/>
-          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
-            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M2"/>
-          </assigns>
-        </updates>
-        <updates>
           <probability xsi:type="prism:MinusExpr">
             <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
             <right xsi:type="prism:VarExpr" name="p_d_1"/>
           </probability>
           <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
             <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M1"/>
+          </assigns>
+        </updates>
+        <updates>
+          <probability xsi:type="prism:VarExpr" name="p_d_1"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::I0::E1::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::I0::E1::M2"/>
           </assigns>
         </updates>
       </commands>
@@ -724,18 +724,18 @@
           </right>
         </grd>
         <updates>
+          <probability xsi:type="prism:VarExpr" name="p_c_c"/>
+          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
+            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2DeliveredRoomD"/>
+          </assigns>
+        </updates>
+        <updates>
           <probability xsi:type="prism:MinusExpr">
             <left xsi:type="prism:DoubleLitExpr" value="1.0"/>
             <right xsi:type="prism:VarExpr" name="p_c_c"/>
           </probability>
           <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
             <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2Stuck"/>
-          </assigns>
-        </updates>
-        <updates>
-          <probability xsi:type="prism:VarExpr" name="p_c_c"/>
-          <assigns xsi:type="prism:Assignment" variable="PAL::F1::E25::pc">
-            <value xsi:type="prism:VarExpr" name="PAL::F1::E25::R2DeliveredRoomD"/>
           </assigns>
         </updates>
       </commands>

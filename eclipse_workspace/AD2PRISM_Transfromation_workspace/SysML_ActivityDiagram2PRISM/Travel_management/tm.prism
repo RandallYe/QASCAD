@@ -4,9 +4,10 @@
  
 // PRISM Output
 
-dtmc
+ctmc
 
 const int INACTIVE = (-1);
+const double mean_duration = (0.001);
 const int TM_I0_E1_I0 = (0);
 const int TM_I0_E1_findDuration = (1);
 const int TM_I0_E1_calculateTime = (2);
@@ -34,6 +35,7 @@ const double rewd = (1.0);
 
 formula TM_to_be_terminated = (TM_I0_E1_to_be_terminated)|(TM_F1_E5_to_be_terminated);		
 formula TM_to_be_failed = (TM_I0_E1_to_be_failed)|(TM_F1_E5_to_be_failed);		
+formula default_rate = ((1.0)/mean_duration);		
 		
 
 
@@ -50,19 +52,19 @@ module TM_F1_E5
     TM_F1_E5_to_be_terminated : bool init false;
     TM_F1_E5_to_be_failed : bool init false;
 
-    [TM_F1] ((TM_F1_E5_pc=INACTIVE))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=TM_F1_E5_makeCall);
+    [TM_F1] ((TM_F1_E5_pc=INACTIVE))&(! (TM_to_be_terminated)) -> default_rate:(TM_F1_E5_pc'=TM_F1_E5_makeCall);
 
-    [TM_F1_E5_makeCall] ((TM_F1_E5_pc=TM_F1_E5_makeCall))&(! (TM_to_be_terminated)) -> ((1.0)-(0.99)):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true) + (0.99):(TM_F1_E5_pc'=TM_F1_E5_M1);
+    [TM_F1_E5_makeCall] ((TM_F1_E5_pc=TM_F1_E5_makeCall))&(! (TM_to_be_terminated)) -> (((1.0)/(6.0))*(0.99)):(TM_F1_E5_pc'=TM_F1_E5_M1) + (((1.0)/(6.0))*((1.0)-(0.99))):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true);
 
-    [TM_F1_E5_M1] ((TM_F1_E5_pc=TM_F1_E5_M1))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=TM_F1_E5_D1);
+    [TM_F1_E5_M1] ((TM_F1_E5_pc=TM_F1_E5_M1))&(! (TM_to_be_terminated)) -> default_rate:(TM_F1_E5_pc'=TM_F1_E5_D1);
 
-    [TM_F1_E5_D1] ((TM_F1_E5_pc=TM_F1_E5_D1))&(! (TM_to_be_terminated)) -> (0.5):(TM_F1_E5_pc'=TM_F1_E5_J1) + (0.5):(TM_F1_E5_pc'=TM_F1_E5_getCallInformation);
+    [TM_F1_E5_D1] ((TM_F1_E5_pc=TM_F1_E5_D1))&(! (TM_to_be_terminated)) -> (default_rate*(0.5)):(TM_F1_E5_pc'=TM_F1_E5_getCallInformation) + (default_rate*(0.5)):(TM_F1_E5_pc'=TM_F1_E5_J1);
 
-    [TM_J1] ((TM_F1_E5_pc=TM_F1_E5_J1))&(! (TM_to_be_terminated)) -> (TM_F1_E5_pc'=INACTIVE);
+    [TM_J1] ((TM_F1_E5_pc=TM_F1_E5_J1))&(! (TM_to_be_terminated)) -> default_rate:(TM_F1_E5_pc'=INACTIVE);
 
-    [TM_F1_E5_getCallInformation] ((TM_F1_E5_pc=TM_F1_E5_getCallInformation))&(! (TM_to_be_terminated)) -> (0.99):(TM_F1_E5_pc'=TM_F1_E5_M1) + ((1.0)-(0.99)):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true);
+    [TM_F1_E5_getCallInformation] ((TM_F1_E5_pc=TM_F1_E5_getCallInformation))&(! (TM_to_be_terminated)) -> (((1.0)/(6.0))*(0.99)):(TM_F1_E5_pc'=TM_F1_E5_M1) + (((1.0)/(6.0))*((1.0)-(0.99))):(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_failed'=true)&(TM_F1_E5_to_be_terminated'=true);
 
-    [TM_terminate] TM_to_be_terminated -> (TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_terminated'=false);
+    [TM_terminate] TM_to_be_terminated -> default_rate:(TM_F1_E5_pc'=INACTIVE)&(TM_F1_E5_to_be_terminated'=false);
 
 endmodule
 
@@ -72,37 +74,37 @@ module TM_I0_E1
     TM_I0_E1_to_be_failed : bool init false;
     TM_terminated : bool init false;
 
-    [TM_I0_E1_I0] ((TM_I0_E1_pc=TM_I0_E1_I0))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_findDuration);
+    [TM_I0_E1_I0] ((TM_I0_E1_pc=TM_I0_E1_I0))&(! (TM_to_be_terminated)) -> default_rate:(TM_I0_E1_pc'=TM_I0_E1_findDuration);
 
-    [TM_I0_E1_findDuration] ((TM_I0_E1_pc=TM_I0_E1_findDuration))&(! (TM_to_be_terminated)) -> ((1.0)-(0.96)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (0.96):(TM_I0_E1_pc'=TM_I0_E1_calculateTime);
+    [TM_I0_E1_findDuration] ((TM_I0_E1_pc=TM_I0_E1_findDuration))&(! (TM_to_be_terminated)) -> (((1.0)/(0.8))*((1.0)-(0.96))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (((1.0)/(0.8))*(0.96)):(TM_I0_E1_pc'=TM_I0_E1_calculateTime);
 
-    [TM_I0_E1_calculateTime] ((TM_I0_E1_pc=TM_I0_E1_calculateTime))&(! (TM_to_be_terminated)) -> (0.98):(TM_I0_E1_pc'=TM_I0_E1_checkSchedule) + ((1.0)-(0.98)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_calculateTime] ((TM_I0_E1_pc=TM_I0_E1_calculateTime))&(! (TM_to_be_terminated)) -> (((1.0)/(1.0))*(0.98)):(TM_I0_E1_pc'=TM_I0_E1_checkSchedule) + (((1.0)/(1.0))*((1.0)-(0.98))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
 
-    [TM_I0_E1_checkSchedule] ((TM_I0_E1_pc=TM_I0_E1_checkSchedule))&(! (TM_to_be_terminated)) -> (0.98):(TM_I0_E1_pc'=TM_I0_E1_F1) + ((1.0)-(0.98)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_checkSchedule] ((TM_I0_E1_pc=TM_I0_E1_checkSchedule))&(! (TM_to_be_terminated)) -> (((1.0)/(1.8))*(0.98)):(TM_I0_E1_pc'=TM_I0_E1_F1) + (((1.0)/(1.8))*((1.0)-(0.98))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
 
-    [TM_F1] ((TM_I0_E1_pc=TM_I0_E1_F1))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_bookParking);
+    [TM_F1] ((TM_I0_E1_pc=TM_I0_E1_F1))&(! (TM_to_be_terminated)) -> default_rate:(TM_I0_E1_pc'=TM_I0_E1_bookParking);
 
-    [TM_I0_E1_bookParking] ((TM_I0_E1_pc=TM_I0_E1_bookParking))&(! (TM_to_be_terminated)) -> ((1.0)-(0.95)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (0.95):(TM_I0_E1_pc'=TM_I0_E1_registerParking);
+    [TM_I0_E1_bookParking] ((TM_I0_E1_pc=TM_I0_E1_bookParking))&(! (TM_to_be_terminated)) -> (((1.0)/(3.0))*(0.95)):(TM_I0_E1_pc'=TM_I0_E1_registerParking) + (((1.0)/(3.0))*((1.0)-(0.95))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
 
-    [TM_I0_E1_registerParking] ((TM_I0_E1_pc=TM_I0_E1_registerParking))&(! (TM_to_be_terminated)) -> (0.95):(TM_I0_E1_pc'=TM_I0_E1_J1) + ((1.0)-(0.95)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_registerParking] ((TM_I0_E1_pc=TM_I0_E1_registerParking))&(! (TM_to_be_terminated)) -> (((1.0)/(3.0))*((1.0)-(0.95))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (((1.0)/(3.0))*(0.95)):(TM_I0_E1_pc'=TM_I0_E1_J1);
 
-    [TM_J1] ((TM_I0_E1_pc=TM_I0_E1_J1))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_requestMeeting);
+    [TM_J1] ((TM_I0_E1_pc=TM_I0_E1_J1))&(! (TM_to_be_terminated)) -> default_rate:(TM_I0_E1_pc'=TM_I0_E1_requestMeeting);
 
-    [TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting))&(! (TM_to_be_terminated)) -> ((1.0)-r):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + r:(TM_I0_E1_pc'=TM_I0_E1_sendSMS);
+    [TM_I0_E1_requestMeeting] ((TM_I0_E1_pc=TM_I0_E1_requestMeeting))&(! (TM_to_be_terminated)) -> (((1.0)/(1.2))*r):(TM_I0_E1_pc'=TM_I0_E1_sendSMS) + (((1.0)/(1.2))*((1.0)-r)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
 
-    [TM_I0_E1_sendSMS] ((TM_I0_E1_pc=TM_I0_E1_sendSMS))&(! (TM_to_be_terminated)) -> (0.99):(TM_I0_E1_pc'=TM_I0_E1_M2) + ((1.0)-(0.99)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_sendSMS] ((TM_I0_E1_pc=TM_I0_E1_sendSMS))&(! (TM_to_be_terminated)) -> (((1.0)/(3.0))*((1.0)-(0.99))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (((1.0)/(3.0))*(0.99)):(TM_I0_E1_pc'=TM_I0_E1_M2);
 
-    [TM_I0_E1_M2] ((TM_I0_E1_pc=TM_I0_E1_M2))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_D2);
+    [TM_I0_E1_M2] ((TM_I0_E1_pc=TM_I0_E1_M2))&(! (TM_to_be_terminated)) -> default_rate:(TM_I0_E1_pc'=TM_I0_E1_D2);
 
-    [TM_I0_E1_D2] ((TM_I0_E1_pc=TM_I0_E1_D2))&(! (TM_to_be_terminated)) -> (0.5):(TM_I0_E1_pc'=TM_I0_E1_EndWhile) + (0.5):(TM_I0_E1_pc'=TM_I0_E1_getSMSDeliveryStatus);
+    [TM_I0_E1_D2] ((TM_I0_E1_pc=TM_I0_E1_D2))&(! (TM_to_be_terminated)) -> (default_rate*(0.5)):(TM_I0_E1_pc'=TM_I0_E1_EndWhile) + (default_rate*(0.5)):(TM_I0_E1_pc'=TM_I0_E1_getSMSDeliveryStatus);
 
-    [TM_I0_E1_EndWhile] ((TM_I0_E1_pc=TM_I0_E1_EndWhile))&(! (TM_to_be_terminated)) -> (TM_I0_E1_pc'=TM_I0_E1_AF)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_EndWhile] ((TM_I0_E1_pc=TM_I0_E1_EndWhile))&(! (TM_to_be_terminated)) -> ((1.0)/(1.0)):(TM_I0_E1_pc'=TM_I0_E1_AF)&(TM_I0_E1_to_be_terminated'=true);
 
-    [TM_I0_E1_getSMSDeliveryStatus] ((TM_I0_E1_pc=TM_I0_E1_getSMSDeliveryStatus))&(! (TM_to_be_terminated)) -> (0.99):(TM_I0_E1_pc'=TM_I0_E1_M2) + ((1.0)-(0.99)):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true);
+    [TM_I0_E1_getSMSDeliveryStatus] ((TM_I0_E1_pc=TM_I0_E1_getSMSDeliveryStatus))&(! (TM_to_be_terminated)) -> (((1.0)/(2.8))*((1.0)-(0.99))):(TM_I0_E1_pc'=INACTIVE)&(TM_I0_E1_to_be_failed'=true)&(TM_I0_E1_to_be_terminated'=true) + (((1.0)/(2.8))*(0.99)):(TM_I0_E1_pc'=TM_I0_E1_M2);
 
-    [TM_terminate] (TM_to_be_terminated)&(! (TM_terminated)) -> (TM_I0_E1_pc'=INACTIVE)&(TM_terminated'=true)&(TM_I0_E1_to_be_terminated'=false);
+    [TM_terminate] (TM_to_be_terminated)&(! (TM_terminated)) -> default_rate:(TM_I0_E1_pc'=INACTIVE)&(TM_terminated'=true)&(TM_I0_E1_to_be_terminated'=false);
 
-    [] ((TM_I0_E1_pc=INACTIVE))&((TM_terminated)&(! (TM_to_be_terminated))) -> true;
+    [] ((TM_I0_E1_pc=INACTIVE))&((TM_terminated)&(! (TM_to_be_terminated))) -> default_rate:true;
 
 endmodule
 

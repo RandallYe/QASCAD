@@ -1,0 +1,10 @@
+"P1": !E [ F "deadlock" ];
+"P2": Pmax=?  [ F (TM_terminated & !TM_to_be_failed) ];
+"P_checkSchedule_max": filter(max, Pmax=? [F TM_terminated & !TM_to_be_failed], TM_I0_E1_pc = TM_I0_E1_checkSchedule);
+"P_checkSchedule_min": filter(min, Pmin=? [F TM_terminated & !TM_to_be_failed], TM_I0_E1_pc = TM_I0_E1_checkSchedule);
+"P_reqeustMeeting_max": filter(max, Pmax=? [F TM_terminated & !TM_to_be_failed], TM_I0_E1_pc = TM_I0_E1_requestMeeting);
+"P_reqeustMeeting_min": filter(min, Pmin=? [F TM_terminated & !TM_to_be_failed], TM_I0_E1_pc = TM_I0_E1_requestMeeting);
+"P_makeCall_max": filter(max, Pmax=? [F TM_terminated & !TM_to_be_failed], (TM_F1_E5_pc = TM_F1_E5_makeCall) & !(TM_to_be_failed));
+"P_makeCall_min": filter(min, Pmin=? [F TM_terminated & !TM_to_be_failed], (TM_F1_E5_pc = TM_F1_E5_makeCall) & !(TM_to_be_failed));
+"P_M1_max": filter(max, Pmax=? [F TM_terminated & !TM_to_be_failed], TM_F1_E5_pc = TM_F1_E5_M1);
+"P_M1_min": filter(min, Pmin=? [F TM_terminated & !TM_to_be_failed], TM_F1_E5_pc = TM_F1_E5_M1);
