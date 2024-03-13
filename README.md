@@ -1,7 +1,7 @@
 Quantitative Assurance and Synthesis of Controllers from Activity Diagrams (QASCAD)
 ---
 
-This repository contains the open-source Eclipse-based QASCAD tool that we are developing in the [SESAME](https://www.sesame-project.org/) project to use probabilistic model checking (by [PRISM](https://www.prismmodelchecker.org/) and [Storm](https://www.stormchecker.org/)) to verify parametric probabilistic models captured in UML Acitivity Diagrams (ADs), explore their design space (based on parametric model checking), and further support the synthesis of the models. Please refer to our preprint article ["Quantitative Assurance and Synthesis of Controllers from Activity Diagrams"]() on arxiv.org for more details about our approach and the theoretical foundation underneath the tool.
+This repository contains the open-source Eclipse-based QASCAD tool that we are developing in the [SESAME](https://www.sesame-project.org/) project to use probabilistic model checking (by [PRISM](https://www.prismmodelchecker.org/) and [Storm](https://www.stormchecker.org/)) to verify parametric probabilistic models captured in UML Acitivity Diagrams (ADs), explore their design space (based on parametric model checking), and further support the synthesis of the models. Please refer to our preprint article ["Quantitative Assurance and Synthesis of Controllers from Activity Diagrams"](https://arxiv.org/abs/2403.00169) on arxiv.org for more details about our approach and the theoretical foundation underneath the tool.
 
 Additionally, seven case studies, that we have evaluated using our tool, are also deposited here.
 
